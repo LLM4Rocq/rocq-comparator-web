@@ -1,0 +1,20 @@
+{
+  "challenge": "challenge.v",
+  "solution": "solution.v",
+  "theorem_names": ["add_n_0"],
+  "definition_names": [],
+  "permitted_axioms": [],
+  "loadpath": [],
+  "coqproject": null,
+  "top": "Challenge",
+  "timeout_s": 60,
+  "sandbox": "none",
+  "rocqchk": false,
+  "vm": false,
+  "impredicative_set": false,
+  "indices_matter": false,
+  "noinit": false,
+  "permitted_plugins": [],
+  "permitted_libraries": [],
+  "permit_challenge_axioms": true
+}

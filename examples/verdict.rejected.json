@@ -1,0 +1,36 @@
+{
+  "ok": false,
+  "reason": "forbidden_axiom",
+  "detail": "solution assumes Challenge.magic, which is not in permitted_axioms",
+  "sandboxed": false,
+  "sandbox": "none",
+  "rocq_version": "9.2.0",
+  "targets": [
+    {
+      "name": "zero_one",
+      "status": "mismatch",
+      "assumptions": ["Challenge.magic"],
+      "detail": "depends on an axiom not permitted by the config: Challenge.magic"
+    }
+  ],
+  "checks": {
+    "filter": "ok",
+    "challenge_compile": "ok",
+    "solution_compile": "ok",
+    "joined": "ok",
+    "statements": "ok",
+    "closure": "ok",
+    "axioms": { "fail": "Challenge.magic is not a permitted axiom" },
+    "hygiene": "skipped",
+    "libraries": "skipped",
+    "rocqchk": "skipped"
+  },
+  "timing_s": {
+    "challenge_compile": 0.398,
+    "solution_compile": 0.455,
+    "joined": 0.019,
+    "statements": 0.004,
+    "closure": 0.005,
+    "axioms": 0.002
+  }
+}

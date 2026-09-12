@@ -1,0 +1,9 @@
+; This project reuses the sibling core comparator as a library. Because the
+; core's `rocq_comparator` library is PRIVATE (no public_name), it is invisible
+; across a separate dune project; so instead of vendoring the core as its own
+; project we symlink its src/ into THIS project's scope as `core-src` (a
+; read-only symlink; the core source is never modified here). `core-src` has no
+; nested dune-project, so its `rocq_comparator` / `rocq_comparator_rocqapi`
+; libraries build within this project and are visible to web/.
+;
+; (This file is intentionally comments-only; it documents the layout.)

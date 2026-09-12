@@ -1,0 +1,38 @@
+{
+  "ok": true,
+  "reason": null,
+  "detail": null,
+  "sandboxed": false,
+  "sandbox": "none",
+  "rocq_version": "9.2.0",
+  "targets": [
+    {
+      "name": "add_n_0",
+      "status": "proved",
+      "assumptions": [],
+      "detail": null
+    }
+  ],
+  "checks": {
+    "filter": "ok",
+    "challenge_compile": "ok",
+    "solution_compile": "ok",
+    "joined": "ok",
+    "statements": "ok",
+    "closure": "ok",
+    "axioms": "ok",
+    "hygiene": "ok",
+    "libraries": "ok",
+    "rocqchk": "skipped"
+  },
+  "timing_s": {
+    "challenge_compile": 0.412,
+    "solution_compile": 0.487,
+    "joined": 0.021,
+    "statements": 0.004,
+    "closure": 0.006,
+    "axioms": 0.002,
+    "hygiene": 0.001,
+    "libraries": 0.001
+  }
+}

@@ -1,0 +1,25 @@
+; ---------------------------------------------------------------------------
+; web_check — the REAL browser seam (full rocq-runtime kernel).
+;
+;   dune build web/web_check.bc      links the whole pipeline to bytecode.
+;   dune build web/web_check.bc.js   runs js_of_ocaml over it (whole-program).
+;
+; To produce a build that actually RUNS, compile it against the coerce-32bit
+; OCAMLPATH overlay built by web/build-real.sh (a patched, Int64-backed
+; rocq-runtime kernel.cma). Built against the stock native rocq-runtime the
+; emitted JS instead TRAPS at startup on the kernel's `Sys.word_size = 64`
+; assertion (kernel/uint63_63.ml) — see BACKEND.md sections 1c-2. Always use
+; web/build-real.sh, which sets the overlay and bundles the runtime shims.
+;
+; runtime_shims.js : thread/getpid no-ops, Float64 primitives (called at init),
+;                    benign init-time VM tcode stubs (VM disabled via vm:false).
+; zarith_stubs.js  : Jane Street zarith_stubs_js (pure-JS ml_z_* — zarith 1.14).
+; ---------------------------------------------------------------------------
+(executable
+ (name web_check)
+ (modules web_check)
+ (modes byte js)
+ (libraries rocq_comparator js_of_ocaml yojson)
+ (js_of_ocaml
+  (compilation_mode whole_program)
+  (javascript_files runtime_shims.js zarith_stubs.js)))
