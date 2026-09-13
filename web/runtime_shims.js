@@ -35,6 +35,78 @@ function caml_mutex_unlock(m){ return 0; }
 //Provides: caml_unix_getpid
 function caml_unix_getpid(u){ return 42; }
 
+// ---- exit: never the not-implemented anomaly (BROWSER Milestone 0) ---------
+// OVERRIDES jsoo's own caml_sys_exit. jsoo's version tries globalThis.quit /
+// process.exit / std.exit and, when none exist (a browser Web Worker has no
+// `process`), falls through to
+//   caml_invalid_argument("Function 'exit' not implemented")
+// which Rocq re-wraps as
+//   Anomaly "Uncaught exception Invalid_argument(Function exit not implemented)"
+// — the exact double error the user hit in the browser.
+//
+// The only `exit` call on our path is boot/env.ml:validate_env: at init it
+// checks that <coqlib>/Init/Prelude.vo and the plugins dir exist and calls
+// `exit 1` (fail_lib / fail_core) when they don't. In node, jsoo's node FS
+// device sees the real _opam on disk so the check passes; in a browser Web
+// Worker the in-memory VFS has no such file, so the check fails and Rocq exits.
+// With `-noinit` the prelude is never actually loaded, so the right behaviour
+// is to let init CONTINUE past that sanity check rather than abort: we record
+// the requested code and RETURN (exit : int -> 'a, so a returned value is
+// coerced to whatever the caller expected; validate_env just goes on to return
+// its env). This turns the crash into a working -noinit check. If a future
+// caller genuinely needs termination it would have to be handled explicitly;
+// on the browser worker path nothing does.
+//Provides: caml_sys_exit
+function caml_sys_exit(code){
+  try { globalThis.__rocq_last_exit_code = code; } catch (e) {}
+  return 0;
+}
+
+// ---- caml_unix_* the native rocq-runtime references but the browser lacks ---
+// These sit ONLY on paths the browser build never takes: the interval-timer
+// path (Control.timeout is replaced by a run-to-completion hook in web_check,
+// so getitimer/setitimer are never armed) and the subprocess / signal /
+// sandbox paths (rocqchk = None, no fork/exec). jsoo would otherwise emit its
+// own `globalThis.<name> !== undefined ? ... : caml_failwith("<name> not
+// implemented")` fallback; we provide explicit, deterministic shims instead so
+// the behaviour does not drift with the toolchain.
+//
+// getitimer/setitimer return a zero `interval_timer_status`. That OCaml record
+// { it_interval : float; it_value : float } is an all-float record, so jsoo
+// represents it as a flat float array tagged 254: [254, it_interval, it_value]
+// (confirmed at the setitimer call site in the emitted engine). A zero timer is
+// the correct "no timer armed" answer.
+//Provides: caml_unix_getitimer
+function caml_unix_getitimer(which){ return [254, 0, 0]; }
+//Provides: caml_unix_setitimer
+function caml_unix_setitimer(which, newstatus){ return [254, 0, 0]; }
+
+// The rest are on subprocess / signal paths that never run in the browser. A
+// plain catchable OCaml Failure (via caml_failwith) is safe: if one were ever
+// reached it is caught as noncritical (CErrors.noncritical) and surfaced as a
+// normal verdict, never the not-implemented anomaly.
+//Provides: caml_unix_pipe
+//Requires: caml_failwith
+function caml_unix_pipe(cloexec, u){ caml_failwith("caml_unix_pipe not implemented (browser)"); }
+//Provides: caml_unix_dup
+//Requires: caml_failwith
+function caml_unix_dup(cloexec, fd){ caml_failwith("caml_unix_dup not implemented (browser)"); }
+//Provides: caml_unix_kill
+//Requires: caml_failwith
+function caml_unix_kill(pid, sig){ caml_failwith("caml_unix_kill not implemented (browser)"); }
+//Provides: caml_unix_waitpid
+//Requires: caml_failwith
+function caml_unix_waitpid(flags, pid){ caml_failwith("caml_unix_waitpid not implemented (browser)"); }
+//Provides: caml_unix_spawn
+//Requires: caml_failwith
+function caml_unix_spawn(cmd, args, optenv, usepath, redirs){ caml_failwith("caml_unix_spawn not implemented (browser)"); }
+//Provides: caml_unix_sigprocmask
+//Requires: caml_failwith
+function caml_unix_sigprocmask(how, mask){ caml_failwith("caml_unix_sigprocmask not implemented (browser)"); }
+//Provides: caml_unix_sleep
+//Requires: caml_failwith
+function caml_unix_sleep(seconds){ caml_failwith("caml_unix_sleep not implemented (browser)"); }
+
 // ---- Float64 primitives ------------------------------------------------
 // kernel/float64_31.ml declares these as C externals and RUNS an IEEE-754
 // self-test at module-init time, so they must exist and behave. jsoo's float
