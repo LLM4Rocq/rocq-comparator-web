@@ -69,7 +69,7 @@ packs (122 MB), and an analysis import such as `reals sequences exp` 14 packs
 of browser memory. `From Coquelicot Require Import Coquelicot` (3.4.5, 24
 modules) fetches 31 packs (46 MB: Coquelicot, mathcomp boot, Stdlib ssr and
 Reals); `From Equations Require Import Equations` (1.3.2, 39 modules) fetches 32
-packs (32 MB), and the `Equations` and `funelim` commands work because its OCaml
+packs (31 MB), and the `Equations` and `funelim` commands work because its OCaml
 plugin is linked into the engines. Coq-Elpi (with its `derive` app), Hierarchy
 Builder, the ssreflect plugins, the standalone micromega plugin that mathcomp
 2.6's `ring`/`lra` tactics use, and the Equations plugin are statically linked
