@@ -120,6 +120,13 @@ let setup_vfs () =
     Control.set_timeout { Control.timeout = (fun _n f x -> Ok (f x)) }
   end
 
+(* Phase 2: prefer .vos (trusted library interfaces: opaque proofs stripped) over
+   .vo when both are mounted. select_vo_file stats the .vos for size>0, so the VFS
+   stat must return a real size (it does under wasm_of_ocaml). Loading a library as
+   .vos trusts its Qed proofs (they show up via Print Assumptions as Opaque, which
+   the Imported axiom policy permits for challenge-imported libraries). *)
+let () = Loadpath.load_vos_libraries := true
+
 (* ---- prelude / stdlib .vo bundle mounted into the VFS ----
 
    The browser has no coqlib on disk. Milestone 1+: a bundle of coerce-32bit

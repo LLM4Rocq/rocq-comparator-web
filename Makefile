@@ -38,7 +38,7 @@ WEB_STATIC  = rocq_comparator.js rocq_worker.js rocq_bytes.js rocq_packs.js rocq
 # Docs shipped alongside the site (the in-page honesty note links to BACKEND.md).
 DOC_STATIC  = BACKEND.md README.md
 
-.PHONY: all build real engine site serve test test-browser clean help
+.PHONY: all build real engine native prelude stdlib mathcomp packs site serve test test-browser clean help
 
 ## all: build the real engines and assemble dist/ (needs the opam switch)
 all: real
@@ -58,6 +58,14 @@ native prelude:
 ## stdlib: regenerate the Stdlib .vo with the patched rocqc (needs `make native` first)
 stdlib:
 	SWITCH=$(SWITCH) bash web/build-stdlib.sh
+
+## mathcomp: build the mathcomp (+elpi/HB) .vos packs + stage them (needs `make native`)
+mathcomp:
+	SWITCH=$(SWITCH) bash web/build-mathcomp.sh
+
+## packs: (re)stage dist/coqlib packs + packs.json from already-built .vos
+packs:
+	SWITCH=$(SWITCH) bash web/stage-packs.sh
 
 ## site: assemble dist/ from the committed frontend + engines (fast, no opam needed)
 site:

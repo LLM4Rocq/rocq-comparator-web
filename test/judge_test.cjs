@@ -36,6 +36,9 @@ const path = require('path'), os = require('os'), fs = require('fs'), cp = requi
 // The single source of truth for the byte-exact conversion — the same module the
 // browser worker loads (web/rocq_bytes.js, shipped to dist/rocq_bytes.js).
 const RocqBytes = require(path.join(__dirname, '..', 'web', 'rocq_bytes.js'));
+// The shared lazy-import scanner/resolver — the SAME module the worker loads, so
+// this harness exercises the same scan->resolve->fetch->mount path (Phase 2).
+const RocqPacks = require(path.join(__dirname, '..', 'web', 'rocq_packs.js'));
 
 // WHATWG windows-1252 index for 0x80-0x9F: what a REAL browser's
 // TextDecoder('latin1') produces (0x81,0x8D,0x8F,0x90,0x9D decode to themselves).
@@ -154,16 +157,61 @@ function worker(enginePath) {
   // Mount the coqlib bundle the way rocq_worker.js does, but reading files from
   // disk instead of fetch(). Bytes go through `convert` — the SAME rocq_bytes.js
   // path the worker uses (or the browser windows-1252 sim under ROCQ_DECODE=browser).
+  // ---- Phase 2 lazy packs (packs.json), else legacy single bundle (manifest.json) ----
+  let manifest = null; const mountedPacks = {}; let mountedCount = 0;
+  function mountPack(pk) {
+    if (mountedPacks[pk.name]) return 0;
+    if (pk.meta) rc.mount(pk.meta_vfs, convert(new Uint8Array(fs.readFileSync(path.join(coqlibDir, pk.meta)))));
+    const vfs = manifest.coqlib_vfs || '/static/coqlib';
+    for (const rel of (pk.vo || [])) {
+      // a served .vos is mounted at a .vo VFS path (the worker does the same)
+      const vfsPath = vfs + '/' + rel.replace(/\.vos$/, '.vo');
+      rc.mount(vfsPath, convert(new Uint8Array(fs.readFileSync(path.join(coqlibDir, rel)))));
+    }
+    mountedPacks[pk.name] = true; mountedCount += (pk.vo || []).length;
+    return (pk.vo || []).length;
+  }
+  // Predeclare every pack's dirs (0-byte .keep) so the recursive coqlib loadpath
+  // (built once at the first check) binds every pack's logical name; the .vo stay lazy.
+  function predeclareDirs() {
+    if (!manifest || !manifest.packs) return;
+    const vfs = manifest.coqlib_vfs || '/static/coqlib';
+    const dirs = {};
+    manifest.packs.forEach(p => (p.vo || []).forEach(rel => {
+      const vfsPath = vfs + '/' + rel.replace(/\.vos$/, '.vo');
+      dirs[vfsPath.slice(0, vfsPath.lastIndexOf('/'))] = true;
+    }));
+    Object.keys(dirs).forEach(d => { try { rc.mount(d + '/.keep', ''); } catch (e) {} });
+  }
+  // Mount the always-on packs (Corelib); returns #objects mounted at startup.
   function mountBundle() {
+    const packsPath = path.join(coqlibDir, 'packs.json');
+    if (fs.existsSync(packsPath)) {
+      manifest = JSON.parse(fs.readFileSync(packsPath, 'utf8'));
+      predeclareDirs();
+      (manifest.packs || []).filter(p => p.always).forEach(mountPack);
+      return mountedCount;
+    }
+    // legacy fallback: manifest.json = one bundle mounted up front
     const manifestPath = path.join(coqlibDir, 'manifest.json');
     if (!fs.existsSync(manifestPath)) return 0;
     const m = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
-    if (m.meta) rc.mount(m.meta_vfs || '/static/lib/rocq-runtime/META',
-                         convert(new Uint8Array(fs.readFileSync(path.join(coqlibDir, m.meta)))));
-    const coqlibVfs = m.coqlib_vfs || '/coqlib';
-    for (const rel of (m.vo || []))
-      rc.mount(coqlibVfs + '/' + rel, convert(new Uint8Array(fs.readFileSync(path.join(coqlibDir, rel)))));
+    manifest = { coqlib_vfs: m.coqlib_vfs || '/static/coqlib', packs: [] };
+    if (m.meta) rc.mount(m.meta_vfs || '/static/lib/rocq-runtime/META', convert(new Uint8Array(fs.readFileSync(path.join(coqlibDir, m.meta)))));
+    const vfs = manifest.coqlib_vfs;
+    for (const rel of (m.vo || [])) rc.mount(vfs + '/' + rel, convert(new Uint8Array(fs.readFileSync(path.join(coqlibDir, rel)))));
     return (m.vo || []).length;
+  }
+  // Lazily fetch+mount the packs these sources import (scan->resolve->mount), cached.
+  function ensurePacks(sources) {
+    if (!manifest || !manifest.packs || !manifest.packs.length) return [];
+    const names = RocqPacks.resolvePacks(manifest, RocqPacks.scanRequires(sources));
+    const fetched = [];
+    for (const name of names) {
+      const pk = manifest.packs.find(p => p.name === name);
+      if (pk && !mountedPacks[pk.name]) { mountPack(pk); fetched.push(pk.name); }
+    }
+    return fetched;
   }
 
   const base = {
@@ -178,6 +226,7 @@ function worker(enginePath) {
   const CHEAT = "Axiom cheat : forall (A : Prop) (_ : A), A.\nDefinition foo : forall (A : Prop) (_ : A), A := cheat.\n";
 
   async function check(cfg, ch, sol) {
+    ensurePacks([ch, sol]);   // Phase 2: fetch+mount only the packs these sources import
     const req = { config: Object.assign({}, base, cfg), files: { "challenge.v": ch, "solution.v": sol } };
     return JSON.parse(await rc.check(JSON.stringify(req)));
   }
@@ -188,7 +237,7 @@ function worker(enginePath) {
     ok("engine reports a Rocq version", typeof rc.version === 'string' && rc.version.length > 0, "version=" + rc.version);
 
     const nvo = mountBundle();
-    ok("prelude bundle mounted", nvo > 0, "vo=" + nvo);
+    ok("prelude (always) pack mounted", nvo > 0, "vo=" + nvo + " (Stdlib/mathcomp fetched lazily on Require)");
 
     // --- nat + tactics proof (needs the prelude: nat, +, =, induction, rewrite) ---
     const NATCH  = "Theorem foo : forall n : nat, n + 0 = n. Proof. Admitted.\n";
@@ -226,6 +275,45 @@ function worker(enginePath) {
     let oob = false;
     try { await rc.check("{ not json"); } catch (e) { oob = true; }
     ok("malformed request rejects out-of-band", oob);
+
+    // --- Phase 2: lazy per-pack import ---------------------------------------
+    if (manifest && manifest.packs && manifest.packs.length > 1) {
+      // laziness: a pack the sources never imported must NOT be mounted. The nat
+      // and Prop checks above never import mathcomp, so no mathcomp pack loaded.
+      const mcLoaded = Object.keys(mountedPacks).filter(n => n.indexOf("mathcomp") === 0);
+      ok("lazy: no mathcomp pack fetched by non-mathcomp checks", mcLoaded.length === 0, "loaded=[" + mcLoaded.join(",") + "]");
+      // resolver unit test on a representative mathcomp manifest (self-contained,
+      // so it holds whether or not the mathcomp .vos are staged into this dist)
+      const MCM = { coqlib_vfs: "/static/coqlib", packs: [
+        { name:"corelib", always:true, prefixes:["Corelib"], vo:[] },
+        { name:"stdlib", prefixes:["Stdlib"], vo:["user-contrib/Stdlib/ZArith/ZArith.vo"] },
+        { name:"mathcomp-hb", prefixes:["HB","elpi","elpi_elpi"], vo:["user-contrib/HB/structures.vos"] },
+        { name:"mathcomp-boot", prefixes:["mathcomp.boot"], requires:["mathcomp-hb"], vo:["user-contrib/mathcomp/boot/seq.vos"] },
+        { name:"mathcomp-order", prefixes:["mathcomp.order"], requires:["mathcomp-hb","mathcomp-boot"], vo:["user-contrib/mathcomp/order/order.vos"] },
+        { name:"mathcomp-ssreflect", prefixes:["mathcomp.ssreflect"], requires:["mathcomp-hb","mathcomp-boot","mathcomp-order"], vo:["user-contrib/mathcomp/ssreflect/all_ssreflect.vos"] } ] };
+      const resolved = RocqPacks.resolvePacks(MCM, RocqPacks.scanRequires(["From mathcomp Require Import all_ssreflect."]));
+      ok("lazy: resolver maps all_ssreflect -> hb+boot+order+ssreflect",
+         ["mathcomp-hb","mathcomp-boot","mathcomp-order","mathcomp-ssreflect"].every(n => resolved.indexOf(n) >= 0),
+         "resolved=[" + resolved.join(",") + "]");
+      const rStd = RocqPacks.resolvePacks(MCM, RocqPacks.scanRequires(["From Stdlib Require Import ZArith."]));
+      ok("lazy: resolver maps Stdlib -> stdlib pack only", rStd.length === 1 && rStd[0] === "stdlib", "resolved=[" + rStd.join(",") + "]");
+
+      // --- mathcomp end-to-end DIAGNOSTIC (not a pass/fail assertion) --------
+      // Fetch+mount the mathcomp packs all_ssreflect needs, then run a real proof
+      // (an Admitted seq lemma proved with a mathcomp lemma). The lazy fetch and
+      // the .vos mount are exercised here; the verdict is REPORTED (see BACKEND
+      // §16 for the in-browser mathcomp status).
+      if (process.env.ROCQ_MATHCOMP === '1' && manifest.packs.some(p => p.name === "mathcomp-boot")) {
+        const MCH = "From mathcomp Require Import all_ssreflect.\nLemma foo (s : seq nat) : size (rev s) = size s.\nProof. Admitted.\n";
+        const MSOL = "From mathcomp Require Import all_ssreflect.\nLemma foo (s : seq nat) : size (rev s) = size s.\nProof. exact: size_rev. Qed.\n";
+        const fetched = ensurePacks([MCH, MSOL]);
+        console.log("MATHCOMP: lazy-fetched packs = [" + fetched.join(", ") + "]");
+        try {
+          const mv = JSON.parse(await rc.check(JSON.stringify({ config: Object.assign({}, base, { theorem_names: ["foo"], definition_names: [] }), files: { "challenge.v": MCH, "solution.v": MSOL } })));
+          console.log("MATHCOMP: verdict ok=" + mv.ok + " reason=" + (mv.reason || "-") + (mv.detail ? "  detail=" + String(mv.detail).replace(/\n/g," ").slice(0,160) : ""));
+        } catch (e) { console.log("MATHCOMP: check threw " + (e && e.message || e)); }
+      }
+    }
 
     console.log(`\n${pass} passed, ${fail} failed`);
     process.exit(fail ? 1 : 0);

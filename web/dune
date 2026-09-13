@@ -56,4 +56,9 @@
   rocq-runtime.plugins.rtauto
   rocq-runtime.plugins.nsatz_core
   rocq-runtime.plugins.nsatz
+  ; Phase 2: HB/mathcomp .vos load elpi objects — static-link the elpi plugin
+  ; (its Libobject loaders register at engine init; stripped META makes the
+  ; mathcomp Declare ML Module a no-op over this already-linked code). On wasm
+  ; Sys.int_size=31 => elpi hash_bits=30, matching the patched-native .vos.
+  rocq-elpi.elpi
   rocq-runtime.plugins.funind))

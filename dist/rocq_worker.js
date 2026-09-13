@@ -1,54 +1,48 @@
 // rocq_worker.js — the Web Worker that hosts the OCaml Rocq engine.
 //
 // It loads ONE wasm engine (the wasm_of_ocaml build of web_check.ml), which
-// installs `RocqComparator` on the worker global. Before serving checks it
-// fetches and mounts the prelude/stdlib .vo bundle (coqlib/) into the engine's
-// in-memory VFS via `RocqComparator.mount`, so checks run WITH the Corelib
-// prelude (nat, notations, tactics) instead of -noinit. If the bundle is
-// absent the worker still comes up and runs prelude-free (-noinit) checks.
+// installs `RocqComparator` on the worker global, then serves checks.
 //
-// Running the engine in a worker keeps the UI responsive and, crucially, lets
-// the main thread enforce a HARD wall-clock cap by terminate()-ing this worker.
+// PHASE 2 — lazy per-pack import. The prelude/stdlib/mathcomp libraries are
+// published as separate downloadable PACKS (see coqlib/packs.json). Only the
+// `always` packs (the Corelib prelude) are mounted at startup. Before each check
+// the worker SCANS the challenge + solution sources for Require / From X Require,
+// resolves which packs are needed by logical-name prefix (rocq_packs.js), and
+// FETCHES + MOUNTS only those (byte-exact; cached across checks so each pack is
+// downloaded once). A pack the sources never import is never downloaded.
+//
+// Every asset (.vo/.vos, META) is fetched as an ArrayBuffer and converted to the
+// byte-exact string mount() consumes via rocq_bytes.js — NEVER TextDecoder, whose
+// browser "latin1" is windows-1252 and corrupts .vo bytes 0x80-0x9F (the Prelude.vo
+// "Bytes.create" anomaly). The node test feeds bytes through the SAME conversion.
 
 self.window = self; // web_check installs on the global; make `window` an alias
 
 // ---- pick the engine variant: cps (universal) or jspi (upgrade) -------------
-//
-// Two wasm engines ship, each a full glue .js + its own .assets/*.wasm:
-//   * engine-cps/  — wasm_of_ocaml --effects=cps. Runs on ALL browsers
-//                    (Safari, Firefox, older Chrome/Edge) and any Node. Larger
-//                    .wasm. This is the UNIVERSAL default.
-//   * engine-jspi/ — wasm_of_ocaml --effects=jspi. Uses the JS Promise
-//                    Integration proposal (WebAssembly.Suspending/.promising);
-//                    smaller/faster .wasm, but ONLY runs where JSPI is
-//                    available: Node 24+, Chrome/Edge >= 137.
-//
-// Feature-detect JSPI and load the jspi engine when it is available, else cps.
-// Each browser fetches exactly ONE engine (glue + one .wasm) — never both.
 function jspiAvailable() {
-  // WebAssembly.Suspending is the JSPI entry point the jspi glue calls; its
-  // presence is the capability signal (Node 24+, Chrome/Edge >= 137).
   try { return typeof WebAssembly !== "undefined" && typeof WebAssembly.Suspending === "function"; }
   catch (e) { return false; }
 }
-var ENGINE_DIR = jspiAvailable() ? "engine-jspi" : "engine-cps";
+// ?engine=cps|jspi on the worker URL (rocq_comparator.js forwards it from the
+// page URL) forces one variant: used by test/browser_smoke.cjs to exercise the
+// universal engine on a JSPI browser, and handy for trying it by hand.
+var FORCED_ENGINE = (function () {
+  try { return (new URL(self.location.href).searchParams.get("engine") || "").toLowerCase(); } catch (e) { return ""; }
+})();
+var ENGINE_DIR = (FORCED_ENGINE === "cps" || FORCED_ENGINE === "jspi")
+  ? "engine-" + FORCED_ENGINE
+  : (jspiAvailable() ? "engine-jspi" : "engine-cps");
 
-// rocq_bytes.js is the ONE byte-exact conversion mount() consumes (shared with
-// the node test). rocq_zarith.js installs globalThis.__rocqz (the JS BigInt
-// backend the wasm engine imports for zarith) and MUST load before the engine
-// glue instantiates. The engine glue (engine-<variant>/rocq_engine.js) is the
-// wasm_of_ocaml build: it fetches its own engine-<variant>/rocq_engine.assets/
-// *.wasm (relative to this worker's URL) and, once instantiated, installs
-// `RocqComparator`.
+// rocq_bytes.js: the ONE byte-exact conversion mount() consumes (shared with the
+// node test). rocq_packs.js: the shared scan+resolve for lazy packs. rocq_zarith.js
+// installs globalThis.__rocqz before the engine glue instantiates.
 try {
-  importScripts('rocq_bytes.js', 'rocq_zarith.js', ENGINE_DIR + '/rocq_engine.js');
+  importScripts('rocq_bytes.js', 'rocq_packs.js', 'rocq_zarith.js', ENGINE_DIR + '/rocq_engine.js');
 } catch (e) {
   self.postMessage({ type: 'fatal', error: 'failed to load the engine (' + ENGINE_DIR + '): ' + (e && e.message || e) });
   throw e;
 }
 
-// The wasm engine installs RocqComparator ASYNCHRONOUSLY (after wasm
-// instantiation) — so wait for it.
 var engine = null;
 function awaitEngine(timeoutMs) {
   return new Promise(function (resolve, reject) {
@@ -61,12 +55,7 @@ function awaitEngine(timeoutMs) {
   });
 }
 
-// Fetch one binary asset (.vo / META) as the byte-exact string mount() consumes.
-// fetch() -> ArrayBuffer -> Uint8Array -> RocqBytes.bytesToBinaryString: NO
-// TextDecoder (whose 'latin1' is WHATWG windows-1252 in browsers and corrupts
-// bytes 0x80-0x9F, which broke Prelude.vo — see rocq_bytes.js). The engine's
-// .wasm is fetched byte-safely by the glue itself (instantiateStreaming), so
-// only these VFS assets need the explicit byte conversion here.
+// Fetch one binary asset as the byte-exact string mount() consumes (no TextDecoder).
 async function fetchBinaryString(url) {
   var resp = await fetch(url);
   if (!resp.ok) throw new Error('fetch ' + url + ' -> ' + resp.status);
@@ -74,31 +63,98 @@ async function fetchBinaryString(url) {
   return RocqBytes.bytesToBinaryString(new Uint8Array(buf));
 }
 
-// Mount the coqlib bundle (Corelib prelude + stdlib .vo + a stripped findlib
-// META) described by coqlib/manifest.json. Returns the number of .vo mounted;
-// 0 (or throwing) means "no bundle" and the engine falls back to -noinit.
-async function mountBundle() {
-  var manifest;
-  try {
-    var mresp = await fetch('coqlib/manifest.json');
-    if (!mresp.ok) return 0;              // no bundle shipped: -noinit fallback
-    manifest = await mresp.json();
-  } catch (e) { return 0; }
-  var coqlibVfs = manifest.coqlib_vfs || '/coqlib';
-  // The stripped META lets Rocq's findlib resolve the statically-linked plugins
-  // the prelude Declare-ML-Modules without Dynlink (see web/dune, web_check.ml).
-  if (manifest.meta) {
-    try { engine.mount(manifest.meta_vfs || '/static/lib/rocq-runtime/META',
-                       await fetchBinaryString('coqlib/' + manifest.meta)); } catch (e) {}
+// ---- pack manifest + lazy mounting ------------------------------------------
+var manifest = null;          // packs.json (phase 2) or a legacy manifest.json
+var mountedPacks = {};        // pack name -> true (cache: each pack mounted once)
+
+// Mount one pack: its findlib META (if any) then every .vo/.vos, byte-exact. A
+// served .vos file is mounted at a .vo VFS path — the file IS opaque-stripped
+// (vos-format, the trust), but wasm_of_ocaml's Unix.stat does not cover the
+// in-memory VFS that the loadpath's .vos branch stats, so we present it as a .vo
+// (select_vo_file then loads it with no stat). Corelib .vo are mounted as-is.
+async function mountPack(pack) {
+  if (mountedPacks[pack.name]) return 0;
+  var base = 'coqlib/';
+  if (pack.meta) {
+    try { engine.mount(pack.meta_vfs, await fetchBinaryString(base + pack.meta)); } catch (e) {}
   }
-  // Fetch + mount every .vo in parallel (bounded by the browser's connection
-  // pool). Each mount is a synchronous VFS write in the engine.
-  var vo = manifest.vo || [];
+  var vo = pack.vo || [];
+  var vfs = manifest.coqlib_vfs || '/static/coqlib';
   await Promise.all(vo.map(async function (rel) {
-    var content = await fetchBinaryString('coqlib/' + rel);
-    engine.mount(coqlibVfs + '/' + rel, content);
+    var content = await fetchBinaryString(base + rel);
+    var vfsPath = vfs + '/' + rel.replace(/\.vos$/, '.vo');
+    engine.mount(vfsPath, content);
   }));
+  mountedPacks[pack.name] = true;
   return vo.length;
+}
+
+// Predeclare every pack's DIRECTORIES (a 0-byte .keep per dir) so Rocq's recursive
+// coqlib loadpath — built ONCE at the first check's Driver.init — binds every
+// pack's logical name up front. The .vo themselves (the downloads) stay lazy:
+// select_vo_file re-checks file existence per Require, so a .vo mounted later into
+// an already-bound dir resolves. Markers are generated from packs.json, no fetch.
+function predeclareDirs() {
+  if (!manifest || !manifest.packs) return;
+  var vfs = manifest.coqlib_vfs || '/static/coqlib';
+  var dirs = {};
+  manifest.packs.forEach(function (p) {
+    (p.vo || []).forEach(function (rel) {
+      var vfsPath = vfs + '/' + rel.replace(/\.vos$/, '.vo');
+      var d = vfsPath.slice(0, vfsPath.lastIndexOf('/'));
+      dirs[d] = true;
+    });
+  });
+  Object.keys(dirs).forEach(function (d) { try { engine.mount(d + '/.keep', ''); } catch (e) {} });
+}
+
+function packByName(name) {
+  return (manifest.packs || []).filter(function (p) { return p.name === name; })[0];
+}
+
+// Ensure the packs needed by these sources are mounted (fetch+mount the missing
+// ones; cached). Returns the list of pack names newly fetched.
+async function ensurePacks(sources) {
+  if (!manifest || !manifest.packs) return [];
+  var names = RocqPacks.resolvePacks(manifest, RocqPacks.scanRequires(sources));
+  var fetched = [];
+  for (var i = 0; i < names.length; i++) {
+    var p = packByName(names[i]);
+    if (p && !mountedPacks[p.name]) { await mountPack(p); fetched.push(p.name); }
+  }
+  return fetched;
+}
+
+// Load the manifest and mount the always-on packs (the Corelib prelude). Supports
+// both the phase-2 packs.json and, as a fallback, a legacy single-bundle
+// manifest.json (treated as one always-on pack). Returns #objects mounted.
+async function mountBase() {
+  // phase 2: packs.json
+  try {
+    var r = await fetch('coqlib/packs.json');
+    if (r.ok) {
+      manifest = await r.json();
+      predeclareDirs();
+      var n = 0;
+      var always = (manifest.packs || []).filter(function (p) { return p.always; });
+      for (var i = 0; i < always.length; i++) n += await mountPack(always[i]);
+      return n;
+    }
+  } catch (e) { /* fall through */ }
+  // legacy fallback: manifest.json = one bundle mounted up front
+  try {
+    var mr = await fetch('coqlib/manifest.json');
+    if (!mr.ok) return 0;
+    var legacy = await mr.json();
+    manifest = { coqlib_vfs: legacy.coqlib_vfs || '/static/coqlib', packs: [] };
+    if (legacy.meta) { try { engine.mount(legacy.meta_vfs || '/static/lib/rocq-runtime/META', await fetchBinaryString('coqlib/' + legacy.meta)); } catch (e) {} }
+    var vo = legacy.vo || [];
+    var vfs = manifest.coqlib_vfs;
+    await Promise.all(vo.map(async function (rel) {
+      engine.mount(vfs + '/' + rel, await fetchBinaryString('coqlib/' + rel));
+    }));
+    return vo.length;
+  } catch (e) { return 0; }
 }
 
 (async function () {
@@ -106,7 +162,7 @@ async function mountBundle() {
     engine = await awaitEngine(60000);
     await engine.ready;
     var mounted = 0;
-    try { mounted = await mountBundle(); } catch (e) { mounted = 0; /* -noinit fallback */ }
+    try { mounted = await mountBase(); } catch (e) { mounted = 0; /* -noinit fallback */ }
     self.postMessage({ type: 'ready', version: engine.version, prelude: mounted > 0, vo: mounted, engine: ENGINE_DIR });
   } catch (e) {
     self.postMessage({ type: 'fatal', error: (e && e.message) || String(e) });
@@ -116,10 +172,16 @@ async function mountBundle() {
     var msg = ev.data || {};
     if (msg.type !== 'check') return;
     try {
-      var result = await engine.check(msg.request);   // resolved verdict JSON
+      // lazy import: fetch+mount the packs this request's sources need, then check.
+      try {
+        var req = JSON.parse(msg.request);
+        var files = req && req.files ? Object.keys(req.files).map(function (k) { return req.files[k]; }) : [];
+        var fetched = await ensurePacks(files);
+        if (fetched.length) self.postMessage({ type: 'packs', id: msg.id, fetched: fetched });
+      } catch (e) { /* malformed request: let the engine return config_error */ }
+      var result = await engine.check(msg.request);
       self.postMessage({ type: 'result', id: msg.id, ok: true, result: result });
     } catch (err) {
-      // out-of-band failure (malformed request, wasm trap, ...) — see contract
       self.postMessage({ type: 'result', id: msg.id, ok: false, error: (err && err.message) || String(err) });
     }
   };

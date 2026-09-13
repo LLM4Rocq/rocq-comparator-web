@@ -96,7 +96,13 @@ mkdir -p "$HERE/dist"
 for EFF in cps jspi; do
   ENGDIR="$HERE/dist/engine-$EFF"
   rm -rf "$ENGDIR"; mkdir -p "$ENGDIR"
-  ( cd "$HERE" && wasm_of_ocaml compile --effects="$EFF" \
+  # --linkall: keep ALL module initializers (the plugins' Libobject/Dyn
+  # object-type registrations run at engine startup as init side effects; without
+  # --linkall wasm_of_ocaml's dead-code elimination drops the ones not statically
+  # reached, so loading a .vo/.vos that carries such an object fails with
+  # "Not_found" / "Unknown dynamic tag". Needed once the elpi plugin is linked
+  # (web/dune); harmless otherwise. See BACKEND.md §16.
+  ( cd "$HERE" && wasm_of_ocaml compile --linkall --effects="$EFF" \
       web/rocq_shims.wat _build/default/web/web_check.bc \
       -o "$ENGDIR/rocq_engine.js" )
   # (a) Wire the JS BigInt zarith backend into the wasm "js" import module (bound

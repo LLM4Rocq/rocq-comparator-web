@@ -29,7 +29,11 @@
   function settleReadyErr(e){ if (!readySettled) { readySettled = true; readyReject(e); } }
 
   function spawn() {
-    worker = new Worker('rocq_worker.js');
+    // ?engine=cps|jspi on the page URL is forwarded to the worker, which then
+    // loads that engine variant instead of auto-detecting JSPI.
+    var q = '';
+    try { var e = new URLSearchParams(window.location.search).get('engine'); if (e) q = '?engine=' + encodeURIComponent(e); } catch (_) {}
+    worker = new Worker('rocq_worker.js' + q);
     worker.onmessage = function (ev) {
       var d = ev.data || {};
       if (d.type === 'ready')  { version = d.version; settleReadyOk(); return; }

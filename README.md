@@ -44,12 +44,32 @@ A **Stdlib subset** is also bundled (`From Stdlib Require Import ZArith / QArith
 Reals / Lia / Lra`, ~28 MB), so `ring`, `field`, `lia`, `lra` over `Z`, `Q`, `R`
 check in-browser (all 16 stdlib plugins statically linked).
 
-**mathcomp / mathcomp-analysis** are assessed but **not bundled**: mathcomp core
-is ~101 MB / 78 `.vo` and analysis (not installed) adds ~100 MB+, so the full
-demo is a ~200 MB+ `.vo` payload — impractical to fetch in a Pages page. The
-mechanism is fine (Coq-Elpi/HB wasm-compiles), so the recommended path is
-lazy-loading layered packs hosted off Pages. See `BACKEND.md` §14. If the engine
-is absent entirely, the page still loads and the **demo-verdict** buttons work.
+**mathcomp (Phase 2): trusted `.vos` lazy-import framework.** Libraries are
+published as separate **packs** (`dist/coqlib/packs.json`) — `corelib` (always
+mounted), `stdlib`, and `mathcomp-{hb,boot,order,fingroup,ssreflect}` — and the
+worker **scans** each challenge/solution for `Require` / `From X Require`,
+**resolves** which packs are needed by logical-name prefix, and **fetches +
+mounts only those** (cached, byte-exact). A pack a check never imports is never
+downloaded. Packs are compiled with `rocqc -vos` (opaque `Qed` proofs stripped —
+a library *interface*): loading a `.vos` type-checks the solution *against* the
+library without its proof terms, i.e. **trusts** it — which is already the
+browser trust model (rocqchk is off, so even `.vo` are trusted there), so `.vos`
+changes nothing about soundness. mathcomp 2.x's Coq-Elpi/HB is static-linked into
+the engine (`--linkall`); building its `.vos` needed one port — forcing elpi's
+`hash_bits` to 30 (the 32-bit-host value) so its serialized clause index fits the
+31-bit reader (analogous to the kernel's 30-bit hash masking). mathcomp core
+builds to ~40 MB `.vos` (~16 MB brotli, vs 101 MB `.vo`); an `all_ssreflect`
+demo lazily fetches ~14 MB brotli.
+
+**Known gap:** the `.vos` load + type-check in a *native* Rocq process, and
+`HB`/`elpi` load in the browser, but the **full** mathcomp stack
+(`all_ssreflect` → boot+order via HB) does not yet type-check in the wasm engine
+— it hits a `wasm_of_ocaml` wall: one Coq `Dyn` object-type tag the native
+compiler registers but the wasm build omits (not a hash mismatch; verified
+0/701). See `BACKEND.md` §16. **mathcomp-analysis** is a documented manifest slot
+(not built — the installed copy is rocq 9.1.1, not the core's 9.2; §16.7). If the
+engine is absent entirely, the page still loads and the **demo-verdict** buttons
+work.
 
 ## Quick start
 

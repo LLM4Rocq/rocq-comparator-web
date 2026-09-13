@@ -1141,3 +1141,199 @@ COOP/COEP headers are needed. Live in-browser behaviour (Worker `importScripts`,
 the JSPI feature-detect, `fetch` of the `.assets` `.wasm` relative to the worker
 URL, byte-exact `.vo` mount, the hard kill-timeout) follows the documented
 contract but was not exercised in a real browser this session.
+
+---
+
+## 16. Build phase 7 — Phase 2: trusted `.vos` lazy-import framework (mathcomp)
+
+**Status: the `.vos` trust model works in the browser engine; the lazy per-pack
+import framework works end to end (Corelib always-on, Stdlib + mathcomp packs
+fetched only when a source imports them); the full mathcomp toolchain builds
+every pack as 32-bit-safe `.vos`; a genuine wasm_of_ocaml wall blocks loading the
+*full* mathcomp stack in-browser. Corelib+Stdlib remain 15/15.**
+
+### 16.1 Why `.vos` (the trust rationale)
+
+A `.vos` is a library **interface**: constant types + transparent definitions,
+with the opaque (`Qed`) proof terms stripped. Loading a `.vos` type-checks the
+SOLUTION *against* the library without its proof terms — i.e. it **trusts** the
+library. That is already the browser trust model (rocqchk is off in-browser, so
+even `.vo` are trusted there), so `.vos` changes nothing about soundness and is
+smaller. Proven directly: a one-file library with an opaque lemma compiled
+`rocqc -vos` (proof stripped, 981 B vs 1297 B `.vo`), mounted into the engine,
+lets a solution `exact: mylemma` type-check → `ok:true`, with the lemma reported
+under `assumptions` (`Mylib.Foo.mylemma`) — the kernel sees the stripped opaque
+proof as a trusted assumption. Trusted-library assumptions are permitted by the
+existing **Imported** axiom policy (`src/check.ml`: every library the challenge
+`Require`d is permitted as `<lib>.*`), so a mathcomp solution's use of mathcomp
+lemmas is accepted without a per-axiom list.
+
+Reality check for mathcomp: `.vos` is only ~3% smaller than `.vo` there — mathcomp's
+bulk is **transparent** (the HB algebraic hierarchy: structures, coercions,
+canonical instances), not opaque proofs. The win is brotli + lazy loading, not
+opaque-stripping.
+
+### 16.2 The one real port for elpi/HB (`hash_bits = 30`)
+
+mathcomp 2.x is built on Hierarchy Builder → Coq-Elpi → the ELPI interpreter.
+Rebuilding elpi/HB/mathcomp as 32-bit `.vos` with the patched native `rocqc` hit
+`Failure("output_value: integer cannot be read back on 32-bit platform")` — elpi's
+clause index hashes with `hash_bits = Sys.int_size - 1`, which is **62** on the
+64-bit build host, so the serialized index reaches `2^62-1`, which `Marshal.Compat_32`
+refuses (and the 31-bit wasm reader could not read). Fix (exactly analogous to the
+kernel's 30-bit hashset masking, §12.1): patch elpi to `hash_bits = 30` (the value
+a 32-bit host uses) and `all_1 size = (1 lsl size) - 1`, so compile-time and
+wasm-runtime hashes agree and fit. With that, elpi.vos, HB.structures.vos, and all
+mathcomp packs marshal and load. The index is a heuristic candidate filter (elpi
+verifies by unification), so different hash values are sound. A second wasm-safe
+patch replaces one `Marshal.to_string ast [Marshal.Closures]` digest (elpi
+`API.ml`) with a closure-free `Program.show_decl_list` digest (marshalling a
+closure needs the bytecode section table, absent without `--toplevel`).
+
+Native ABI note: a plugin dynlinked into the patched native `rocqc` must be built
+against the patched runtime's **own** native `.cmx` (`rocq-runtime.install`), not
+the overlay (whose native `.cmx` are stock — the overlay only swaps the `.cma`
+bytecode archives for the wasm engine). Mixing them gives `Dynlink error:
+implementation mismatch on <Module>`.
+
+### 16.3 Static-linking elpi into the wasm engine
+
+The engine (`web/dune`) statically links `rocq-elpi.elpi`; its `Libobject`/`Dyn`
+object-type registrations run at engine init, so the mathcomp `Declare ML Module
+"rocq-elpi.elpi"` is a no-op over already-linked code (stripped `rocq-elpi.META`,
+same trick as §12.4). On wasm `Sys.int_size = 31 ⇒ hash_bits = 30`, matching the
+patched-native `.vos` (verified: 0/701 `Hashtbl.hash` mismatches between the wasm
+engine and native for every registered `Dyn` tag). `wasm_of_ocaml compile
+--linkall` is now required: without it, DCE drops object-type registrations that
+are only reached as init side effects, and loading a `.vo`/`.vos` carrying such an
+object fails with `Not_found`/`Unknown dynamic tag`. elpi wasm-compiles cleanly
+(no C stubs); the engine grows ~12 MB → ~15.5 MB (cps).
+
+### 16.4 Lazy per-pack import (the framework)
+
+Libraries are published as separate **packs** (`dist/coqlib/packs.json`), each a
+set of `.vos`/`.vo` sharing a logical-name prefix. Manifest format:
+
+```json
+{ "coqlib_vfs": "/static/coqlib",
+  "packs": [
+    { "name":"corelib", "always":true, "prefixes":["Corelib"],
+      "meta":"rocq-runtime.META", "meta_vfs":"/static/lib/rocq-runtime/META",
+      "size": 1998000, "vo":["theories/Init/Prelude.vo", ...] },
+    { "name":"stdlib", "prefixes":["Stdlib"], "size":..., "vo":[...] },
+    { "name":"mathcomp-hb", "prefixes":["HB","elpi","elpi_elpi"],
+      "meta":"rocq-elpi.META", "meta_vfs":"/static/lib/rocq-elpi/META", "vo":[...] },
+    { "name":"mathcomp-boot", "prefixes":["mathcomp.boot"],
+      "requires":["mathcomp-hb"], "size":..., "vo":[...] },
+    { "name":"mathcomp-order", "prefixes":["mathcomp.order"],
+      "requires":["mathcomp-hb","mathcomp-boot"], ... }, ...
+  ] }
+```
+
+Mechanism (`web/rocq_packs.js`, shared by the worker and the node test):
+1. **Scan** the challenge + solution sources for `Require` / `From X Require`
+   (`scanRequires`), yielding imported logical names.
+2. **Resolve** those to packs (`resolvePacks`): longest matching `prefix`, else by
+   module basename (so `From mathcomp Require Import all_ssreflect` → the pack
+   whose `vo` contains `all_ssreflect`), then close over each pack's `requires`.
+3. **Fetch + mount** only those packs, byte-exact (§15.0), **cached** across checks
+   so each pack downloads once. `always` packs (Corelib) mount at startup; a pack
+   the sources never import is never downloaded.
+
+One subtlety: Rocq's recursive coqlib loadpath enumerates subdirs **once** at the
+first check's `Driver.init`, so a pack dir mounted later would not be bound. The
+worker therefore **predeclares** every pack's directories (a 0-byte `.keep` per
+dir, generated from `packs.json` — no download) at startup, so the loadpath binds
+every logical name; the `.vo` themselves stay lazy (`select_vo_file` re-checks
+file existence per `Require`). A served `.vos` is mounted at a `.vo` VFS path (its
+content IS opaque-stripped vos-format; the `.vo` name sidesteps the `.vos`
+loadpath branch's `Unix.stat`, which wasm_of_ocaml does not provide for the VFS).
+
+Verified headless (both engines, `make test`, 15/15): Corelib always-on; the
+Stdlib ZArith/Reals checks fetch **only** the `stdlib` pack on their `From Stdlib
+Require`; non-mathcomp checks fetch **no** mathcomp pack; the resolver maps
+`all_ssreflect` → `mathcomp-hb+boot+order+ssreflect` and `Stdlib` → `stdlib` only.
+
+### 16.5 mathcomp packs — sizes (raw + brotli, `.vos` vs the 106 MB `.vo`)
+
+Built from mathcomp 2.6.0 CORE with the patched `rocqc` (`web/build-mathcomp.sh`):
+
+| pack | files | raw | brotli | (stock `.vo`) |
+|---|---|---|---|---|
+| corelib (always) | 65 | 1.9 MB | 0.8 MB | — |
+| stdlib (subset) | 432 | 27.5 MB | ~10 MB | — |
+| mathcomp-hb (elpi+HB+locker) | 4 | 3.5 MB | 1.2 MB | 2.4 MB |
+| mathcomp-boot | 25 | 11.0 MB | 5.1 MB | 12.2 MB |
+| mathcomp-order | 3 | 21.1 MB | 7.6 MB | 20.8 MB |
+| mathcomp-fingroup | 10 | 4.4 MB | 2.3 MB | 4.5 MB |
+| mathcomp-ssreflect (all_ssreflect) | 1 | ~0 | ~0 | — |
+| **mathcomp total (built)** | **43** | **~40 MB** | **~16 MB** | **101 MB** |
+
+An `all_ssreflect` demo lazily fetches corelib(always)+hb+boot+order+ssreflect ≈
+**14 MB brotli**, only on a mathcomp import. `algebra` (needs the `micromega_plugin`
+user-contrib library rebuilt as `.vos`) and `analysis` are documented manifest
+slots (§16.7).
+
+### 16.6 The wall — full mathcomp in-browser
+
+`From mathcomp Require Import all_ssreflect` (which pulls boot+order via HB) does
+**not** yet type-check in the wasm engine. The `.vos` are valid — the exact same
+files load and `all_ssreflect` type-checks in a **native** Rocq process — and
+`HB.structures` and `elpi.apps.locker` DO load in the wasm engine (`debugRequire`
+→ OK). But loading the boot/order layer, whose HB commands register additional
+`Dyn` object-type kinds, fails with `Unknown dynamic tag N` (`clib/dyn.ml`): a Coq
+`Dyn` type-tag that the native compiler registers but the wasm build does not.
+It is **not** a `Hashtbl.hash` mismatch (verified 0/701) and **not** DCE of the
+main registrations (`--linkall` keeps 701 tags) — it is one specific object-type
+registration, in one of Coq's many `Dyn.Make ()` instances, that the wasm build
+omits. This is the genuine wall for the full stack; the toolchain, packs, and lazy
+framework around it are complete. `web/web_check.ml` sets
+`Loadpath.load_vos_libraries := true` (real `.vos` names would need the VFS
+`Unix.stat`, so packs mount vos-content at `.vo` paths instead).
+
+In-browser verdict JSON for the `all_ssreflect` demo (lazy-fetched
+`[mathcomp-hb, mathcomp-boot, mathcomp-order, mathcomp-ssreflect]`):
+
+```json
+{ "ok": false, "reason": "challenge_error",
+  "detail": "... Unknown dynamic tag N (clib/dyn.ml) ...",
+  "checks": { "filter": "ok", "challenge_compile": {"fail": "..."} } }
+```
+
+### 16.7 mathcomp-analysis (stretch) — status + slot
+
+Not built. mathcomp-analysis 1.15.0 is installed in a SEPARATE switch
+(`~/.opam/rocq-analysis`) but on **rocq 9.1.1**, not the core's 9.2 — so its `.vo`
+are the wrong Rocq version and cannot be reused. Building analysis `.vos` for the
+browser needs: `opam install rocq-mathcomp-analysis` against a 9.2 switch (pulling
+`mathcomp-classical`, `reals`, `boolp`, ...), then the same patched-`rocqc`
+`.vos` rebuild (`build-mathcomp.sh`) extended with `analysis`/`classical`/`reals`
+packs. A manifest slot is reserved: add a pack `{ "name":"mathcomp-analysis",
+"prefixes":["mathcomp.analysis","mathcomp.classical","mathcomp.reals"],
+"requires":["mathcomp-hb","mathcomp-boot","mathcomp-order","mathcomp-algebra"],
+"vo":[...] }` to `packs.json`. Same wasm Dyn-tag wall (§16.6) would apply until
+resolved.
+
+### 16.8 How to add a pack
+
+1. Compile the library's `.vos` with the patched `rocqc` (extend
+   `web/build-mathcomp.sh`: add its source dir + loadpath, compile in
+   `rocq dep -sort` order against the patched Corelib).
+2. Stage it (`web/stage-packs.sh`): copy the `.vos` under
+   `dist/coqlib/user-contrib/<Lib>/`, and add a pack entry to `packs.json` with
+   its `prefixes` (logical-name roots), `requires` (other packs it depends on),
+   and `vo` list. `always:true` for prelude-level packs.
+3. If the library `Declare`s an ML plugin, statically link it in `web/dune` and
+   add a stripped META (archive/plugin lines removed).
+No worker/engine change is needed — the scan→resolve→fetch→mount path is generic.
+
+### 16.9 Files (Phase 2)
+
+- `web/rocq_packs.js` — shared lazy scan (`scanRequires`) + resolve (`resolvePacks`).
+- `web/rocq_worker.js` — packs-aware: predeclare dirs, mount `always` packs, lazy
+  `ensurePacks` per check (falls back to a legacy `manifest.json` bundle).
+- `web/web_check.ml` — `Loadpath.load_vos_libraries := true`; links `rocq-elpi.elpi`.
+- `web/build-mathcomp.sh` — reproducible patched elpi/HB/mathcomp `.vos` build.
+- `web/stage-packs.sh` — stage `dist/coqlib` packs + write `packs.json`.
+- `test/judge_test.cjs` — 15/15 via lazy packs; `ROCQ_MATHCOMP=1` runs the
+  mathcomp end-to-end diagnostic.
