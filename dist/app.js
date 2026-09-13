@@ -26,8 +26,7 @@
   // simpl, rewrite, auto, ...). The default is a genuine nat + tactics proof,
   // kernel-checked in the browser. Uncheck into -noinit only for prelude-free
   // core Gallina. Theorem/Lemma/Example names are auto-detected.
-  const DEFAULT_CHALLENGE = `(* In-browser engine: full Corelib prelude (nat, =, ->, tactics).
-   The challenge states the goal and leaves the proof open (Admitted). *)
+  const DEFAULT_CHALLENGE = `(* The challenge states the goal and leaves the proof open. *)
 Theorem add_0_r : forall n : nat, n + 0 = n.
 Proof. Admitted.
 `;
@@ -140,16 +139,34 @@ Qed.
   solutionSrc.dispatchEvent(new Event("input"));
 
   // ---------------------------------------------------------------------
-  // dismissible engine-honesty note (remembers dismissal per browser)
-  const engineNote = $("engineNote");
-  const NOTE_KEY = "rocq-comparator:engine-note-dismissed";
-  try {
-    if (localStorage.getItem(NOTE_KEY) === "1") engineNote.hidden = true;
-  } catch (_) { /* storage unavailable: just show the note */ }
-  $("engineNoteDismiss").addEventListener("click", () => {
-    engineNote.hidden = true;
-    try { localStorage.setItem(NOTE_KEY, "1"); } catch (_) {}
-  });
+  // Libraries strip: built from the pack manifest, so it always reflects what
+  // the site ships. Each chip shows the download a first import costs (the
+  // pack plus everything it requires) and inserts the example import line.
+  (async () => {
+    let manifest;
+    try { manifest = await (await fetch("coqlib/packs.json")).json(); } catch (_) { return; }
+    const packs = (manifest.packs || []).filter((p) => p.import && p.featured && !p.internal);
+    const byName = {}; manifest.packs.forEach((p) => { byName[p.name] = p; });
+    const cost = (p) => window.RocqPacks.resolvePacks(manifest, window.RocqPacks.scanRequires([p.import]))
+      .reduce((a, n) => a + ((byName[n] && byName[n].size) || 0), 0);
+    packs.sort((a, b) => cost(a) - cost(b));
+    if (!packs.length || !window.RocqPacks) return;
+    const chips = $("libsChips");
+    for (const p of packs) {
+      const bytes = cost(p);
+      const chip = document.createElement("button");
+      chip.type = "button"; chip.className = "lib-chip"; chip.title = p.import;
+      chip.innerHTML = `${p.name.replace(/^mathcomp-/, "mathcomp ").replace(/^stdlib$/, "Stdlib")}<small>${Math.round(bytes / 1048576)} MB</small>`;
+      chip.addEventListener("click", () => {
+        for (const ta of [challengeSrc, solutionSrc]) {
+          if (ta.value.indexOf(p.import) === -1) ta.value = p.import + "\n" + ta.value;
+          ta.dispatchEvent(new Event("input"));
+        }
+      });
+      chips.appendChild(chip);
+    }
+    $("libs").hidden = false;
+  })();
 
   // ---------------------------------------------------------------------
   // backend detection / lifecycle

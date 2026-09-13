@@ -102,6 +102,21 @@ if(fs.existsSync("user-contrib/HB")){
   for(let dropped=true;dropped;){ dropped=false; for(let i=packs.length-1;i>=0;i--){ const miss=(packs[i].requires||[]).filter(r=>!packs.some(p=>p.name===r)); if(miss.length){console.log("  drop "+packs[i].name+": needs unshipped "+miss.join(",")); packs.splice(i,1); dropped=true;} } }
 }
 packs.forEach(p=>p.size=size(p.vo));
+// user-facing metadata for the Libraries strip of the page: support packs are
+// internal; every other pack gets an example import line (its all_* module if
+// it has one, else its own module), taken from the files it ships.
+for(const p of packs){
+  if(["mathcomp-hb","elpi-derive","micromega-plugin"].includes(p.name)){ p.internal=true; continue; }
+  if(p.always) continue;
+  if(p.name==="stdlib"){ p.import="From Stdlib Require Import ZArith."; continue; }
+  const mods=p.vo.map(f=>path.basename(f).replace(/\.vos?$/,""));
+  const all=mods.find(m=>/^all_/.test(m)), dir=p.name.replace(/^mathcomp-/,"");
+  const own=mods.find(m=>m===dir);
+  if(p.name==="mathcomp-analysis") p.import="From mathcomp Require Import all_ssreflect all_algebra all_reals all_analysis.";
+  else if(all||own) p.import="From mathcomp Require Import "+(all||own)+".";
+}
+// the strip shows only the entry points; the rest are reached through them
+for(const p of packs) if(["stdlib","mathcomp-ssreflect","mathcomp-algebra","mathcomp-analysis","coquelicot","interval","equations"].includes(p.name)) p.featured=true;
 fs.writeFileSync("packs.json", JSON.stringify({coqlib_vfs:"/static/coqlib", packs}));
 packs.forEach(p=>console.log("  "+p.name+(p.always?"*":"")+": "+p.vo.length+" files, "+(p.size/1048576).toFixed(1)+" MB"));
 '

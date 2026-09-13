@@ -32,6 +32,7 @@ const cp = require('child_process'), os = require('os');
 // node test/browser_smoke.cjs [dist]                serve a local dist/ (default)
 // node test/browser_smoke.cjs --url https://host/p   test an already-deployed site
 // SMOKE_HEAVY=0 skips the mathcomp-analysis case (206 MB fetch, multi-GB check).
+// SMOKE_SHOT=/path/file.png saves a screenshot of the page once the runtime is ready.
 const ui = process.argv.indexOf('--url');
 const REMOTE = ui !== -1 ? process.argv[ui + 1].replace(/\/$/, '') : null;
 const DIST = path.resolve((ui === -1 && process.argv[2]) || path.join(__dirname, '..', 'dist'));
@@ -210,6 +211,15 @@ async function runPass(cdp, origin, forceCps, log) {
   } catch (e) { readyErr = e.message; }
   const notice = await evaluate(cdp, sessionId, `(() => { const n = document.getElementById('unavailableNotice'); return n && !n.hidden ? document.getElementById('unavailableDetail').textContent : null; })()`, 5000).catch(() => null);
   ok('runtime ready in the browser', !readyErr && !notice, readyErr ? readyErr : notice ? 'page shows: ' + notice : 'rocq ' + version);
+  if (process.env.SMOKE_SHOT && !forceCps) {
+    try {
+      await cdp.send('Emulation.setDeviceMetricsOverride', { width: 1200, height: 900, deviceScaleFactor: 1, mobile: false }, sessionId);
+      await new Promise((r) => setTimeout(r, 1500));
+      const shot = await cdp.send('Page.captureScreenshot', { format: 'png' }, sessionId);
+      fs.writeFileSync(process.env.SMOKE_SHOT, Buffer.from(shot.data, 'base64'));
+      console.log('screenshot: ' + process.env.SMOKE_SHOT);
+    } catch (e) { console.log('screenshot failed: ' + e.message); }
+  }
   const engine = (log.served.find((p) => /engine-(cps|jspi)\/rocq_engine\.js$/.test(p)) || '').replace(/\/rocq_engine\.js$/, '').replace(/^\//, '') || '(none)';
   okLocal('engine loaded', engine !== '(none)', engine + (forceCps ? ' (forced by ?engine=cps)' : ' (auto)'));
   if (forceCps) okLocal('?engine=cps selects the universal engine', engine === 'engine-cps', engine);
@@ -220,6 +230,21 @@ async function runPass(cdp, origin, forceCps, log) {
   okLocal('lazy: no Stdlib or mathcomp file downloaded at startup', servedUnder(log, 'Stdlib') === 0 && servedUnder(log, 'mathcomp') === 0,
      'Stdlib=' + servedUnder(log, 'Stdlib') + ' mathcomp=' + servedUnder(log, 'mathcomp'));
   if (readyErr || notice) { await cdp.send('Target.closeTarget', { targetId }); return results; }
+
+  // 1b. the Libraries strip is built from packs.json and its chips insert imports
+  try {
+    const libs = await evaluate(cdp, sessionId, `(async () => {
+      const t0 = Date.now();
+      while (document.getElementById('libs').hidden) { if (Date.now() - t0 > 15000) return { chips: 0 }; await new Promise(r => setTimeout(r, 100)); }
+      const chips = [...document.querySelectorAll('#libsChips .lib-chip')];
+      const ssr = chips.find((c) => c.title.indexOf('all_ssreflect') >= 0);
+      let inserted = false;
+      if (ssr) { const before = document.getElementById('challengeSrc').value; ssr.click(); inserted = document.getElementById('challengeSrc').value.startsWith(ssr.title) && document.getElementById('solutionSrc').value.startsWith(ssr.title); document.getElementById('challengeSrc').value = before; document.getElementById('solutionSrc').value = document.getElementById('solutionSrc').value.replace(ssr.title + String.fromCharCode(10), ''); }
+      return { chips: chips.length, labels: chips.map((c) => c.textContent).join(', '), inserted };
+    })()`, 20000);
+    ok('libraries strip lists the shipped packs with sizes', libs.chips > 0 && (!HAS_MATHCOMP || /mathcomp/.test(libs.labels)), libs.labels);
+    if (HAS_MATHCOMP) ok('clicking a library chip inserts its import into both editors', libs.inserted === true);
+  } catch (e) { ok('libraries strip lists the shipped packs with sizes', false, e.message); }
 
   // 2. the page's own default example, via the real Run button
   let uiVerdict = null, uiErr = null;

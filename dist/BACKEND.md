@@ -1247,6 +1247,12 @@ set of `.vos`/`.vo` sharing a logical-name prefix. Manifest format:
   ] }
 ```
 
+Three optional fields serve the page's Libraries strip: `internal: true` marks
+a support pack (never listed), `import` is the example line a visitor can
+insert (`stage-packs.sh` derives it from the pack's `all_*` or own module), and
+`featured: true` marks the entry points the strip shows (the other packs are
+reached through them).
+
 Mechanism (`web/rocq_packs.js`, shared by the worker and the node test):
 1. **Scan** the challenge + solution sources for `Require` / `From X Require`
    (`scanRequires`), yielding imported logical names.

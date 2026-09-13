@@ -12,7 +12,7 @@
   <header class="top">
     <div class="brand">
       <h1>Rocq Comparator</h1>
-      <span class="tag">paste a challenge and a solution, get a kernel-checked verdict — entirely in your browser</span>
+      <span class="tag">paste a challenge and a solution, get a kernel-checked verdict, entirely in your browser</span>
     </div>
     <div class="backend-status" id="backendStatus" data-state="loading" role="status" aria-live="polite">
       <span class="dot" aria-hidden="true"></span>
@@ -35,21 +35,10 @@
       </div>
     </div>
 
-    <div id="engineNote" class="engine-note" role="note">
-      <span class="engine-note-icon" aria-hidden="true">ℹ️</span>
-      <div class="engine-note-body">
-        The in-browser engine ships the <strong>Corelib prelude</strong> (regenerated
-        by a coerce-32bit-patched native <code>rocqc</code>), so it checks real Gallina
-        <strong>with</strong> <code>nat</code>, <code>=</code>, <code>-&gt;</code> and the
-        tactic language (<code>induction</code>, <code>simpl</code>, <code>rewrite</code>,
-        <code>auto</code>, …), plus a <strong>Stdlib subset</strong>
-        (<code>From Stdlib Require Import ZArith</code> / <code>QArith</code> /
-        <code>Reals</code> / <code>Lia</code> / <code>Lra</code> — with
-        <code>ring</code>, <code>field</code>, <code>lia</code>, <code>lra</code>).
-        Uncheck into <code>-noinit</code> for prelude-free core Gallina. mathcomp is
-        not yet bundled — see <a href="BACKEND.md">BACKEND.md</a>.
-      </div>
-      <button type="button" class="engine-note-dismiss" id="engineNoteDismiss" aria-label="Dismiss note">×</button>
+    <div class="libs" id="libs" hidden>
+      <span class="libs-label">Libraries</span>
+      <span class="libs-chips" id="libsChips"></span>
+      <span class="libs-hint" id="libsHint">click one to add its import to both proofs; a library is downloaded on first import and kept for this page session</span>
     </div>
 
     <section class="editors">
@@ -138,13 +127,18 @@
     </section>
 
     <p class="footer-note">
-      Runs a real Rocq kernel (a <code>wasm_of_ocaml</code> build of <code>rocq-runtime</code>&nbsp;9.2 + <code>rocq-comparator</code>) inside a Web Worker in your browser — no source ever leaves your machine.
-      Serve with <code>make serve</code> (it assembles <code>dist/</code> and serves it on <code>http://localhost:8000/</code>); a same-origin HTTP server is required because the engine loads in a Web Worker and fetches the Corelib prelude <code>.vo</code> bundle. See <code>BACKEND.md</code>.
+      A real Rocq 9.2 kernel (a <code>wasm_of_ocaml</code> build of <code>rocq-runtime</code> and
+      <code>rocq-comparator</code>) runs in a Web Worker in your browser; no source leaves your machine.
+      Prototype produced by Claude Fable 5.1, inspired by the
+      <a href="https://github.com/leanprover/comparator">Lean comparator</a>.
+      Source: <a href="https://github.com/LLM4Rocq/rocq-comparator-web">rocq-comparator-web</a>,
+      <a href="https://github.com/LLM4Rocq/rocq-comparator">rocq-comparator</a>.
     </p>
 
   </main>
 </div>
 <script src="rocq_comparator.js"></script>
+<script src="rocq_packs.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
