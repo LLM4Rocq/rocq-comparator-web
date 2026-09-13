@@ -78,6 +78,8 @@
 }
 
 * { box-sizing: border-box; }
+/* keep the `hidden` attribute authoritative even over flex/grid display rules */
+[hidden] { display: none !important; }
 
 body {
   background: var(--bg);
@@ -189,8 +191,7 @@ main { display: flex; flex-direction: column; gap: 18px; }
 }
 .code-editor textarea:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
 
-/* ---------- config form ---------- */
-.config-panel { padding: 14px 16px 16px; }
+/* ---------- config form (inside Advanced options) ---------- */
 .config-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -211,19 +212,6 @@ main { display: flex; flex-direction: column; gap: 18px; }
 }
 .field input:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
 
-.preset-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
-.preset-chip {
-  font-size: 0.74rem;
-  border: 1px solid var(--border);
-  background: var(--bg-inset);
-  color: var(--text-dim);
-  border-radius: 999px;
-  padding: 3px 10px;
-  cursor: pointer;
-  font-family: var(--mono);
-}
-.preset-chip:hover { border-color: var(--accent); color: var(--accent); }
-
 .toggle-row {
   display: flex;
   flex-wrap: wrap;
@@ -241,20 +229,41 @@ main { display: flex; flex-direction: column; gap: 18px; }
 .toggle input[disabled] + span { color: var(--text-dim); }
 .toggle .hint { display: block; font-size: 0.74rem; color: var(--text-dim); }
 
-details.advanced { margin-top: 10px; }
-details.advanced summary {
+/* ---------- advanced options (collapsed by default) ---------- */
+details.advanced {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+details.advanced > summary {
   cursor: pointer;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--text-dim);
   font-weight: 600;
+  padding: 11px 16px;
+  list-style: none;
+  user-select: none;
 }
-details.advanced .config-grid { margin-top: 10px; }
+details.advanced > summary::-webkit-details-marker { display: none; }
+details.advanced > summary::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 8px;
+  transition: transform 0.15s ease;
+}
+details.advanced[open] > summary {
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-inset);
+}
+details.advanced[open] > summary::before { transform: rotate(90deg); }
+details.advanced summary:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.advanced-inner { padding: 14px 16px 16px; }
 
 .run-row {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: 16px;
   flex-wrap: wrap;
 }
 button.run {
@@ -304,7 +313,38 @@ button.secondary:hover { border-color: var(--accent); }
   flex-wrap: wrap;
 }
 .notice strong { color: var(--warn); }
+.notice .notice-body { display: flex; flex-direction: column; gap: 3px; min-width: 220px; flex: 1; }
+.notice .notice-fix { font-size: 0.82rem; color: var(--text-dim); }
+.notice .notice-fix code { background: var(--bg-inset); padding: 1px 5px; border-radius: 4px; font-family: var(--mono); }
 .notice .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-left: auto; }
+
+/* ---------- engine-honesty note (dismissible) ---------- */
+.engine-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-inset);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  font-size: 0.84rem;
+  color: var(--text-dim);
+}
+.engine-note-icon { line-height: 1.4; flex: none; }
+.engine-note-body { flex: 1; }
+.engine-note-body strong { color: var(--text); }
+.engine-note code { background: var(--bg-panel); padding: 1px 5px; border-radius: 4px; font-family: var(--mono); font-size: 0.92em; }
+.engine-note-dismiss {
+  flex: none;
+  border: 0;
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 2px;
+}
+.engine-note-dismiss:hover { color: var(--text); }
 
 /* ---------- verdict panel ---------- */
 .verdict-panel { padding: 0; }

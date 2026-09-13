@@ -1,0 +1,739 @@
+# rocq-comparator-web — Backend spike
+
+**Goal.** Run the whole `rocq-comparator` check *client-side* in the browser on a
+WebAssembly/JS Rocq, no server — paste a challenge `.v` + a solution `.v`, name
+theorems/axioms, click Run, get the JSON verdict. Modelled on Lean's
+`comparator.live.lean-lang.org`.
+
+**Scope of this document.** A *backend* spike: decide, with evidence, how the
+browser gets a working Rocq that our comparator OCaml can call, and pin the
+frontend↔backend contract. No UI. The core comparator at
+`/Users/gbaudart/Project/llm4rocq/rocq-comparator` is **not** modified; this is a
+separate project that consumes it as a library.
+
+---
+
+## TL;DR — decision
+
+> **UPDATE (build phase 2): it RUNS.** A real `rocq-comparator` check now
+> executes entirely client-side on a js_of_ocaml build of rocq-runtime 9.2 —
+> the `Sys.word_size=64` blocker below is cleared surgically (patched
+> `kernel.cma` only, core switch untouched). Accept/reject verdicts verified
+> headlessly. Current limit: `-noinit` (no prelude `.vo` bundle yet). Jump to
+> **§11** for the mechanism, files, and exact repro commands. The analysis
+> below is the original spike and remains accurate.
+
+
+| Question | Answer |
+|---|---|
+| Can our comparator OCaml + rocq-runtime 9.2 link to JS/WASM? | **Yes.** Only **4 trivial C stubs** missing (threads + getpid), **zero zarith stubs**. Proven this session. |
+| Is there a hard blocker? | **Yes, exactly one, and it is well-understood:** the kernel's `Sys.word_size = 64` / `int_size ≥ 63` assumption. jsoo gives `int_size=32`, wasm_of_ocaml gives `int_size=31`. |
+| Is it solved by known art? | **Yes.** jsCoq/wacoq/coq-lsp solve it with a small `coerce-32bit` kernel patch (force `uint63_31.ml`/`float64_31.ml`) + a `timeout` trampoline patch, then `wasm_of_ocaml`. |
+| **Approach chosen** | **(a) jsoo/wasmoo-core**: compile our lib + a *patched* rocq-runtime to WASM. |
+| Approach (b) reuse a prebuilt wacoq worker | **Rejected for the real product.** Our kernel checks are OCaml that must run where rocq-runtime runs; a prebuilt worker only speaks a vernac/text protocol, which degrades us to `Module M.` + `Print Assumptions` and **loses every guarantee** the comparator exists to provide. It is only viable if it *becomes* approach (a). |
+| **GO / NO-GO for full client-side within reasonable effort** | **GO on the architecture** (the seam is clean and the fix is known art). **NO-GO for "a few days"**: the cost is rebuilding a *patched* rocq-runtime to WASM and producing a matching prelude `.vo` bundle. **Reasonable-effort route: reuse coq-lsp's existing Rocq-9.1 WASM harness** (align the comparator to 9.1) rather than re-porting the patches to 9.2 from scratch. |
+| Achievable **now**, independent of the WASM build | The **frontend↔backend contract** (below) is frozen, and the non-kernel seam (Config-JSON in → run → Verdict-JSON out) is proven to link. The UI can be built against a stub that satisfies the contract while the WASM build lands. |
+
+---
+
+## 0. Environment (verified)
+
+- Core switch = the project-local switch `/Users/gbaudart/Project/llm4rocq/rocq-comparator/_opam`, **OCaml 5.5.1**.
+- `rocq-runtime 9.2.0`, `rocq-core 9.2.0`, `rocq-stdlib 9.1.0`, `zarith 1.14`.
+- Core `src/dune` links: `rocq-runtime.{boot,clib,lib,kernel,library,engine,proofs,printing,parsing,gramlib,coqargs,sysinit,vernac,plugins.ltac}`, plus `unix str threads.posix yojson memprof-limits`.
+- The pipeline entry is `Rocq_comparator.Check.run_inner : hooks -> Config.t -> scratch:string -> Verdict.t` — pure in-process logic. `bin/main.ml`'s outer process (fork / re-exec / OS sandbox) is **not** used in the browser: the browser origin is the sandbox.
+
+---
+
+## 1. Installing js_of_ocaml / wasm_of_ocaml — non-destructive (done)
+
+Checked whether adding jsoo to the core switch is destructive **before** doing it.
+
+`opam install js_of_ocaml js_of_ocaml-compiler --dry-run` → **5 new packages only**
+(`seq`, `gen`, `sedlex`, `js_of_ocaml-compiler`, `js_of_ocaml`); **nothing removed,
+downgraded, or reinstalled** — in particular `rocq-runtime`, `zarith`, `ocaml` are
+untouched. It was then installed for real: `js_of_ocaml 6.4.1`.
+
+`wasm_of_ocaml-compiler` adds `conf-binaryen` and needs the system package
+`binaryen` (`brew install binaryen`, no sudo on Apple Silicon). Also installed:
+`wasm_of_ocaml 6.4.1`.
+
+> Conclusion: jsoo/wasmoo live happily **in the core switch**; no throwaway switch
+> was needed for the *tooling*. (A separate switch **is** needed later for the
+> *patched Rocq build* — see §5 — because that changes rocq-runtime itself.)
+
+## 1b. Minimal link experiment — what the browser is actually missing
+
+Minimal program linking just `rocq-runtime.{boot,clib,lib,kernel,library}` and
+calling `Global.env ()`, built to bytecode and run through `js_of_ocaml`
+(`spike/jsoo-seam/spike.ml`):
+
+```
+Missing primitives:
+  caml_thread_id
+  caml_thread_initialize
+  caml_thread_self
+  caml_unix_getpid
+```
+
+Two headline findings:
+
+1. **Zero zarith `ml_z_*` primitives.** `ocamlobjinfo` on the bytecode confirms
+   `ml_z_ count: 0`. Rocq 9.2's kernel uses native `int63`/`float64` and
+   `Bigarray`, all of whose primitives (`caml_ba_*`, int63, float) are already in
+   jsoo's runtime. **This kills the old jsCoq worry about supplying zarith JS
+   stubs — for our surface it is a non-issue.**
+2. The only gaps are **thread + getpid** stubs (single-threaded no-ops; jsCoq
+   supplies exactly these). The **full** comparator surface (all of `src/dune`:
+   vernac, parsing, printing, ltac, unix, str, yojson, memprof-limits) reports the
+   **same 4** and nothing more (`spike/jsoo-seam/full_missing.txt`).
+
+Shim the 4 (`spike/jsoo-seam/shim.js`) and run under node → we get *past* linking
+and hit the real wall at runtime:
+
+```
+Fatal error: exception File "kernel/uint63_63.ml", line 13, characters 8-14: Assertion failed
+```
+
+## 1c. The one real blocker: native-int width
+
+`kernel/uint63_63.ml` line 13 (Rocq master, unchanged in 9.x) is literally:
+
+```ocaml
+let _ = assert (Sys.word_size = 64)
+```
+
+Rocq's kernel is built with the OCaml native compiler (63-bit `int`, 64-bit
+words), so `kernel/dune` picks the 63-bit implementation:
+
+```
+(rule (targets uint63.ml) (deps (:gen-file uint63_%{ocaml-config:int_size}.ml)) ...)
+(rule (targets float64.ml) (deps (:gen-file float64_%{ocaml-config:int_size}.ml)) ...)
+```
+
+But the JS/WASM *target* has a narrower `int`. Measured this session
+(`spike/jsoo-seam/intsize.ml`):
+
+| target | `Sys.int_size` | `1 lsl 62` |
+|---|---|---|
+| native (build host) | **63** | correct |
+| **js_of_ocaml 6.4.1** | **32** | wraps |
+| **wasm_of_ocaml 6.4.1** | **31** | wraps |
+
+`wasm_of_ocaml` has **no** flag to widen this (checked `--help`); it is fixed at
+31-bit tagged ints. So **you cannot post-compile a natively-built rocq-runtime to
+JS or WASM** — the kernel that was compiled assuming 63-bit ints runs on a 31/32-bit
+target and asserts (or, worse if the assert were removed, silently miscomputes
+hashes/universes). This is *the* reason a browser Rocq is not just "jsoo the opam
+package".
+
+---
+
+## 2. How jsCoq / wacoq / coq-lsp actually solve it (the reusable art)
+
+Read from `jscoq/wacoq-bin` (`v8.16` branch, author *Shachar Itzhaky*) — the build
+is `git clone coq @ V8.16.0`, apply patches, `configure -native-compiler no
+-bytecode-compiler no -coqide no`, build **bytecode** `icoq.bc`, then
+`wasm_of_ocaml` it. Artifacts shipped: `icoq.bc`, **`dllcoqrun_stubs.wasm`** (the
+`coqrun` C VM stubs compiled to WASM), `dlllib_stubs.wasm`, and **`.coq-pkg`**
+archives (the stdlib `.vo` bundle). Build host is 64-bit; the Makefile applies:
+
+```
+COQ_PATCHES = timeout extern coerce-32bit
+```
+
+**`coerce-32bit.patch`** (the linchpin — small and mechanical):
+
+- `kernel/dune`: hard-wire `uint63_31.ml` / `float64_31.ml` **instead of**
+  `uint63_%{ocaml-config:int_size}.ml`. These implement 63-bit unsigned ints on
+  top of **`Int64.t`** (boxed), so they are correct on any host int width.
+- `kernel/uint63_31.ml`: comment out `assert (Sys.word_size = 32)` so the 31-impl
+  can be *built* on a 64-bit host.
+- `clib/hashset.ml`, `kernel/nativecode.ml`: `max_int = (1 lsl 30) - 1` and mask
+  hash combines with `land 0x3fffffff` so hashes fit the 31-bit target int.
+- `lib/objFile.ml`: `Marshal.to_channel ch v [Marshal.Compat_32]` so `.vo`
+  marshalled data is readable by the 31-bit target.
+
+**`timeout.patch`** rewrites the tactic monad (`engine/logic_monad.ml`) to a
+**trampoline** — this is Itzhaky's "trampoline patch" that "greatly reduces the
+Stack Overflow in the proof engine" in JS/WASM workers, and it is where in-browser
+interruption/timeout is wired (native `Control.timeout` uses Unix `setitimer`,
+which does not exist in the browser).
+
+**Modern equivalent:** coq-lsp `0.2.4/0.2.5` ship a WASM worker "based on waCoq"
+for **Rocq 9.1**, carrying the same lineage ("Update interrupt patch to account for
+timeouts", "Add Shachar Itzhaky's trampoline patch"). `kernel/dune` and
+`kernel/uint63_63.ml` are structurally identical in 9.2, so the patch set ports to
+9.2 with only cosmetic rebasing.
+
+---
+
+## 3. Approach evaluation
+
+### (a) jsoo/wasmoo-core — **CHOSEN**
+
+Compile the core `rocq_comparator` library **together with a patched
+rocq-runtime** to WASM, run it in a Web Worker with jsCoq's runtime shims (thread
++ getpid stubs; `dllcoqrun_stubs.wasm`; a virtual FS holding the prelude `.vo`
+bundle). Our `Check.run_inner` and all kernel-level checks (`Compare` on `Constr`,
+`Assumptions` by constructor, canonical `KerName`, `Envcheck` universe/flags,
+`Shadowing`) run **as compiled OCaml where rocq-runtime runs** — i.e. our
+guarantees are preserved exactly.
+
+Why it fits us unusually well:
+
+- **No zarith stub work** (§1b).
+- **`-native-compiler no -bytecode-compiler no` is already our config.**
+  `Config.rocq_args` always sets `-native-compiler no`, and `vm:false` sets
+  `-bytecode-compiler no` — the same flags wacoq configures Coq with. In the
+  browser we run with `vm:false`. `Driver.init` already calls
+  `Global.set_native_compiler false`.
+- Our **verdict-integrity design carries over.** The CLI's stdout-is-untrusted /
+  verdict-file trick exists because a solution can print to stdout in a shared
+  process; in the browser we do not parse stdout at all — the worker returns the
+  `Verdict.t` object directly from `run_inner`, so a solution's `idtac "..."`
+  cannot forge a verdict.
+
+How much of jsCoq's harness we must reuse: the **build harness** (patched Rocq
+source tree + `coerce-32bit`/`timeout` patches + `.coq-pkg`/`.vo` bundling +
+worker FS + thread/coqrun shims). We do **not** need jsCoq's UI, its SerAPI
+protocol, or its editor. Cleanest is to build in the **same opam switch coq-lsp
+uses for its WASM worker** and add our library + a thin JS-facing entry module.
+
+### (b) wacoq-worker (reuse a prebuilt worker) — **REJECTED for the product**
+
+A prebuilt wacoq/jsCoq worker exposes a *command* protocol: send vernac, get
+feedback/errors, run `Print Assumptions`. Our kernel checks are **OCaml linked
+against rocq-runtime**; they cannot be expressed as vernac. So driving our
+comparison "through" a prebuilt worker means dropping to a **text-level** check:
+wrap solution in `Module M.`, replay, `Print Assumptions target`, string-match the
+printed statement and axioms.
+
+That **loses**, explicitly:
+
+- kernel `Constr` equality up to conversion (statement identity) → downgraded to
+  comparing *pretty-printed* strings (defeated by notation/alpha/universe/`Set`
+  vs `Type` differences);
+- dependency-closure / canonical-name matching (`Compare`) → gone;
+- assumptions **by constructor over the real closure** (`Assumptions`) →
+  downgraded to parsing `Print Assumptions` text, which a plugin/notation can
+  perturb and which does not distinguish opaque-vs-axiom the way the kernel does;
+- universe-entailment / typing-flags (`Envcheck`), joined-environment check,
+  shadowing detection, and the AST `Filter`'s command allow-list → gone.
+
+So (b) as *reuse* is a NO: it is a different, weaker product. (b) only "works" by
+getting our OCaml into the worker's build — which is approach (a). Stated plainly:
+**there is no shortcut that both reuses a stock worker and keeps the guarantees.**
+
+---
+
+## 4. GO / NO-GO
+
+**GO on the architecture (approach a).** Every uncertainty that could have been a
+true blocker has been retired with evidence: the seam links, zarith is a non-issue,
+the flags already match, and the one real blocker (int width) has a small, known,
+version-portable fix.
+
+**Honest effort caveat — NO-GO for "a quick build".** The remaining work is not
+glue; it is *rebuilding a patched rocq-runtime to WASM and producing a matching
+prelude `.vo` bundle*. Concretely the risks/costs are:
+
+1. **Patched-Rocq WASM build.** Reproduce `coerce-32bit` + `timeout` for the Rocq
+   version we target and build to WASM. Days, not hours — but it is a known
+   quantity (wacoq/coq-lsp do it in CI).
+2. **Version alignment.** Our comparator requires `rocq-runtime >= 9.2`; the
+   *existing* WASM Rocq (coq-lsp 0.2.4/0.2.5) is **9.1**. Two options:
+   - **Recommended for reasonable effort:** relax the comparator to build against
+     **9.1** and reuse coq-lsp's already-patched 9.1 WASM switch + `.vo` bundle.
+     Least new build engineering.
+   - **If 9.2 is required:** port the 3 patches to 9.2 and build ourselves (they
+     apply structurally; expect only rebase friction), and generate our own `.vo`
+     prelude bundle (`.vo` is version-locked; a 9.1 bundle will not load in a 9.2
+     kernel).
+3. **`coqrun` C stubs.** With `-bytecode-compiler no` the VM is not used for
+   conversion, but the kernel still links `coqrun`; take wacoq's
+   `dllcoqrun_stubs.wasm` (or dummy the referenced `caml_coq_*` prims). Low risk.
+4. **Interruption/timeout.** In-browser there is no `setitimer`; rely on the
+   `timeout` trampoline patch and on the UI **terminating the Web Worker** to
+   enforce a wall-clock budget. `Config.timeout_s` becomes best-effort inside the
+   worker; the hard cap is worker-kill from the main thread.
+5. **Payload size.** A WASM Rocq + stdlib `.vo` bundle is tens of MB; fine for a
+   one-page tool but plan for streamed/cached loading.
+
+**What is achievable right now, this week, with no WASM build:**
+
+- jsoo/wasmoo installed and proven in the switch (§1).
+- The seam (Config-JSON → `run_inner` → Verdict-JSON) links to JS today; only
+  kernel *execution* trips the int assert. So we can ship a **contract-compatible
+  stub backend** (fixed/sample verdicts, real JSON shapes) that satisfies §6, and
+  the whole UI can be built and finished against it. When the patched WASM build
+  lands, it drops in behind the identical `window.RocqComparator` object.
+
+---
+
+## 5. Build plan for approach (a) (for the Build phase)
+
+1. **Switch.** Create/borrow a dedicated opam switch with `js_of_ocaml` +
+   `wasm_of_ocaml` and a **from-source, patched** rocq-runtime. Best: mirror
+   coq-lsp's WASM switch (Rocq 9.1) and add our packages to it. Do **not** reuse
+   the core `_opam` for the patched Rocq (it would replace the stock
+   rocq-runtime); the core switch keeps the native build for the CLI.
+2. **Patches.** Apply `coerce-32bit` (retarget `kernel/dune` to `uint63_31`/
+   `float64_31`, un-assert `uint63_31.ml`, mask hashes, `Marshal.Compat_32`) and
+   `timeout` (trampoline) to the Rocq source. Build to **bytecode**, then
+   `wasm_of_ocaml`.
+3. **Our library.** Depend on the core `rocq-comparator` as a library (unchanged).
+   Add a thin entry module `web_backend.ml` that builds **browser hooks** and
+   exposes one function to JS (§6). Browser hooks = the core `real_hooks` with
+   `rocqchk = None` and no sandbox — i.e. real `Filter` / `Assumptions` /
+   `Compare` / `Envcheck` / `Shadowing`, exactly `Check.permissive_hooks`'s
+   opposite. `filter_status = Verdict.Ok`.
+4. **VFS + prelude.** Mount the `.vo` prelude bundle (Corelib/Stdlib) in the jsoo
+   virtual FS. On each `check`, write the challenge/solution sources (and any
+   loadpath files) into the VFS, set `Config.challenge`/`solution` to those VFS
+   paths, run, delete.
+5. **Worker.** Run the artifact in a Web Worker; `postMessage` request/response;
+   the main thread owns the hard timeout by terminating the worker.
+
+---
+
+## 6. Frontend ↔ Backend contract  (FROZEN — the Build phase codes against this)
+
+The backend is a single JS global installed by the worker glue. The UI must not
+know whether the backend is real WASM Rocq or a stub.
+
+```ts
+declare global {
+  interface Window {
+    RocqComparator: {
+      /** Resolves once the Rocq runtime + prelude .vo FS are loaded and
+       *  Driver.init has run once. Rejects only on catastrophic load failure
+       *  (worker/wasm fetch failed, OOM at init). Never rejects for a bad proof. */
+      ready: Promise<void>;
+
+      /** Run one check. `request` is a JSON string (shape below).
+       *  Resolves with a Verdict JSON string (shape below) for EVERY outcome the
+       *  pipeline can express, including all rejections and config/internal errors
+       *  — the verdict itself carries ok/reason/detail.
+       *  Rejects ONLY for out-of-band failure: malformed request JSON, a wasm
+       *  trap, OOM, or the worker being terminated (e.g. wall-clock kill). A
+       *  rejection is an Error whose .message is a short human string. */
+      check(request: string): Promise<string>;
+
+      /** Optional, present on real builds: linked Rocq version, e.g. "9.1" / "9.2". */
+      version?: string;
+    };
+  }
+}
+```
+
+### Request JSON
+
+```jsonc
+{
+  // REQUIRED. Exactly the comparator Config JSON (see core src/config.ml of_json).
+  // Field-for-field identical to a CLI config.json, so configs are portable.
+  "config": {
+    "challenge": "challenge.v",            // VFS path; must be a key in "files"
+    "solution":  "solution.v",             // VFS path; must be a key in "files"
+    "theorem_names":    ["thm_a"],         // theorem_names OR definition_names non-empty
+    "definition_names": [],
+    "permitted_axioms": ["Coq.Logic.Classical_Prop.classic", "MyLib.*", "@classical"],
+    "loadpath": [ {"Q": ["/lib/mylib", "MyLib"]} ],   // -Q/-R/-I; dirs are VFS paths
+    "coqproject": null,
+    "top": null,                            // logical name; derived if null
+    "timeout_s": 60,                        // best-effort inside worker; hard cap = worker-kill
+    "sandbox": "none",                      // ignored in browser (origin is the sandbox)
+    "rocqchk": false,                       // MUST be false in browser (no subprocess)
+    "vm": false,                            // MUST be false in browser (no bytecode VM)
+    "impredicative_set": false,
+    "indices_matter": false,
+    "noinit": false,
+    "permitted_plugins": [],
+    "permitted_libraries": [],              // if non-empty: dirpath prefixes the solution may Require
+    "permit_challenge_axioms": true
+  },
+
+  // REQUIRED. Virtual files written into the worker FS before the run and removed
+  // after. Keys are VFS paths (must match config.challenge/solution and any
+  // loadpath entries); values are file contents (UTF-8). This is how the two .v
+  // sources reach the backend — the browser has no OS filesystem.
+  "files": {
+    "challenge.v": "Theorem thm_a : 1 + 1 = 2. Proof. reflexivity. Qed.\n",
+    "solution.v":  "Theorem thm_a : 1 + 1 = 2. Proof. lia. Qed.\n"
+  }
+}
+```
+
+Notes for the frontend:
+- The UI collects challenge text, solution text, theorem names, and permitted
+  axioms, then assembles this object. The two big text areas become
+  `files["challenge.v"]` / `files["solution.v"]`; `config.challenge`/`solution`
+  point at those keys. Everything else has sane defaults above.
+- `config` is validated by the same `Config.of_json` as the CLI. A validation
+  failure comes back as a normal verdict with `reason:"config_error"` (a resolved
+  promise), **not** a rejection.
+- Backend forces `rocqchk:false` and `vm:false` regardless of input; sending
+  `true` for either is ignored (documented, not an error).
+
+### Response JSON  (exactly core `src/verdict.ml` `to_json`)
+
+```jsonc
+{
+  "ok": false,                       // bool: accepted iff true
+  "reason": "forbidden_axiom",       // null when ok; else one of the reason strings below
+  "detail": "…human explanation…",   // null | string
+  "sandboxed": false,                // always false in browser
+  "sandbox": "none",                 // "none" (browser origin is the sandbox)
+  "rocq_version": "9.1",             // from the linked runtime
+  "targets": [
+    { "name": "thm_a",
+      "status": "proved",            // "proved"|"not_proved"|"missing"|"mismatch"|"unchecked"
+      "assumptions": ["Coq.Logic.Classical_Prop.classic"],   // permitted axioms actually used
+      "detail": null }               // null | string
+  ],
+  "checks": {                        // fixed key order; each value is a status
+    "filter": "ok",                  // status = "ok" | "skipped" | {"fail": "msg"}
+    "challenge_compile": "ok",
+    "solution_compile": "ok",
+    "joined": "ok",
+    "statements": "ok",
+    "closure": "ok",
+    "axioms": {"fail": "uses forbidden axiom X"},
+    "hygiene": "skipped",
+    "libraries": "skipped",
+    "rocqchk": "skipped"             // ALWAYS "skipped" in browser (no rocqchk subprocess)
+  },
+  "timing_s": { "init": 0.4, "challenge": 0.2, "solution": 1.1, "compare": 0.05 }
+  // "solution" key (the solution path) appears only in CLI batch mode; not here.
+}
+```
+
+**`reason` enum** (core `verdict.ml`): `statement_mismatch`, `dependency_mismatch`,
+`not_proved`, `target_not_found`, `kind_mismatch`, `forbidden_axiom`,
+`unsafe_flags`, `forbidden_command`, `compile_error`, `challenge_error`,
+`timeout`, `rocqchk_failed`, `library_violation`, `config_error`, `sandbox_error`,
+`internal_error`.
+
+**Verdict semantics the UI should surface:**
+- `ok:true` → accepted; show green, list `targets[].assumptions` used.
+- `ok:false` + `reason` in {`config_error`, `challenge_error`, `internal_error`}
+  → *infrastructure*, "nothing was judged" (CLI exit code 2 class); render
+  differently from a genuine rejection.
+- everything else `ok:false` → the solution was **rejected**; `reason`+`detail`
+  say why, `checks` shows which stage failed, `targets` shows per-theorem status.
+- `checks.rocqchk` is always `"skipped"` in the browser — do not present its
+  absence as a failure. `checks.filter` is `"ok"` (the strict AST filter runs).
+
+### Lifecycle & concurrency
+
+- **Init.** `await window.RocqComparator.ready` once before the first `check`
+  (Rocq runtime + prelude `.vo` load; tens of MB — show a loading state).
+- **Idempotent runtime.** `Driver.init` runs once and freezes root state; each
+  `check` restores from that frozen root, so challenge/solution runs are isolated
+  and the worker is reused across checks. No re-init per call.
+- **Serialization.** The worker is single-threaded; `check` calls are queued and
+  run one at a time. The frontend should disable Run while a check is in flight
+  (or the glue queues them — pick one and document; recommended: glue queues,
+  resolves in order).
+- **Hard timeout.** To guarantee termination against an adversarial proof, the
+  main thread starts a timer on `check`; on expiry it **terminates the Web
+  Worker** and rejects that call's promise with `Error("timeout")`, then respawns
+  the worker (re-`ready`). `config.timeout_s` is the soft, in-worker budget.
+
+---
+
+## 7. Files produced by this spike
+
+- `spike/jsoo-seam/` — reproducible minimal experiments (`spike.ml`,
+  `fullspike.ml`, `intsize.ml`, `shim.js`), captured logs (`full_missing.txt`,
+  `full_jsoo.log`, `jsoo.log`), and a `README.md` with exact commands.
+- This `BACKEND.md`.
+
+## 8. Sources
+
+- jsCoq — <https://github.com/jscoq/jscoq>
+- wacoq-bin (build harness, patches read directly) — <https://github.com/jscoq/wacoq-bin> (branch `v8.16`)
+- coq-lsp WASM worker / CHANGES — <https://ocaml.org/p/coq-lsp/0.2.5%2B9.1/CHANGES.html>
+- wasm_of_ocaml — <https://tarides.com/blog/2023-11-01-webassembly-support-for-ocaml-introducing-wasm-of-ocaml/>
+- Rocq kernel `uint63_63.ml` / `kernel/dune` — <https://github.com/rocq-prover/rocq> (`master`)
+
+---
+
+## 9. Build phase — what is implemented (this project)
+
+The OCaml browser seam and its js_of_ocaml build now exist in this project. The
+core comparator at `/Users/gbaudart/Project/llm4rocq/rocq-comparator` is **not**
+modified; it is consumed as a library (its `src/` is symlinked into this
+project's build scope as `core-src`, because the core's `rocq_comparator` library
+is private — no `public_name` — and a private library is invisible across a
+separate dune project).
+
+### Files (owned by the backend)
+
+| Path | Role |
+|---|---|
+| `web/web_check.ml` | **The REAL seam.** js_of_ocaml entry that parses the request's config with `Config.of_json`, writes the inline `files` into the js_of_ocaml pseudo-FS, builds **browser hooks** (real `Filter` Strict/Lenient · `Assumptions.check` · `Compare` via `Check` · `Envcheck.check`/`trusted_roots` · `Shadowing` inside `Check`; `rocqchk = None`; no sandbox; `filter_status = Ok`), calls `Check.run_inner`, and returns `Verdict.to_string`. Forces `rocqchk:false`, `vm:false`, `sandbox:none`. Installs `window.RocqComparator`. |
+| `web/web_stub.ml` | **The STUB backend.** Same `window.RocqComparator` contract, but links only the kernel-free `stubcore` library, so it **runs in the browser today**. Real `Config.of_json` validation + real `Verdict` JSON; a valid request returns an honest `internal_error` "kernel not wired" verdict (all checks `skipped`, all targets `unchecked`). |
+| `web/stubcore/{config,verdict,presets}.ml` | Symlinks to the **real, unmodified** core sources. These three modules have no rocq-runtime dependency, so they compile+run under js_of_ocaml. Built as a standalone lib (`stubcore`, deps: `yojson` only). |
+| `web/runtime_shims.js` | jsCoq-style thread + getpid no-op shims (the 4 primitives the spike found missing), bundled into the js output. |
+| `web/dune`, `dune-project`, `dune`, `core-src` (symlink) | Build wiring. `dune-project` is `(lang dune 3.17)` (needed for `compilation_mode whole_program`). |
+| `Makefile` | Build/test/dist entry points (see below). |
+| `test/contract_test.cjs` | Node contract test (16 assertions) over `window.RocqComparator`. |
+
+### Build / run
+
+```sh
+# from this directory; the switch defaults to the sibling core's project-local
+# switch (which has js_of_ocaml + wasm_of_ocaml + rocq-runtime).
+make            # build stub JS, verify the real seam links, assemble dist/
+make stub       # -> _build/default/web/web_stub.bc.js  (the runnable backend)
+make test       # node contract test over the stub (16/16 PASS)
+make check-bc   # link the REAL seam to bytecode (75 MB) — proves the pipeline links
+make check-js   # compile the REAL seam through js_of_ocaml (whole-program)
+make blocker    # build the real seam to JS and RUN it -> reproduces the int trap
+make dist       # assemble dist/: rocq_comparator.js (stub) + frontend statics
+```
+
+### Verified this phase
+
+- **Real seam links.** `make check-bc` produces a 75 MB `web_check.bc` linking
+  the entire pipeline (Config, Check, Filter, Assumptions, Compare, Envcheck,
+  Shadowing, Driver, Verdict) against `rocq_comparator` + full `rocq-runtime`.
+- **Real seam compiles through js_of_ocaml.** `make check-js` (whole-program)
+  emits `web_check.bc.js`. Only the 4 known primitives are missing and they are
+  shimmed.
+- **The blocker reproduces exactly.** Running that JS under node:
+  `Fatal error: exception File "kernel/uint63_63.ml", line 13, characters 8-14: Assertion failed`
+  — the `Sys.word_size = 64` assert, at module-init time (before
+  `window.RocqComparator` is even installed). This is the same wall the spike
+  hit, now with the actual product entry point. Confirms: the seam is complete;
+  only a **patched WASM rocq-runtime** is missing.
+- **The stub satisfies the contract end to end.** `make test` → 16/16 PASS:
+  global installed; `ready` resolves; `check` returns the exact verdict shape
+  (all 10 `checks` keys, `rocqchk:"skipped"`, targets, `timing_s`); real
+  `Config` validation surfaces `config_error` (incl. unknown `@preset`);
+  malformed / config-less requests **reject** out-of-band with an `Error`. The
+  frontend's exact `buildRequest()` payload is accepted.
+
+### Frontend integration (one line, owned by the frontend)
+
+The stub installs `window.RocqComparator` synchronously on load. `app.js`
+already talks to that global and degrades gracefully when it is absent. To wire
+the backend in, `index.html` needs **one line before `app.js`**:
+
+```html
+<script src="rocq_comparator.js"></script>
+<script src="app.js"></script>
+```
+
+`make dist` copies `rocq_comparator.js` next to the frontend statics so this
+relative path resolves. The stub is a plain script (no worker, no `fetch`, no
+`.wasm`), so it even works from `file://`. When the real WASM build lands, only
+`rocq_comparator.js` changes; the contract and this `<script>` line stay put.
+
+---
+
+## 10. Finishing the real WASM backend — precise steps
+
+The seam (`web/web_check.ml`) is the finished product entry point. What remains
+is entirely on the **runtime** side: produce a patched rocq-runtime compiled to
+WASM plus a matching prelude `.vo` bundle, then point the worker glue at it. The
+recommended, least-effort route reuses coq-lsp's Rocq-9.1 WASM harness.
+
+**Step 1 — a WASM switch with a patched, from-source rocq-runtime.**
+Do **not** reuse the core `_opam` (it holds the native rocq-runtime the CLI
+needs). Either:
+- (recommended) mirror **coq-lsp 0.2.4/0.2.5**'s WASM worker switch (Rocq
+  **9.1**) and add our packages to it; or
+- build Rocq from source in a fresh switch and apply the three patches yourself.
+
+**Step 2 — apply the patches to the Rocq source** (from wacoq-bin `v8.16`
+`COQ_PATCHES = timeout extern coerce-32bit`, ported to the target version — they
+apply structurally to 9.1/9.2, only cosmetic rebasing):
+- `coerce-32bit`: in `kernel/dune`, hard-wire `uint63_31.ml` / `float64_31.ml`
+  instead of `uint63_%{ocaml-config:int_size}.ml`; comment out the
+  `assert (Sys.word_size = 32)` in `kernel/uint63_31.ml`; mask hash combines to
+  30 bits in `clib/hashset.ml` and `kernel/nativecode.ml`
+  (`max_int = (1 lsl 30) - 1`, `land 0x3fffffff`); add `Marshal.Compat_32` in
+  `lib/objFile.ml` so `.vo` marshalling is 31-bit-readable.
+- `timeout`: Itzhaky's trampoline rewrite of `engine/logic_monad.ml` (removes
+  the setitimer-based `Control.timeout`, reduces stack overflows in the worker;
+  this is where in-worker interruption hooks live).
+
+**Step 3 — build to bytecode, then WASM.** Configure Rocq with
+`-native-compiler no -bytecode-compiler no -coqide no` (already exactly our
+`Config.rocq_args`: `-native-compiler no` always, and `vm:false` →
+`-bytecode-compiler no`), build **bytecode**, then run `wasm_of_ocaml` (installed
+in the core switch: `wasm_of_ocaml 6.4.1`).
+
+**Step 4 — build our seam into that switch.** Add this project's `web/` +
+`stubcore` is unused for the real build; point `web_check`'s `(libraries)` at the
+patched `rocq_comparator`/`rocq-runtime` in the WASM switch and
+`wasm_of_ocaml` `web_check.bc` (swap the `(modes js)` for a `wasm` build, or run
+`wasm_of_ocaml` from the Makefile). No source change to `web/web_check.ml` is
+expected — it is already the drop-in.
+
+**Step 5 — runtime shims + coqrun stubs.** Keep `web/runtime_shims.js` (thread +
+getpid). Take wacoq's `dllcoqrun_stubs.wasm` (the `coqrun` C VM stubs) — the
+kernel still links `coqrun` even with `-bytecode-compiler no` — or dummy the
+referenced `caml_coq_*` primitives. `zarith` needs **no** stubs (spike §1b: 0
+`ml_z_*` referenced).
+
+**Step 6 — prelude `.vo` bundle in the VFS.** `.vo` is version-locked, so the
+bundle must match the kernel version. If reusing coq-lsp's 9.1 switch, reuse its
+`.coq-pkg` / `.vo` bundle. If building 9.2, generate your own bundle with the
+patched compiler. Mount it in the js_of_ocaml FS (`Sys_js.mount` / preloaded
+files) so `Driver.init`'s `Require` of the Corelib/Stdlib prelude resolves.
+`web/web_check.ml` already writes the per-request `files` into that same FS via
+`Sys_js.create_file`.
+
+**Step 7 — worker glue + hard timeout.** Run `web_check` in a Web Worker;
+`postMessage` request/response; the glue installs `window.RocqComparator` on the
+main thread (same object shape as the stub) and forwards `check` to the worker.
+The main thread owns the **hard** wall-clock cap: on `config.timeout_s` expiry it
+`terminate()`s the worker, rejects that call with `Error("timeout")`, and
+respawns (re-`ready`). `Config.timeout_s` stays the soft, in-worker budget.
+
+**Version note.** `web_check.ml`/`stubcore` compile against the core (currently
+`rocq-runtime 9.2`). For the 9.1 reuse route, relax the core's
+`(rocq-runtime (>= 9.2))` to `>= 9.1` (a core-project change, coordinate with the
+core owner) or keep 9.2 and build the WASM runtime yourself (Step 2 alt).
+
+**Known limitation to carry into the worker design.** `Driver.init` is
+idempotent (inits once, freezes root state, each check restores it → isolation).
+So the loadpath is fixed at the first `init`. `web/web_check.ml` therefore lets
+the **first** check's loadpath stick for the worker's lifetime; to change the
+loadpath the main thread respawns the worker. For prelude-only challenges (the
+common case) this is a non-issue.
+
+---
+
+## 11. Build phase 2 — the real backend RUNS in the browser (js_of_ocaml)
+
+**Status: a real `rocq-comparator` check now runs entirely client-side.** The
+one hard blocker from §1c (the kernel's `Sys.word_size = 64` assert) is cleared,
+and `window.RocqComparator.check(...)` returns a genuine kernel-checked verdict
+under js_of_ocaml (verified headlessly under node; see the results below). This
+supersedes §9's stub: the stub has been removed. Target chosen: **js_of_ocaml,
+Rocq 9.2** (not WASM, not the 9.1 reuse route) — it got a running in-browser
+check soonest and keeps us on our own 9.2 core.
+
+### 11.1 What made it run (the mechanism)
+
+1. **coerce-32bit, done surgically without disturbing the core switch.**
+   `kernel/uint63.mli` is a *single* interface shared by both `uint63_63.ml`
+   (`type t = int`, 63-bit, asserts word_size=64) and `uint63_31.ml`
+   (`type t = Int64.t`, correct on any int width). So only the kernel *bytecode*
+   archive needs rebuilding: `web/build-real.sh` copies the opam-extracted Rocq
+   9.2 source, flips `kernel/dune` to hard-wire `uint63_31.ml`/`float64_31.ml`
+   (and comments the `assert (Sys.word_size = 32)` in `uint63_31.ml`), and
+   `dune build kernel/kernel.cma` (seconds, via the dune cache). The patched
+   `kernel.cma` is dropped into an **OCAMLPATH overlay** — an APFS clone of
+   `_opam/lib/rocq-runtime` (+ `stublibs`) with just that one file replaced.
+   Because the interface CRC of `Uint63` is unchanged (`9876a8b5…`), every other
+   installed rocq-runtime sub-archive links against it untouched. The core
+   switch's native rocq-runtime (used by the CLI) is never modified.
+
+2. **Runtime shims (`web/runtime_shims.js`).** Real IEEE `Float64` primitives
+   (`rocq_fadd_byte`, …, called by `float64_31.ml`'s module-init self-test) plus
+   thread/getpid no-ops and *benign* stubs for the three init-time VM tcode
+   producers (`rocq_accumulate`, `rocq_pushpop`/`mkPopStopCode`,
+   `rocq_makeaccu`, `rocq_curry2_1_addr`, …). The VM interpreter primitives
+   (`rocq_interprete_byte`, `rocq_push_*`, …) are deliberately left as jsoo's
+   Failure-raising dummies — with `vm:false` they are never called, and if the
+   VM path were ever taken it fails loudly instead of returning a wrong answer.
+
+3. **zarith (`web/zarith_stubs.js`).** rocq-runtime's META requires `zarith`,
+   whose `Z` module initialises at load (`ml_z_init`). Vendored Jane Street
+   `zarith_stubs_js` v0.17.0 (pure-JS `ml_z_*`, ABI-matches the switch's zarith
+   1.14). *(This corrects §1b: the minimal `kernel,library` link referenced no
+   zarith, but the full comparator surface does.)*
+
+4. **In-worker timeout without `setitimer`.** Rocq's native `Control.timeout`
+   arms a Unix interval timer (`getitimer`/`setitimer` + SIGALRM), absent in the
+   browser. `web_check.ml` installs, via the public `Control.set_timeout` hook, a
+   run-to-completion timeout (`fun _ f x -> Ok (f x)`) — the runtime equivalent
+   of wacoq's timeout-trampoline patch, no rocq-runtime source change. The soft
+   `timeout_s` is best-effort; the hard cap is worker-kill (§6, §11.3).
+
+5. **VFS/init fixes in `web_check.ml`.** At load it writes a minimal
+   `/static/findlib.conf` (Rocq inits findlib at startup) and sets `config_dir`
+   to the jsoo cwd (`/static`) so the inline `files` it materialises line up with
+   the paths Config resolves.
+
+### 11.2 Files delivered (this project; core still unmodified)
+
+| Path | Role |
+|---|---|
+| `web/web_check.ml` | The seam. Real `Filter`/`Assumptions`/`Compare`/`Envcheck`/`Shadowing`; `rocqchk=None`; no sandbox; forces `rocqchk/vm=false`; findlib + `Control.set_timeout` setup. |
+| `web/runtime_shims.js` | Float64 + thread/getpid + init-time VM tcode shims. |
+| `web/zarith_stubs.js` | Vendored `zarith_stubs_js` (pure-JS `ml_z_*`). |
+| `web/build-real.sh` | One-shot reproducible build: patch kernel → overlay → jsoo → assemble `dist/`. |
+| `web/rocq_worker.js` | Web Worker that hosts the engine (`importScripts('rocq_engine.js')`). |
+| `web/rocq_comparator.js` | Main-thread loader: installs `window.RocqComparator`, serialises `check`, enforces the hard kill-timeout, respawns. |
+| `dist/rocq_engine.js` | The 28 MB js_of_ocaml engine (built artifact; runs the check). |
+| `test/judge_test.cjs` | Node judge harness (accept / forbidden-axiom / permit / mismatch / OOB). |
+
+### 11.3 Exact repro commands
+
+```sh
+cd rocq-comparator-web
+make            # == web/build-real.sh: build dist/rocq_engine.js (~15s w/ dune cache)
+make test       # node judge harness against the engine  -> 7 passed, 0 failed
+make serve      # python3 -m http.server 8000 in dist/    -> open http://localhost:8000/
+```
+
+Full worker path headlessly (no browser): the emulation harness
+(`scratchpad/worker_e2e.cjs`) loads `dist/rocq_comparator.js`, shims the Web
+Worker with `worker_threads`, and drives `check()` end to end.
+
+### 11.4 Verified (headless, node)
+
+`make test` → **7 passed, 0 failed.** Representative accept verdict (real):
+
+```json
+{"ok":true,"reason":null,"rocq_version":"9.2",
+ "targets":[{"name":"id_fun","status":"proved","assumptions":[],"detail":null}],
+ "checks":{"filter":"ok","challenge_compile":"ok","solution_compile":"ok","joined":"ok",
+   "statements":"ok","closure":"ok","axioms":"ok","hygiene":"ok","libraries":"ok","rocqchk":"skipped"},
+ "timing_s":{"init":0.022,"challenge":0.016,"solution":0.002,"compare":0.001}}
+```
+
+Rejections are equally real: a forbidden axiom → `forbidden_axiom` (kernel
+assumption analysis names `challenge.cheat`); permitting it → `ok:true` with
+`assumptions:["challenge.cheat"]`; a changed statement → `statement_mismatch`
+(`targets[0].status:"mismatch"`, from kernel `Constr` comparison). The hard
+worker-kill timeout was verified with a non-responding worker: the call rejects
+with `Error("timeout")` and the next call is served by a respawned worker.
+
+### 11.5 The one remaining limitation — the prelude `.vo` bundle
+
+Checks run with **`-noinit`** (core Gallina only: `forall`/`fun`, no prelude
+notations like `->`/`=`, no `nat`). Reason, now proven exactly: loading a
+natively-built prelude `.vo` under the jsoo kernel fails with
+
+```
+Error when parsing .vo (… Corelib.Init.Equality.vo …): input_value: integer too large.
+```
+
+Native `.vo` embed 63-bit hashes that jsoo's 32-bit int unmarshaller cannot
+read. This is a *write-side* problem: the `.vo` must be regenerated by a
+compiler built with the full coerce-32bit patch (`Marshal.Compat_32` in
+`lib/objFile.ml` + 30-bit hash masking in `clib/hashset.ml`/`kernel/nativecode.ml`).
+**Next step for stdlib support:** build a patched rocq-runtime + rocq-core
+*natively* with those two extra patches, run that `rocqc` to rebuild the 5.4 MB
+Corelib bundle (65 `.vo`), mount it in the VFS (via `Sys_js` at engine load),
+add `-Q /corelib Corelib` + `-coqlib`, and drop `-noinit`. The seam
+(`web_check.ml`) already writes per-request files into that same VFS, so no seam
+change is expected. This is the multi-day item flagged in §4; everything else in
+the pipeline is done.
+
+### 11.6 WASM note
+
+`wasm_of_ocaml` (6.4.1) + binaryen are installed, but wasmoo's int is **31-bit**
+(narrower than jsoo's 32-bit), so it needs the *same* coerce-32bit overlay —
+plus `dllcoqrun_stubs.wasm` for the VM C prims (jsoo tolerates them as unused
+dummies; a wasm link may not). js_of_ocaml was chosen to get a running check
+first; the overlay + shims + `Control.set_timeout` approach ports to wasmoo
+unchanged once the coqrun wasm stubs are supplied.

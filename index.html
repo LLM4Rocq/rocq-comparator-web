@@ -23,15 +23,29 @@
   <main>
 
     <div id="unavailableNotice" class="notice" hidden>
-      <span>⚠️</span>
-      <div>
+      <span aria-hidden="true">⚠️</span>
+      <div class="notice-body">
         <strong>Backend not available.</strong>
-        <span id="unavailableDetail">The in-browser Rocq runtime (<code>window.RocqComparator</code>) hasn't loaded, so Run is disabled.</span>
+        <span id="unavailableDetail">The in-browser Rocq runtime hasn't loaded, so Run is disabled.</span>
+        <span class="notice-fix" id="unavailableFix" hidden></span>
       </div>
       <div class="actions">
-        <button type="button" class="secondary" id="loadDemoOk">Load demo verdict (accepted)</button>
-        <button type="button" class="secondary" id="loadDemoRejected">Load demo verdict (rejected)</button>
+        <button type="button" class="secondary" id="loadDemoOk">Demo verdict (accepted)</button>
+        <button type="button" class="secondary" id="loadDemoRejected">Demo verdict (rejected)</button>
       </div>
+    </div>
+
+    <div id="engineNote" class="engine-note" role="note">
+      <span class="engine-note-icon" aria-hidden="true">ℹ️</span>
+      <div class="engine-note-body">
+        The in-browser engine currently checks <strong>prelude-free core Gallina</strong>
+        (term-mode) proofs only. Tactics (<code>intros</code>, <code>apply</code>, …),
+        <code>nat</code>, and prelude notations (<code>-&gt;</code>, <code>=</code>) are
+        <strong>not</strong> available — write terms with <code>forall</code> / <code>fun</code>.
+        See <a href="BACKEND.md">BACKEND.md</a> for why (the engine runs with
+        <code>-noinit</code>) and the prelude-bundle plan.
+      </div>
+      <button type="button" class="engine-note-dismiss" id="engineNoteDismiss" aria-label="Dismiss note">×</button>
     </div>
 
     <section class="editors">
@@ -53,59 +67,51 @@
       </div>
     </section>
 
-    <section class="panel config-panel">
-      <div class="config-grid">
-        <div class="field">
-          <label for="theoremNames">Theorem names</label>
-          <input type="text" id="theoremNames" value="" />
-          <span class="hint">comma or space separated; at least one theorem or definition name is required</span>
-        </div>
-        <div class="field">
-          <label for="definitionNames">Definition names <span class="hint">(optional)</span></label>
-          <input type="text" id="definitionNames" value="id_fun" placeholder="e.g. my_fun" />
-        </div>
-        <div class="field">
-          <label for="topName">Top (library name)</label>
-          <input type="text" id="topName" value="" placeholder="derived from challenge.v" />
-          <span class="hint">logical name coqdep would derive for challenge.v (blank = derived)</span>
-        </div>
-        <div class="field">
-          <label for="timeoutS">Timeout (seconds)</label>
-          <input type="number" id="timeoutS" value="60" min="1" step="1" />
-        </div>
-      </div>
+    <div class="run-row">
+      <button type="button" class="run" id="runBtn" disabled>Run</button>
+      <div class="spinner" id="runSpinner" hidden aria-hidden="true"></div>
+      <span class="run-note" id="runNote">waiting for the Rocq runtime to load…</span>
+    </div>
 
-      <div class="config-grid" style="margin-top:12px;">
-        <div class="field" style="grid-column: 1 / -1;">
-          <label for="permittedAxioms">Permitted axioms</label>
-          <input type="text" id="permittedAxioms" value="" placeholder="e.g. Stdlib.Logic.Classical_Prop.classic, @stdlib-classical" />
-          <span class="hint">exact kernel names, "Prefix.*" wildcards, or a preset below</span>
-          <div class="preset-row">
-            <button type="button" class="preset-chip" data-preset="@stdlib-classical">@stdlib-classical</button>
-            <button type="button" class="preset-chip" data-preset="@stdlib-reals">@stdlib-reals</button>
-            <button type="button" class="preset-chip" data-preset="@stdlib-all">@stdlib-all</button>
+    <details class="advanced">
+      <summary>Advanced options</summary>
+      <div class="advanced-inner">
+        <div class="config-grid">
+          <div class="field">
+            <label for="theoremNames">Theorem names <span class="hint">(override)</span></label>
+            <input type="text" id="theoremNames" value="" placeholder="auto-detected from challenge.v" />
+            <span class="hint">comma/space separated; leave blank to auto-detect Theorem/Lemma/Example… declarations in the challenge</span>
+          </div>
+          <div class="field">
+            <label for="definitionNames">Definition names <span class="hint">(holes)</span></label>
+            <input type="text" id="definitionNames" value="" placeholder="e.g. my_fun" />
+            <span class="hint">definitions the challenge leaves as holes for the solution to fill</span>
+          </div>
+          <div class="field">
+            <label for="topName">Top (library name)</label>
+            <input type="text" id="topName" value="" placeholder="derived from challenge.v" />
+            <span class="hint">logical name coqdep would derive for challenge.v (blank = derived)</span>
+          </div>
+          <div class="field">
+            <label for="timeoutS">Timeout (seconds)</label>
+            <input type="number" id="timeoutS" value="60" min="1" step="1" />
+          </div>
+          <div class="field" style="grid-column: 1 / -1;">
+            <label for="permittedAxioms">Permitted axioms</label>
+            <input type="text" id="permittedAxioms" value="" placeholder="e.g. Stdlib.Logic.Classical_Prop.classic, Coq.Init.Logic.*" />
+            <span class="hint">fully-qualified kernel names or <code>Prefix.*</code> wildcards (comma/space separated)</span>
           </div>
         </div>
-      </div>
 
-      <div class="toggle-row">
-        <label class="toggle">
-          <input type="checkbox" id="permitChallengeAxioms" checked />
-          <span>Trust challenge-declared axioms<span class="hint">Parameters/Axioms/Admitted helpers the challenge itself declares are auto-permitted, pinned to their challenge type</span></span>
-        </label>
-        <label class="toggle">
-          <input type="checkbox" id="vmToggle" disabled />
-          <span>VM compiler<span class="hint">forced off in the browser (no native VM here) — kernel typechecking still applies</span></span>
-        </label>
-        <label class="toggle">
-          <input type="checkbox" id="noinitToggle" checked />
-          <span>-noinit (no Corelib prelude)<span class="hint">this browser build ships no prelude <code>.vo</code> bundle yet, so stdlib types (<code>nat</code>, <code>=</code>, <code>-&gt;</code>) are unavailable and proofs must use core Gallina only. Leave checked. (See BACKEND.md: the prelude needs a patched-compiler <code>.vo</code> rebuild.)</span></span>
-        </label>
-      </div>
-
-      <details class="advanced">
-        <summary>Advanced flags</summary>
-        <div class="config-grid">
+        <div class="toggle-row">
+          <label class="toggle">
+            <input type="checkbox" id="permitChallengeAxioms" checked />
+            <span>Trust challenge-declared axioms<span class="hint">Parameters/Axioms/Admitted helpers the challenge itself declares are auto-permitted, pinned to their challenge type</span></span>
+          </label>
+          <label class="toggle">
+            <input type="checkbox" id="noinitToggle" checked />
+            <span>-noinit (no Corelib prelude)<span class="hint">this browser build ships no prelude <code>.vo</code> bundle yet, so stdlib types (<code>nat</code>, <code>=</code>, <code>-&gt;</code>) are unavailable and proofs must use core Gallina only. Leave checked. (See BACKEND.md.)</span></span>
+          </label>
           <label class="toggle">
             <input type="checkbox" id="impredicativeSet" />
             <span>-impredicative-set</span>
@@ -115,25 +121,17 @@
             <span>-indices-matter</span>
           </label>
         </div>
-      </details>
-
-      <div class="run-row">
-        <button type="button" class="run" id="runBtn" disabled>Run comparator</button>
-        <div class="spinner" id="runSpinner" hidden aria-hidden="true"></div>
-        <span class="run-note" id="runNote">waiting for the Rocq runtime to load…</span>
       </div>
-    </section>
+    </details>
 
     <section class="panel verdict-panel" id="verdictPanel" aria-live="polite">
-      <div class="verdict-empty" id="verdictEmpty">No verdict yet. Fill in the fields above and click <strong>Run comparator</strong>, or load a demo verdict if the backend isn't available yet.</div>
+      <div class="verdict-empty" id="verdictEmpty">No verdict yet. Edit the two proofs above and click <strong>Run</strong>.</div>
       <div id="verdictBody" hidden></div>
     </section>
 
     <p class="footer-note">
-      Runs a real Rocq kernel (a <code>js_of_ocaml</code> build of <code>rocq-runtime</code>&nbsp;9.2 + <code>rocq-comparator</code>) inside a Web Worker in your browser — no source ever leaves your machine. The kernel-level checks (AST filter, statement comparison, dependency closure, assumption analysis) all run client-side.
-      Serve locally with <code>python3 -m http.server 8000</code> (or any static file server) from this directory, then open <code>http://localhost:8000/</code> — a same-origin server is needed because the engine loads inside a Web Worker.
-      Opening <code>index.html</code> as a <code>file://</code> URL still shows the UI and the demo-verdict buttons (which need no worker).
-      This build currently runs with <code>-noinit</code>: no Corelib prelude <code>.vo</code> bundle is shipped yet, so proofs use core Gallina only. See <code>BACKEND.md</code> for the prelude-bundle plan.
+      Runs a real Rocq kernel (a <code>js_of_ocaml</code> build of <code>rocq-runtime</code>&nbsp;9.2 + <code>rocq-comparator</code>) inside a Web Worker in your browser — no source ever leaves your machine.
+      Serve with <code>make serve</code> (it assembles <code>dist/</code> and serves it on <code>http://localhost:8000/</code>); a same-origin HTTP server is required because the engine loads in a Web Worker. This build runs with <code>-noinit</code> — see <code>BACKEND.md</code>.
     </p>
 
   </main>

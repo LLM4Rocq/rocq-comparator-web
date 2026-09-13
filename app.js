@@ -20,15 +20,20 @@
 
   const INFRA_REASONS = new Set(["config_error", "challenge_error", "internal_error"]);
 
-  // This build runs with -noinit (no Corelib prelude bundled — see BACKEND.md),
-  // so the default example uses core Gallina only: forall / fun and no prelude
-  // notations (no ->, =, /\, nat, ...). It is a genuine kernel-checked proof.
-  const DEFAULT_CHALLENGE = `(* -noinit: core Gallina only (no prelude notations like -> or =). *)
-Definition id_fun : forall (A : Prop) (_ : A), A :=
+  // The in-browser engine runs with -noinit (no Corelib prelude bundled — see
+  // BACKEND.md), so it checks prelude-free core Gallina only: forall / fun and
+  // no prelude notations (no ->, =, /\, nat, ...) and no tactics. The default
+  // uses an `Example` with an explicit term, which parses in term mode and is
+  // auto-detected as a theorem-like target. It is a genuine kernel-checked
+  // proof and returns ok:true through the real engine.
+  const DEFAULT_CHALLENGE = `(* In-browser engine: prelude-free core Gallina (term mode) only.
+   No tactics, no nat / = / -> notations — write terms with forall and fun.
+   Theorem/Lemma/Example names are auto-detected (see Advanced options). *)
+Example id_fun : forall (A : Prop) (a : A), A :=
   fun A a => a.
 `;
 
-  const DEFAULT_SOLUTION = `Definition id_fun : forall (A : Prop) (_ : A), A :=
+  const DEFAULT_SOLUTION = `Example id_fun : forall (A : Prop) (a : A), A :=
   fun A a => a.
 `;
 
@@ -38,7 +43,7 @@ Definition id_fun : forall (A : Prop) (_ : A), A :=
   const DEMO_VERDICT_ACCEPTED = {
     ok: true, reason: null, detail: null, sandboxed: false, sandbox: "none",
     rocq_version: "9.2.0",
-    targets: [{ name: "add_n_0", status: "proved", assumptions: [], detail: null }],
+    targets: [{ name: "id_fun", status: "proved", assumptions: [], detail: null }],
     checks: {
       filter: "ok", challenge_compile: "ok", solution_compile: "ok", joined: "ok",
       statements: "ok", closure: "ok", axioms: "ok", hygiene: "ok", libraries: "ok",
@@ -88,6 +93,24 @@ Definition id_fun : forall (A : Prop) (_ : A), A :=
     return s.split(/[\s,]+/).map((x) => x.trim()).filter(Boolean);
   }
 
+  // Auto-detect theorem-like declarations in the challenge source. Matches
+  // Theorem/Lemma/Corollary/Proposition/Fact/Remark/Example NAME at a line
+  // start (after optional attributes / Local|Global|Program modifiers).
+  // Definition is intentionally NOT here — those are "holes" handled via the
+  // definition_names field in Advanced options.
+  const DECL_RE =
+    /(?:^|\n)[ \t]*(?:#\[[^\]]*\][ \t]*)*(?:(?:Local|Global|Program)[ \t]+)*(?:Theorem|Lemma|Corollary|Proposition|Fact|Remark|Example)[ \t]+([A-Za-z_][A-Za-z0-9_']*)/g;
+
+  function detectTheoremNames(src) {
+    const names = [];
+    let m;
+    DECL_RE.lastIndex = 0;
+    while ((m = DECL_RE.exec(src)) !== null) {
+      if (!names.includes(m[1])) names.push(m[1]);
+    }
+    return names;
+  }
+
   // ---------------------------------------------------------------------
   // line-numbered textarea gutter
   function wireGutter(wrapperId, textareaId) {
@@ -114,15 +137,15 @@ Definition id_fun : forall (A : Prop) (_ : A), A :=
   solutionSrc.dispatchEvent(new Event("input"));
 
   // ---------------------------------------------------------------------
-  // axiom preset chips
-  document.querySelectorAll(".preset-chip").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const field = $("permittedAxioms");
-      const current = splitList(field.value);
-      const preset = btn.dataset.preset;
-      if (!current.includes(preset)) current.push(preset);
-      field.value = current.join(", ");
-    });
+  // dismissible engine-honesty note (remembers dismissal per browser)
+  const engineNote = $("engineNote");
+  const NOTE_KEY = "rocq-comparator:engine-note-dismissed";
+  try {
+    if (localStorage.getItem(NOTE_KEY) === "1") engineNote.hidden = true;
+  } catch (_) { /* storage unavailable: just show the note */ }
+  $("engineNoteDismiss").addEventListener("click", () => {
+    engineNote.hidden = true;
+    try { localStorage.setItem(NOTE_KEY, "1"); } catch (_) {}
   });
 
   // ---------------------------------------------------------------------
@@ -131,27 +154,36 @@ Definition id_fun : forall (A : Prop) (_ : A), A :=
   const backendStatusText = $("backendStatusText");
   const unavailableNotice = $("unavailableNotice");
   const unavailableDetail = $("unavailableDetail");
+  const unavailableFix = $("unavailableFix");
   const runBtn = $("runBtn");
   const runSpinner = $("runSpinner");
   const runNote = $("runNote");
+
+  const SERVE_FIX = "Fix: serve the built site with `make serve` (it assembles dist/ and serves it on http://localhost:8000/). Serving the source tree, or opening index.html as a file:// URL, breaks the worker.";
 
   function setBackendState(state, text) {
     backendStatus.dataset.state = state;
     backendStatusText.textContent = text;
   }
 
-  function showUnavailable(detail) {
+  function showUnavailable(detail, fix) {
     unavailableNotice.hidden = false;
     if (detail) unavailableDetail.textContent = detail;
+    if (fix) { unavailableFix.textContent = fix; unavailableFix.hidden = false; }
+    else { unavailableFix.hidden = true; }
     runBtn.disabled = true;
     runNote.textContent = "backend not available — Run is disabled; try the demo verdict buttons above.";
   }
 
   async function initBackend() {
     const rc = window.RocqComparator;
+    // (i) glue script never installed the global — almost always the wrong
+    //     directory is being served (rocq_comparator.js 404s at the repo root).
     if (!rc || typeof rc.check !== "function" || !rc.ready) {
       setBackendState("unavailable", "Rocq runtime not found");
-      showUnavailable();
+      showUnavailable(
+        "window.RocqComparator was not installed — the loader script (rocq_comparator.js) did not load. You are probably serving the source tree instead of dist/.",
+        SERVE_FIX);
       return;
     }
     setBackendState("loading", "Loading Rocq runtime…");
@@ -162,8 +194,15 @@ Definition id_fun : forall (A : Prop) (_ : A), A :=
       runBtn.disabled = false;
       runNote.textContent = "";
     } catch (e) {
+      // (ii)/(iii) the loader is present but the worker or engine failed:
+      //     rocq_worker.js / rocq_engine.js missing (wrong directory served),
+      //     a file:// origin, or an engine fatal at init. Surface the reason.
+      const msg = (e && e.message) || String(e);
       setBackendState("unavailable", "Rocq runtime failed to load");
-      showUnavailable("The Rocq runtime failed to start" + (e && e.message ? `: ${e.message}` : "") + ".");
+      const looksLikeMissing = /load|worker|fetch|network|404|import/i.test(msg);
+      showUnavailable(
+        "The Rocq worker/engine failed to start: " + msg,
+        looksLikeMissing ? SERVE_FIX : null);
     }
   }
   initBackend();
@@ -171,11 +210,19 @@ Definition id_fun : forall (A : Prop) (_ : A), A :=
   // ---------------------------------------------------------------------
   // build the REQUEST JSON from the form
   function buildRequest() {
-    const theorem_names = splitList($("theoremNames").value);
+    const override = splitList($("theoremNames").value);
+    const detected = detectTheoremNames(challengeSrc.value);
+    const theorem_names = override.length ? override : detected;
     const definition_names = splitList($("definitionNames").value);
     const permitted_axioms = splitList($("permittedAxioms").value);
     const top = $("topName").value.trim();
     const timeout_s = Number($("timeoutS").value) || 60;
+
+    if (theorem_names.length === 0 && definition_names.length === 0) {
+      throw new Error(
+        "No theorem-like declaration (Theorem/Lemma/Corollary/Proposition/Fact/Remark/Example) was detected in the challenge. " +
+        "Add one, or open Advanced options and set an explicit theorem name or a definition-name hole.");
+    }
 
     const config = {
       challenge: "challenge.v",
@@ -187,9 +234,9 @@ Definition id_fun : forall (A : Prop) (_ : A), A :=
       coqproject: null,
       top: top || null,
       timeout_s,
-      sandbox: "none",
-      rocqchk: false, // browser has no rocqchk subprocess; backend forces this anyway
-      vm: false, // forced off in the browser regardless
+      sandbox: "none",   // no OS sandbox in the browser
+      rocqchk: false,    // browser has no rocqchk subprocess; backend forces this anyway
+      vm: false,         // forced off in the browser regardless
       impredicative_set: $("impredicativeSet").checked,
       indices_matter: $("indicesMatter").checked,
       noinit: $("noinitToggle") ? $("noinitToggle").checked : true,
@@ -197,10 +244,6 @@ Definition id_fun : forall (A : Prop) (_ : A), A :=
       permitted_libraries: [],
       permit_challenge_axioms: $("permitChallengeAxioms").checked,
     };
-
-    if (theorem_names.length === 0 && definition_names.length === 0) {
-      throw new Error("enter at least one theorem name or definition name");
-    }
 
     return {
       config,

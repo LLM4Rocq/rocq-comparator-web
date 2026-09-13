@@ -25,6 +25,8 @@ PORT   ?= 8000
 # Canonical frontend sources copied into dist/ by `make site`.
 ROOT_STATIC = index.html app.js styles.css
 WEB_STATIC  = rocq_comparator.js rocq_worker.js
+# Docs shipped alongside the site (the in-page honesty note links to BACKEND.md).
+DOC_STATIC  = BACKEND.md README.md
 
 .PHONY: all build real engine site serve test clean help
 
@@ -44,6 +46,7 @@ site:
 	@mkdir -p dist
 	@for f in $(ROOT_STATIC); do cp -f $$f dist/; done
 	@for f in $(WEB_STATIC); do cp -f web/$$f dist/; done
+	@for f in $(DOC_STATIC); do [ -f $$f ] && cp -f $$f dist/ || true; done
 	@[ -d examples ] && cp -R examples dist/ || true
 	@touch dist/.nojekyll
 	@if [ -f dist/rocq_engine.js ]; then \
