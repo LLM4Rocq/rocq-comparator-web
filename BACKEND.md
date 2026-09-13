@@ -15,13 +15,20 @@ separate project that consumes it as a library.
 
 ## TL;DR — decision
 
-> **UPDATE (build phase 2): it RUNS.** A real `rocq-comparator` check now
-> executes entirely client-side on a js_of_ocaml build of rocq-runtime 9.2 —
-> the `Sys.word_size=64` blocker below is cleared surgically (patched
-> `kernel.cma` only, core switch untouched). Accept/reject verdicts verified
-> headlessly. Current limit: `-noinit` (no prelude `.vo` bundle yet). Jump to
-> **§11** for the mechanism, files, and exact repro commands. The analysis
-> below is the original spike and remains accurate.
+> **UPDATE (build phase 5): the shipped engine is WebAssembly.** A real
+> `rocq-comparator` check runs entirely client-side on a **`wasm_of_ocaml`**
+> build of rocq-runtime 9.2 — a **~5 MB `.wasm`** (+ ~20 KB JS glue), ~7× lighter
+> than the ~36 MB js_of_ocaml engine it replaces. The `Sys.word_size=64` blocker
+> is cleared surgically (patched `kernel.cma`/`lib.cma`/`clib.cma` overlay, core
+> switch untouched); the Corelib prelude + a Stdlib subset (`ring`/`lia`/`lra`)
+> load; the custom C primitives (float64, threads, and zarith `ml_z_*`) are
+> supplied as WebAssembly (`web/rocq_shims.wat`) with zarith backed by JS
+> `BigInt` (`web/rocq_zarith.js`) — because `wasm_of_ocaml` resolves C primitives
+> from the WASM runtime only, not JS `//Provides`. `make test` → **12 passed, 0
+> failed** (headless Node; incl. `nat`+induction, ZArith `ring`, Reals `lra`). A
+> js_of_ocaml build is kept as a documented fallback (`make real BACKEND=js`).
+> Jump to **§15** for the WASM mechanism (and §11-14 for the shared jsoo lineage,
+> still accurate). The analysis below is the original spike.
 
 
 | Question | Answer |
@@ -969,3 +976,116 @@ Do **not** put mathcomp/analysis in the Pages bundle. Instead:
 A minimal proof-of-concept (mathcomp/boot only, ~12 MB + HB) is achievable with
 the same pipeline if a small in-browser mathcomp demo is wanted; the full
 mathcomp + analysis demo should be lazy-loaded/off-Pages as above.
+
+---
+
+## 15. Build phase 5 — the shipped engine is WebAssembly (wasm_of_ocaml)
+
+**Status: the shipped engine is now a `wasm_of_ocaml` build.** The same
+coerce-32bit overlay, the same 32-bit-safe `.vo` bundle, and the same seam
+(`web/web_check.ml`) now produce a **~5 MB `.wasm`** module (+ ~20 KB JS glue)
+instead of the ~36 MB `js_of_ocaml` engine — verified headless under Node
+(`make test` → **12 passed, 0 failed**, incl. `nat`+induction, ZArith `ring`,
+Reals `lra`). A `js_of_ocaml` build is kept as a documented fallback
+(`make real BACKEND=js`).
+
+### 15.1 Sizes (measured)
+
+| engine | module | glue | total |
+|---|---|---|---|
+| **WASM (jspi, shipped)** | 5.10 MB `.wasm` | 20 KB `.js` | **~5.12 MB** |
+| WASM (cps, universal) | 12.3 MB `.wasm` | 20 KB `.js` | ~12.3 MB |
+| js_of_ocaml (fallback) | — | 37.8 MB `.js` | 37.8 MB |
+
+The `.vo` bundle (`dist/coqlib/`, ~35 MB) is **reused unchanged** — the 31-bit
+wasm runtime reads the same 30-bit-hash-masked `.vo` the 32-bit jsoo runtime did.
+
+### 15.2 The one structural difference — C primitives must be WebAssembly
+
+`wasm_of_ocaml` resolves an OCaml `external` C primitive from the **WASM**
+runtime only: a JS `//Provides` fragment (how `runtime_shims.js` /
+`zarith_stubs.js` work under jsoo) is **not** consulted and becomes a
+throwing dummy (verified with a one-line probe). So every custom primitive the
+natively-built rocq-runtime references is supplied as WebAssembly in
+**`web/rocq_shims.wat`** (passed to `wasm_of_ocaml compile` as a runtime file;
+the compiler assigns it module `env`, binaryen merges it into the runtime):
+
+- **Float64** (`rocq_f{add,sub,mul,div,sqrt}_byte`, `rocq_next_{up,down}_byte`) —
+  real `f64` ops; boxes via `struct.new $float` (binaryen canonicalises the
+  identical struct type with the runtime's). The kernel's IEEE self-test at
+  module-init exercises these, so they must be correct — they are.
+- **threads.posix** (`caml_thread_*`) — single-threaded no-ops (`ref.i31 0`).
+- **VM init** (`init_rocq_vm`, `rocq_accumulate`, `rocq_makeaccu`,
+  `rocq_offset_tcode`, …) — benign dummies (VM is off, `vm:false`); the VM
+  *interpreter* prims stay throwing dummies (never reached).
+- **`caml_unix_getpid`** — fixed pid.
+- **zarith** (`ml_z_*`, ~30 referenced) — the interesting one, below.
+
+### 15.3 zarith backed by JavaScript BigInt (correct arbitrary precision)
+
+`rocq-runtime.interp` (a *core* library, needed by every check) requires
+`zarith`, and its `Z` module calls `ml_z_*` at load — so the engine cannot even
+boot without a working zarith. `external`s are inlined as primitive references
+at the call sites of the already-compiled `interp`/`micromega`, so an OCaml
+zarith overlay cannot remove them; they must be provided as wasm.
+
+The wasm `ml_z_*` stubs in `rocq_shims.wat` are thin marshallers: they represent
+a *small* `Z.t` as an OCaml `i31` int and a *big* one as a JS `BigInt` wrapped by
+the runtime's `wrap`, and delegate the actual arithmetic to JS `BigInt` helpers
+(`web/rocq_zarith.js`, `globalThis.rocqz_*`). `BigInt` gives **exact arbitrary
+precision**, so this is a correct zarith, not an approximation (Reals `lra`,
+which drives micromega's rational certificate search through zarith, passes).
+
+The wasm imports the helpers from the **`js`** import module, which
+`wasm_of_ocaml` binds to a small object `ag`; a one-line post-build patch
+augments it — `js:ag` → `js:Object.assign(ag, globalThis.__rocqz)` — and
+`rocq_zarith.js` (loaded by the worker *before* the engine) sets
+`globalThis.__rocqz`. `int64`/`string`/tuple marshalling uses the runtime's
+exported `caml_copy_int64`/`Int64_val`/`caml_string_of_jsstring`/
+`caml_jsstring_of_string` and a `$block` (tag at index 0).
+
+### 15.4 VFS read-side patches (`web/patches/coerce-wasm-readside.pl`)
+
+The in-browser VFS (`Sys_js` → the wasm runtime's virtual filesystem) works, but
+is stricter than jsoo's, so three read-side spots in the overlaid `lib.cma` /
+`clib.cma` needed patching (no effect on `.vo`, and no-ops on native/jsoo):
+
+1. `lib/system.ml` `apply_subdir`: the loadpath scanner read `(Unix.stat p).st_kind`;
+   the VFS has no `Unix.stat` (it throws → `S_BLK` → the mounted coqlib is
+   skipped). Use `Sys.is_directory` / `Sys.file_exists`, which are VFS-aware.
+2. `clib/cUnix.ml` `canonical_path_name`: it canonicalises via `Sys.chdir p;
+   Sys.getcwd ()`. Under jsoo `chdir` tracks a virtual cwd (works); under wasm +
+   node `chdir` into a VFS dir fails and the fallback prepended the *real* cwd,
+   mangling the absolute `-coqlib` path. For an absolute path, return it as-is.
+3. `lib/system.ml` `file_exists_respecting_case`: it appended `Filename.concat
+   path "."` (→ `"path/."`) which the VFS does not normalise and cannot
+   `readdir`; use `path` directly when the dir component is `.`.
+
+The seam's Promise helpers were also made backend-portable (`Promise.resolve`
+wrapped in a function expression, so `fun_call` keeps the right `this` on wasm).
+
+### 15.5 Build / worker / test wiring
+
+- `web/build-real.sh` (default `BACKEND=wasm`, `WOO_EFFECTS=jspi`): builds the
+  seam bytecode against the overlay, runs `wasm_of_ocaml compile
+  web/rocq_shims.wat …`, applies the `js:ag` glue patch, and stages
+  `rocq_engine.js` + `rocq_engine.assets/code-*.wasm` + `rocq_zarith.js`.
+  `BACKEND=js` reproduces the js_of_ocaml fallback; `WOO_EFFECTS=cps` a universal
+  `.wasm`.
+- `web/rocq_worker.js`: `importScripts('rocq_zarith.js', 'rocq_engine.js')` (the
+  BigInt backend first), then waits for the asynchronously-installed
+  `RocqComparator` (wasm instantiates async, unlike synchronous jsoo).
+- `test/judge_test.cjs`: works against either engine; for WASM it loads
+  `rocq_zarith.js`, makes the assets dir reachable, and polls for the engine.
+
+### 15.6 Browser caveat (could not be verified live — no browser here)
+
+Verified **headless under Node 24** only. The shipped `.wasm` uses the **JSPI**
+effects backend: it runs in Node 24+ and **Chrome/Edge ≥ 137**; **Safari and
+current Firefox do not enable JSPI by default**. For those, rebuild with
+`make real WOO_EFFECTS=cps` (a ~12 MB universal `.wasm`, also verified 12/12
+under Node). GitHub Pages serves `.wasm` as `application/wasm` and the engine is
+single-threaded, so no COOP/COEP headers are needed. Live in-browser behaviour
+(Worker `importScripts`, `fetch` of the `.assets` `.wasm`, the hard kill-timeout)
+follows the same contract as the jsoo build but was not exercised in a real
+browser this session.

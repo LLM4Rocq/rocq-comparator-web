@@ -57,6 +57,8 @@ fi
 # / system.mli / objFile.mli are all unchanged, so interface CRCs are preserved
 # and every other installed rocq-runtime sub-archive links against them
 # untouched (same trick as the kernel.cma-only overlay before).
+# read-side patches for the wasm engine (idempotent; no effect on .vo or js/native)
+perl "$HERE/web/patches/coerce-wasm-readside.pl" "$WORK/rocq-src"
 ( cd "$WORK/rocq-src" && dune build --root . --profile release kernel/kernel.cma lib/lib.cma clib/clib.cma )
 PATCHED_KERNEL_CMA="$WORK/rocq-src/_build/default/kernel/kernel.cma"
 PATCHED_LIB_CMA="$WORK/rocq-src/_build/default/lib/lib.cma"
@@ -71,13 +73,46 @@ cp -f "$PATCHED_KERNEL_CMA" "$OVERLAY/rocq-runtime/kernel/kernel.cma"
 cp -f "$PATCHED_LIB_CMA"    "$OVERLAY/rocq-runtime/lib/lib.cma"
 cp -f "$PATCHED_CLIB_CMA"   "$OVERLAY/rocq-runtime/clib/clib.cma"
 
-echo "== [3/5] compile the seam through js_of_ocaml against the overlay =="
+# BACKEND=wasm (default, shipped) or js (documented fallback). WASM is lighter:
+# ~5 MB .wasm + ~20 KB JS glue vs the ~36 MB js_of_ocaml engine. See BACKEND.md.
+BACKEND="${BACKEND:-wasm}"
+# effects backend for wasm_of_ocaml: jspi (default, smallest/fastest; needs a
+# JSPI-capable engine: Node 24+, Chrome/Edge >=137) or cps (universal, incl.
+# Safari/Firefox, but a larger .wasm). Override with WOO_EFFECTS=cps.
+WOO_EFFECTS="${WOO_EFFECTS:-jspi}"
+echo "== [3/5] compile the seam ($BACKEND) against the overlay =="
 export OCAMLPATH="$OVERLAY:$SW/lib"
-( cd "$HERE" && dune build web/web_check.bc.js )
+if [ "$BACKEND" = "js" ]; then
+  ( cd "$HERE" && dune build web/web_check.bc.js )
+else
+  ( cd "$HERE" && dune build web/web_check.bc )
+  # wasm_of_ocaml resolves OCaml `external` C primitives from the WASM runtime
+  # only (a JS //Provides fragment becomes a throwing dummy), so the custom
+  # primitives the rocq-runtime references (float64, threads, VM init, getpid,
+  # and the ~30 zarith ml_z_*) are supplied as WebAssembly in web/rocq_shims.wat.
+  # The zarith stubs delegate arbitrary-precision arithmetic to JS BigInt helpers
+  # (web/rocq_zarith.js) imported from the "js" module (= globalThis); the glue
+  # patch below wires them in.
+  ( cd "$HERE" && wasm_of_ocaml compile --effects="$WOO_EFFECTS" \
+      web/rocq_shims.wat _build/default/web/web_check.bc \
+      -o "$HERE/dist/rocq_engine.js" )
+fi
 
 echo "== [4/5] assemble dist/ =="
 mkdir -p "$HERE/dist"
-cp -f "$HERE/_build/default/web/web_check.bc.js" "$HERE/dist/rocq_engine.js"
+if [ "$BACKEND" = "js" ]; then
+  cp -f "$HERE/_build/default/web/web_check.bc.js" "$HERE/dist/rocq_engine.js"
+  rm -rf "$HERE/dist/rocq_engine.assets"
+else
+  # dist/rocq_engine.js (JS glue) + dist/rocq_engine.assets/code-*.wasm were
+  # written by wasm_of_ocaml above. Wire the JS BigInt zarith backend into the
+  # wasm "js" import module (bound to globalThis): the runtime binds "js" to a
+  # small object `ag`; augment it with globalThis.__rocqz (set by rocq_zarith.js,
+  # loaded first by the worker). This one-line patch is the wasm equivalent of
+  # the js_of_ocaml //Provides shim.
+  perl -0pi -e "s/js:ag,/js:Object.assign(ag,globalThis.__rocqz||{}),/" "$HERE/dist/rocq_engine.js"
+  cp -f "$HERE/web/rocq_zarith.js" "$HERE/dist/rocq_zarith.js"
+fi
 for f in index.html app.js styles.css rocq_comparator.js rocq_worker.js; do
   [ -f "$HERE/web/$f" ] && cp -f "$HERE/web/$f" "$HERE/dist/" || true
   [ -f "$HERE/$f" ]     && cp -f "$HERE/$f"     "$HERE/dist/" || true
@@ -122,4 +157,9 @@ if [ -d "$NATIVE_COQLIB/theories" ]; then
   ' )
 fi
 
-echo "== [5/5] done: dist/rocq_engine.js ($(wc -c < "$HERE/dist/rocq_engine.js") bytes) =="
+if [ "$BACKEND" = "js" ]; then
+  echo "== [5/5] done: dist/rocq_engine.js ($(wc -c < "$HERE/dist/rocq_engine.js") bytes, js_of_ocaml) =="
+else
+  WASM=$(ls "$HERE"/dist/rocq_engine.assets/*.wasm 2>/dev/null | head -1)
+  echo "== [5/5] done: WASM engine — glue $(wc -c < "$HERE/dist/rocq_engine.js") B + wasm $(wc -c < "$WASM") B (effects=$WOO_EFFECTS) =="
+fi

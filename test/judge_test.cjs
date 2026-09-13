@@ -3,16 +3,46 @@
 // same files the browser worker fetches) into the engine VFS, then runs with
 // the prelude (NOT -noinit): a nat + tactics proof accepts, an admitted one is
 // rejected, plus the axiom/statement checks. Proof that the full
-// rocq-comparator kernel pipeline runs client-side (js_of_ocaml) WITH stdlib.
+// rocq-comparator kernel pipeline runs client-side WITH stdlib.
+//
+// Works against BOTH the shipped WASM engine (rocq_engine.js glue +
+// rocq_engine.assets/*.wasm + rocq_zarith.js) and the js_of_ocaml fallback.
 //
 //   node test/judge_test.cjs dist/rocq_engine.js
 global.window = global;
 const path = require('path'), os = require('os'), fs = require('fs');
 const enginePath = path.resolve(process.argv[2] || path.join(__dirname, '..', 'dist', 'rocq_engine.js'));
 const distDir = path.dirname(enginePath);
+const isWasm = fs.existsSync(path.join(distDir, 'rocq_engine.assets'));
+
+// WASM engine: (1) rocq_zarith.js must install globalThis.__rocqz (the JS BigInt
+// zarith backend) BEFORE the engine wasm instantiates; (2) the glue resolves the
+// .wasm relative to require.main.filename's directory under node, so make the
+// assets dir reachable from here; (3) RocqComparator installs asynchronously.
+if (isWasm) {
+  require(path.join(distDir, 'rocq_zarith.js'));
+  const linkDir = path.join(path.dirname(require.main.filename), 'rocq_engine.assets');
+  try {
+    if (!fs.existsSync(linkDir)) fs.symlinkSync(path.join(distDir, 'rocq_engine.assets'), linkDir);
+    process.on('exit', function () { try { fs.unlinkSync(linkDir); } catch (_) {} });
+  } catch (_) {}
+}
 try { process.chdir(fs.mkdtempSync(path.join(os.tmpdir(), 'rcweb-'))); } catch (_) {}
 require(enginePath);
-const rc = global.RocqComparator;
+
+// js_of_ocaml installs RocqComparator synchronously; wasm_of_ocaml does it after
+// async instantiation — poll until it is present.
+function awaitEngine(timeoutMs) {
+  return new Promise(function (resolve, reject) {
+    const t0 = Date.now();
+    (function poll() {
+      if (global.RocqComparator && typeof global.RocqComparator.check === 'function') return resolve(global.RocqComparator);
+      if (Date.now() - t0 > timeoutMs) return reject(new Error('engine did not install RocqComparator'));
+      setTimeout(poll, 20);
+    })();
+  });
+}
+let rc = global.RocqComparator;
 
 let pass = 0, fail = 0;
 function ok(name, cond, extra) { (cond ? pass++ : fail++); console.log((cond ? 'PASS ' : 'FAIL ') + name + (extra ? '  ' + extra : '')); }
@@ -52,6 +82,7 @@ async function check(cfg, ch, sol) {
 }
 
 (async () => {
+  rc = await awaitEngine(60000);
   await rc.ready;
   ok("engine reports a Rocq version", typeof rc.version === 'string' && rc.version.length > 0, "version=" + rc.version);
 

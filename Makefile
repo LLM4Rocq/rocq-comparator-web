@@ -24,7 +24,7 @@ PORT   ?= 8000
 
 # Canonical frontend sources copied into dist/ by `make site`.
 ROOT_STATIC = index.html app.js styles.css
-WEB_STATIC  = rocq_comparator.js rocq_worker.js
+WEB_STATIC  = rocq_comparator.js rocq_worker.js rocq_zarith.js
 # Docs shipped alongside the site (the in-page honesty note links to BACKEND.md).
 DOC_STATIC  = BACKEND.md README.md
 
@@ -58,7 +58,8 @@ site:
 	@[ -d examples ] && cp -R examples dist/ || true
 	@touch dist/.nojekyll
 	@if [ -f dist/rocq_engine.js ]; then \
-	  echo "site: dist/ assembled (engine present -> live in-browser check enabled)"; \
+	  if [ -d dist/rocq_engine.assets ]; then eng="WASM"; else eng="js_of_ocaml"; fi; \
+	  echo "site: dist/ assembled ($$eng engine present -> live in-browser check enabled)"; \
 	else \
 	  echo "site: dist/ assembled (engine ABSENT -> demo-verdict fallback only; run 'make real' to build it)"; \
 	fi

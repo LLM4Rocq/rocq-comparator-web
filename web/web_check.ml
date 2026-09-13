@@ -32,8 +32,8 @@ module C = Rocq_comparator
 
 (* ---- JS Promise / Error helpers (no ppx, just Js.Unsafe) ---- *)
 
-let promise_resolve (v : _) : _ = Js.Unsafe.(fun_call (js_expr "Promise.resolve") [| inject v |])
-let promise_reject (v : _) : _ = Js.Unsafe.(fun_call (js_expr "Promise.reject") [| inject v |])
+let promise_resolve (v : _) : _ = Js.Unsafe.(fun_call (js_expr "(function(v){return Promise.resolve(v)})") [| inject v |])
+let promise_reject (v : _) : _ = Js.Unsafe.(fun_call (js_expr "(function(v){return Promise.reject(v)})") [| inject v |])
 let js_error (msg : string) = Js.Unsafe.(new_obj (js_expr "Error") [| inject (Js.string msg) |])
 
 (* ---- browser hooks: real checks, no rocqchk, no sandbox ---- *)
@@ -58,10 +58,18 @@ let browser_hooks () : C.Check.hooks =
    any loadpath files) inline; Config points at their VFS paths. We do NOT
    change the core Config to accept inline source: instead we materialise the
    files here and let Config/Driver read them exactly as on disk. *)
+(* Fixed VFS working directory. Under js_of_ocaml Sys.getcwd () is the fake
+   device root ("/static"); under wasm_of_ocaml + node it is the REAL process
+   cwd, so we pin the working dir explicitly to keep the inline files and the
+   coqlib mount in the same in-memory tree on BOTH backends (and in the
+   browser, where there is no other filesystem). *)
+let work_vfs = "/static"
+
 let write_files (files : Yojson.Safe.t) : unit =
   let put path content =
-    (try Sys_js.create_file ~name:path ~content
-     with _ -> (try Sys_js.update_file ~name:path ~content with _ -> ()))
+    let name = if String.length path > 0 && path.[0] = '/' then path else work_vfs ^ "/" ^ path in
+    (try Sys_js.create_file ~name ~content
+     with _ -> (try Sys_js.update_file ~name ~content with _ -> ()))
   in
   match files with
   | `Assoc l ->
@@ -162,7 +170,7 @@ let run_check_string (req : string) : (string, string) result =
           device root (/static); [write_files] materialises the inline files
           there, so [config_dir] must be that same directory for the resolved
           paths to hit the files we just wrote. *)
-       (match C.Config.of_json ~config_dir:(Sys.getcwd ()) cfg_json with
+       (match C.Config.of_json ~config_dir:work_vfs cfg_json with
         | Result.Error m ->
           (* config validation failure is a normal, resolved verdict *)
           Ok (C.Verdict.to_string (with_version (C.Verdict.fail C.Verdict.Config_error m)))
@@ -212,6 +220,7 @@ let run_check (req : Js.js_string Js.t) =
    for the worker's lifetime. To change the loadpath, the main thread respawns
    the worker (which re-runs this module). *)
 let ready = promise_resolve Js.undefined
+
 
 let () =
   setup_vfs ();

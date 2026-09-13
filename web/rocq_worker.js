@@ -12,14 +12,30 @@
 
 self.window = self; // web_check installs on the global; make `window` an alias
 
+// rocq_zarith.js installs globalThis.__rocqz (the JS BigInt backend the wasm
+// engine imports for zarith) and MUST load before rocq_engine.js instantiates.
+// rocq_engine.js is the wasm_of_ocaml glue: it fetches rocq_engine.assets/*.wasm
+// (relative to this worker) and, once instantiated, installs `RocqComparator`.
 try {
-  importScripts('rocq_engine.js');
+  importScripts('rocq_zarith.js', 'rocq_engine.js');
 } catch (e) {
-  self.postMessage({ type: 'fatal', error: 'failed to load rocq_engine.js: ' + (e && e.message || e) });
+  self.postMessage({ type: 'fatal', error: 'failed to load the engine: ' + (e && e.message || e) });
   throw e;
 }
 
-var engine = self.RocqComparator;
+// The wasm engine installs RocqComparator ASYNCHRONOUSLY (after wasm
+// instantiation), unlike the synchronous js_of_ocaml build — so wait for it.
+var engine = null;
+function awaitEngine(timeoutMs) {
+  return new Promise(function (resolve, reject) {
+    var t0 = Date.now();
+    (function poll() {
+      if (self.RocqComparator && typeof self.RocqComparator.check === 'function') return resolve(self.RocqComparator);
+      if (Date.now() - t0 > timeoutMs) return reject(new Error('engine did not install RocqComparator (wasm instantiation failed?)'));
+      setTimeout(poll, 20);
+    })();
+  });
+}
 
 // Fetch one file as a binary string (each byte -> char code 0-255). TextDecoder
 // 'latin1' maps bytes 1:1 to code points, which the engine's Js.to_bytestring
@@ -60,7 +76,7 @@ async function mountBundle() {
 
 (async function () {
   try {
-    if (!engine || typeof engine.check !== 'function') throw new Error('engine did not install RocqComparator');
+    engine = await awaitEngine(60000);
     await engine.ready;
     var mounted = 0;
     try { mounted = await mountBundle(); } catch (e) { mounted = 0; /* -noinit fallback */ }

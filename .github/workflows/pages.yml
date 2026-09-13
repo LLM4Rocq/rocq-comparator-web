@@ -1,16 +1,19 @@
 # Deploy the client-side Rocq comparator to GitHub Pages.
 #
 # This site is 100% static: index.html + styles.css + app.js + the worker glue
-# (rocq_comparator.js / rocq_worker.js) + the prebuilt js_of_ocaml engine
-# (dist/rocq_engine.js). There is NO server-side code.
+# (rocq_comparator.js / rocq_worker.js) + the prebuilt WASM engine — the
+# wasm_of_ocaml glue (dist/rocq_engine.js), its module (dist/rocq_engine.assets/
+# code-*.wasm), and the JS BigInt zarith backend (dist/rocq_zarith.js). There is
+# NO server-side code.
 #
 # Why this workflow does not build the engine:
-#   dist/rocq_engine.js is a js_of_ocaml build of a *patched* rocq-runtime 9.2
-#   kernel + the rocq-comparator library (see BACKEND.md). Reproducing it needs
-#   a full opam switch with the Rocq sources and a patched kernel.cma overlay —
-#   not feasible on a stock GitHub Actions runner. So the engine is committed to
-#   the repo under dist/ and this workflow only (re)assembles the static bundle
-#   from the committed frontend sources (`make site`) and publishes dist/.
+#   the engine is a wasm_of_ocaml build of a *patched* rocq-runtime 9.2 kernel +
+#   the rocq-comparator library (see BACKEND.md). Reproducing it needs a full
+#   opam switch with the Rocq sources and a patched kernel.cma overlay — not
+#   feasible on a stock GitHub Actions runner. So the engine (glue + .wasm +
+#   rocq_zarith.js) is committed under dist/ and this workflow only (re)assembles
+#   the static bundle from the committed frontend sources (`make site`) and
+#   publishes dist/.
 #
 #   If dist/rocq_engine.js is NOT committed, the page still deploys and works:
 #   it falls back to the demo-verdict path (the live in-browser check is simply
@@ -22,10 +25,12 @@
 # rocq_engine.js by relative path too, so the site works unchanged under any
 # sub-path — no <base> tag or rewrite needed.
 #
-# Headers: the engine is pure js_of_ocaml (no WebAssembly, no SharedArrayBuffer),
-# so it needs NO COOP/COEP headers and runs on GitHub Pages as-is. (A future
-# wasm_of_ocaml build using threads/SharedArrayBuffer WOULD need COOP/COEP, which
-# GitHub Pages cannot set — see README for the caveat and workaround.)
+# MIME / headers: the .wasm module must be served as application/wasm — GitHub
+# Pages does this by extension, so no config is needed. The engine is
+# single-threaded (no SharedArrayBuffer, no wasm threads), so it needs NO
+# COOP/COEP headers and runs on Pages as-is. The shipped build uses the JSPI
+# effects backend (works in Node 24+ and Chrome/Edge >=137); for Safari/Firefox
+# rebuild with WOO_EFFECTS=cps (a larger, universal .wasm) — see README.
 
 name: Deploy to GitHub Pages
 
@@ -60,7 +65,8 @@ jobs:
           if [ ! -f dist/rocq_engine.js ]; then
             echo "::warning::dist/rocq_engine.js not committed — deploying demo-verdict fallback only (live in-browser check disabled)."
           else
-            echo "engine present ($(wc -c < dist/rocq_engine.js) bytes) — live in-browser check enabled."
+            wasm=$(ls dist/rocq_engine.assets/*.wasm 2>/dev/null | head -1); \
+            echo "engine present (glue $(wc -c < dist/rocq_engine.js) B + wasm $(wc -c < "$wasm" 2>/dev/null) B) — live in-browser check enabled."
           fi
 
       - name: Upload Pages artifact
