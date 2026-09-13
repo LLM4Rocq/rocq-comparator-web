@@ -157,7 +157,7 @@ function worker(enginePath) {
   // Mount the coqlib bundle the way rocq_worker.js does, but reading files from
   // disk instead of fetch(). Bytes go through `convert` — the SAME rocq_bytes.js
   // path the worker uses (or the browser windows-1252 sim under ROCQ_DECODE=browser).
-  // ---- Phase 2 lazy packs (packs.json), else legacy single bundle (manifest.json) ----
+  // ---- lazy packs (packs.json) ----
   let manifest = null; const mountedPacks = {}; let mountedCount = 0;
   function mountPack(pk) {
     if (mountedPacks[pk.name]) return 0;
@@ -183,24 +183,14 @@ function worker(enginePath) {
     }));
     Object.keys(dirs).forEach(d => { try { rc.mount(d + '/.keep', ''); } catch (e) {} });
   }
-  // Mount the always-on packs (Corelib); returns #objects mounted at startup.
+  // Mount the always-on packs (Corelib) from packs.json; returns #objects mounted.
   function mountBundle() {
     const packsPath = path.join(coqlibDir, 'packs.json');
-    if (fs.existsSync(packsPath)) {
-      manifest = JSON.parse(fs.readFileSync(packsPath, 'utf8'));
-      predeclareDirs();
-      (manifest.packs || []).filter(p => p.always).forEach(mountPack);
-      return mountedCount;
-    }
-    // legacy fallback: manifest.json = one bundle mounted up front
-    const manifestPath = path.join(coqlibDir, 'manifest.json');
-    if (!fs.existsSync(manifestPath)) return 0;
-    const m = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
-    manifest = { coqlib_vfs: m.coqlib_vfs || '/static/coqlib', packs: [] };
-    if (m.meta) rc.mount(m.meta_vfs || '/static/lib/rocq-runtime/META', convert(new Uint8Array(fs.readFileSync(path.join(coqlibDir, m.meta)))));
-    const vfs = manifest.coqlib_vfs;
-    for (const rel of (m.vo || [])) rc.mount(vfs + '/' + rel, convert(new Uint8Array(fs.readFileSync(path.join(coqlibDir, rel)))));
-    return (m.vo || []).length;
+    if (!fs.existsSync(packsPath)) throw new Error('no ' + packsPath + ' (run make real)');
+    manifest = JSON.parse(fs.readFileSync(packsPath, 'utf8'));
+    predeclareDirs();
+    (manifest.packs || []).filter(p => p.always).forEach(mountPack);
+    return mountedCount;
   }
   // Lazily fetch+mount the packs these sources import (scan->resolve->mount), cached.
   function ensurePacks(sources) {
@@ -298,20 +288,27 @@ function worker(enginePath) {
       const rStd = RocqPacks.resolvePacks(MCM, RocqPacks.scanRequires(["From Stdlib Require Import ZArith."]));
       ok("lazy: resolver maps Stdlib -> stdlib pack only", rStd.length === 1 && rStd[0] === "stdlib", "resolved=[" + rStd.join(",") + "]");
 
-      // --- mathcomp end-to-end DIAGNOSTIC (not a pass/fail assertion) --------
-      // Fetch+mount the mathcomp packs all_ssreflect needs, then run a real proof
-      // (an Admitted seq lemma proved with a mathcomp lemma). The lazy fetch and
-      // the .vos mount are exercised here; the verdict is REPORTED (see BACKEND
-      // §16 for the in-browser mathcomp status).
-      if (process.env.ROCQ_MATHCOMP === '1' && manifest.packs.some(p => p.name === "mathcomp-boot")) {
+      // --- mathcomp end to end (whenever the mathcomp packs are staged) --------
+      // The lazy fetch mounts exactly the packs all_ssreflect needs (.vos, proofs
+      // stripped = trusted library), then a real ssreflect proof is checked.
+      if (manifest.packs.some(p => p.name === "mathcomp-boot")) {
         const MCH = "From mathcomp Require Import all_ssreflect.\nLemma foo (s : seq nat) : size (rev s) = size s.\nProof. Admitted.\n";
-        const MSOL = "From mathcomp Require Import all_ssreflect.\nLemma foo (s : seq nat) : size (rev s) = size s.\nProof. exact: size_rev. Qed.\n";
+        const MSOL = "From mathcomp Require Import all_ssreflect.\nLemma foo (s : seq nat) : size (rev s) = size s.\nProof. by rewrite size_rev. Qed.\n";
         const fetched = ensurePacks([MCH, MSOL]);
-        console.log("MATHCOMP: lazy-fetched packs = [" + fetched.join(", ") + "]");
-        try {
-          const mv = JSON.parse(await rc.check(JSON.stringify({ config: Object.assign({}, base, { theorem_names: ["foo"], definition_names: [] }), files: { "challenge.v": MCH, "solution.v": MSOL } })));
-          console.log("MATHCOMP: verdict ok=" + mv.ok + " reason=" + (mv.reason || "-") + (mv.detail ? "  detail=" + String(mv.detail).replace(/\n/g," ").slice(0,160) : ""));
-        } catch (e) { console.log("MATHCOMP: check threw " + (e && e.message || e)); }
+        ok("mathcomp: all_ssreflect lazily fetches hb+boot+order+ssreflect only",
+           ["mathcomp-hb","mathcomp-boot","mathcomp-order","mathcomp-ssreflect"].every(n => fetched.indexOf(n) >= 0) && fetched.every(n => n.indexOf("mathcomp") === 0),
+           "fetched=[" + fetched.join(",") + "]");
+        let mv; try { mv = await check({ theorem_names: ["foo"], definition_names: [] }, MCH, MSOL); }
+        catch (e) { mv = { ok: false, reason: "threw", detail: e && e.message || String(e) }; }
+        ok("mathcomp: ssreflect proof accepted against the trusted .vos library", mv.ok === true,
+           "ok=" + mv.ok + " reason=" + (mv.reason || "-") + (mv.detail ? " detail=" + String(mv.detail).replace(/\n/g, " ").slice(0, 160) : "")
+           + (mv.ok ? "" : " targets=" + JSON.stringify(mv.targets)));
+        const MBAD = "From mathcomp Require Import all_ssreflect.\nLemma foo (s : seq nat) : size (rev s) = size s.\nProof. Admitted.\n";
+        try { mv = await check({ theorem_names: ["foo"], definition_names: [] }, MCH, MBAD); } catch (e) { mv = { ok: false, reason: "threw" }; }
+        ok("mathcomp: Admitted ssreflect solution rejected as not_proved", mv.ok === false && mv.reason === "not_proved", "reason=" + mv.reason);
+        // the engine must still judge fresh request files after a mathcomp load
+        v = await check({ theorem_names: ["foo"], definition_names: [] }, NATCH, NATCH);
+        ok("after mathcomp: a new request is judged on its own files", v.ok === false && v.reason === "not_proved", "reason=" + v.reason + " targets=" + JSON.stringify(v.targets));
       }
     }
 

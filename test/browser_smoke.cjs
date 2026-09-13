@@ -12,7 +12,10 @@
 //   2. clicking Run on the page's default example produces an accepted verdict;
 //   3. through window.RocqComparator: a Stdlib (ZArith + ring) proof is
 //      accepted, an Admitted one is rejected as not_proved, a wrong statement is
-//      a statement_mismatch.
+//      a statement_mismatch; when the mathcomp packs are staged, an ssreflect
+//      proof against the trusted .vos library is accepted;
+//   4. lazy import: no Stdlib or mathcomp file is downloaded until a source
+//      imports it.
 //
 // It runs TWICE: once as-is (the worker upgrades to the JSPI engine when the
 // browser supports it) and once on /?engine=cps, which the page forwards to the
@@ -27,7 +30,7 @@ const http = require('http'), fs = require('fs'), path = require('path');
 const cp = require('child_process'), os = require('os');
 
 const DIST = path.resolve(process.argv[2] || path.join(__dirname, '..', 'dist'));
-const PAGE_READY_MS = 300000, CHECK_MS = 180000;
+const PAGE_READY_MS = 300000, CHECK_MS = 300000;
 
 // ---------------------------------------------------------------- browser
 const CANDIDATES = [
@@ -131,13 +134,18 @@ function serve(dir, log) {
 // ---------------------------------------------------------------- the checks
 const SAMPLE_CONFIG = JSON.parse(fs.readFileSync(path.join(DIST, 'examples', 'config.sample.json'), 'utf8'));
 function request(theorem, challenge, solution) {
-  return JSON.stringify({ config: Object.assign({}, SAMPLE_CONFIG, { theorem_names: [theorem], timeout_s: 120 }),
+  return JSON.stringify({ config: Object.assign({}, SAMPLE_CONFIG, { theorem_names: [theorem], timeout_s: 240 }),
                           files: { 'challenge.v': challenge, 'solution.v': solution } });
 }
 const Z_CH  = 'From Stdlib Require Import ZArith. Open Scope Z_scope.\nTheorem sq : forall a b : Z, (a+b)*(a+b) = a*a + 2*a*b + b*b.\nProof. Admitted.\n';
 const Z_SOL = 'From Stdlib Require Import ZArith. Open Scope Z_scope.\nTheorem sq : forall a b : Z, (a+b)*(a+b) = a*a + 2*a*b + b*b.\nProof. intros; ring. Qed.\n';
 const N_CH  = 'Theorem add_0_r : forall n : nat, n + 0 = n.\nProof. Admitted.\n';
 const N_BAD = 'Theorem add_0_r : forall n : nat, 0 + n = n.\nProof. reflexivity. Qed.\n';
+const M_CH  = 'From mathcomp Require Import all_ssreflect.\nLemma foo (s : seq nat) : size (rev s) = size s.\nProof. Admitted.\n';
+const M_SOL = 'From mathcomp Require Import all_ssreflect.\nLemma foo (s : seq nat) : size (rev s) = size s.\nProof. by rewrite size_rev. Qed.\n';
+const PACKS = JSON.parse(fs.readFileSync(path.join(DIST, 'coqlib', 'packs.json'), 'utf8'));
+const HAS_MATHCOMP = PACKS.packs.some((p) => p.name === 'mathcomp-ssreflect');
+const servedUnder = (log, dir) => log.served.filter((p) => p.indexOf('/coqlib/user-contrib/' + dir + '/') === 0).length;
 
 // One pass: fresh page, optional JSPI suppression inside the worker, all assertions.
 async function runPass(cdp, origin, forceCps, log) {
@@ -188,10 +196,12 @@ async function runPass(cdp, origin, forceCps, log) {
   const engine = (log.served.find((p) => /engine-(cps|jspi)\/rocq_engine\.js$/.test(p)) || '').replace(/\/rocq_engine\.js$/, '').replace(/^\//, '') || '(none)';
   ok('engine loaded', engine !== '(none)', engine + (forceCps ? ' (forced by ?engine=cps)' : ' (auto)'));
   if (forceCps) ok('?engine=cps selects the universal engine', engine === 'engine-cps', engine);
-  const bad404 = log.notFound.filter((p) => !/favicon\.ico$/.test(p) && p !== '/coqlib/packs.json');
+  const bad404 = log.notFound.filter((p) => !/favicon\.ico$/.test(p));
   ok('no missing assets (404)', bad404.length === 0, bad404.length ? bad404.slice(0, 5).join(' ') : log.served.length + ' files served');
   ok('no page-side JS errors', consoleErrors.length === 0, consoleErrors.slice(0, 2).join(' | '));
   ok('no worker-side JS errors', workerErrors.length === 0, workerErrors.slice(0, 2).join(' | '));
+  ok('lazy: no Stdlib or mathcomp file downloaded at startup', servedUnder(log, 'Stdlib') === 0 && servedUnder(log, 'mathcomp') === 0,
+     'Stdlib=' + servedUnder(log, 'Stdlib') + ' mathcomp=' + servedUnder(log, 'mathcomp'));
   if (readyErr || notice) { await cdp.send('Target.closeTarget', { targetId }); return results; }
 
   // 2. the page's own default example, via the real Run button
@@ -217,6 +227,21 @@ async function runPass(cdp, origin, forceCps, log) {
   let v;
   try { v = await call(request('sq', Z_CH, Z_SOL)); ok('Stdlib ZArith + ring accepted', v.ok === true, 'ok=' + v.ok + ' reason=' + v.reason + (v.detail ? ' ' + String(v.detail).slice(0, 160) : '')); }
   catch (e) { ok('Stdlib ZArith + ring accepted', false, e.message); }
+  ok('lazy: the Stdlib pack was fetched by that import, mathcomp still not', servedUnder(log, 'Stdlib') > 0 && servedUnder(log, 'mathcomp') === 0,
+     'Stdlib=' + servedUnder(log, 'Stdlib') + ' mathcomp=' + servedUnder(log, 'mathcomp'));
+  if (HAS_MATHCOMP) {
+    try {
+      v = await call(request('foo', M_CH, M_SOL));
+      ok('mathcomp: ssreflect proof accepted against the trusted .vos library', v.ok === true,
+         'ok=' + v.ok + ' reason=' + v.reason + (v.detail ? ' ' + String(v.detail).replace(/\n/g, ' ').slice(0, 200) : '') +
+         (v.targets && v.targets[0] ? ' assumptions=' + JSON.stringify(v.targets[0].assumptions).slice(0, 120) : ''));
+    } catch (e) { ok('mathcomp: ssreflect proof accepted against the trusted .vos library', false, e.message); }
+    ok('lazy: mathcomp packs fetched only by that import', servedUnder(log, 'mathcomp') > 0, 'mathcomp files=' + servedUnder(log, 'mathcomp'));
+    try { v = await call(request('foo', M_CH, M_CH)); ok('mathcomp: Admitted ssreflect solution rejected as not_proved', v.ok === false && v.reason === 'not_proved', 'reason=' + v.reason); }
+    catch (e) { ok('mathcomp: Admitted ssreflect solution rejected as not_proved', false, e.message); }
+  } else {
+    console.log('skip mathcomp cases: no mathcomp packs in ' + path.join(DIST, 'coqlib', 'packs.json'));
+  }
   try { v = await call(request('add_0_r', N_CH, N_CH)); ok('Admitted solution rejected as not_proved', v.ok === false && v.reason === 'not_proved', 'reason=' + v.reason); }
   catch (e) { ok('Admitted solution rejected as not_proved', false, e.message); }
   try { v = await call(request('add_0_r', N_CH, N_BAD)); ok('wrong statement rejected as statement_mismatch', v.ok === false && v.reason === 'statement_mismatch', 'reason=' + v.reason); }

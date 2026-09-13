@@ -1,0 +1,4 @@
+package "elpi" ( directory = "elpi" )
+package "coercion" ( directory = "coercion" )
+package "cs" ( directory = "cs" )
+package "tc" ( directory = "tc" )

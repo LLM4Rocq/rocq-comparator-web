@@ -1,6 +1,0 @@
-DIGEST b17eec42db57f2ac369b0a4a94968e85
-FLtac2.Rewrite
-R702:705 Ltac2.Init <> <> lib
-R727:729 Ltac2.Std <> <> lib
-mod 802:809 <> Strategy
-R4969:4976 Ltac2.Rewrite Strategy <> mod

@@ -59,7 +59,10 @@ native prelude:
 stdlib:
 	SWITCH=$(SWITCH) bash web/build-stdlib.sh
 
-## mathcomp: build the mathcomp (+elpi/HB) .vos packs + stage them (needs `make native`)
+## bundle: everything from scratch, in the required order (native -> stdlib -> mathcomp -> real)
+bundle: native stdlib mathcomp real
+
+## mathcomp: build the mathcomp (+elpi/HB) .vos packs + the patched elpi overlay the engine links (needs `make native`; run BEFORE `make real`)
 mathcomp:
 	SWITCH=$(SWITCH) bash web/build-mathcomp.sh
 

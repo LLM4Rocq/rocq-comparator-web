@@ -44,32 +44,25 @@ A **Stdlib subset** is also bundled (`From Stdlib Require Import ZArith / QArith
 Reals / Lia / Lra`, ~28 MB), so `ring`, `field`, `lia`, `lra` over `Z`, `Q`, `R`
 check in-browser (all 16 stdlib plugins statically linked).
 
-**mathcomp (Phase 2): trusted `.vos` lazy-import framework.** Libraries are
-published as separate **packs** (`dist/coqlib/packs.json`) — `corelib` (always
-mounted), `stdlib`, and `mathcomp-{hb,boot,order,fingroup,ssreflect}` — and the
-worker **scans** each challenge/solution for `Require` / `From X Require`,
-**resolves** which packs are needed by logical-name prefix, and **fetches +
-mounts only those** (cached, byte-exact). A pack a check never imports is never
-downloaded. Packs are compiled with `rocqc -vos` (opaque `Qed` proofs stripped —
-a library *interface*): loading a `.vos` type-checks the solution *against* the
-library without its proof terms, i.e. **trusts** it — which is already the
-browser trust model (rocqchk is off, so even `.vo` are trusted there), so `.vos`
-changes nothing about soundness. mathcomp 2.x's Coq-Elpi/HB is static-linked into
-the engine (`--linkall`); building its `.vos` needed one port — forcing elpi's
-`hash_bits` to 30 (the 32-bit-host value) so its serialized clause index fits the
-31-bit reader (analogous to the kernel's 30-bit hash masking). mathcomp core
-builds to ~40 MB `.vos` (~16 MB brotli, vs 101 MB `.vo`); an `all_ssreflect`
-demo lazily fetches ~14 MB brotli.
-
-**Known gap:** the `.vos` load + type-check in a *native* Rocq process, and
-`HB`/`elpi` load in the browser, but the **full** mathcomp stack
-(`all_ssreflect` → boot+order via HB) does not yet type-check in the wasm engine
-— it hits a `wasm_of_ocaml` wall: one Coq `Dyn` object-type tag the native
-compiler registers but the wasm build omits (not a hash mismatch; verified
-0/701). See `BACKEND.md` §16. **mathcomp-analysis** is a documented manifest slot
-(not built — the installed copy is rocq 9.1.1, not the core's 9.2; §16.7). If the
-engine is absent entirely, the page still loads and the **demo-verdict** buttons
-work.
+**mathcomp: trusted `.vos` packs, fetched lazily.** Libraries are published as
+separate packs (`dist/coqlib/packs.json`): `corelib` (always mounted), `stdlib`,
+and `mathcomp-{hb,boot,order,fingroup,ssreflect}`. Before each check the worker
+scans the challenge and solution for `Require` / `From X Require`, resolves the
+packs they need by logical-name prefix, and fetches and mounts only those
+(cached across checks). A pack a check never imports is never downloaded. The
+mathcomp packs are compiled with `rocqc -vos`: a library interface with the
+opaque `Qed` proof bodies stripped. Loading one type-checks the solution against
+the library without re-checking the library's own proofs, which is already the
+browser trust model (rocqchk is off there, so `.vo` are trusted too), so `.vos`
+changes nothing about soundness. The solution's own proof is fully kernel-checked.
+`From mathcomp Require Import all_ssreflect` fetches about 36 MB of packs on the
+first mathcomp check. Coq-Elpi, Hierarchy Builder and the ssreflect plugins are
+statically linked into the engines. Building the `.vos` needed one port: elpi's
+clause-index `hash_bits` forced to 30 (the 32-bit-host value) so its serialized
+index is readable by the 31-bit engine. **mathcomp-analysis** is not built (the
+installed copy is for rocq 9.1.1, not the core's 9.2); `packs.json` has a
+documented slot for it (`BACKEND.md` section 16.7). If the engine is absent
+entirely, the page still loads and the demo-verdict buttons work.
 
 ## Quick start
 
@@ -92,7 +85,10 @@ make real       # (re)build BOTH wasm engines (dist/engine-cps + dist/engine-jsp
 make test       # node judge harness against BOTH engines -> 12 passed, 0 failed each
 make test-browser # serve dist/ and run it in a headless Brave/Chrome/Edge (DevTools
                 #   protocol, no npm deps): runtime ready, no 404s, Run button verdict,
-                #   Stdlib proof, rejections; once as shipped and once on /?engine=cps
+                #   Stdlib and mathcomp proofs, rejections, lazy pack fetch; once as
+                #   shipped and once on /?engine=cps
+make bundle     # everything from scratch in the required order:
+                #   native -> stdlib -> mathcomp -> real (hours the first time)
 make build      # just type-check/compile the OCaml seam (dune build)
 make help       # list all targets
 ```

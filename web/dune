@@ -61,4 +61,13 @@
   ; mathcomp Declare ML Module a no-op over this already-linked code). On wasm
   ; Sys.int_size=31 => elpi hash_bits=30, matching the patched-native .vos.
   rocq-elpi.elpi
+  ; The mathcomp .vos carry ssreflect generic arguments (e.g. the "ssrhintarg"
+  ; Dyn tag of Ltac `done`) and rocq-elpi app objects; every plugin whose
+  ; objects appear in a shipped .vo/.vos must be linked here, or loading fails
+  ; with "Unknown dynamic tag" (Declare ML Module is a no-op over the stripped META).
+  rocq-runtime.plugins.ssreflect
+  rocq-runtime.plugins.ssrmatching
+  rocq-elpi.coercion
+  rocq-elpi.cs
+  rocq-elpi.tc
   rocq-runtime.plugins.funind))

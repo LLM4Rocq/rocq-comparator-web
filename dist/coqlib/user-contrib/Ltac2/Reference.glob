@@ -1,9 +1,0 @@
-DIGEST b40c1757a4cd1e24d7af4763fd927c14
-FLtac2.Reference
-R15:24 Ltac2.Init <> <> lib
-R35:43 Ltac2.Std <> <> lib
-R45:55 Ltac2.Ident <> <> lib
-R57:65 Ltac2.Ind <> <> lib
-R67:83 Ltac2.Constructor <> <> lib
-R85:98 Ltac2.Constant <> <> lib
-R140:148 Ltac2.Std <> <> mod

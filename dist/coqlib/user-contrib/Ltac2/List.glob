@@ -1,7 +1,0 @@
-DIGEST 230bd677ba2cdb339fc8502c1f6e9789
-FLtac2.List
-R1839:1848 Ltac2.Init <> <> lib
-R1859:1867 Ltac2.Int <> <> lib
-R1878:1890 Ltac2.Control <> <> lib
-R1901:1910 Ltac2.Bool <> <> lib
-R1921:1933 Ltac2.Message <> <> lib

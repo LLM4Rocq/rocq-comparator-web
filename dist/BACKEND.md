@@ -1146,11 +1146,13 @@ contract but was not exercised in a real browser this session.
 
 ## 16. Build phase 7 — Phase 2: trusted `.vos` lazy-import framework (mathcomp)
 
-**Status: the `.vos` trust model works in the browser engine; the lazy per-pack
-import framework works end to end (Corelib always-on, Stdlib + mathcomp packs
-fetched only when a source imports them); the full mathcomp toolchain builds
-every pack as 32-bit-safe `.vos`; a genuine wasm_of_ocaml wall blocks loading the
-*full* mathcomp stack in-browser. Corelib+Stdlib remain 15/15.**
+**Status: works end to end. The `.vos` trust model works in the browser engine;
+the lazy per-pack import framework works (Corelib always-on, Stdlib + mathcomp
+packs fetched only when a source imports them); the mathcomp toolchain builds
+every pack as 32-bit-safe `.vos`; `From mathcomp Require Import all_ssreflect`
+proofs are checked in both wasm engines, in node (`make test`) and in a real
+browser (`make test-browser`). The one-time "Unknown dynamic tag" failure was a
+missing plugin link, not a wasm_of_ocaml limit (section 16.6).**
 
 ### 16.1 Why `.vos` (the trust rationale)
 
@@ -1198,10 +1200,13 @@ implementation mismatch on <Module>`.
 
 ### 16.3 Static-linking elpi into the wasm engine
 
-The engine (`web/dune`) statically links `rocq-elpi.elpi`; its `Libobject`/`Dyn`
-object-type registrations run at engine init, so the mathcomp `Declare ML Module
-"rocq-elpi.elpi"` is a no-op over already-linked code (stripped `rocq-elpi.META`,
-same trick as §12.4). On wasm `Sys.int_size = 31 ⇒ hash_bits = 30`, matching the
+The engine (`web/dune`) statically links `rocq-elpi.elpi` and its apps
+(`rocq-elpi.coercion`/`cs`/`tc`), plus Rocq's own `ssreflect` and `ssrmatching`
+plugins; their `Libobject`/`Dyn`/`Genarg` registrations run at engine init, so the
+libraries' `Declare ML Module` lines are no-ops over already-linked code
+(stripped METAs, same trick as §12.4). The rule: every plugin whose objects or
+generic arguments appear in a shipped `.vo`/`.vos` must be linked, or loading
+that file fails with `Unknown dynamic tag`. On wasm `Sys.int_size = 31 ⇒ hash_bits = 30`, matching the
 patched-native `.vos` (verified: 0/701 `Hashtbl.hash` mismatches between the wasm
 engine and native for every registered `Dyn` tag). `wasm_of_ocaml compile
 --linkall` is now required: without it, DCE drops object-type registrations that
@@ -1274,31 +1279,24 @@ An `all_ssreflect` demo lazily fetches corelib(always)+hb+boot+order+ssreflect �
 user-contrib library rebuilt as `.vos`) and `analysis` are documented manifest
 slots (§16.7).
 
-### 16.6 The wall — full mathcomp in-browser
+### 16.6 The "Unknown dynamic tag" failure, resolved
 
-`From mathcomp Require Import all_ssreflect` (which pulls boot+order via HB) does
-**not** yet type-check in the wasm engine. The `.vos` are valid — the exact same
-files load and `all_ssreflect` type-checks in a **native** Rocq process — and
-`HB.structures` and `elpi.apps.locker` DO load in the wasm engine (`debugRequire`
-→ OK). But loading the boot/order layer, whose HB commands register additional
-`Dyn` object-type kinds, fails with `Unknown dynamic tag N` (`clib/dyn.ml`): a Coq
-`Dyn` type-tag that the native compiler registers but the wasm build does not.
-It is **not** a `Hashtbl.hash` mismatch (verified 0/701) and **not** DCE of the
-main registrations (`--linkall` keeps 701 tags) — it is one specific object-type
-registration, in one of Coq's many `Dyn.Make ()` instances, that the wasm build
-omits. This is the genuine wall for the full stack; the toolchain, packs, and lazy
-framework around it are complete. `web/web_check.ml` sets
-`Loadpath.load_vos_libraries := true` (real `.vos` names would need the VFS
-`Unix.stat`, so packs mount vos-content at `.vo` paths instead).
-
-In-browser verdict JSON for the `all_ssreflect` demo (lazy-fetched
-`[mathcomp-hb, mathcomp-boot, mathcomp-order, mathcomp-ssreflect]`):
-
-```json
-{ "ok": false, "reason": "challenge_error",
-  "detail": "... Unknown dynamic tag N (clib/dyn.ml) ...",
-  "checks": { "filter": "ok", "challenge_compile": {"fail": "..."} } }
-```
+Loading the boot/order layer at first failed in the wasm engine with `Unknown
+dynamic tag 362944419` (`clib/dyn.ml`). A `Dyn` tag is `Hashtbl.hash` of the
+tag's name, so hashing every string literal in the Rocq, rocq-elpi and elpi
+sources found the name: `ssrhintarg`, a generic-argument type registered by
+Rocq's **ssreflect plugin** (mathcomp's `Ltac done` carries one). `Corelib.ssr`
+declares that plugin with `Declare ML Module`, which the stripped META turns into
+a silent no-op, and `web/dune` did not link it. Linking `ssreflect` and
+`ssrmatching` (and the rocq-elpi apps) fixed it; the engines grow by about 0.9 MB
+(cps) / 0.4 MB (jspi). Two build-order rules came out of the same investigation:
+`build-real.sh` must not wipe the overlay's `elpi`/`rocq-elpi` entries (it did,
+so any `make real` after `make mathcomp` re-linked the stock elpi), and Corelib,
+Stdlib and the mathcomp `.vos` must all come from one native build (a `.vo`
+records the digests of its dependencies). `web/stage-packs.sh` now proves the
+latter by compiling a probe with the patched native `rocqc` against the staged
+`dist/coqlib` (`ZArith`, `Reals`, `lia`, `lra`, `all_ssreflect`, `all_fingroup`)
+and failing the build on any mismatch.
 
 ### 16.7 mathcomp-analysis (stretch) — status + slot
 
@@ -1311,8 +1309,7 @@ browser needs: `opam install rocq-mathcomp-analysis` against a 9.2 switch (pulli
 packs. A manifest slot is reserved: add a pack `{ "name":"mathcomp-analysis",
 "prefixes":["mathcomp.analysis","mathcomp.classical","mathcomp.reals"],
 "requires":["mathcomp-hb","mathcomp-boot","mathcomp-order","mathcomp-algebra"],
-"vo":[...] }` to `packs.json`. Same wasm Dyn-tag wall (§16.6) would apply until
-resolved.
+"vo":[...] }` to `packs.json`.
 
 ### 16.8 How to add a pack
 
@@ -1331,9 +1328,14 @@ No worker/engine change is needed — the scan→resolve→fetch→mount path is
 
 - `web/rocq_packs.js` — shared lazy scan (`scanRequires`) + resolve (`resolvePacks`).
 - `web/rocq_worker.js` — packs-aware: predeclare dirs, mount `always` packs, lazy
-  `ensurePacks` per check (falls back to a legacy `manifest.json` bundle).
+  `ensurePacks` per check. `?engine=cps|jspi` on the page URL forces a variant.
 - `web/web_check.ml` — `Loadpath.load_vos_libraries := true`; links `rocq-elpi.elpi`.
 - `web/build-mathcomp.sh` — reproducible patched elpi/HB/mathcomp `.vos` build.
-- `web/stage-packs.sh` — stage `dist/coqlib` packs + write `packs.json`.
-- `test/judge_test.cjs` — 15/15 via lazy packs; `ROCQ_MATHCOMP=1` runs the
-  mathcomp end-to-end diagnostic.
+- `web/stage-packs.sh` — copy the `.vos` packs into `dist/coqlib`, write
+  `packs.json`, and run the native consistency probe (fails on digest mismatch).
+- `test/judge_test.cjs` — 18 cases per engine via lazy packs, including the
+  mathcomp proof and its lazy fetch.
+- `test/browser_smoke.cjs` — the same in a real headless browser (`make
+  test-browser`), both engines, including the mathcomp proof and lazy fetch.
+- `Makefile` `bundle` — the required order from scratch: `native`, `stdlib`,
+  `mathcomp`, `real`.

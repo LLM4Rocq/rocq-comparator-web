@@ -64,7 +64,7 @@ async function fetchBinaryString(url) {
 }
 
 // ---- pack manifest + lazy mounting ------------------------------------------
-var manifest = null;          // packs.json (phase 2) or a legacy manifest.json
+var manifest = null;          // packs.json (the lazy-import manifest)
 var mountedPacks = {};        // pack name -> true (cache: each pack mounted once)
 
 // Mount one pack: its findlib META (if any) then every .vo/.vos, byte-exact. A
@@ -125,36 +125,17 @@ async function ensurePacks(sources) {
   return fetched;
 }
 
-// Load the manifest and mount the always-on packs (the Corelib prelude). Supports
-// both the phase-2 packs.json and, as a fallback, a legacy single-bundle
-// manifest.json (treated as one always-on pack). Returns #objects mounted.
+// Load packs.json and mount the always-on packs (the Corelib prelude). Returns
+// the number of objects mounted.
 async function mountBase() {
-  // phase 2: packs.json
-  try {
-    var r = await fetch('coqlib/packs.json');
-    if (r.ok) {
-      manifest = await r.json();
-      predeclareDirs();
-      var n = 0;
-      var always = (manifest.packs || []).filter(function (p) { return p.always; });
-      for (var i = 0; i < always.length; i++) n += await mountPack(always[i]);
-      return n;
-    }
-  } catch (e) { /* fall through */ }
-  // legacy fallback: manifest.json = one bundle mounted up front
-  try {
-    var mr = await fetch('coqlib/manifest.json');
-    if (!mr.ok) return 0;
-    var legacy = await mr.json();
-    manifest = { coqlib_vfs: legacy.coqlib_vfs || '/static/coqlib', packs: [] };
-    if (legacy.meta) { try { engine.mount(legacy.meta_vfs || '/static/lib/rocq-runtime/META', await fetchBinaryString('coqlib/' + legacy.meta)); } catch (e) {} }
-    var vo = legacy.vo || [];
-    var vfs = manifest.coqlib_vfs;
-    await Promise.all(vo.map(async function (rel) {
-      engine.mount(vfs + '/' + rel, await fetchBinaryString('coqlib/' + rel));
-    }));
-    return vo.length;
-  } catch (e) { return 0; }
+  var r = await fetch('coqlib/packs.json');
+  if (!r.ok) throw new Error('coqlib/packs.json -> ' + r.status + ' (no library bundle staged; run make real)');
+  manifest = await r.json();
+  predeclareDirs();
+  var n = 0;
+  var always = (manifest.packs || []).filter(function (p) { return p.always; });
+  for (var i = 0; i < always.length; i++) n += await mountPack(always[i]);
+  return n;
 }
 
 (async function () {

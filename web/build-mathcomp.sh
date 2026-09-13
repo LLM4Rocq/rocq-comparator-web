@@ -108,24 +108,7 @@ for f in $ORDER; do [ -z "$f" ] && continue; [ -f "${f%.v}.vos" ] && continue
 done
 echo "  boot=$(ls mathcomp/boot/*.vos 2>/dev/null|wc -l) order=$(ls mathcomp/order/*.vos 2>/dev/null|wc -l) finite_group=$(ls mathcomp/finite_group/*.vos 2>/dev/null|wc -l) ssreflect=$(ls mathcomp/ssreflect/*.vos 2>/dev/null|wc -l)"
 
-echo "== [mc 5/5] copy .vos into dist/coqlib + stage packs.json =="
-CQ="$HERE/dist/coqlib"
-[ -d "$CQ/theories" ] || { echo "dist/coqlib/theories missing — run 'make site'/'make real' first"; exit 1; }
-mkdir -p "$CQ/user-contrib/elpi/apps/locker" "$CQ/user-contrib/elpi_elpi" "$CQ/user-contrib/HB"
-cp "$ST/theories/elpi.vos"               "$CQ/user-contrib/elpi/elpi.vos"
-cp "$ST/elpi_elpi/dummy.vos"             "$CQ/user-contrib/elpi_elpi/dummy.vos"
-cp "$ST/apps/locker/theories/locker.vos" "$CQ/user-contrib/elpi/apps/locker/locker.vos"
-cp "$ST/HB/structures.vos"               "$CQ/user-contrib/HB/structures.vos"
-cat > "$CQ/rocq-elpi.META" <<'META'
-package "elpi" ( directory = "elpi" )
-package "coercion" ( directory = "coercion" )
-package "cs" ( directory = "cs" )
-package "tc" ( directory = "tc" )
-META
-for pk in boot order finite_group ssreflect; do
-  [ -d "$ST/mathcomp/$pk" ] || continue
-  mkdir -p "$CQ/user-contrib/mathcomp/$pk"
-  find "$ST/mathcomp/$pk" -name '*.vos' -exec cp {} "$CQ/user-contrib/mathcomp/$pk/" \;
-done
-bash "$HERE/web/stage-packs.sh"
+echo "== [mc 5/5] stage packs into dist/coqlib (+ native consistency probe) =="
+if [ -d "$HERE/dist/coqlib/theories" ]; then bash "$HERE/web/stage-packs.sh"
+else echo "   dist/coqlib not staged yet: 'make real' will stage these packs (and link the patched elpi)"; fi
 echo "== build-mathcomp done =="

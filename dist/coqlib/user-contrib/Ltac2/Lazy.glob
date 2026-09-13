@@ -1,7 +1,0 @@
-DIGEST 96d5bfacff068a0436a062ded06386cc
-FLtac2.Lazy
-R691:700 Ltac2.Init <> <> lib
-R711:719 Ltac2.Ref <> <> lib
-R730:742 Ltac2.Control <> <> lib
-mod 3897:3905 <> Notations
-R3967:3975 Ltac2.Lazy Notations <> mod
