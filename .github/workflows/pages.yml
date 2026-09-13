@@ -81,6 +81,17 @@ jobs:
             echo "live in-browser check enabled (cps default; jspi upgrade where available)."
           fi
 
+      # Gate the deploy on the site working in a REAL browser: the runner's
+      # Chrome loads dist/ over HTTP, the worker + engines start, and proofs are
+      # checked (both engine variants). Node-only tests miss the Worker/fetch seams.
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Smoke-test the site in headless Chrome (make test-browser)
+        run: BROWSER=google-chrome make test-browser
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

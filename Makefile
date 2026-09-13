@@ -34,11 +34,11 @@ PORT   ?= 8000
 # Canonical frontend sources copied into dist/ by `make site`. rocq_bytes.js is
 # the byte-exact mount() conversion shared by the worker and the node test.
 ROOT_STATIC = index.html app.js styles.css
-WEB_STATIC  = rocq_comparator.js rocq_worker.js rocq_bytes.js rocq_zarith.js
+WEB_STATIC  = rocq_comparator.js rocq_worker.js rocq_bytes.js rocq_packs.js rocq_zarith.js
 # Docs shipped alongside the site (the in-page honesty note links to BACKEND.md).
 DOC_STATIC  = BACKEND.md README.md
 
-.PHONY: all build real engine site serve test clean help
+.PHONY: all build real engine site serve test test-browser clean help
 
 ## all: build the real engines and assemble dist/ (needs the opam switch)
 all: real
@@ -84,6 +84,10 @@ serve: site
 ## test: run the node judge harness against BOTH built engines (12/12 each)
 test:
 	$(NODE) test/judge_test.cjs "$$PWD/dist"
+
+## test-browser: open the served site in a headless Chromium-family browser (Brave/Chrome/Edge) and check proofs
+test-browser: site
+	$(NODE) test/browser_smoke.cjs "$$PWD/dist"
 
 ## clean: remove build artifacts (keeps the committed engines in dist/)
 clean:

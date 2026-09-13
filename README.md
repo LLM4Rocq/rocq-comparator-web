@@ -70,6 +70,9 @@ make site       # assemble dist/ from the committed frontend + engines
 make real       # (re)build BOTH wasm engines (dist/engine-cps + dist/engine-jspi,
                 #   each glue .js + .assets/code-*.wasm) — needs the opam switch.
 make test       # node judge harness against BOTH engines -> 12 passed, 0 failed each
+make test-browser # serve dist/ and run it in a headless Brave/Chrome/Edge (DevTools
+                #   protocol, no npm deps): runtime ready, no 404s, Run button verdict,
+                #   Stdlib proof, rejections; once as shipped and once on /?engine=cps
 make build      # just type-check/compile the OCaml seam (dune build)
 make help       # list all targets
 ```
@@ -198,7 +201,8 @@ Backend (built into `dist/` by `web/build-real.sh`):
   the VFS needs (loadpath scan via `Sys.is_directory`; absolute-path
   canonicalisation) — no effect on `.vo` or the native build.
 - `web/rocq_worker.js` — the Web Worker that hosts the engine; feature-detects
-  JSPI and loads `engine-jspi/` or `engine-cps/` accordingly.
+  JSPI and loads `engine-jspi/` or `engine-cps/` accordingly. Open the page as
+  `/?engine=cps` (or `jspi`) to force one variant.
 - `web/rocq_comparator.js` — the main-thread loader (`window.RocqComparator`,
   call serialisation, hard kill-timeout, worker respawn).
 - `web/build-real.sh` — the one-shot reproducible build of both engines.
@@ -207,7 +211,7 @@ Backend (built into `dist/` by `web/build-real.sh`):
   `dist/rocq_zarith.js` — the built WASM engine artifacts.
 
 Packaging:
-- `Makefile` — `site` / `serve` / `real` / `test` / `build` targets.
+- `Makefile` — `site` / `serve` / `real` / `test` / `test-browser` / `build` targets.
 - `.github/workflows/pages.yml` — GitHub Pages deploy workflow.
 
 ## Frontend ↔ backend contract

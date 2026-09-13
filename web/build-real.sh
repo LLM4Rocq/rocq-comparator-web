@@ -117,6 +117,7 @@ done
 # Prelude.vo "Bytes.create" bug: never uses TextDecoder) and the JS BigInt zarith
 # backend (rocq_zarith.js).
 cp -f "$HERE/web/rocq_bytes.js"  "$HERE/dist/rocq_bytes.js"
+cp -f "$HERE/web/rocq_packs.js"  "$HERE/dist/rocq_packs.js"
 cp -f "$HERE/web/rocq_zarith.js" "$HERE/dist/rocq_zarith.js"
 
 echo "== [5/6] assemble dist/ (frontend + coqlib bundle) =="
