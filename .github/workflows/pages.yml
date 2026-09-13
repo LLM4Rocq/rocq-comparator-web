@@ -1,36 +1,40 @@
 # Deploy the client-side Rocq comparator to GitHub Pages.
 #
 # This site is 100% static: index.html + styles.css + app.js + the worker glue
-# (rocq_comparator.js / rocq_worker.js) + the prebuilt WASM engine — the
-# wasm_of_ocaml glue (dist/rocq_engine.js), its module (dist/rocq_engine.assets/
-# code-*.wasm), and the JS BigInt zarith backend (dist/rocq_zarith.js). There is
-# NO server-side code.
+# (rocq_comparator.js / rocq_worker.js) + the byte-exact mount conversion
+# (rocq_bytes.js) + the JS BigInt zarith backend (rocq_zarith.js) + TWO prebuilt
+# WebAssembly engines, each a wasm_of_ocaml glue .js plus its module:
+#   dist/engine-cps/rocq_engine.js  + dist/engine-cps/rocq_engine.assets/code-*.wasm
+#   dist/engine-jspi/rocq_engine.js + dist/engine-jspi/rocq_engine.assets/code-*.wasm
+# There is NO server-side code and NO js_of_ocaml backend.
 #
-# Why this workflow does not build the engine:
-#   the engine is a wasm_of_ocaml build of a *patched* rocq-runtime 9.2 kernel +
+# cps is the UNIVERSAL default (all browsers + any Node); jspi is a smaller/faster
+# upgrade the worker loads only where JSPI exists (Chrome/Edge 137+, Node 24+).
+# The worker feature-detects at load and each visitor fetches exactly ONE engine.
+#
+# Why this workflow does not build the engines:
+#   an engine is a wasm_of_ocaml build of a *patched* rocq-runtime 9.2 kernel +
 #   the rocq-comparator library (see BACKEND.md). Reproducing it needs a full
 #   opam switch with the Rocq sources and a patched kernel.cma overlay — not
-#   feasible on a stock GitHub Actions runner. So the engine (glue + .wasm +
-#   rocq_zarith.js) is committed under dist/ and this workflow only (re)assembles
-#   the static bundle from the committed frontend sources (`make site`) and
+#   feasible on a stock GitHub Actions runner. So both engines (glue + .wasm) plus
+#   rocq_bytes.js / rocq_zarith.js are committed under dist/ and this workflow only
+#   (re)assembles the static bundle from the committed frontend (`make site`) and
 #   publishes dist/.
 #
-#   If dist/rocq_engine.js is NOT committed, the page still deploys and works:
-#   it falls back to the demo-verdict path (the live in-browser check is simply
-#   disabled). See README "Deploying to GitHub Pages".
+#   If neither engine is committed, the page still deploys and works: it falls
+#   back to the demo-verdict path (the live check is disabled). See README
+#   "Deploying to GitHub Pages".
 #
 # Base path: this is a project page served under https://<user>.github.io/<repo>/.
-# Every asset in index.html is referenced by a RELATIVE path (styles.css,
-# app.js, rocq_comparator.js), and the worker loads rocq_worker.js /
-# rocq_engine.js by relative path too, so the site works unchanged under any
-# sub-path — no <base> tag or rewrite needed.
+# Every asset in index.html is referenced by a RELATIVE path, and the worker
+# loads rocq_bytes.js / rocq_zarith.js and engine-<variant>/rocq_engine.js by
+# relative path too (the engine's .wasm is fetched relative to the worker's URL),
+# so the site works unchanged under any sub-path — no <base> tag or rewrite.
 #
-# MIME / headers: the .wasm module must be served as application/wasm — GitHub
-# Pages does this by extension, so no config is needed. The engine is
-# single-threaded (no SharedArrayBuffer, no wasm threads), so it needs NO
-# COOP/COEP headers and runs on Pages as-is. The shipped build uses the JSPI
-# effects backend (works in Node 24+ and Chrome/Edge >=137); for Safari/Firefox
-# rebuild with WOO_EFFECTS=cps (a larger, universal .wasm) — see README.
+# MIME / headers: the .wasm modules must be served as application/wasm — GitHub
+# Pages does this by extension, so no config is needed. The engines are
+# single-threaded (no SharedArrayBuffer, no wasm threads), so they need NO
+# COOP/COEP headers and run on Pages as-is.
 
 name: Deploy to GitHub Pages
 
@@ -60,13 +64,21 @@ jobs:
       - name: Assemble the static site (make site)
         run: make site
 
-      - name: Warn if the engine is missing (demo-only deploy)
+      - name: Report engine payload (or warn if missing)
         run: |
-          if [ ! -f dist/rocq_engine.js ]; then
-            echo "::warning::dist/rocq_engine.js not committed — deploying demo-verdict fallback only (live in-browser check disabled)."
+          any=0
+          for eff in cps jspi; do
+            glue="dist/engine-$eff/rocq_engine.js"
+            if [ -f "$glue" ]; then
+              any=1
+              wasm=$(ls dist/engine-$eff/rocq_engine.assets/*.wasm 2>/dev/null | head -1)
+              echo "engine-$eff present (glue $(wc -c < "$glue") B + wasm $(wc -c < "$wasm" 2>/dev/null) B)."
+            fi
+          done
+          if [ "$any" = "0" ]; then
+            echo "::warning::no engine committed under dist/engine-cps or dist/engine-jspi — deploying demo-verdict fallback only (live in-browser check disabled)."
           else
-            wasm=$(ls dist/rocq_engine.assets/*.wasm 2>/dev/null | head -1); \
-            echo "engine present (glue $(wc -c < dist/rocq_engine.js) B + wasm $(wc -c < "$wasm" 2>/dev/null) B) — live in-browser check enabled."
+            echo "live in-browser check enabled (cps default; jspi upgrade where available)."
           fi
 
       - name: Upload Pages artifact

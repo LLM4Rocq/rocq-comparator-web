@@ -1,43 +1,53 @@
 # rocq-comparator-web — build & serve the client-side Rocq comparator.
 #
-# The whole rocq-comparator check runs client-side on a js_of_ocaml build of
-# rocq-runtime 9.2 + rocq-comparator. The one hard blocker (the kernel's
-# Sys.word_size=64 assert) is cleared by rebuilding ONLY kernel.cma with the
-# coerce-32bit choice (Int64-backed uint63_31/float64_31) and overlaying it via
-# OCAMLPATH — WITHOUT touching the core switch's installed rocq-runtime. All of
-# that lives in web/build-real.sh. See BACKEND.md.
+# The whole rocq-comparator check runs client-side on a WebAssembly build
+# (wasm_of_ocaml) of rocq-runtime 9.2 + rocq-comparator. The one hard blocker
+# (the kernel's Sys.word_size=64 assert) is cleared by rebuilding ONLY kernel.cma
+# with the coerce-32bit choice (Int64-backed uint63_31/float64_31) and overlaying
+# it via OCAMLPATH — WITHOUT touching the core switch's installed rocq-runtime.
+# All of that lives in web/build-real.sh. See BACKEND.md.
+#
+# TWO engines ship, built from the SAME bytecode, differing only in the
+# wasm_of_ocaml effects backend:
+#   * dist/engine-cps/  — --effects=cps : UNIVERSAL (all browsers + any Node).
+#                         The default the worker loads. Larger .wasm (~12 MB).
+#   * dist/engine-jspi/ — --effects=jspi: smaller/faster .wasm (~5 MB), but needs
+#                         JSPI (Node 24+, Chrome/Edge 137+). The worker upgrades
+#                         to it when WebAssembly.Suspending is available.
+# There is no js_of_ocaml backend.
 #
 # Two kinds of build:
 #   * `make site`  — assemble the static bundle in dist/ from the committed
-#                    frontend + the (already built) engine. Fast, needs NO opam
+#                    frontend + the (already built) engines. Fast, needs NO opam
 #                    switch. This is what CI / GitHub Pages runs.
-#   * `make real`  — rebuild dist/rocq_engine.js itself (the js_of_ocaml engine).
+#   * `make real`  — rebuild BOTH wasm engines + stage the .vo bundle.
 #                    Needs the opam switch with rocq-runtime 9.2 sources.
 #
-# If dist/rocq_engine.js is absent, the page still loads and the demo-verdict
-# buttons work (the live check is simply disabled) — so `make serve` always
-# gives a reviewable page.
+# If neither engine is present, the page still loads and the demo-verdict buttons
+# work (the live check is simply disabled) — so `make serve` always gives a
+# reviewable page.
 
 SWITCH ?= /Users/gbaudart/Project/llm4rocq/rocq-comparator
 NODE    = node
 PORT   ?= 8000
 
-# Canonical frontend sources copied into dist/ by `make site`.
+# Canonical frontend sources copied into dist/ by `make site`. rocq_bytes.js is
+# the byte-exact mount() conversion shared by the worker and the node test.
 ROOT_STATIC = index.html app.js styles.css
-WEB_STATIC  = rocq_comparator.js rocq_worker.js rocq_zarith.js
+WEB_STATIC  = rocq_comparator.js rocq_worker.js rocq_bytes.js rocq_zarith.js
 # Docs shipped alongside the site (the in-page honesty note links to BACKEND.md).
 DOC_STATIC  = BACKEND.md README.md
 
 .PHONY: all build real engine site serve test clean help
 
-## all: build the real engine and assemble dist/ (needs the opam switch)
+## all: build the real engines and assemble dist/ (needs the opam switch)
 all: real
 
 ## build: type-check / compile the OCaml seam (dune build; needs the opam switch)
 build:
 	opam exec --switch=$(SWITCH) -- dune build
 
-## real: (re)build dist/rocq_engine.js + stage the .vo bundle (needs opam switch + rocq source)
+## real: (re)build both wasm engines + stage the .vo bundle (needs opam switch + rocq source)
 real engine:
 	SWITCH=$(SWITCH) bash web/build-real.sh
 
@@ -49,7 +59,7 @@ native prelude:
 stdlib:
 	SWITCH=$(SWITCH) bash web/build-stdlib.sh
 
-## site: assemble dist/ from the committed frontend + engine (fast, no opam needed)
+## site: assemble dist/ from the committed frontend + engines (fast, no opam needed)
 site:
 	@mkdir -p dist
 	@for f in $(ROOT_STATIC); do cp -f $$f dist/; done
@@ -57,23 +67,25 @@ site:
 	@for f in $(DOC_STATIC); do [ -f $$f ] && cp -f $$f dist/ || true; done
 	@[ -d examples ] && cp -R examples dist/ || true
 	@touch dist/.nojekyll
-	@if [ -f dist/rocq_engine.js ]; then \
-	  if [ -d dist/rocq_engine.assets ]; then eng="WASM"; else eng="js_of_ocaml"; fi; \
-	  echo "site: dist/ assembled ($$eng engine present -> live in-browser check enabled)"; \
-	else \
-	  echo "site: dist/ assembled (engine ABSENT -> demo-verdict fallback only; run 'make real' to build it)"; \
-	fi
+	@have=""; \
+	 [ -f dist/engine-cps/rocq_engine.js ]  && have="$$have cps"; \
+	 [ -f dist/engine-jspi/rocq_engine.js ] && have="$$have jspi"; \
+	 if [ -n "$$have" ]; then \
+	   echo "site: dist/ assembled (wasm engines:$$have -> live in-browser check enabled)"; \
+	 else \
+	   echo "site: dist/ assembled (engines ABSENT -> demo-verdict fallback only; run 'make real' to build them)"; \
+	 fi
 
 ## serve: assemble the static site and serve dist/ on http://localhost:$(PORT)/
 serve: site
 	@echo "Serving dist/ at http://localhost:$(PORT)/   (Ctrl-C to stop)"
 	@cd dist && python3 -m http.server $(PORT)
 
-## test: run the node judge harness against the built engine (accept/reject cases)
+## test: run the node judge harness against BOTH built engines (12/12 each)
 test:
-	$(NODE) test/judge_test.cjs "$$PWD/dist/rocq_engine.js"
+	$(NODE) test/judge_test.cjs "$$PWD/dist"
 
-## clean: remove build artifacts (keeps the committed engine in dist/)
+## clean: remove build artifacts (keeps the committed engines in dist/)
 clean:
 	rm -rf _build .rocq-build
 

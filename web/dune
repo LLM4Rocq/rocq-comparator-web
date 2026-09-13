@@ -1,32 +1,42 @@
 ; ---------------------------------------------------------------------------
 ; web_check — the REAL browser seam (full rocq-runtime kernel).
 ;
-;   dune build web/web_check.bc      links the whole pipeline to bytecode.
-;   dune build web/web_check.bc.js   runs js_of_ocaml over it (whole-program).
+;   dune build web/web_check.bc   links the whole pipeline to bytecode.
 ;
-; To produce a build that actually RUNS, compile it against the coerce-32bit
-; OCAMLPATH overlay built by web/build-real.sh (a patched, Int64-backed
-; rocq-runtime kernel.cma). Built against the stock native rocq-runtime the
-; emitted JS instead TRAPS at startup on the kernel's `Sys.word_size = 64`
+; web/build-real.sh then runs wasm_of_ocaml over web_check.bc TWICE — the
+; universal --effects=cps engine and the --effects=jspi upgrade engine — to
+; produce the shipped WebAssembly engines. There is no js_of_ocaml backend.
+;
+; To produce a build that actually RUNS, the .bc is compiled against the
+; coerce-32bit OCAMLPATH overlay built by web/build-real.sh (a patched,
+; Int64-backed rocq-runtime kernel.cma). Built against the stock native
+; rocq-runtime it instead TRAPS at startup on the kernel's `Sys.word_size = 64`
 ; assertion (kernel/uint63_63.ml) — see BACKEND.md sections 1c-2. Always use
-; web/build-real.sh, which sets the overlay and bundles the runtime shims.
+; web/build-real.sh.
 ;
-; runtime_shims.js : thread/getpid no-ops, Float64 primitives (called at init),
-;                    benign init-time VM tcode stubs (VM disabled via vm:false).
-; zarith_stubs.js  : Jane Street zarith_stubs_js (pure-JS ml_z_* — zarith 1.14).
+; The wasm engine's custom C primitives (float64, threads, VM init, getpid, and
+; the ~30 zarith ml_z_*) come from web/rocq_shims.wat (WebAssembly), which
+; delegates arbitrary-precision arithmetic to the JS BigInt helpers in
+; web/rocq_zarith.js. wasm_of_ocaml resolves OCaml `external` C primitives from
+; the wasm runtime ONLY (a JS //Provides fragment becomes a throwing dummy), so
+; there are no js_of_ocaml-style javascript_files.
 ; ---------------------------------------------------------------------------
 ; The Corelib prelude declares ML modules (cc, firstorder, number_string_notation,
-; ltac, tauto) and stdlib/mathcomp need more. jsoo has no Dynlink, so every
-; plugin the mounted .vo can [Declare ML Module] must be STATICALLY linked here
-; (its tactic/notation/grammar extensions register at module init) and its
+; ltac, tauto) and stdlib/mathcomp need more. The wasm build has no Dynlink, so
+; every plugin the mounted .vo can [Declare ML Module] must be STATICALLY linked
+; here (its tactic/notation/grammar extensions register at module init) and its
 ; findlib package resolved from a stripped META in the VFS (web_check.ml mounts
 ; one with archive/plugin removed, so Rocq's findlib lookup succeeds but loads
 ; nothing — the code is already linked). Adding a plugin here is what makes the
 ; corresponding [Declare ML Module] a no-op instead of a Dynlink failure.
+;
+; `js_of_ocaml` stays in (libraries): web_check.ml uses the Js_of_ocaml module
+; (Js.Unsafe / Sys_js), whose API wasm_of_ocaml also provides. Only the js_of_ocaml
+; *backend* (the `js` mode + javascript_files) is gone.
 (executable
  (name web_check)
  (modules web_check)
- (modes byte js)
+ (modes byte)
  (link_flags (-linkall))
  (libraries
   rocq_comparator js_of_ocaml yojson findlib
@@ -46,7 +56,4 @@
   rocq-runtime.plugins.rtauto
   rocq-runtime.plugins.nsatz_core
   rocq-runtime.plugins.nsatz
-  rocq-runtime.plugins.funind)
- (js_of_ocaml
-  (compilation_mode whole_program)
-  (javascript_files runtime_shims.js zarith_stubs.js)))
+  rocq-runtime.plugins.funind))

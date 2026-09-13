@@ -15,20 +15,28 @@ separate project that consumes it as a library.
 
 ## TL;DR — decision
 
-> **UPDATE (build phase 5): the shipped engine is WebAssembly.** A real
-> `rocq-comparator` check runs entirely client-side on a **`wasm_of_ocaml`**
-> build of rocq-runtime 9.2 — a **~5 MB `.wasm`** (+ ~20 KB JS glue), ~7× lighter
-> than the ~36 MB js_of_ocaml engine it replaces. The `Sys.word_size=64` blocker
-> is cleared surgically (patched `kernel.cma`/`lib.cma`/`clib.cma` overlay, core
-> switch untouched); the Corelib prelude + a Stdlib subset (`ring`/`lia`/`lra`)
-> load; the custom C primitives (float64, threads, and zarith `ml_z_*`) are
-> supplied as WebAssembly (`web/rocq_shims.wat`) with zarith backed by JS
-> `BigInt` (`web/rocq_zarith.js`) — because `wasm_of_ocaml` resolves C primitives
-> from the WASM runtime only, not JS `//Provides`. `make test` → **12 passed, 0
-> failed** (headless Node; incl. `nat`+induction, ZArith `ring`, Reals `lra`). A
-> js_of_ocaml build is kept as a documented fallback (`make real BACKEND=js`).
-> Jump to **§15** for the WASM mechanism (and §11-14 for the shared jsoo lineage,
-> still accurate). The analysis below is the original spike.
+> **UPDATE (build phase 6): the shipped engine is WebAssembly, and there is no
+> js_of_ocaml backend.** A real `rocq-comparator` check runs entirely
+> client-side on a **`wasm_of_ocaml`** build of rocq-runtime 9.2. TWO engines
+> ship — the SAME build differing only in the effects backend — and the worker
+> loads exactly one, feature-detected at load:
+> **`dist/engine-cps/`** (`--effects=cps`, ~12 MB `.wasm`) is the **universal
+> default** (every browser + any Node); **`dist/engine-jspi/`**
+> (`--effects=jspi`, ~5 MB `.wasm`) is a smaller/faster **upgrade** loaded only
+> where `WebAssembly.Suspending` exists (Chrome/Edge ≥ 137, Node 24+). The
+> `Sys.word_size=64` blocker is cleared surgically (patched
+> `kernel.cma`/`lib.cma`/`clib.cma` overlay, core switch untouched); the Corelib
+> prelude + a Stdlib subset (`ring`/`lia`/`lra`) load; the custom C primitives
+> (float64, threads, and zarith `ml_z_*`) are supplied as WebAssembly
+> (`web/rocq_shims.wat`) with zarith backed by JS `BigInt` (`web/rocq_zarith.js`)
+> — because `wasm_of_ocaml` resolves C primitives from the WASM runtime only, not
+> JS `//Provides`. Binary VFS assets (`.vo`, META) are fetched byte-exact via
+> `web/rocq_bytes.js` (`String.fromCharCode`, **never** `TextDecoder`, whose
+> WHATWG `latin1` is windows-1252 and corrupted `Prelude.vo` in real browsers).
+> `make test` → **12 passed, 0 failed** for **each** engine (headless Node; incl.
+> `nat`+induction, ZArith `ring`, Reals `lra`). The `js_of_ocaml` backend has
+> been **removed** — the file tables and `BACKEND=js` mentions in §11-14 below are
+> historical lineage. Jump to **§15** for the WASM mechanism.
 
 
 | Question | Answer |
@@ -979,33 +987,69 @@ mathcomp + analysis demo should be lazy-loaded/off-Pages as above.
 
 ---
 
-## 15. Build phase 5 — the shipped engine is WebAssembly (wasm_of_ocaml)
+## 15. Build phase 6 — two WebAssembly engines (cps default + JSPI upgrade), no js_of_ocaml
 
-**Status: the shipped engine is now a `wasm_of_ocaml` build.** The same
-coerce-32bit overlay, the same 32-bit-safe `.vo` bundle, and the same seam
-(`web/web_check.ml`) now produce a **~5 MB `.wasm`** module (+ ~20 KB JS glue)
-instead of the ~36 MB `js_of_ocaml` engine — verified headless under Node
-(`make test` → **12 passed, 0 failed**, incl. `nat`+induction, ZArith `ring`,
-Reals `lra`). A `js_of_ocaml` build is kept as a documented fallback
-(`make real BACKEND=js`).
+**Status: the shipped engine is a `wasm_of_ocaml` build, and the js_of_ocaml
+backend has been removed.** The same coerce-32bit overlay, the same 32-bit-safe
+`.vo` bundle, and the same seam (`web/web_check.ml`) produce **two** engines
+from one bytecode, differing only in the `wasm_of_ocaml` effects backend:
+
+- **`dist/engine-cps/`** (`--effects=cps`) — the **universal default**: runs in
+  every browser (Safari, Firefox, older Chrome/Edge) and any Node. ~12 MB `.wasm`.
+- **`dist/engine-jspi/`** (`--effects=jspi`) — a smaller/faster **upgrade**
+  (~5 MB `.wasm`) using the JS Promise Integration API; loaded only where
+  `WebAssembly.Suspending` exists (Chrome/Edge ≥ 137, Node 24+).
+
+`web/rocq_worker.js` feature-detects JSPI at load and fetches exactly one engine.
+Both are verified headless under Node (`make test` → **12 passed, 0 failed** for
+*each*, incl. `nat`+induction, ZArith `ring`, Reals `lra`). There is **no**
+`js_of_ocaml` build path any more.
 
 ### 15.1 Sizes (measured)
 
-| engine | module | glue | total |
-|---|---|---|---|
-| **WASM (jspi, shipped)** | 5.10 MB `.wasm` | 20 KB `.js` | **~5.12 MB** |
-| WASM (cps, universal) | 12.3 MB `.wasm` | 20 KB `.js` | ~12.3 MB |
-| js_of_ocaml (fallback) | — | 37.8 MB `.js` | 37.8 MB |
+| engine | module | glue | total | audience |
+|---|---|---|---|---|
+| **WASM cps (default)** | 12.3 MB `.wasm` | 20 KB `.js` | **~12.3 MB** | all browsers + any Node |
+| WASM jspi (upgrade) | 5.10 MB `.wasm` | 20 KB `.js` | ~5.12 MB | Chrome/Edge ≥ 137, Node 24+ |
 
-The `.vo` bundle (`dist/coqlib/`, ~35 MB) is **reused unchanged** — the 31-bit
-wasm runtime reads the same 30-bit-hash-masked `.vo` the 32-bit jsoo runtime did.
+Each visitor downloads exactly one of these. The `.vo` bundle (`dist/coqlib/`,
+~35 MB) is **reused unchanged** by both — the 31-bit wasm runtime reads the same
+30-bit-hash-masked `.vo` the 32-bit build did.
+
+### 15.0 The browser fetch bug (fixed) — `mount()` must get byte-exact bytes
+
+The engine's `mount(path, content)` writes `content` into the OCaml VFS via
+`Js.to_bytestring`, which reads **each JS char code as one raw byte (0-255)**.
+So a binary asset (`.vo`, META) must reach `mount()` as a string whose char code
+`i` equals byte `i`. The shipped worker built that string with
+`new TextDecoder('latin1').decode(bytes)` — which is **not** byte-exact in a
+browser: per the WHATWG Encoding Standard the label `latin1` is an alias for
+**windows-1252**, whose decoder remaps bytes `0x80–0x9F` to other code points.
+A `.vo` size field in that range then read as a huge/negative length and the
+kernel raised `Invalid_argument("Bytes.create")` while parsing `Prelude.vo`:
+
+```
+Error when parsing .vo (from .../Init/Prelude.vo) for library Corelib.Init.Prelude:
+Anomaly "Uncaught exception Invalid_argument("Bytes.create")."
+```
+
+(Node's own `TextDecoder` happens to decode `0x80–0x9F` byte-for-byte, which is
+exactly why the node test passed while every real browser broke.) **Fix:**
+`web/rocq_bytes.js` — a single shared conversion using `String.fromCharCode`
+over the fetched `Uint8Array` (byte-exact in every JS engine, no `TextDecoder`),
+loaded by both the worker and the node test. The `.wasm` itself is fetched
+byte-safely by the glue (`instantiateStreaming`), so only these VFS assets need
+the explicit conversion. **Guard:** `test/judge_test.cjs` feeds the `.vo`/META
+through the *same* `rocq_bytes.js` conversion the worker uses (not node's
+`Buffer.toString('latin1')`, which hid the bug), and `ROCQ_DECODE=browser`
+forces the pre-fix windows-1252 decode to reproduce the failure headlessly.
 
 ### 15.2 The one structural difference — C primitives must be WebAssembly
 
 `wasm_of_ocaml` resolves an OCaml `external` C primitive from the **WASM**
-runtime only: a JS `//Provides` fragment (how `runtime_shims.js` /
-`zarith_stubs.js` work under jsoo) is **not** consulted and becomes a
-throwing dummy (verified with a one-line probe). So every custom primitive the
+runtime only: a JS `//Provides` fragment (how the now-removed js_of_ocaml
+backend's `runtime_shims.js` / `zarith_stubs.js` worked) is **not** consulted and
+becomes a throwing dummy (verified with a one-line probe). So every custom primitive the
 natively-built rocq-runtime references is supplied as WebAssembly in
 **`web/rocq_shims.wat`** (passed to `wasm_of_ocaml compile` as a runtime file;
 the compiler assigns it module `env`, binaryen merges it into the runtime):
@@ -1066,26 +1110,34 @@ wrapped in a function expression, so `fun_call` keeps the right `this` on wasm).
 
 ### 15.5 Build / worker / test wiring
 
-- `web/build-real.sh` (default `BACKEND=wasm`, `WOO_EFFECTS=jspi`): builds the
-  seam bytecode against the overlay, runs `wasm_of_ocaml compile
-  web/rocq_shims.wat …`, applies the `js:ag` glue patch, and stages
-  `rocq_engine.js` + `rocq_engine.assets/code-*.wasm` + `rocq_zarith.js`.
-  `BACKEND=js` reproduces the js_of_ocaml fallback; `WOO_EFFECTS=cps` a universal
-  `.wasm`.
-- `web/rocq_worker.js`: `importScripts('rocq_zarith.js', 'rocq_engine.js')` (the
-  BigInt backend first), then waits for the asynchronously-installed
-  `RocqComparator` (wasm instantiates async, unlike synchronous jsoo).
-- `test/judge_test.cjs`: works against either engine; for WASM it loads
-  `rocq_zarith.js`, makes the assets dir reachable, and polls for the engine.
+- `web/build-real.sh`: builds the seam bytecode against the overlay, then runs
+  `wasm_of_ocaml compile web/rocq_shims.wat …` **twice** (`--effects=cps` →
+  `dist/engine-cps/`, `--effects=jspi` → `dist/engine-jspi/`). Per engine it
+  applies the `js:ag` glue patch and rewrites the glue's `src` to
+  `engine-<eff>/rocq_engine.assets` (the glue fetches the `.wasm` relative to the
+  worker's URL, and the engine lives in a subdir while the worker sits at dist
+  root). It also stages the shared `dist/rocq_bytes.js` / `dist/rocq_zarith.js`.
+- `web/rocq_worker.js`: `jspiAvailable()` = `typeof WebAssembly.Suspending ===
+  "function"`; `ENGINE_DIR` = `engine-jspi` when true, else `engine-cps`. Then
+  `importScripts('rocq_bytes.js', 'rocq_zarith.js', ENGINE_DIR+'/rocq_engine.js')`
+  (byte-exact conversion + BigInt backend first), and waits for the
+  asynchronously-installed `RocqComparator` (wasm instantiates async). VFS assets
+  are fetched via `RocqBytes.bytesToBinaryString` (§15.0).
+- `test/judge_test.cjs`: an orchestrator that runs the 12-check suite against
+  **both** engines (one child process each — `RocqComparator` + its VFS are
+  per-process singletons), feeding the `.vo`/META through the same
+  `rocq_bytes.js` conversion the worker uses, plus a byte-exact preflight guard.
+  `ROCQ_DECODE=browser` forces the pre-fix windows-1252 decode to reproduce the
+  fetch bug headlessly (§15.0).
 
 ### 15.6 Browser caveat (could not be verified live — no browser here)
 
-Verified **headless under Node 24** only. The shipped `.wasm` uses the **JSPI**
-effects backend: it runs in Node 24+ and **Chrome/Edge ≥ 137**; **Safari and
-current Firefox do not enable JSPI by default**. For those, rebuild with
-`make real WOO_EFFECTS=cps` (a ~12 MB universal `.wasm`, also verified 12/12
-under Node). GitHub Pages serves `.wasm` as `application/wasm` and the engine is
-single-threaded, so no COOP/COEP headers are needed. Live in-browser behaviour
-(Worker `importScripts`, `fetch` of the `.assets` `.wasm`, the hard kill-timeout)
-follows the same contract as the jsoo build but was not exercised in a real
-browser this session.
+Verified **headless under Node 24** only (both engines, 12/12 each). Selection is
+by capability, not user-agent: `engine-jspi/` where `WebAssembly.Suspending`
+exists (Chrome/Edge ≥ 137, Node 24+), else the universal `engine-cps/` (Safari,
+Firefox, older Chrome/Edge — the cps backend uses no JSPI at all). GitHub Pages
+serves `.wasm` as `application/wasm` and both engines are single-threaded, so no
+COOP/COEP headers are needed. Live in-browser behaviour (Worker `importScripts`,
+the JSPI feature-detect, `fetch` of the `.assets` `.wasm` relative to the worker
+URL, byte-exact `.vo` mount, the hard kill-timeout) follows the documented
+contract but was not exercised in a real browser this session.

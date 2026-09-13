@@ -102,8 +102,8 @@ let setup_vfs () =
     put "/static/findlib.conf" "destdir=\"/static/lib\"\npath=\"/static/lib\"\nldconf=\"ignore\"\nsystem=\"\"\n";
     put "/static/lib/.keep" "";
     (* boot/env.ml:validate_env checks that <coqlib>/theories/Init/Prelude.vo and
-       a plugins dir exist (and exits — now benign, see runtime_shims.js — if
-       not). Once a bundle is mounted the prelude .vo is present; drop a marker
+       a plugins dir exist (and, absent one, exits — a benign no-op here; the worker enforces the
+       hard cap). Once a bundle is mounted the prelude .vo is present; drop a marker
        so <coqlib>/plugins also exists (guess_coqcorelib then takes coqlib as the
        runtimelib), which makes validate_env pass cleanly and silences its
        eprintf. The plugins themselves are statically linked, so the dir only
