@@ -1,0 +1,48 @@
+DIGEST abc63e36d987ec418b987e4f46cccc4f
+FCorelib.Numbers.BinNums
+ind 1089:1096 <> positive
+constr 1111:1112 <> xI
+constr 1141:1142 <> xO
+constr 1171:1172 <> xH
+R1124:1127 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1116:1123 Corelib.Numbers.BinNums <> positive:1 ind
+R1128:1135 Corelib.Numbers.BinNums <> positive:1 ind
+R1154:1157 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1146:1153 Corelib.Numbers.BinNums <> positive:1 ind
+R1158:1165 Corelib.Numbers.BinNums <> positive:1 ind
+R1176:1183 Corelib.Numbers.BinNums <> positive:1 ind
+scheme 1089:1096 <> positive_rect
+scheme 1089:1096 <> positive_ind
+scheme 1089:1096 <> positive_rec
+scheme 1089:1096 <> positive_sind
+R1312:1313 Corelib.Numbers.BinNums <> xO constr
+R1338:1339 Corelib.Numbers.BinNums <> xI constr
+ind 1809:1809 <> N
+constr 1824:1825 <> N0
+constr 1835:1838 <> Npos
+R1829:1829 Corelib.Numbers.BinNums <> N:3 ind
+R1850:1853 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1842:1849 Corelib.Numbers.BinNums <> positive ind
+R1854:1854 Corelib.Numbers.BinNums <> N:3 ind
+scheme 1809:1809 <> N_rect
+scheme 1809:1809 <> N_ind
+scheme 1809:1809 <> N_rec
+scheme 1809:1809 <> N_sind
+R1948:1951 Corelib.Numbers.BinNums <> Npos constr
+ind 2482:2482 <> Z
+constr 2497:2498 <> Z0
+constr 2508:2511 <> Zpos
+constr 2533:2536 <> Zneg
+R2502:2502 Corelib.Numbers.BinNums <> Z:5 ind
+R2523:2526 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2515:2522 Corelib.Numbers.BinNums <> positive ind
+R2527:2527 Corelib.Numbers.BinNums <> Z:5 ind
+R2548:2551 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2540:2547 Corelib.Numbers.BinNums <> positive ind
+R2552:2552 Corelib.Numbers.BinNums <> Z:5 ind
+scheme 2482:2482 <> Z_rect
+scheme 2482:2482 <> Z_ind
+scheme 2482:2482 <> Z_rec
+scheme 2482:2482 <> Z_sind
+R2646:2649 Corelib.Numbers.BinNums <> Zpos constr
+R2674:2677 Corelib.Numbers.BinNums <> Zneg constr

@@ -1,0 +1,12 @@
+DIGEST 2aa7cf384f6d1a2b34d4573fc9051555
+FCorelib.Floats.FloatClass
+ind 684:694 <> float_class
+constr 709:715 <> PNormal
+constr 719:725 <> NNormal
+constr 729:733 <> PSubn
+constr 737:741 <> NSubn
+constr 745:749 <> PZero
+constr 753:757 <> NZero
+constr 761:764 <> PInf
+constr 768:771 <> NInf
+constr 775:777 <> NaN

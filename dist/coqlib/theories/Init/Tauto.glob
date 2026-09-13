@@ -1,0 +1,18 @@
+DIGEST 39d42c912eaa582cd9bfa54171270e07
+FCorelib.Init.Tauto
+R733:741 Corelib.Init.Notations <> <> lib
+R759:762 Corelib.Init.Ltac <> <> lib
+R780:788 Corelib.Init.Datatypes <> <> lib
+R806:810 Corelib.Init.Logic <> <> lib
+R964:985 Corelib.Init.Logic <> not def
+R1000:1021 Corelib.Init.Logic <> not def
+R1396:1417 Corelib.Init.Logic <> iff def
+R1475:1496 Corelib.Init.Logic <> not def
+R2345:2366 Corelib.Init.Logic <> iff def
+R2743:2764 Corelib.Init.Logic <> iff def
+R2792:2813 Corelib.Init.Logic <> not def
+R3255:3257 Corelib.Init.Logic <> not def
+R3335:3337 Corelib.Init.Logic <> not def
+binder 3160:3160 <> y:1
+binder 3176:3176 <> x:2
+R3184:3184 Corelib.Init.Tauto <> y:1 var

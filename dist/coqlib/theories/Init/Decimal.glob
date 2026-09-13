@@ -1,0 +1,460 @@
+DIGEST 6fe1fb0a20f877f18e466d88d570837b
+FCorelib.Init.Decimal
+R1018:1026 Corelib.Init.Datatypes <> <> lib
+R1028:1033 Corelib.Init.Specif <> <> lib
+ind 1138:1141 <> uint
+constr 1149:1151 <> Nil
+constr 1156:1157 <> D0
+constr 1171:1172 <> D1
+constr 1186:1187 <> D2
+constr 1201:1202 <> D3
+constr 1216:1217 <> D4
+constr 1231:1232 <> D5
+constr 1246:1247 <> D6
+constr 1261:1262 <> D7
+constr 1276:1277 <> D8
+constr 1291:1292 <> D9
+R1162:1165 Corelib.Init.Decimal <> uint:1 ind
+R1177:1180 Corelib.Init.Decimal <> uint:1 ind
+R1192:1195 Corelib.Init.Decimal <> uint:1 ind
+R1207:1210 Corelib.Init.Decimal <> uint:1 ind
+R1222:1225 Corelib.Init.Decimal <> uint:1 ind
+R1237:1240 Corelib.Init.Decimal <> uint:1 ind
+R1252:1255 Corelib.Init.Decimal <> uint:1 ind
+R1267:1270 Corelib.Init.Decimal <> uint:1 ind
+R1282:1285 Corelib.Init.Decimal <> uint:1 ind
+R1297:1300 Corelib.Init.Decimal <> uint:1 ind
+scheme 1138:1141 <> uint_rect
+scheme 1138:1141 <> uint_ind
+scheme 1138:1141 <> uint_rec
+scheme 1138:1141 <> uint_sind
+abbrev 1510:1513 <> zero
+R1519:1520 Corelib.Init.Decimal <> D0 constr
+R1522:1524 Corelib.Init.Decimal <> Nil constr
+ind 1607:1616 <> signed_int
+constr 1621:1623 <> Pos
+constr 1636:1638 <> Neg
+R1628:1631 Corelib.Init.Decimal <> uint ind
+binder 1626:1626 <> d:5
+R1643:1646 Corelib.Init.Decimal <> uint ind
+binder 1641:1641 <> d:6
+abbrev 1663:1665 <> int
+R1670:1679 Corelib.Init.Decimal <> signed_int variant
+ind 1960:1966 <> decimal
+constr 1974:1980 <> Decimal
+constr 2002:2011 <> DecimalExp
+R1985:1987 Corelib.Init.Decimal <> int abbrev
+binder 1983:1983 <> i:9
+R1993:1996 Corelib.Init.Decimal <> uint ind
+binder 1991:1991 <> f:10
+R2016:2018 Corelib.Init.Decimal <> int abbrev
+binder 2014:2014 <> i:11
+R2024:2027 Corelib.Init.Decimal <> uint ind
+binder 2022:2022 <> f:12
+R2033:2035 Corelib.Init.Decimal <> int abbrev
+binder 2031:2031 <> e:13
+R2060:2063 Corelib.Init.Decimal <> uint ind
+scheme 2040:2064 <> uint_eq_dec
+R2086:2088 Corelib.Init.Decimal <> signed_int variant
+scheme 2066:2089 <> signed_int_eq_dec
+R2111:2117 Corelib.Init.Decimal <> decimal variant
+scheme 2091:2118 <> decimal_eq_dec
+abbrev 2133:2142 <> int_eq_dec
+R2147:2163 Corelib.Init.Decimal <> signed_int_eq_dec scheme
+abbrev 2179:2185 <> int_beq
+R2190:2203 Corelib.Init.Decimal <> signed_int_beq scheme
+abbrev 2219:2237 <> internal_int_dec_lb
+R2242:2267 Corelib.Init.Decimal <> internal_signed_int_dec_lb scheme
+abbrev 2283:2301 <> internal_int_dec_bl
+R2306:2331 Corelib.Init.Decimal <> internal_signed_int_dec_bl scheme
+def 2656:2664 <> nb_digits
+binder 2666:2666 <> d:14
+R2679:2679 Corelib.Init.Decimal <> d:14 var
+R2690:2692 Corelib.Init.Decimal <> Nil constr
+R2697:2697 Corelib.Init.Datatypes <> O constr
+R2703:2704 Corelib.Init.Decimal <> D0 constr
+R2710:2711 Corelib.Init.Decimal <> D1 constr
+R2717:2718 Corelib.Init.Decimal <> D2 constr
+R2724:2725 Corelib.Init.Decimal <> D3 constr
+R2731:2732 Corelib.Init.Decimal <> D4 constr
+R2738:2739 Corelib.Init.Decimal <> D5 constr
+R2745:2746 Corelib.Init.Decimal <> D6 constr
+R2752:2753 Corelib.Init.Decimal <> D7 constr
+R2759:2760 Corelib.Init.Decimal <> D8 constr
+R2766:2767 Corelib.Init.Decimal <> D9 constr
+R2778:2778 Corelib.Init.Datatypes <> S constr
+R2781:2789 Corelib.Init.Decimal <> nb_digits:15 def
+R2791:2791 Corelib.Init.Decimal <> d:14 var
+def 3114:3119 <> nzhead
+binder 3121:3121 <> d:17
+R3134:3134 Corelib.Init.Decimal <> d:17 var
+R3145:3146 Corelib.Init.Decimal <> D0 constr
+R3153:3158 Corelib.Init.Decimal <> nzhead:18 def
+R3160:3160 Corelib.Init.Decimal <> d:17 var
+R3171:3171 Corelib.Init.Decimal <> d:17 var
+def 3245:3249 <> unorm
+binder 3251:3251 <> d:20
+R3264:3269 Corelib.Init.Decimal <> nzhead def
+R3271:3271 Corelib.Init.Decimal <> d:20 var
+R3282:3284 Corelib.Init.Decimal <> Nil constr
+R3289:3292 Corelib.Init.Decimal <> zero abbrev
+R3303:3303 Corelib.Init.Decimal <> d:20 var
+def 3374:3377 <> norm
+binder 3379:3379 <> d:21
+R3392:3392 Corelib.Init.Decimal <> d:21 var
+R3403:3405 Corelib.Init.Decimal <> Pos constr
+R3412:3414 Corelib.Init.Decimal <> Pos constr
+R3417:3421 Corelib.Init.Decimal <> unorm def
+R3423:3423 Corelib.Init.Decimal <> d:21 var
+R3430:3432 Corelib.Init.Decimal <> Neg constr
+R3449:3454 Corelib.Init.Decimal <> nzhead def
+R3456:3456 Corelib.Init.Decimal <> d:21 var
+R3469:3471 Corelib.Init.Decimal <> Nil constr
+R3476:3478 Corelib.Init.Decimal <> Pos constr
+R3480:3483 Corelib.Init.Decimal <> zero abbrev
+R3496:3498 Corelib.Init.Decimal <> Neg constr
+R3500:3500 Corelib.Init.Decimal <> d:21 var
+def 3687:3689 <> opp
+R3694:3696 Corelib.Init.Decimal <> int abbrev
+binder 3692:3692 <> d:23
+R3710:3710 Corelib.Init.Decimal <> d:23 var
+R3721:3723 Corelib.Init.Decimal <> Pos constr
+R3730:3732 Corelib.Init.Decimal <> Neg constr
+R3734:3734 Corelib.Init.Decimal <> d:23 var
+R3740:3742 Corelib.Init.Decimal <> Neg constr
+R3749:3751 Corelib.Init.Decimal <> Pos constr
+R3753:3753 Corelib.Init.Decimal <> d:23 var
+def 3774:3776 <> abs
+R3781:3783 Corelib.Init.Decimal <> int abbrev
+binder 3779:3779 <> d:25
+R3788:3791 Corelib.Init.Decimal <> uint ind
+R3804:3804 Corelib.Init.Decimal <> d:25 var
+R3815:3817 Corelib.Init.Decimal <> Pos constr
+R3824:3824 Corelib.Init.Decimal <> d:25 var
+R3830:3832 Corelib.Init.Decimal <> Neg constr
+R3839:3839 Corelib.Init.Decimal <> d:25 var
+def 3957:3962 <> revapp
+R3972:3975 Corelib.Init.Decimal <> uint ind
+binder 3965:3965 <> d:27
+binder 3967:3968 <> d':28
+R3989:3989 Corelib.Init.Decimal <> d:27 var
+R4000:4002 Corelib.Init.Decimal <> Nil constr
+R4007:4008 Corelib.Init.Decimal <> d':28 var
+R4014:4015 Corelib.Init.Decimal <> D0 constr
+R4022:4027 Corelib.Init.Decimal <> revapp:29 def
+R4032:4033 Corelib.Init.Decimal <> D0 constr
+R4035:4036 Corelib.Init.Decimal <> d':28 var
+R4029:4029 Corelib.Init.Decimal <> d:27 var
+R4043:4044 Corelib.Init.Decimal <> D1 constr
+R4051:4056 Corelib.Init.Decimal <> revapp:29 def
+R4061:4062 Corelib.Init.Decimal <> D1 constr
+R4064:4065 Corelib.Init.Decimal <> d':28 var
+R4058:4058 Corelib.Init.Decimal <> d:27 var
+R4072:4073 Corelib.Init.Decimal <> D2 constr
+R4080:4085 Corelib.Init.Decimal <> revapp:29 def
+R4090:4091 Corelib.Init.Decimal <> D2 constr
+R4093:4094 Corelib.Init.Decimal <> d':28 var
+R4087:4087 Corelib.Init.Decimal <> d:27 var
+R4101:4102 Corelib.Init.Decimal <> D3 constr
+R4109:4114 Corelib.Init.Decimal <> revapp:29 def
+R4119:4120 Corelib.Init.Decimal <> D3 constr
+R4122:4123 Corelib.Init.Decimal <> d':28 var
+R4116:4116 Corelib.Init.Decimal <> d:27 var
+R4130:4131 Corelib.Init.Decimal <> D4 constr
+R4138:4143 Corelib.Init.Decimal <> revapp:29 def
+R4148:4149 Corelib.Init.Decimal <> D4 constr
+R4151:4152 Corelib.Init.Decimal <> d':28 var
+R4145:4145 Corelib.Init.Decimal <> d:27 var
+R4159:4160 Corelib.Init.Decimal <> D5 constr
+R4167:4172 Corelib.Init.Decimal <> revapp:29 def
+R4177:4178 Corelib.Init.Decimal <> D5 constr
+R4180:4181 Corelib.Init.Decimal <> d':28 var
+R4174:4174 Corelib.Init.Decimal <> d:27 var
+R4188:4189 Corelib.Init.Decimal <> D6 constr
+R4196:4201 Corelib.Init.Decimal <> revapp:29 def
+R4206:4207 Corelib.Init.Decimal <> D6 constr
+R4209:4210 Corelib.Init.Decimal <> d':28 var
+R4203:4203 Corelib.Init.Decimal <> d:27 var
+R4217:4218 Corelib.Init.Decimal <> D7 constr
+R4225:4230 Corelib.Init.Decimal <> revapp:29 def
+R4235:4236 Corelib.Init.Decimal <> D7 constr
+R4238:4239 Corelib.Init.Decimal <> d':28 var
+R4232:4232 Corelib.Init.Decimal <> d:27 var
+R4246:4247 Corelib.Init.Decimal <> D8 constr
+R4254:4259 Corelib.Init.Decimal <> revapp:29 def
+R4264:4265 Corelib.Init.Decimal <> D8 constr
+R4267:4268 Corelib.Init.Decimal <> d':28 var
+R4261:4261 Corelib.Init.Decimal <> d:27 var
+R4275:4276 Corelib.Init.Decimal <> D9 constr
+R4283:4288 Corelib.Init.Decimal <> revapp:29 def
+R4293:4294 Corelib.Init.Decimal <> D9 constr
+R4296:4297 Corelib.Init.Decimal <> d':28 var
+R4290:4290 Corelib.Init.Decimal <> d:27 var
+def 4319:4321 <> rev
+binder 4323:4323 <> d:31
+R4328:4333 Corelib.Init.Decimal <> revapp def
+R4335:4335 Corelib.Init.Decimal <> d:31 var
+R4337:4339 Corelib.Init.Decimal <> Nil constr
+def 4354:4356 <> app
+binder 4358:4358 <> d:32
+binder 4360:4361 <> d':33
+R4366:4371 Corelib.Init.Decimal <> revapp def
+R4374:4376 Corelib.Init.Decimal <> rev def
+R4378:4378 Corelib.Init.Decimal <> d:32 var
+R4381:4382 Corelib.Init.Decimal <> d':33 var
+def 4397:4403 <> app_int
+binder 4405:4406 <> d1:34
+binder 4408:4409 <> d2:35
+R4422:4423 Corelib.Init.Decimal <> d1:34 var
+R4430:4432 Corelib.Init.Decimal <> Pos constr
+R4440:4442 Corelib.Init.Decimal <> Pos constr
+R4445:4447 Corelib.Init.Decimal <> app def
+R4449:4450 Corelib.Init.Decimal <> d1:34 var
+R4452:4453 Corelib.Init.Decimal <> d2:35 var
+R4458:4460 Corelib.Init.Decimal <> Neg constr
+R4468:4470 Corelib.Init.Decimal <> Neg constr
+R4473:4475 Corelib.Init.Decimal <> app def
+R4477:4478 Corelib.Init.Decimal <> d1:34 var
+R4480:4481 Corelib.Init.Decimal <> d2:35 var
+def 4616:4621 <> nztail
+binder 4623:4623 <> d:37
+binder 4642:4646 <> d_rev:38
+R4661:4665 Corelib.Init.Decimal <> d_rev:38 var
+R4678:4679 Corelib.Init.Decimal <> D0 constr
+R4704:4706 Corelib.Init.Decimal <> aux:39 var
+R4708:4712 Corelib.Init.Decimal <> d_rev:38 var
+binder 4695:4695 <> r:41
+binder 4698:4698 <> n:42
+R4717:4720 Corelib.Init.Datatypes <> pair constr
+R4725:4725 Corelib.Init.Datatypes <> S constr
+R4727:4727 Corelib.Init.Decimal <> n:42 var
+R4722:4722 Corelib.Init.Decimal <> r:41 var
+R4741:4744 Corelib.Init.Datatypes <> pair constr
+R4752:4752 Corelib.Init.Datatypes <> O constr
+R4746:4750 Corelib.Init.Decimal <> d_rev:38 var
+binder 4638:4640 <> aux:43
+R4781:4783 Corelib.Init.Decimal <> aux:43 var
+R4786:4788 Corelib.Init.Decimal <> rev def
+R4790:4790 Corelib.Init.Decimal <> d:37 var
+binder 4772:4772 <> r:44
+binder 4775:4775 <> n:45
+R4796:4799 Corelib.Init.Datatypes <> pair constr
+R4809:4809 Corelib.Init.Decimal <> n:45 var
+R4802:4804 Corelib.Init.Decimal <> rev def
+R4806:4806 Corelib.Init.Decimal <> r:44 var
+def 4824:4833 <> nztail_int
+binder 4835:4835 <> d:46
+R4848:4848 Corelib.Init.Decimal <> d:46 var
+R4859:4861 Corelib.Init.Decimal <> Pos constr
+R4882:4887 Corelib.Init.Decimal <> nztail def
+R4889:4889 Corelib.Init.Decimal <> d:46 var
+binder 4873:4873 <> r:48
+binder 4876:4876 <> n:49
+R4894:4897 Corelib.Init.Datatypes <> pair constr
+R4907:4907 Corelib.Init.Decimal <> n:49 var
+R4900:4902 Corelib.Init.Decimal <> Pos constr
+R4904:4904 Corelib.Init.Decimal <> r:48 var
+R4913:4915 Corelib.Init.Decimal <> Neg constr
+R4936:4941 Corelib.Init.Decimal <> nztail def
+R4943:4943 Corelib.Init.Decimal <> d:46 var
+binder 4927:4927 <> r:50
+binder 4930:4930 <> n:51
+R4948:4951 Corelib.Init.Datatypes <> pair constr
+R4961:4961 Corelib.Init.Decimal <> n:51 var
+R4954:4956 Corelib.Init.Decimal <> Neg constr
+R4958:4958 Corelib.Init.Decimal <> r:50 var
+def 5097:5104 <> del_head
+binder 5106:5106 <> n:52
+binder 5108:5108 <> d:53
+R5121:5121 Corelib.Init.Decimal <> n:52 var
+R5132:5132 Corelib.Init.Datatypes <> O constr
+R5137:5137 Corelib.Init.Decimal <> d:53 var
+R5143:5143 Corelib.Init.Datatypes <> S constr
+R5160:5160 Corelib.Init.Decimal <> d:53 var
+R5173:5175 Corelib.Init.Decimal <> Nil constr
+R5180:5183 Corelib.Init.Decimal <> zero abbrev
+R5191:5192 Corelib.Init.Decimal <> D0 constr
+R5198:5199 Corelib.Init.Decimal <> D1 constr
+R5205:5206 Corelib.Init.Decimal <> D2 constr
+R5212:5213 Corelib.Init.Decimal <> D3 constr
+R5219:5220 Corelib.Init.Decimal <> D4 constr
+R5226:5227 Corelib.Init.Decimal <> D5 constr
+R5233:5234 Corelib.Init.Decimal <> D6 constr
+R5240:5241 Corelib.Init.Decimal <> D7 constr
+R5247:5248 Corelib.Init.Decimal <> D8 constr
+R5254:5255 Corelib.Init.Decimal <> D9 constr
+R5268:5275 Corelib.Init.Decimal <> del_head:54 def
+R5279:5279 Corelib.Init.Decimal <> d:53 var
+R5277:5277 Corelib.Init.Decimal <> n:52 var
+def 5308:5319 <> del_head_int
+binder 5321:5321 <> n:57
+binder 5323:5323 <> d:58
+R5336:5336 Corelib.Init.Decimal <> d:58 var
+R5347:5349 Corelib.Init.Decimal <> Pos constr
+R5356:5363 Corelib.Init.Decimal <> del_head def
+R5365:5365 Corelib.Init.Decimal <> n:57 var
+R5367:5367 Corelib.Init.Decimal <> d:58 var
+R5373:5375 Corelib.Init.Decimal <> Neg constr
+R5382:5389 Corelib.Init.Decimal <> del_head def
+R5391:5391 Corelib.Init.Decimal <> n:57 var
+R5393:5393 Corelib.Init.Decimal <> d:58 var
+def 5525:5532 <> del_tail
+binder 5534:5534 <> n:60
+binder 5536:5536 <> d:61
+R5541:5543 Corelib.Init.Decimal <> rev def
+R5546:5553 Corelib.Init.Decimal <> del_head def
+R5555:5555 Corelib.Init.Decimal <> n:60 var
+R5558:5560 Corelib.Init.Decimal <> rev def
+R5562:5562 Corelib.Init.Decimal <> d:61 var
+def 5579:5590 <> del_tail_int
+binder 5592:5592 <> n:62
+binder 5594:5594 <> d:63
+R5607:5607 Corelib.Init.Decimal <> d:63 var
+R5618:5620 Corelib.Init.Decimal <> Pos constr
+R5627:5629 Corelib.Init.Decimal <> Pos constr
+R5632:5639 Corelib.Init.Decimal <> del_tail def
+R5641:5641 Corelib.Init.Decimal <> n:62 var
+R5643:5643 Corelib.Init.Decimal <> d:63 var
+R5650:5652 Corelib.Init.Decimal <> Neg constr
+R5659:5661 Corelib.Init.Decimal <> Neg constr
+R5664:5671 Corelib.Init.Decimal <> del_tail def
+R5673:5673 Corelib.Init.Decimal <> n:62 var
+R5675:5675 Corelib.Init.Decimal <> d:63 var
+mod 5693:5698 <> Little
+def 5754:5757 Little succ
+binder 5759:5759 <> d:65
+R5772:5772 Corelib.Init.Decimal <> d:65 var
+R5783:5785 Corelib.Init.Decimal <> Nil constr
+R5790:5791 Corelib.Init.Decimal <> D1 constr
+R5793:5795 Corelib.Init.Decimal <> Nil constr
+R5801:5802 Corelib.Init.Decimal <> D0 constr
+R5809:5810 Corelib.Init.Decimal <> D1 constr
+R5812:5812 Corelib.Init.Decimal <> d:65 var
+R5818:5819 Corelib.Init.Decimal <> D1 constr
+R5826:5827 Corelib.Init.Decimal <> D2 constr
+R5829:5829 Corelib.Init.Decimal <> d:65 var
+R5835:5836 Corelib.Init.Decimal <> D2 constr
+R5843:5844 Corelib.Init.Decimal <> D3 constr
+R5846:5846 Corelib.Init.Decimal <> d:65 var
+R5852:5853 Corelib.Init.Decimal <> D3 constr
+R5860:5861 Corelib.Init.Decimal <> D4 constr
+R5863:5863 Corelib.Init.Decimal <> d:65 var
+R5869:5870 Corelib.Init.Decimal <> D4 constr
+R5877:5878 Corelib.Init.Decimal <> D5 constr
+R5880:5880 Corelib.Init.Decimal <> d:65 var
+R5886:5887 Corelib.Init.Decimal <> D5 constr
+R5894:5895 Corelib.Init.Decimal <> D6 constr
+R5897:5897 Corelib.Init.Decimal <> d:65 var
+R5903:5904 Corelib.Init.Decimal <> D6 constr
+R5911:5912 Corelib.Init.Decimal <> D7 constr
+R5914:5914 Corelib.Init.Decimal <> d:65 var
+R5920:5921 Corelib.Init.Decimal <> D7 constr
+R5928:5929 Corelib.Init.Decimal <> D8 constr
+R5931:5931 Corelib.Init.Decimal <> d:65 var
+R5937:5938 Corelib.Init.Decimal <> D8 constr
+R5945:5946 Corelib.Init.Decimal <> D9 constr
+R5948:5948 Corelib.Init.Decimal <> d:65 var
+R5954:5955 Corelib.Init.Decimal <> D9 constr
+R5962:5963 Corelib.Init.Decimal <> D0 constr
+R5966:5969 Corelib.Init.Decimal <> succ:66 def
+R5971:5971 Corelib.Init.Decimal <> d:65 var
+def 6030:6035 Little double
+def 6369:6379 Little succ_double
+binder 6037:6037 <> d:68
+binder 6381:6381 <> d:69
+R6050:6050 Corelib.Init.Decimal <> d:68 var
+R6061:6063 Corelib.Init.Decimal <> Nil constr
+R6068:6070 Corelib.Init.Decimal <> Nil constr
+R6076:6077 Corelib.Init.Decimal <> D0 constr
+R6084:6085 Corelib.Init.Decimal <> D0 constr
+R6088:6093 Corelib.Init.Decimal <> double:70 def
+R6095:6095 Corelib.Init.Decimal <> d:68 var
+R6102:6103 Corelib.Init.Decimal <> D1 constr
+R6110:6111 Corelib.Init.Decimal <> D2 constr
+R6114:6119 Corelib.Init.Decimal <> double:70 def
+R6121:6121 Corelib.Init.Decimal <> d:68 var
+R6128:6129 Corelib.Init.Decimal <> D2 constr
+R6136:6137 Corelib.Init.Decimal <> D4 constr
+R6140:6145 Corelib.Init.Decimal <> double:70 def
+R6147:6147 Corelib.Init.Decimal <> d:68 var
+R6154:6155 Corelib.Init.Decimal <> D3 constr
+R6162:6163 Corelib.Init.Decimal <> D6 constr
+R6166:6171 Corelib.Init.Decimal <> double:70 def
+R6173:6173 Corelib.Init.Decimal <> d:68 var
+R6180:6181 Corelib.Init.Decimal <> D4 constr
+R6188:6189 Corelib.Init.Decimal <> D8 constr
+R6192:6197 Corelib.Init.Decimal <> double:70 def
+R6199:6199 Corelib.Init.Decimal <> d:68 var
+R6206:6207 Corelib.Init.Decimal <> D5 constr
+R6214:6215 Corelib.Init.Decimal <> D0 constr
+R6218:6228 Corelib.Init.Decimal <> succ_double:71 def
+R6230:6230 Corelib.Init.Decimal <> d:68 var
+R6237:6238 Corelib.Init.Decimal <> D6 constr
+R6245:6246 Corelib.Init.Decimal <> D2 constr
+R6249:6259 Corelib.Init.Decimal <> succ_double:71 def
+R6261:6261 Corelib.Init.Decimal <> d:68 var
+R6268:6269 Corelib.Init.Decimal <> D7 constr
+R6276:6277 Corelib.Init.Decimal <> D4 constr
+R6280:6290 Corelib.Init.Decimal <> succ_double:71 def
+R6292:6292 Corelib.Init.Decimal <> d:68 var
+R6299:6300 Corelib.Init.Decimal <> D8 constr
+R6307:6308 Corelib.Init.Decimal <> D6 constr
+R6311:6321 Corelib.Init.Decimal <> succ_double:71 def
+R6323:6323 Corelib.Init.Decimal <> d:68 var
+R6330:6331 Corelib.Init.Decimal <> D9 constr
+R6338:6339 Corelib.Init.Decimal <> D8 constr
+R6342:6352 Corelib.Init.Decimal <> succ_double:71 def
+R6354:6354 Corelib.Init.Decimal <> d:68 var
+R6394:6394 Corelib.Init.Decimal <> d:69 var
+R6405:6407 Corelib.Init.Decimal <> Nil constr
+R6412:6413 Corelib.Init.Decimal <> D1 constr
+R6415:6417 Corelib.Init.Decimal <> Nil constr
+R6423:6424 Corelib.Init.Decimal <> D0 constr
+R6431:6432 Corelib.Init.Decimal <> D1 constr
+R6435:6440 Corelib.Init.Decimal <> double:70 def
+R6442:6442 Corelib.Init.Decimal <> d:69 var
+R6449:6450 Corelib.Init.Decimal <> D1 constr
+R6457:6458 Corelib.Init.Decimal <> D3 constr
+R6461:6466 Corelib.Init.Decimal <> double:70 def
+R6468:6468 Corelib.Init.Decimal <> d:69 var
+R6475:6476 Corelib.Init.Decimal <> D2 constr
+R6483:6484 Corelib.Init.Decimal <> D5 constr
+R6487:6492 Corelib.Init.Decimal <> double:70 def
+R6494:6494 Corelib.Init.Decimal <> d:69 var
+R6501:6502 Corelib.Init.Decimal <> D3 constr
+R6509:6510 Corelib.Init.Decimal <> D7 constr
+R6513:6518 Corelib.Init.Decimal <> double:70 def
+R6520:6520 Corelib.Init.Decimal <> d:69 var
+R6527:6528 Corelib.Init.Decimal <> D4 constr
+R6535:6536 Corelib.Init.Decimal <> D9 constr
+R6539:6544 Corelib.Init.Decimal <> double:70 def
+R6546:6546 Corelib.Init.Decimal <> d:69 var
+R6553:6554 Corelib.Init.Decimal <> D5 constr
+R6561:6562 Corelib.Init.Decimal <> D1 constr
+R6565:6575 Corelib.Init.Decimal <> succ_double:71 def
+R6577:6577 Corelib.Init.Decimal <> d:69 var
+R6584:6585 Corelib.Init.Decimal <> D6 constr
+R6592:6593 Corelib.Init.Decimal <> D3 constr
+R6596:6606 Corelib.Init.Decimal <> succ_double:71 def
+R6608:6608 Corelib.Init.Decimal <> d:69 var
+R6615:6616 Corelib.Init.Decimal <> D7 constr
+R6623:6624 Corelib.Init.Decimal <> D5 constr
+R6627:6637 Corelib.Init.Decimal <> succ_double:71 def
+R6639:6639 Corelib.Init.Decimal <> d:69 var
+R6646:6647 Corelib.Init.Decimal <> D8 constr
+R6654:6655 Corelib.Init.Decimal <> D7 constr
+R6658:6668 Corelib.Init.Decimal <> succ_double:71 def
+R6670:6670 Corelib.Init.Decimal <> d:69 var
+R6677:6678 Corelib.Init.Decimal <> D9 constr
+R6685:6686 Corelib.Init.Decimal <> D9 constr
+R6689:6699 Corelib.Init.Decimal <> succ_double:71 def
+R6701:6701 Corelib.Init.Decimal <> d:69 var
+R6716:6721 Corelib.Init.Decimal Little <> mod
+def 6834:6845 <> uint_of_uint
+R6850:6853 Corelib.Init.Decimal <> uint ind
+binder 6848:6848 <> i:74
+R6859:6859 Corelib.Init.Decimal <> i:74 var
+def 6873:6882 <> int_of_int
+R6887:6889 Corelib.Init.Decimal <> int abbrev
+binder 6885:6885 <> i:75
+R6895:6895 Corelib.Init.Decimal <> i:75 var

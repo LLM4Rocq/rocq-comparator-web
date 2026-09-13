@@ -1,0 +1,21 @@
+DIGEST 615419f7b04570fe64980b76d1acccf4
+FCorelib.ssrmatching.ssrmatching
+mod 819:835 <> SsrMatchingSyntax
+binder 1415:1415 <> X:1
+not 1388:1388 SsrMatchingSyntax ::ssrpatternscope:'('_x_'in'_x_')'
+abbrev 1552:1554 SsrMatchingSyntax RHS
+R1559:1559 Corelib.ssrmatching.ssrmatching SsrMatchingSyntax ::ssrpatternscope:'('_x_'in'_x_')' not
+R1561:1564 Corelib.ssrmatching.ssrmatching SsrMatchingSyntax ::ssrpatternscope:'('_x_'in'_x_')' not
+R1570:1570 Corelib.ssrmatching.ssrmatching SsrMatchingSyntax ::ssrpatternscope:'('_x_'in'_x_')' not
+binder 1560:1560 <> X:2
+R1566:1568 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1569:1569 Corelib.ssrmatching.ssrmatching <> X:2 var
+abbrev 1594:1596 SsrMatchingSyntax LHS
+R1601:1601 Corelib.ssrmatching.ssrmatching SsrMatchingSyntax ::ssrpatternscope:'('_x_'in'_x_')' not
+R1603:1606 Corelib.ssrmatching.ssrmatching SsrMatchingSyntax ::ssrpatternscope:'('_x_'in'_x_')' not
+R1612:1612 Corelib.ssrmatching.ssrmatching SsrMatchingSyntax ::ssrpatternscope:'('_x_'in'_x_')' not
+binder 1602:1602 <> X:3
+R1608:1610 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1607:1607 Corelib.ssrmatching.ssrmatching <> X:3 var
+R1628:1644 Corelib.ssrmatching.ssrmatching SsrMatchingSyntax <> mod
+R1655:1671 Corelib.ssrmatching.ssrmatching SsrMatchingSyntax <> mod

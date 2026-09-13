@@ -737,3 +737,103 @@ plus `dllcoqrun_stubs.wasm` for the VM C prims (jsoo tolerates them as unused
 dummies; a wasm link may not). js_of_ocaml was chosen to get a running check
 first; the overlay + shims + `Control.set_timeout` approach ports to wasmoo
 unchanged once the coqrun wasm stubs are supplied.
+
+---
+
+## 12. Build phase 3 — the Corelib prelude runs in the browser (Milestone 1)
+
+**Status: `-noinit` is gone. A real `nat` + tactics proof kernel-checks
+in-browser with the Corelib prelude loaded.** The §11.5 limitation is cleared.
+
+Verified (headless, node — real-fs `make test` **and** a faithful browser-worker
+emulation that hides `process` so the engine uses the in-memory VFS + browser
+`exit` path, exactly as a real Web Worker does):
+
+```
+challenge  Theorem add_0_r : forall n : nat, n + 0 = n. Proof. Admitted.
+solution   Theorem add_0_r : forall n : nat, n + 0 = n.
+           Proof. induction n as [| n IH]; simpl.
+             - reflexivity.
+             - rewrite IH. reflexivity. Qed.
+=> ok:true, targets[0].status="proved",
+   checks all "ok" (filter/…/statements/closure/axioms/hygiene/libraries), rocqchk "skipped"
+```
+
+An admitted solution → `ok:false, reason:"not_proved"`; a changed statement →
+`statement_mismatch`. `make test` = 10 passed, 0 failed.
+
+### 12.1 Finishing the coerce-32bit port to 9.2 (the write side)
+
+§11.1 rebuilt only `kernel.cma` (uint63_31/float64_31). The prelude needs the
+*marshalling* half of wacoq/coq-lsp `coerce-32bit.patch`
+(`web/patches/coerce-32bit.reference.patch`), ported to 9.2:
+
+| file | change | why |
+|---|---|---|
+| `clib/hashset.ml` | `Combine.combine`/`combinesmall` `land 0x3fffffff` | cached hash fields in marshalled terms must fit a 31/32-bit int (`kernel/nativecode.ml` `open Hashset.Combine`, so it is covered too) |
+| `lib/system.ml` | `marshal_out … [Marshal.Compat_32]` | 32-bit-readable marshalling |
+| `lib/objFile.ml` | segment writer `… [Marshal.Compat_32]` | the `.vo` segment writer moved here in 9.x; this is the one that matters for `.vo` |
+
+The `.v` Admits in the reference patch (Int63/Ring63 `vm_compute` proofs) are
+**not** needed: we compile the `.vo` on a **native** host (63-bit), where the
+Int64-backed kernel computes `vm_compute` correctly. `web/build-real.sh` now
+builds and overlays patched `kernel.cma` + `lib.cma` + `clib.cma` (all `.mli`
+unchanged ⇒ interface CRCs preserved ⇒ the rest of installed rocq-runtime links
+untouched). The **same** patched archives sit under the jsoo engine AND the
+native `rocqc` that writes the `.vo`.
+
+### 12.2 Regenerating 32-bit-safe `.vo` (`web/build-native.sh`)
+
+`web/build-native.sh` builds a **native** patched Rocq from the same
+`.rocq-build/rocq-src` tree (`make dunestrap` + `dune build rocq-core.install`)
+and regenerates the Corelib prelude (65 `.vo`, ~1.9 MB) + Ltac2 (42 `.vo`,
+~0.2 MB) with it. The core opam switch is never touched (all output stays in
+`_build`; `dune build` in the core still exits 0). Native stock `.vo` fail under
+jsoo with `input_value: integer too large`; these load cleanly.
+
+### 12.3 Mounting + loadpath + dropping `-noinit` (`web_check.ml`, `rocq_worker.js`)
+
+- `RocqComparator.mount(path, bytes)` writes a file into the VFS (`Js.to_bytestring`
+  keeps the `.vo` bytes intact). `rocq_worker.js` fetches `coqlib/manifest.json`
+  then every `.vo` + a stripped findlib `META` and mounts them **before** ready;
+  `test/judge_test.cjs` does the same from disk. Absent bundle ⇒ silent `-noinit`
+  fallback.
+- The coqlib root is **`/static/coqlib`**, not `/coqlib`: `/static` is jsoo's
+  in-memory fake device under *both* the browser and node, whereas a top-level
+  `/coqlib` is node's real filesystem root (mounts there are unreadable). This is
+  the one non-obvious portability rule.
+- A missing directory-`stat` was the loadpath blocker: Rocq's `lib/system.ml`
+  reads `(Unix.stat dir).st_kind` while scanning the coqlib, and jsoo's
+  `MlFakeDevice` has no `stat`. `runtime_shims.js` now provides `caml_unix_stat`
+  (real stat on the node device; synthesized `[…,st_kind,…]` on the fake device).
+- `web_check.ml` injects `-coqlib /static/coqlib` by pre-calling the idempotent
+  `Driver.init` (first-call-wins) with the request args **plus** `-coqlib`, then
+  drops `-noinit` whenever a bundle is mounted. No core `Config`/`Driver` change.
+
+### 12.4 The prelude's `Declare ML Module` — static plugins, no Dynlink
+
+`Corelib.Init.Prelude` (and Ltac/Tauto) `Declare ML Module` for `ltac`, `cc`,
+`firstorder`, `number_string_notation`, `tauto`. jsoo has no Dynlink, so:
+
+1. **Statically link** those plugins into the engine (`web/dune` `libraries`,
+   with `-linkall`) — their tactic/notation/grammar extensions register at module
+   init, so the code is present.
+2. **Mount a stripped `rocq-runtime.META`** (all `archive(…)`/`plugin(…)` lines
+   removed, `requires` kept). Rocq's `Mltop.declare_ml_modules` still resolves the
+   dependency graph via findlib (`add_deps`, `digest`), but with no `archive` the
+   plugin file list is empty ⇒ zero `Dynlink.loadfile` calls, zero `Digest.file`
+   on missing `.cmxs`. The `Declare ML Module` becomes a no-op over already-linked
+   code.
+
+This is the jsCoq/wacoq "static plugin" idea, done with a stripped META instead
+of a patched loader. Adding a plugin to the demo = add it to `web/dune` (the
+stripped META already lists every rocq-runtime plugin).
+
+### 12.5 Bundle sizes
+
+| layer | `.vo` | size |
+|---|---|---|
+| Corelib prelude (`theories/`) | 65 | ~1.9 MB |
+| Ltac2 (`user-contrib/Ltac2`) | 42 | ~0.2 MB |
+| **total `dist/coqlib/`** (incl. stripped META + manifest) | 107 | **~6.1 MB on disk** |
+| engine `dist/rocq_engine.js` (with the 5 statically-linked plugins) | — | ~33 MB |

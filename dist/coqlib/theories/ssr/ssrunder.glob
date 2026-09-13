@@ -1,0 +1,215 @@
+DIGEST 26e8a641ee9b72a99aef5b601b732162
+FCorelib.ssr.ssrunder
+R1105:1114 Corelib.ssr.ssrclasses <> <> lib
+modtype 1130:1138 <> UNDER_REL
+ax 1151:1159 UNDER_REL Under_rel
+binder 1173:1173 <> A:1
+R1191:1194 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1190:1190 Corelib.ssr.ssrunder <> A:1 var
+R1196:1199 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1195:1195 Corelib.ssr.ssrunder <> A:1 var
+binder 1184:1186 <> eqA:2
+R1208:1211 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1207:1207 Corelib.ssr.ssrunder <> A:1 var
+R1213:1216 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1212:1212 Corelib.ssr.ssrunder <> A:1 var
+ax 1233:1250 UNDER_REL Under_rel_from_rel
+binder 1264:1264 <> A:5
+R1282:1285 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1281:1281 Corelib.ssr.ssrunder <> A:5 var
+R1287:1290 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1286:1286 Corelib.ssr.ssrunder <> A:5 var
+binder 1275:1277 <> eqA:6
+R1304:1304 Corelib.ssr.ssrunder <> A:5 var
+binder 1298:1298 <> x:7
+binder 1300:1300 <> y:8
+R1332:1335 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1313:1321 Corelib.ssr.ssrunder UNDER_REL Under_rel defax
+R1323:1323 Corelib.ssr.ssrunder <> A:5 var
+R1325:1327 Corelib.ssr.ssrunder <> eqA:6 var
+R1329:1329 Corelib.ssr.ssrunder <> x:7 var
+R1331:1331 Corelib.ssr.ssrunder <> y:8 var
+R1336:1338 Corelib.ssr.ssrunder <> eqA:6 var
+R1342:1342 Corelib.ssr.ssrunder <> y:8 var
+R1340:1340 Corelib.ssr.ssrunder <> x:7 var
+ax 1355:1364 UNDER_REL Under_relE
+binder 1378:1378 <> A:11
+R1396:1399 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1395:1395 Corelib.ssr.ssrunder <> A:11 var
+R1401:1404 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1400:1400 Corelib.ssr.ssrunder <> A:11 var
+binder 1389:1391 <> eqA:12
+R1432:1434 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1417:1425 Corelib.ssr.ssrunder UNDER_REL Under_rel defax
+R1427:1427 Corelib.ssr.ssrunder <> A:11 var
+R1429:1431 Corelib.ssr.ssrunder <> eqA:12 var
+R1435:1437 Corelib.ssr.ssrunder <> eqA:12 var
+ax 1521:1528 UNDER_REL Over_rel
+binder 1542:1542 <> A:15
+R1560:1563 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1559:1559 Corelib.ssr.ssrunder <> A:15 var
+R1565:1568 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1564:1564 Corelib.ssr.ssrunder <> A:15 var
+binder 1553:1555 <> eqA:16
+R1577:1580 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1576:1576 Corelib.ssr.ssrunder <> A:15 var
+R1582:1585 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1581:1581 Corelib.ssr.ssrunder <> A:15 var
+ax 1602:1609 UNDER_REL over_rel
+binder 1623:1623 <> A:19
+R1641:1644 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1640:1640 Corelib.ssr.ssrunder <> A:19 var
+R1646:1649 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1645:1645 Corelib.ssr.ssrunder <> A:19 var
+binder 1634:1636 <> eqA:20
+R1663:1663 Corelib.ssr.ssrunder <> A:19 var
+binder 1657:1657 <> x:21
+binder 1659:1659 <> y:22
+R1691:1693 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1672:1680 Corelib.ssr.ssrunder UNDER_REL Under_rel defax
+R1682:1682 Corelib.ssr.ssrunder <> A:19 var
+R1684:1686 Corelib.ssr.ssrunder <> eqA:20 var
+R1688:1688 Corelib.ssr.ssrunder <> x:21 var
+R1690:1690 Corelib.ssr.ssrunder <> y:22 var
+R1695:1702 Corelib.ssr.ssrunder UNDER_REL Over_rel defax
+R1704:1704 Corelib.ssr.ssrunder <> A:19 var
+R1706:1708 Corelib.ssr.ssrunder <> eqA:20 var
+R1710:1710 Corelib.ssr.ssrunder <> x:21 var
+R1712:1712 Corelib.ssr.ssrunder <> y:22 var
+ax 1725:1737 UNDER_REL over_rel_done
+binder 1751:1751 <> A:25
+R1769:1772 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1768:1768 Corelib.ssr.ssrunder <> A:25 var
+R1774:1777 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1773:1773 Corelib.ssr.ssrunder <> A:25 var
+binder 1762:1764 <> eqA:26
+R1792:1800 Corelib.ssr.ssrclasses <> Reflexive class
+R1802:1804 Corelib.ssr.ssrunder <> eqA:26 var
+binder 1785:1788 <> EeqA:27
+R1812:1812 Corelib.ssr.ssrunder <> A:25 var
+binder 1808:1808 <> x:28
+R1821:1828 Corelib.ssr.ssrunder UNDER_REL Over_rel defax
+R1830:1830 Corelib.ssr.ssrunder <> A:25 var
+R1832:1834 Corelib.ssr.ssrunder <> eqA:26 var
+R1836:1836 Corelib.ssr.ssrunder <> x:28 var
+R1838:1838 Corelib.ssr.ssrunder <> x:28 var
+ax 1897:1910 UNDER_REL under_rel_done
+binder 1924:1924 <> A:31
+R1942:1945 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1941:1941 Corelib.ssr.ssrunder <> A:31 var
+R1947:1950 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1946:1946 Corelib.ssr.ssrunder <> A:31 var
+binder 1935:1937 <> eqA:32
+R1965:1973 Corelib.ssr.ssrclasses <> Reflexive class
+R1975:1977 Corelib.ssr.ssrunder <> eqA:32 var
+binder 1958:1961 <> EeqA:33
+R1985:1985 Corelib.ssr.ssrunder <> A:31 var
+binder 1981:1981 <> x:34
+R1994:2002 Corelib.ssr.ssrunder UNDER_REL Under_rel defax
+R2004:2004 Corelib.ssr.ssrunder <> A:31 var
+R2006:2008 Corelib.ssr.ssrunder <> eqA:32 var
+R2010:2010 Corelib.ssr.ssrunder <> x:34 var
+R2012:2012 Corelib.ssr.ssrunder <> x:34 var
+R2045:2053 Corelib.ssr.ssrunder UNDER_REL Under_rel defax
+not 2024:2024 UNDER_REL :::'''Under['_x_']'
+R2125:2133 Corelib.ssr.ssrunder UNDER_REL <> modtype
+R2163:2171 Corelib.ssr.ssrunder UNDER_REL <> modtype
+mod 2151:2159 <> Under_rel
+def 2185:2193 Under_rel Under_rel
+binder 2196:2196 <> A:37
+R2214:2217 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2213:2213 Corelib.ssr.ssrunder <> A:37 var
+R2219:2222 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2218:2218 Corelib.ssr.ssrunder <> A:37 var
+binder 2207:2209 <> eqA:38
+R2234:2236 Corelib.ssr.ssrunder <> eqA:38 var
+prf 2245:2262 Under_rel Under_rel_from_rel
+binder 2276:2276 <> A:39
+R2294:2297 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2293:2293 Corelib.ssr.ssrunder <> A:39 var
+R2299:2302 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2298:2298 Corelib.ssr.ssrunder <> A:39 var
+binder 2287:2289 <> eqA:40
+R2316:2316 Corelib.ssr.ssrunder <> A:39 var
+binder 2310:2310 <> x:41
+binder 2312:2312 <> y:42
+R2344:2347 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2325:2333 Corelib.ssr.ssrunder Under_rel Under_rel def
+R2335:2335 Corelib.ssr.ssrunder <> A:39 var
+R2337:2339 Corelib.ssr.ssrunder <> eqA:40 var
+R2341:2341 Corelib.ssr.ssrunder <> x:41 var
+R2343:2343 Corelib.ssr.ssrunder <> y:42 var
+R2348:2350 Corelib.ssr.ssrunder <> eqA:40 var
+R2354:2354 Corelib.ssr.ssrunder <> y:42 var
+R2352:2352 Corelib.ssr.ssrunder <> x:41 var
+prf 2388:2397 Under_rel Under_relE
+binder 2400:2400 <> A:43
+R2418:2421 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2417:2417 Corelib.ssr.ssrunder <> A:43 var
+R2423:2426 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2422:2422 Corelib.ssr.ssrunder <> A:43 var
+binder 2411:2413 <> eqA:44
+R2453:2455 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2438:2446 Corelib.ssr.ssrunder Under_rel Under_rel def
+R2448:2448 Corelib.ssr.ssrunder <> A:43 var
+R2450:2452 Corelib.ssr.ssrunder <> eqA:44 var
+R2456:2458 Corelib.ssr.ssrunder <> eqA:44 var
+def 2497:2504 Under_rel Over_rel
+R2509:2517 Corelib.ssr.ssrunder Under_rel Under_rel def
+prf 2526:2533 Under_rel over_rel
+binder 2547:2547 <> A:45
+R2565:2568 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2564:2564 Corelib.ssr.ssrunder <> A:45 var
+R2570:2573 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2569:2569 Corelib.ssr.ssrunder <> A:45 var
+binder 2558:2560 <> eqA:46
+R2587:2587 Corelib.ssr.ssrunder <> A:45 var
+binder 2581:2581 <> x:47
+binder 2583:2583 <> y:48
+R2615:2617 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2596:2604 Corelib.ssr.ssrunder Under_rel Under_rel def
+R2606:2606 Corelib.ssr.ssrunder <> A:45 var
+R2608:2610 Corelib.ssr.ssrunder <> eqA:46 var
+R2612:2612 Corelib.ssr.ssrunder <> x:47 var
+R2614:2614 Corelib.ssr.ssrunder <> y:48 var
+R2619:2626 Corelib.ssr.ssrunder Under_rel Over_rel def
+R2628:2628 Corelib.ssr.ssrunder <> A:45 var
+R2630:2632 Corelib.ssr.ssrunder <> eqA:46 var
+R2634:2634 Corelib.ssr.ssrunder <> x:47 var
+R2636:2636 Corelib.ssr.ssrunder <> y:48 var
+prf 2670:2682 Under_rel over_rel_done
+binder 2696:2696 <> A:49
+R2714:2717 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2713:2713 Corelib.ssr.ssrunder <> A:49 var
+R2719:2722 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2718:2718 Corelib.ssr.ssrunder <> A:49 var
+binder 2707:2709 <> eqA:50
+R2737:2745 Corelib.ssr.ssrclasses <> Reflexive class
+R2747:2749 Corelib.ssr.ssrunder <> eqA:50 var
+binder 2730:2733 <> EeqA:51
+R2757:2757 Corelib.ssr.ssrunder <> A:49 var
+binder 2753:2753 <> x:52
+R2766:2773 Corelib.ssr.ssrunder Under_rel Over_rel def
+R2775:2775 Corelib.ssr.ssrunder <> A:49 var
+R2777:2779 Corelib.ssr.ssrunder <> eqA:50 var
+R2781:2781 Corelib.ssr.ssrunder <> x:52 var
+R2783:2783 Corelib.ssr.ssrunder <> x:52 var
+R2804:2811 Corelib.ssr.ssrunder Under_rel Over_rel def
+prf 2825:2838 Under_rel under_rel_done
+binder 2852:2852 <> A:53
+R2870:2873 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2869:2869 Corelib.ssr.ssrunder <> A:53 var
+R2875:2878 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2874:2874 Corelib.ssr.ssrunder <> A:53 var
+binder 2863:2865 <> eqA:54
+R2893:2901 Corelib.ssr.ssrclasses <> Reflexive class
+R2903:2905 Corelib.ssr.ssrunder <> eqA:54 var
+binder 2886:2889 <> EeqA:55
+R2913:2913 Corelib.ssr.ssrunder <> A:53 var
+binder 2909:2909 <> x:56
+R2922:2930 Corelib.ssr.ssrunder Under_rel Under_rel def
+R2932:2932 Corelib.ssr.ssrunder <> A:53 var
+R2934:2936 Corelib.ssr.ssrunder <> eqA:54 var
+R2938:2938 Corelib.ssr.ssrunder <> x:56 var
+R2940:2940 Corelib.ssr.ssrunder <> x:56 var
+R2972:2980 Corelib.ssr.ssrunder Under_rel <> mod

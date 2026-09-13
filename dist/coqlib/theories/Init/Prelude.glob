@@ -1,0 +1,58 @@
+DIGEST 7cf7ca072eb027b4389db6b54c277b84
+FCorelib.Init.Prelude
+R691:699 Corelib.Init.Notations <> <> lib
+R717:724 Corelib.Init.Equality <> <> lib
+R742:746 Corelib.Init.Logic <> <> lib
+R764:772 Corelib.Init.Datatypes <> <> lib
+R790:795 Corelib.Init.Specif <> <> lib
+R806:822 Corelib.Init.Byte <> <> lib
+R833:852 Corelib.Init.Decimal <> <> lib
+R863:886 Corelib.Init.Hexadecimal <> <> lib
+R897:915 Corelib.Init.Number <> <> lib
+R926:941 Corelib.Init.Nat <> <> lib
+R959:963 Corelib.Init.Peano <> <> lib
+R981:995 Corelib.Init.Wf <> <> lib
+R1013:1029 Corelib.Init.Ltac <> <> lib
+R1047:1066 Corelib.Init.Tactics <> <> lib
+R1084:1101 Corelib.Init.Tauto <> <> lib
+R1119:1138 Corelib.Init.Sumbool <> <> lib
+R1559:1573 Corelib.Init.Nat <> of_hex_uint def
+R1604:1617 Corelib.Init.Nat <> of_hex_int def
+R1653:1663 Corelib.Init.Number <> uint variant
+R1665:1683 Corelib.Init.Number <> uint_of_uint def
+R1685:1703 Corelib.Init.Number <> uint_of_uint def
+R1741:1750 Corelib.Init.Number <> int abbrev
+R1752:1768 Corelib.Init.Number <> int_of_int def
+R1770:1786 Corelib.Init.Number <> int_of_int def
+R1862:1872 Corelib.Init.Nat <> of_uint def
+R1903:1912 Corelib.Init.Nat <> of_int def
+R1948:1958 Corelib.Init.Number <> uint variant
+R1960:1978 Corelib.Init.Number <> uint_of_uint def
+R1980:1998 Corelib.Init.Number <> uint_of_uint def
+R2036:2045 Corelib.Init.Number <> int abbrev
+R2047:2063 Corelib.Init.Number <> int_of_int def
+R2065:2081 Corelib.Init.Number <> int_of_int def
+R2161:2163 Corelib.Init.Datatypes <> nat ind
+R2165:2179 Corelib.Init.Nat <> of_num_uint def
+R2181:2199 Corelib.Init.Nat <> to_num_hex_uint def
+R2256:2258 Corelib.Init.Datatypes <> nat ind
+R2260:2274 Corelib.Init.Nat <> of_num_uint def
+R2276:2290 Corelib.Init.Nat <> to_num_uint def
+R2367:2390 Corelib.Init.Byte ByteSyntaxNotations <> mod
+def 2807:2827 <> ReverseCoercionSource
+binder 2830:2830 <> T:1
+R2843:2843 Corelib.Init.Prelude <> T:1 var
+def 2887:2907 <> ReverseCoercionTarget
+binder 2910:2910 <> T:2
+R2923:2923 Corelib.Init.Prelude <> T:2 var
+def 3012:3027 <> reverse_coercion
+binder 3030:3031 <> T':3
+binder 3033:3033 <> T:4
+R3042:3043 Corelib.Init.Prelude <> T':3 var
+binder 3037:3038 <> x':5
+R3051:3071 Corelib.Init.Prelude <> ReverseCoercionSource def
+R3073:3073 Corelib.Init.Prelude <> T:4 var
+binder 3047:3047 <> x:6
+R3080:3100 Corelib.Init.Prelude <> ReverseCoercionTarget def
+R3102:3103 Corelib.Init.Prelude <> T':3 var
+R3108:3109 Corelib.Init.Prelude <> x':5 var

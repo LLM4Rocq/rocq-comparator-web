@@ -1,0 +1,351 @@
+DIGEST 9469fbe3e3ccdbd5a3dffdccb51bd602
+FCorelib.Floats.FloatAxioms
+R704:710 Corelib.Numbers.BinNums <> <> lib
+R712:717 Corelib.BinNums.IntDef <> <> lib
+R719:730 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> <> lib
+R761:769 Corelib.Floats.SpecFloat <> <> lib
+R771:779 Corelib.Floats.PrimFloat <> <> lib
+R781:788 Corelib.Floats.FloatOps <> <> lib
+abbrev 877:888 <> valid_binary
+R894:905 Corelib.Floats.SpecFloat <> valid_binary def
+R912:915 Corelib.Floats.FloatOps <> emax def
+R907:910 Corelib.Floats.FloatOps <> prec def
+def 931:942 <> SF64classify
+R947:956 Corelib.Floats.SpecFloat <> SFclassify def
+R958:961 Corelib.Floats.FloatOps <> prec def
+def 975:981 <> SF64mul
+R986:990 Corelib.Floats.SpecFloat <> SFmul def
+R997:1000 Corelib.Floats.FloatOps <> emax def
+R992:995 Corelib.Floats.FloatOps <> prec def
+def 1014:1020 <> SF64add
+R1025:1029 Corelib.Floats.SpecFloat <> SFadd def
+R1036:1039 Corelib.Floats.FloatOps <> emax def
+R1031:1034 Corelib.Floats.FloatOps <> prec def
+def 1053:1059 <> SF64sub
+R1064:1068 Corelib.Floats.SpecFloat <> SFsub def
+R1075:1078 Corelib.Floats.FloatOps <> emax def
+R1070:1073 Corelib.Floats.FloatOps <> prec def
+def 1092:1098 <> SF64div
+R1103:1107 Corelib.Floats.SpecFloat <> SFdiv def
+R1114:1117 Corelib.Floats.FloatOps <> emax def
+R1109:1112 Corelib.Floats.FloatOps <> prec def
+def 1131:1138 <> SF64sqrt
+R1143:1148 Corelib.Floats.SpecFloat <> SFsqrt def
+R1155:1158 Corelib.Floats.FloatOps <> emax def
+R1150:1153 Corelib.Floats.FloatOps <> prec def
+def 1172:1179 <> SF64succ
+R1184:1189 Corelib.Floats.SpecFloat <> SFsucc def
+R1196:1199 Corelib.Floats.FloatOps <> emax def
+R1191:1194 Corelib.Floats.FloatOps <> prec def
+def 1213:1220 <> SF64pred
+R1225:1230 Corelib.Floats.SpecFloat <> SFpred def
+R1237:1240 Corelib.Floats.FloatOps <> emax def
+R1232:1235 Corelib.Floats.FloatOps <> prec def
+ax 1250:1262 <> Prim2SF_valid
+binder 1273:1273 <> x:1
+R1300:1302 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1276:1287 Corelib.Floats.FloatAxioms <> valid_binary abbrev
+R1290:1296 Corelib.Floats.FloatOps <> Prim2SF def
+R1298:1298 Corelib.Floats.FloatAxioms <> x:1 var
+R1303:1306 Corelib.Init.Datatypes <> true constr
+ax 1315:1329 <> SF2Prim_Prim2SF
+binder 1340:1340 <> x:4
+R1362:1364 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1343:1349 Corelib.Floats.FloatOps <> SF2Prim def
+R1352:1358 Corelib.Floats.FloatOps <> Prim2SF def
+R1360:1360 Corelib.Floats.FloatAxioms <> x:4 var
+R1365:1365 Corelib.Floats.FloatAxioms <> x:4 var
+ax 1374:1388 <> Prim2SF_SF2Prim
+binder 1399:1399 <> x:7
+R1423:1426 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1416:1418 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1402:1413 Corelib.Floats.FloatAxioms <> valid_binary abbrev
+R1415:1415 Corelib.Floats.FloatAxioms <> x:7 var
+R1419:1422 Corelib.Init.Datatypes <> true constr
+R1446:1448 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1427:1433 Corelib.Floats.FloatOps <> Prim2SF def
+R1436:1442 Corelib.Floats.FloatOps <> SF2Prim def
+R1444:1444 Corelib.Floats.FloatAxioms <> x:7 var
+R1449:1449 Corelib.Floats.FloatAxioms <> x:7 var
+prf 1461:1471 <> Prim2SF_inj
+binder 1482:1482 <> x:10
+binder 1484:1484 <> y:11
+R1508:1511 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1496:1498 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1487:1493 Corelib.Floats.FloatOps <> Prim2SF def
+R1495:1495 Corelib.Floats.FloatAxioms <> x:10 var
+R1499:1505 Corelib.Floats.FloatOps <> Prim2SF def
+R1507:1507 Corelib.Floats.FloatAxioms <> y:11 var
+R1513:1515 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1512:1512 Corelib.Floats.FloatAxioms <> x:10 var
+R1516:1516 Corelib.Floats.FloatAxioms <> y:11 var
+R1540:1554 Corelib.Floats.FloatAxioms <> SF2Prim_Prim2SF prfax
+R1578:1592 Corelib.Floats.FloatAxioms <> SF2Prim_Prim2SF prfax
+prf 1624:1634 <> SF2Prim_inj
+binder 1645:1645 <> x:12
+binder 1647:1647 <> y:13
+R1671:1674 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1659:1661 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1650:1656 Corelib.Floats.FloatOps <> SF2Prim def
+R1658:1658 Corelib.Floats.FloatAxioms <> x:12 var
+R1662:1668 Corelib.Floats.FloatOps <> SF2Prim def
+R1670:1670 Corelib.Floats.FloatAxioms <> y:13 var
+R1696:1699 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1689:1691 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1675:1686 Corelib.Floats.FloatAxioms <> valid_binary abbrev
+R1688:1688 Corelib.Floats.FloatAxioms <> x:12 var
+R1692:1695 Corelib.Init.Datatypes <> true constr
+R1721:1724 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1714:1716 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1700:1711 Corelib.Floats.FloatAxioms <> valid_binary abbrev
+R1713:1713 Corelib.Floats.FloatAxioms <> y:13 var
+R1717:1720 Corelib.Init.Datatypes <> true constr
+R1726:1728 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1725:1725 Corelib.Floats.FloatAxioms <> x:12 var
+R1729:1729 Corelib.Floats.FloatAxioms <> y:13 var
+R1753:1767 Corelib.Floats.FloatAxioms <> Prim2SF_SF2Prim prfax
+R1805:1819 Corelib.Floats.FloatAxioms <> Prim2SF_SF2Prim prfax
+ax 1872:1879 <> opp_spec
+binder 1890:1890 <> x:14
+R1911:1913 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1893:1899 Corelib.Floats.FloatOps <> Prim2SF def
+R1902:1902 Corelib.Floats.PrimFloat PrimFloatNotationsInternalB ::float_scope:'-'_x not
+R1903:1903 Corelib.Floats.FloatAxioms <> x:14 var
+R1914:1918 Corelib.Floats.SpecFloat <> SFopp def
+R1921:1927 Corelib.Floats.FloatOps <> Prim2SF def
+R1929:1929 Corelib.Floats.FloatAxioms <> x:14 var
+ax 1939:1946 <> abs_spec
+binder 1957:1957 <> x:17
+R1975:1977 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1960:1966 Corelib.Floats.FloatOps <> Prim2SF def
+R1969:1971 Corelib.Floats.PrimFloat <> abs prim
+R1973:1973 Corelib.Floats.FloatAxioms <> x:17 var
+R1978:1982 Corelib.Floats.SpecFloat <> SFabs def
+R1985:1991 Corelib.Floats.FloatOps <> Prim2SF def
+R1993:1993 Corelib.Floats.FloatAxioms <> x:17 var
+ax 2004:2011 <> eqb_spec
+binder 2022:2022 <> x:20
+binder 2024:2024 <> y:21
+R2041:2043 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2029:2032 Corelib.Floats.PrimFloat PrimFloatNotationsInternalB ::float_scope:x_'=?'_x not
+R2028:2028 Corelib.Floats.FloatAxioms <> x:20 var
+R2033:2033 Corelib.Floats.FloatAxioms <> y:21 var
+R2044:2048 Corelib.Floats.SpecFloat <> SFeqb def
+R2051:2057 Corelib.Floats.FloatOps <> Prim2SF def
+R2059:2059 Corelib.Floats.FloatAxioms <> x:20 var
+R2063:2069 Corelib.Floats.FloatOps <> Prim2SF def
+R2071:2071 Corelib.Floats.FloatAxioms <> y:21 var
+ax 2081:2088 <> ltb_spec
+binder 2099:2099 <> x:24
+binder 2101:2101 <> y:25
+R2118:2120 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2106:2109 Corelib.Floats.PrimFloat PrimFloatNotationsInternalB ::float_scope:x_'<?'_x not
+R2105:2105 Corelib.Floats.FloatAxioms <> x:24 var
+R2110:2110 Corelib.Floats.FloatAxioms <> y:25 var
+R2121:2125 Corelib.Floats.SpecFloat <> SFltb def
+R2128:2134 Corelib.Floats.FloatOps <> Prim2SF def
+R2136:2136 Corelib.Floats.FloatAxioms <> x:24 var
+R2140:2146 Corelib.Floats.FloatOps <> Prim2SF def
+R2148:2148 Corelib.Floats.FloatAxioms <> y:25 var
+ax 2158:2165 <> leb_spec
+binder 2176:2176 <> x:28
+binder 2178:2178 <> y:29
+R2196:2198 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2183:2187 Corelib.Floats.PrimFloat PrimFloatNotationsInternalB ::float_scope:x_'<=?'_x not
+R2182:2182 Corelib.Floats.FloatAxioms <> x:28 var
+R2188:2188 Corelib.Floats.FloatAxioms <> y:29 var
+R2199:2203 Corelib.Floats.SpecFloat <> SFleb def
+R2206:2212 Corelib.Floats.FloatOps <> Prim2SF def
+R2214:2214 Corelib.Floats.FloatAxioms <> x:28 var
+R2218:2224 Corelib.Floats.FloatOps <> Prim2SF def
+R2226:2226 Corelib.Floats.FloatAxioms <> y:29 var
+def 2242:2256 <> flatten_cmp_opt
+binder 2258:2258 <> c:32
+R2271:2271 Corelib.Floats.FloatAxioms <> c:32 var
+R2282:2285 Corelib.Init.Datatypes <> None constr
+R2290:2303 Corelib.Floats.PrimFloat <> FNotComparable constr
+R2309:2312 Corelib.Init.Datatypes <> Some constr
+R2314:2315 Corelib.Init.Datatypes <> Eq constr
+R2320:2322 Corelib.Floats.PrimFloat <> FEq constr
+R2328:2331 Corelib.Init.Datatypes <> Some constr
+R2333:2334 Corelib.Init.Datatypes <> Lt constr
+R2339:2341 Corelib.Floats.PrimFloat <> FLt constr
+R2347:2350 Corelib.Init.Datatypes <> Some constr
+R2352:2353 Corelib.Init.Datatypes <> Gt constr
+R2358:2360 Corelib.Floats.PrimFloat <> FGt constr
+ax 2375:2386 <> compare_spec
+binder 2397:2397 <> x:34
+binder 2399:2399 <> y:35
+R2416:2418 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2404:2407 Corelib.Floats.PrimFloat PrimFloatNotationsInternalB ::float_scope:x_'?='_x not
+R2403:2403 Corelib.Floats.FloatAxioms <> x:34 var
+R2408:2408 Corelib.Floats.FloatAxioms <> y:35 var
+R2419:2433 Corelib.Floats.FloatAxioms <> flatten_cmp_opt def
+R2436:2444 Corelib.Floats.SpecFloat <> SFcompare def
+R2447:2453 Corelib.Floats.FloatOps <> Prim2SF def
+R2455:2455 Corelib.Floats.FloatAxioms <> x:34 var
+R2459:2465 Corelib.Floats.FloatOps <> Prim2SF def
+R2467:2467 Corelib.Floats.FloatAxioms <> y:35 var
+mod 2480:2486 <> Leibniz
+ax 2495:2502 Leibniz eqb_spec
+binder 2513:2513 <> x:38
+binder 2515:2515 <> y:39
+R2540:2544 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R2533:2535 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2518:2528 Corelib.Floats.PrimFloat Leibniz eqb prim
+R2530:2530 Corelib.Floats.FloatAxioms <> x:38 var
+R2532:2532 Corelib.Floats.FloatAxioms <> y:39 var
+R2536:2539 Corelib.Init.Datatypes <> true constr
+R2546:2548 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2545:2545 Corelib.Floats.FloatAxioms <> x:38 var
+R2549:2549 Corelib.Floats.FloatAxioms <> y:39 var
+R2556:2562 Corelib.Floats.FloatAxioms Leibniz <> mod
+ax 2572:2584 <> classify_spec
+binder 2595:2595 <> x:42
+R2608:2610 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2598:2605 Corelib.Floats.PrimFloat <> classify prim
+R2607:2607 Corelib.Floats.FloatAxioms <> x:42 var
+R2611:2622 Corelib.Floats.FloatAxioms <> SF64classify def
+R2625:2631 Corelib.Floats.FloatOps <> Prim2SF def
+R2633:2633 Corelib.Floats.FloatAxioms <> x:42 var
+ax 2643:2650 <> mul_spec
+binder 2661:2661 <> x:45
+binder 2663:2663 <> y:46
+R2687:2689 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2666:2672 Corelib.Floats.FloatOps <> Prim2SF def
+R2676:2678 Corelib.Floats.PrimFloat PrimFloatNotationsInternalB ::float_scope:x_'*'_x not
+R2675:2675 Corelib.Floats.FloatAxioms <> x:45 var
+R2679:2679 Corelib.Floats.FloatAxioms <> y:46 var
+R2690:2696 Corelib.Floats.FloatAxioms <> SF64mul def
+R2699:2705 Corelib.Floats.FloatOps <> Prim2SF def
+R2707:2707 Corelib.Floats.FloatAxioms <> x:45 var
+R2711:2717 Corelib.Floats.FloatOps <> Prim2SF def
+R2719:2719 Corelib.Floats.FloatAxioms <> y:46 var
+ax 2729:2736 <> add_spec
+binder 2747:2747 <> x:49
+binder 2749:2749 <> y:50
+R2773:2775 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2752:2758 Corelib.Floats.FloatOps <> Prim2SF def
+R2762:2764 Corelib.Floats.PrimFloat PrimFloatNotationsInternalB ::float_scope:x_'+'_x not
+R2761:2761 Corelib.Floats.FloatAxioms <> x:49 var
+R2765:2765 Corelib.Floats.FloatAxioms <> y:50 var
+R2776:2782 Corelib.Floats.FloatAxioms <> SF64add def
+R2785:2791 Corelib.Floats.FloatOps <> Prim2SF def
+R2793:2793 Corelib.Floats.FloatAxioms <> x:49 var
+R2797:2803 Corelib.Floats.FloatOps <> Prim2SF def
+R2805:2805 Corelib.Floats.FloatAxioms <> y:50 var
+ax 2815:2822 <> sub_spec
+binder 2833:2833 <> x:53
+binder 2835:2835 <> y:54
+R2859:2861 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2838:2844 Corelib.Floats.FloatOps <> Prim2SF def
+R2848:2850 Corelib.Floats.PrimFloat PrimFloatNotationsInternalB ::float_scope:x_'-'_x not
+R2847:2847 Corelib.Floats.FloatAxioms <> x:53 var
+R2851:2851 Corelib.Floats.FloatAxioms <> y:54 var
+R2862:2868 Corelib.Floats.FloatAxioms <> SF64sub def
+R2871:2877 Corelib.Floats.FloatOps <> Prim2SF def
+R2879:2879 Corelib.Floats.FloatAxioms <> x:53 var
+R2883:2889 Corelib.Floats.FloatOps <> Prim2SF def
+R2891:2891 Corelib.Floats.FloatAxioms <> y:54 var
+ax 2901:2908 <> div_spec
+binder 2919:2919 <> x:57
+binder 2921:2921 <> y:58
+R2945:2947 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2924:2930 Corelib.Floats.FloatOps <> Prim2SF def
+R2934:2936 Corelib.Floats.PrimFloat PrimFloatNotationsInternalB ::float_scope:x_'/'_x not
+R2933:2933 Corelib.Floats.FloatAxioms <> x:57 var
+R2937:2937 Corelib.Floats.FloatAxioms <> y:58 var
+R2948:2954 Corelib.Floats.FloatAxioms <> SF64div def
+R2957:2963 Corelib.Floats.FloatOps <> Prim2SF def
+R2965:2965 Corelib.Floats.FloatAxioms <> x:57 var
+R2969:2975 Corelib.Floats.FloatOps <> Prim2SF def
+R2977:2977 Corelib.Floats.FloatAxioms <> y:58 var
+ax 2987:2995 <> sqrt_spec
+binder 3006:3006 <> x:61
+R3025:3027 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3009:3015 Corelib.Floats.FloatOps <> Prim2SF def
+R3018:3021 Corelib.Floats.PrimFloat <> sqrt prim
+R3023:3023 Corelib.Floats.FloatAxioms <> x:61 var
+R3028:3035 Corelib.Floats.FloatAxioms <> SF64sqrt def
+R3038:3044 Corelib.Floats.FloatOps <> Prim2SF def
+R3046:3046 Corelib.Floats.FloatAxioms <> x:61 var
+ax 3057:3070 <> of_uint63_spec
+binder 3081:3081 <> n:64
+R3105:3107 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3084:3090 Corelib.Floats.FloatOps <> Prim2SF def
+R3093:3101 Corelib.Floats.PrimFloat <> of_uint63 prim
+R3103:3103 Corelib.Floats.FloatAxioms <> n:64 var
+R3108:3123 Corelib.Floats.SpecFloat <> binary_normalize def
+R3136:3139 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3141:3141 Corelib.Floats.FloatAxioms <> n:64 var
+R3144:3145 Corelib.Numbers.BinNums <> Z0 constr
+R3147:3151 Corelib.Init.Datatypes <> false constr
+R3130:3133 Corelib.Floats.FloatOps <> emax def
+R3125:3128 Corelib.Floats.FloatOps <> prec def
+ax 3160:3179 <> normfr_mantissa_spec
+binder 3190:3190 <> f:67
+R3217:3219 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3193:3196 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3199:3213 Corelib.Floats.PrimFloat <> normfr_mantissa prim
+R3215:3215 Corelib.Floats.FloatAxioms <> f:67 var
+R3220:3225 Corelib.BinNums.IntDef Z of_N def
+R3228:3244 Corelib.Floats.SpecFloat <> SFnormfr_mantissa def
+R3252:3258 Corelib.Floats.FloatOps <> Prim2SF def
+R3260:3260 Corelib.Floats.FloatAxioms <> f:67 var
+R3246:3249 Corelib.Floats.FloatOps <> prec def
+ax 3272:3286 <> frshiftexp_spec
+binder 3297:3297 <> f:70
+R3315:3324 Corelib.Floats.PrimFloat <> frshiftexp prim
+R3326:3326 Corelib.Floats.FloatAxioms <> f:70 var
+binder 3307:3307 <> m:71
+binder 3309:3309 <> e:72
+R3366:3368 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3333:3333 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3343:3344 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3365:3365 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3334:3340 Corelib.Floats.FloatOps <> Prim2SF def
+R3342:3342 Corelib.Floats.FloatAxioms <> m:71 var
+R3345:3349 Corelib.BinNums.IntDef Z sub def
+R3352:3355 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3357:3357 Corelib.Floats.FloatAxioms <> e:72 var
+R3360:3364 Corelib.Floats.FloatOps <> shift def
+R3369:3375 Corelib.Floats.SpecFloat <> SFfrexp def
+R3388:3394 Corelib.Floats.FloatOps <> Prim2SF def
+R3396:3396 Corelib.Floats.FloatAxioms <> f:70 var
+R3382:3385 Corelib.Floats.FloatOps <> emax def
+R3377:3380 Corelib.Floats.FloatOps <> prec def
+ax 3406:3420 <> ldshiftexp_spec
+binder 3431:3431 <> f:75
+binder 3433:3433 <> e:76
+R3462:3464 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3438:3444 Corelib.Floats.FloatOps <> Prim2SF def
+R3447:3456 Corelib.Floats.PrimFloat <> ldshiftexp prim
+R3458:3458 Corelib.Floats.FloatAxioms <> f:75 var
+R3460:3460 Corelib.Floats.FloatAxioms <> e:76 var
+R3465:3471 Corelib.Floats.SpecFloat <> SFldexp def
+R3484:3490 Corelib.Floats.FloatOps <> Prim2SF def
+R3492:3492 Corelib.Floats.FloatAxioms <> f:75 var
+R3496:3500 Corelib.BinNums.IntDef Z sub def
+R3503:3506 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3508:3508 Corelib.Floats.FloatAxioms <> e:76 var
+R3511:3515 Corelib.Floats.FloatOps <> shift def
+R3478:3481 Corelib.Floats.FloatOps <> emax def
+R3473:3476 Corelib.Floats.FloatOps <> prec def
+ax 3526:3537 <> next_up_spec
+binder 3548:3548 <> x:79
+R3570:3572 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3551:3557 Corelib.Floats.FloatOps <> Prim2SF def
+R3560:3566 Corelib.Floats.PrimFloat <> next_up prim
+R3568:3568 Corelib.Floats.FloatAxioms <> x:79 var
+R3573:3580 Corelib.Floats.FloatAxioms <> SF64succ def
+R3583:3589 Corelib.Floats.FloatOps <> Prim2SF def
+R3591:3591 Corelib.Floats.FloatAxioms <> x:79 var
+ax 3601:3614 <> next_down_spec
+binder 3625:3625 <> x:82
+R3649:3651 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3628:3634 Corelib.Floats.FloatOps <> Prim2SF def
+R3637:3645 Corelib.Floats.PrimFloat <> next_down prim
+R3647:3647 Corelib.Floats.FloatAxioms <> x:82 var
+R3652:3659 Corelib.Floats.FloatAxioms <> SF64pred def
+R3662:3668 Corelib.Floats.FloatOps <> Prim2SF def
+R3670:3670 Corelib.Floats.FloatAxioms <> x:82 var

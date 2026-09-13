@@ -1,0 +1,470 @@
+DIGEST b362d6b5e236514ca01d24df8f27a9d4
+FCorelib.Init.Equality
+R691:699 Corelib.Init.Notations <> <> lib
+R717:720 Corelib.Init.Ltac <> <> lib
+ind 993:1000 <> Has_refl
+constr 1074:1077 <> refl
+rec 993:1000 <> Has_refl
+proj 1074:1077 <> refl
+binder 1029:1029 <> A:1
+R1048:1051 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1047:1047 Corelib.Init.Equality <> A:1 var
+R1053:1056 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1052:1052 Corelib.Init.Equality <> A:1 var
+binder 1017:1018 <> eq:2
+binder 1088:1088 <> A:4
+binder 1090:1090 <> x:5
+R1093:1094 Corelib.Init.Equality <> eq:2 var
+R1100:1100 Corelib.Init.Equality <> x:5 var
+R1098:1098 Corelib.Init.Equality <> x:5 var
+R1096:1096 Corelib.Init.Equality <> A:4 var
+ind 1178:1182 <> Has_J
+constr 1293:1304 <> J_eliminator
+rec 1178:1182 <> Has_J
+proj 1293:1304 <> J_eliminator
+binder 1217:1217 <> A:7
+R1238:1241 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1237:1237 Corelib.Init.Equality <> A:7 var
+R1243:1246 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1242:1242 Corelib.Init.Equality <> A:7 var
+binder 1205:1206 <> eq:8
+R1275:1282 Corelib.Init.Equality <> Has_refl class
+R1284:1285 Corelib.Init.Equality <> eq:8 var
+binder 1264:1271 <> Has_refl:9
+binder 1316:1316 <> A:11
+R1341:1341 Corelib.Init.Equality <> A:11 var
+binder 1337:1337 <> x:12
+R1360:1360 Corelib.Init.Equality <> A:11 var
+binder 1356:1356 <> y:13
+R1371:1374 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1363:1364 Corelib.Init.Equality <> eq:8 var
+R1370:1370 Corelib.Init.Equality <> y:13 var
+R1368:1368 Corelib.Init.Equality <> x:12 var
+R1366:1366 Corelib.Init.Equality <> A:11 var
+binder 1345:1345 <> P:14
+R1410:1413 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1396:1396 Corelib.Init.Equality <> P:14 var
+R1401:1404 Corelib.Init.Equality <> refl def
+R1408:1408 Corelib.Init.Equality <> x:12 var
+R1406:1406 Corelib.Init.Equality <> A:11 var
+R1398:1398 Corelib.Init.Equality <> x:12 var
+binder 1421:1421 <> y:15
+binder 1423:1423 <> e:16
+R1426:1426 Corelib.Init.Equality <> P:14 var
+R1430:1430 Corelib.Init.Equality <> e:16 var
+R1428:1428 Corelib.Init.Equality <> y:15 var
+ind 1493:1499 <> Has_J_r
+constr 1610:1623 <> J_r_eliminator
+rec 1493:1499 <> Has_J_r
+proj 1610:1623 <> J_r_eliminator
+binder 1534:1534 <> A:18
+R1555:1558 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1554:1554 Corelib.Init.Equality <> A:18 var
+R1560:1563 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1559:1559 Corelib.Init.Equality <> A:18 var
+binder 1522:1523 <> eq:19
+R1592:1599 Corelib.Init.Equality <> Has_refl class
+R1601:1602 Corelib.Init.Equality <> eq:19 var
+binder 1581:1588 <> Has_refl:20
+binder 1634:1634 <> A:22
+R1659:1659 Corelib.Init.Equality <> A:22 var
+binder 1655:1655 <> x:23
+R1678:1678 Corelib.Init.Equality <> A:22 var
+binder 1674:1674 <> y:24
+R1689:1692 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1681:1682 Corelib.Init.Equality <> eq:19 var
+R1688:1688 Corelib.Init.Equality <> x:23 var
+R1686:1686 Corelib.Init.Equality <> y:24 var
+R1684:1684 Corelib.Init.Equality <> A:22 var
+binder 1663:1663 <> P:25
+R1728:1731 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1714:1714 Corelib.Init.Equality <> P:25 var
+R1719:1722 Corelib.Init.Equality <> refl def
+R1726:1726 Corelib.Init.Equality <> x:23 var
+R1724:1724 Corelib.Init.Equality <> A:22 var
+R1716:1716 Corelib.Init.Equality <> x:23 var
+binder 1739:1739 <> y:26
+binder 1741:1741 <> e:27
+R1744:1744 Corelib.Init.Equality <> P:25 var
+R1748:1748 Corelib.Init.Equality <> e:27 var
+R1746:1746 Corelib.Init.Equality <> y:26 var
+ind 1827:1839 <> Has_J_forward
+constr 1950:1958 <> J_forward
+rec 1827:1839 <> Has_J_forward
+proj 1950:1958 <> J_forward
+binder 1874:1874 <> A:29
+R1895:1898 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1894:1894 Corelib.Init.Equality <> A:29 var
+R1900:1903 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1899:1899 Corelib.Init.Equality <> A:29 var
+binder 1862:1863 <> eq:30
+R1932:1939 Corelib.Init.Equality <> Has_refl class
+R1941:1942 Corelib.Init.Equality <> eq:30 var
+binder 1921:1928 <> Has_refl:31
+binder 1970:1970 <> A:33
+R1995:1995 Corelib.Init.Equality <> A:33 var
+binder 1991:1991 <> x:34
+R2014:2014 Corelib.Init.Equality <> A:33 var
+binder 2010:2010 <> y:35
+R2025:2028 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2017:2018 Corelib.Init.Equality <> eq:30 var
+R2024:2024 Corelib.Init.Equality <> y:35 var
+R2022:2022 Corelib.Init.Equality <> x:34 var
+R2020:2020 Corelib.Init.Equality <> A:33 var
+binder 1999:1999 <> P:36
+binder 2045:2045 <> y:37
+binder 2047:2047 <> e:38
+R2059:2062 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2054:2054 Corelib.Init.Equality <> P:36 var
+R2058:2058 Corelib.Init.Equality <> e:38 var
+R2056:2056 Corelib.Init.Equality <> y:37 var
+R2063:2063 Corelib.Init.Equality <> P:36 var
+R2068:2071 Corelib.Init.Equality <> refl def
+R2075:2075 Corelib.Init.Equality <> x:34 var
+R2073:2073 Corelib.Init.Equality <> A:33 var
+R2065:2065 Corelib.Init.Equality <> x:34 var
+ind 2086:2100 <> Has_J_r_forward
+constr 2211:2221 <> J_r_forward
+rec 2086:2100 <> Has_J_r_forward
+proj 2211:2221 <> J_r_forward
+binder 2135:2135 <> A:40
+R2156:2159 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2155:2155 Corelib.Init.Equality <> A:40 var
+R2161:2164 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2160:2160 Corelib.Init.Equality <> A:40 var
+binder 2123:2124 <> eq:41
+R2193:2200 Corelib.Init.Equality <> Has_refl class
+R2202:2203 Corelib.Init.Equality <> eq:41 var
+binder 2182:2189 <> Has_refl:42
+binder 2233:2233 <> A:44
+R2258:2258 Corelib.Init.Equality <> A:44 var
+binder 2254:2254 <> x:45
+R2277:2277 Corelib.Init.Equality <> A:44 var
+binder 2273:2273 <> y:46
+R2288:2291 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2280:2281 Corelib.Init.Equality <> eq:41 var
+R2287:2287 Corelib.Init.Equality <> x:45 var
+R2285:2285 Corelib.Init.Equality <> y:46 var
+R2283:2283 Corelib.Init.Equality <> A:44 var
+binder 2262:2262 <> P:47
+binder 2308:2308 <> y:48
+binder 2310:2310 <> e:49
+R2322:2325 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2317:2317 Corelib.Init.Equality <> P:47 var
+R2321:2321 Corelib.Init.Equality <> e:49 var
+R2319:2319 Corelib.Init.Equality <> y:48 var
+R2326:2326 Corelib.Init.Equality <> P:47 var
+R2331:2334 Corelib.Init.Equality <> refl def
+R2338:2338 Corelib.Init.Equality <> x:45 var
+R2336:2336 Corelib.Init.Equality <> A:44 var
+R2328:2328 Corelib.Init.Equality <> x:45 var
+ind 2406:2416 <> Has_Leibniz
+constr 2500:2506 <> leibniz
+rec 2406:2416 <> Has_Leibniz
+proj 2500:2506 <> leibniz
+binder 2451:2451 <> A:51
+R2472:2475 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2471:2471 Corelib.Init.Equality <> A:51 var
+R2477:2480 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2476:2476 Corelib.Init.Equality <> A:51 var
+binder 2439:2440 <> eq:52
+binder 2518:2518 <> A:54
+R2543:2543 Corelib.Init.Equality <> A:54 var
+binder 2539:2539 <> x:55
+R2552:2555 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2551:2551 Corelib.Init.Equality <> A:54 var
+binder 2547:2547 <> P:56
+R2576:2579 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2573:2573 Corelib.Init.Equality <> P:56 var
+R2575:2575 Corelib.Init.Equality <> x:55 var
+binder 2587:2587 <> y:57
+R2598:2601 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2590:2591 Corelib.Init.Equality <> eq:52 var
+R2597:2597 Corelib.Init.Equality <> y:57 var
+R2595:2595 Corelib.Init.Equality <> x:55 var
+R2593:2593 Corelib.Init.Equality <> A:54 var
+R2602:2602 Corelib.Init.Equality <> P:56 var
+R2604:2604 Corelib.Init.Equality <> y:57 var
+ind 2614:2626 <> Has_Leibniz_r
+constr 2710:2718 <> leibniz_r
+rec 2614:2626 <> Has_Leibniz_r
+proj 2710:2718 <> leibniz_r
+binder 2661:2661 <> A:59
+R2682:2685 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2681:2681 Corelib.Init.Equality <> A:59 var
+R2687:2690 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2686:2686 Corelib.Init.Equality <> A:59 var
+binder 2649:2650 <> eq:60
+binder 2730:2730 <> A:62
+R2755:2755 Corelib.Init.Equality <> A:62 var
+binder 2751:2751 <> x:63
+R2764:2767 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2763:2763 Corelib.Init.Equality <> A:62 var
+binder 2759:2759 <> P:64
+R2788:2791 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2785:2785 Corelib.Init.Equality <> P:64 var
+R2787:2787 Corelib.Init.Equality <> x:63 var
+binder 2799:2799 <> y:65
+R2810:2813 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2802:2803 Corelib.Init.Equality <> eq:60 var
+R2809:2809 Corelib.Init.Equality <> x:63 var
+R2807:2807 Corelib.Init.Equality <> y:65 var
+R2805:2805 Corelib.Init.Equality <> A:62 var
+R2814:2814 Corelib.Init.Equality <> P:64 var
+R2816:2816 Corelib.Init.Equality <> y:65 var
+def 3341:3348 <> J_no_dep
+binder 3369:3370 <> eq:67
+binder 3374:3377 <> refl:68
+R3387:3391 Corelib.Init.Equality <> Has_J class
+R3414:3417 Corelib.Init.Equality <> refl:68 var
+R3411:3412 Corelib.Init.Equality <> eq:67 var
+binder 3381:3383 <> eqr:69
+binder 3432:3432 <> A:70
+R3455:3455 Corelib.Init.Equality <> A:70 var
+binder 3451:3451 <> x:71
+R3464:3467 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3463:3463 Corelib.Init.Equality <> A:70 var
+binder 3459:3459 <> P:72
+R3488:3491 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3485:3485 Corelib.Init.Equality <> P:72 var
+R3487:3487 Corelib.Init.Equality <> x:71 var
+binder 3499:3499 <> y:73
+R3506:3507 Corelib.Init.Equality <> eq:67 var
+R3509:3509 Corelib.Init.Equality <> A:70 var
+R3511:3511 Corelib.Init.Equality <> x:71 var
+R3513:3513 Corelib.Init.Equality <> y:73 var
+binder 3502:3502 <> e:74
+R3517:3517 Corelib.Init.Equality <> P:72 var
+R3519:3519 Corelib.Init.Equality <> y:73 var
+binder 3530:3530 <> A:75
+binder 3532:3532 <> x:76
+binder 3534:3534 <> P:77
+binder 3536:3537 <> px:78
+binder 3539:3539 <> y:79
+binder 3541:3541 <> e:80
+R3546:3557 Corelib.Init.Equality <> J_eliminator def
+R3585:3585 Corelib.Init.Equality <> e:80 var
+R3583:3583 Corelib.Init.Equality <> y:79 var
+R3580:3581 Corelib.Init.Equality <> px:78 var
+binder 3568:3568 <> y:81
+R3575:3575 Corelib.Init.Equality <> P:77 var
+R3577:3577 Corelib.Init.Equality <> y:81 var
+R3561:3561 Corelib.Init.Equality <> x:76 var
+def 3600:3616 <> Has_J_Has_Leibniz
+binder 3637:3638 <> eq:82
+binder 3642:3645 <> refl:83
+R3655:3659 Corelib.Init.Equality <> Has_J class
+R3682:3685 Corelib.Init.Equality <> refl:83 var
+R3679:3680 Corelib.Init.Equality <> eq:82 var
+binder 3649:3651 <> eqr:84
+R3690:3700 Corelib.Init.Equality <> Has_Leibniz class
+R3720:3721 Corelib.Init.Equality <> eq:82 var
+binder 3731:3731 <> A:85
+binder 3733:3733 <> x:86
+binder 3735:3735 <> P:87
+binder 3737:3738 <> px:88
+binder 3740:3740 <> y:89
+binder 3742:3742 <> e:90
+R3747:3754 Corelib.Init.Equality <> J_no_dep def
+R3771:3771 Corelib.Init.Equality <> e:90 var
+R3769:3769 Corelib.Init.Equality <> y:89 var
+R3766:3767 Corelib.Init.Equality <> px:88 var
+R3764:3764 Corelib.Init.Equality <> P:87 var
+R3762:3762 Corelib.Init.Equality <> x:86 var
+R3760:3760 Corelib.Init.Equality <> A:85 var
+R3756:3758 Corelib.Init.Equality <> eqr:84 var
+sec 3783:3784 <> ap
+var  3844:3845 ap eq
+var  3910:3912 ap eq'
+var  3980:3984 ap _refl
+var  4028:4035 ap _leibniz
+binder 3856:3856 <> A:91
+R3875:3878 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3874:3874 Corelib.Init.Equality <> A:91 var
+R3880:3883 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3879:3879 Corelib.Init.Equality <> A:91 var
+binder 3923:3923 <> A:93
+R3943:3946 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3942:3942 Corelib.Init.Equality <> A:93 var
+R3948:3951 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3947:3947 Corelib.Init.Equality <> A:93 var
+R3987:3994 Corelib.Init.Equality <> Has_refl class
+R4012:4014 Corelib.Init.Equality <> eq':94 var
+R4038:4048 Corelib.Init.Equality <> Has_Leibniz class
+R4072:4073 Corelib.Init.Equality <> eq:92 var
+def 4091:4092 <> ap
+binder 4095:4095 <> A:97
+binder 4114:4114 <> B:98
+R4136:4139 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4135:4135 Corelib.Init.Equality <> A:97 var
+R4140:4140 Corelib.Init.Equality <> B:98 var
+binder 4131:4131 <> f:99
+R4150:4150 Corelib.Init.Equality <> A:97 var
+binder 4144:4144 <> x:100
+binder 4146:4146 <> y:101
+R4158:4159 Corelib.Init.Equality <> ap.eq var
+R4163:4163 Corelib.Init.Equality <> x:100 var
+R4165:4165 Corelib.Init.Equality <> y:101 var
+binder 4154:4154 <> e:102
+R4170:4172 Corelib.Init.Equality <> ap.eq' var
+R4177:4177 Corelib.Init.Equality <> f:99 var
+R4179:4179 Corelib.Init.Equality <> x:100 var
+R4183:4183 Corelib.Init.Equality <> f:99 var
+R4185:4185 Corelib.Init.Equality <> y:101 var
+R4195:4201 Corelib.Init.Equality <> leibniz def
+R4249:4249 Corelib.Init.Equality <> e:102 var
+R4247:4247 Corelib.Init.Equality <> y:101 var
+R4237:4240 Corelib.Init.Equality <> refl def
+binder 4212:4212 <> y:103
+R4217:4219 Corelib.Init.Equality <> ap.eq' var
+R4221:4221 Corelib.Init.Equality <> B:98 var
+R4224:4224 Corelib.Init.Equality <> f:99 var
+R4226:4226 Corelib.Init.Equality <> x:100 var
+R4230:4230 Corelib.Init.Equality <> f:99 var
+R4232:4232 Corelib.Init.Equality <> y:103 var
+R4205:4205 Corelib.Init.Equality <> x:100 var
+R4203:4203 Corelib.Init.Equality <> A:97 var
+R4257:4258 Corelib.Init.Equality ap <> sec
+sec 4295:4297 <> sym
+var  4343:4344 sym eq
+var  4409:4409 sym A
+var  4439:4443 sym _refl
+var  4484:4491 sym _leibniz
+binder 4355:4355 <> A:104
+R4374:4377 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4373:4373 Corelib.Init.Equality <> A:104 var
+R4379:4382 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4378:4378 Corelib.Init.Equality <> A:104 var
+R4446:4453 Corelib.Init.Equality <> Has_refl class
+R4469:4470 Corelib.Init.Equality <> eq:105 var
+R4494:4504 Corelib.Init.Equality <> Has_Leibniz class
+R4526:4527 Corelib.Init.Equality <> eq:105 var
+def 4545:4547 <> sym
+R4556:4556 Corelib.Init.Equality <> sym.A var
+binder 4550:4550 <> x:109
+binder 4552:4552 <> y:110
+R4564:4565 Corelib.Init.Equality <> sym.eq var
+R4569:4569 Corelib.Init.Equality <> x:109 var
+R4571:4571 Corelib.Init.Equality <> y:110 var
+binder 4560:4560 <> e:111
+R4576:4577 Corelib.Init.Equality <> sym.eq var
+R4581:4581 Corelib.Init.Equality <> y:110 var
+R4583:4583 Corelib.Init.Equality <> x:109 var
+R4592:4598 Corelib.Init.Equality <> leibniz def
+R4637:4637 Corelib.Init.Equality <> e:111 var
+R4625:4628 Corelib.Init.Equality <> refl def
+binder 4609:4609 <> y:112
+R4614:4615 Corelib.Init.Equality <> sym.eq var
+R4617:4617 Corelib.Init.Equality <> sym.A var
+R4619:4619 Corelib.Init.Equality <> y:112 var
+R4645:4647 Corelib.Init.Equality sym <> sec
+def 4662:4680 <> Has_J_Has_J_forward
+binder 4702:4703 <> eq:113
+binder 4705:4712 <> Has_refl:114
+R4725:4729 Corelib.Init.Equality <> Has_J class
+R4754:4761 Corelib.Init.Equality <> Has_refl:114 var
+R4751:4752 Corelib.Init.Equality <> eq:113 var
+binder 4717:4721 <> has_J:115
+binder 4776:4776 <> A:116
+R4801:4801 Corelib.Init.Equality <> A:116 var
+binder 4797:4797 <> x:117
+R4820:4820 Corelib.Init.Equality <> A:116 var
+binder 4816:4816 <> y:118
+R4831:4834 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4823:4824 Corelib.Init.Equality <> eq:113 var
+R4826:4826 Corelib.Init.Equality <> A:116 var
+R4828:4828 Corelib.Init.Equality <> x:117 var
+R4830:4830 Corelib.Init.Equality <> y:118 var
+binder 4805:4805 <> P:119
+binder 4851:4851 <> y:120
+binder 4853:4853 <> e:121
+R4867:4870 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4862:4862 Corelib.Init.Equality <> P:119 var
+R4866:4866 Corelib.Init.Equality <> e:121 var
+R4864:4864 Corelib.Init.Equality <> y:120 var
+R4871:4871 Corelib.Init.Equality <> P:119 var
+R4876:4879 Corelib.Init.Equality <> refl def
+R4883:4883 Corelib.Init.Equality <> x:117 var
+R4881:4881 Corelib.Init.Equality <> A:116 var
+R4873:4873 Corelib.Init.Equality <> x:117 var
+binder 4895:4895 <> A:122
+binder 4897:4897 <> x:123
+binder 4899:4899 <> P:124
+binder 4901:4901 <> y:125
+binder 4903:4903 <> e:126
+R4908:4919 Corelib.Init.Equality <> J_eliminator def
+binder 4958:4958 <> x:127
+R4963:4963 Corelib.Init.Equality <> x:127 var
+binder 4930:4930 <> y:128
+binder 4932:4932 <> e:129
+R4942:4945 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4937:4937 Corelib.Init.Equality <> P:124 var
+R4939:4939 Corelib.Init.Equality <> y:128 var
+R4941:4941 Corelib.Init.Equality <> e:129 var
+R4946:4946 Corelib.Init.Equality <> P:124 var
+def 4983:5002 <> _Has_J_Has_J_forward
+binder 5024:5025 <> eq:130
+binder 5027:5034 <> Has_refl:131
+R5047:5051 Corelib.Init.Equality <> Has_J class
+R5076:5083 Corelib.Init.Equality <> Has_refl:131 var
+R5073:5074 Corelib.Init.Equality <> eq:130 var
+binder 5039:5043 <> has_J:132
+R5088:5100 Corelib.Init.Equality <> Has_J_forward class
+R5125:5132 Corelib.Init.Equality <> Has_refl:131 var
+R5122:5123 Corelib.Init.Equality <> eq:130 var
+R5139:5157 Corelib.Init.Equality <> Has_J_Has_J_forward def
+def 5232:5254 <> Has_J_r_Has_J_r_forward
+binder 5276:5277 <> eq:133
+binder 5279:5286 <> Has_refl:134
+R5299:5305 Corelib.Init.Equality <> Has_J_r class
+R5330:5337 Corelib.Init.Equality <> Has_refl:134 var
+R5327:5328 Corelib.Init.Equality <> eq:133 var
+binder 5291:5295 <> has_J:135
+binder 5352:5352 <> A:136
+R5377:5377 Corelib.Init.Equality <> A:136 var
+binder 5373:5373 <> x:137
+R5396:5396 Corelib.Init.Equality <> A:136 var
+binder 5392:5392 <> y:138
+R5407:5410 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5399:5400 Corelib.Init.Equality <> eq:133 var
+R5402:5402 Corelib.Init.Equality <> A:136 var
+R5404:5404 Corelib.Init.Equality <> y:138 var
+R5406:5406 Corelib.Init.Equality <> x:137 var
+binder 5381:5381 <> P:139
+binder 5427:5427 <> y:140
+binder 5429:5429 <> e:141
+R5443:5446 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5438:5438 Corelib.Init.Equality <> P:139 var
+R5442:5442 Corelib.Init.Equality <> e:141 var
+R5440:5440 Corelib.Init.Equality <> y:140 var
+R5447:5447 Corelib.Init.Equality <> P:139 var
+R5452:5455 Corelib.Init.Equality <> refl def
+R5459:5459 Corelib.Init.Equality <> x:137 var
+R5457:5457 Corelib.Init.Equality <> A:136 var
+R5449:5449 Corelib.Init.Equality <> x:137 var
+binder 5471:5471 <> A:142
+binder 5473:5473 <> x:143
+binder 5475:5475 <> P:144
+binder 5477:5477 <> y:145
+binder 5479:5479 <> e:146
+R5484:5497 Corelib.Init.Equality <> J_r_eliminator def
+binder 5536:5536 <> x:147
+R5541:5541 Corelib.Init.Equality <> x:147 var
+binder 5508:5508 <> y:148
+binder 5510:5510 <> e:149
+R5520:5523 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5515:5515 Corelib.Init.Equality <> P:144 var
+R5517:5517 Corelib.Init.Equality <> y:148 var
+R5519:5519 Corelib.Init.Equality <> e:149 var
+R5524:5524 Corelib.Init.Equality <> P:144 var
+def 5561:5584 <> _Has_J_r_Has_J_r_forward
+binder 5606:5607 <> eq:150
+binder 5609:5616 <> Has_refl:151
+R5629:5635 Corelib.Init.Equality <> Has_J_r class
+R5660:5667 Corelib.Init.Equality <> Has_refl:151 var
+R5657:5658 Corelib.Init.Equality <> eq:150 var
+binder 5621:5625 <> has_J:152
+R5672:5686 Corelib.Init.Equality <> Has_J_r_forward class
+R5711:5718 Corelib.Init.Equality <> Has_refl:151 var
+R5708:5709 Corelib.Init.Equality <> eq:150 var
+R5725:5747 Corelib.Init.Equality <> Has_J_r_Has_J_r_forward def

@@ -1,0 +1,24 @@
+DIGEST ff44c224f423a97abe4821dbcd852e03
+FCorelib.Program.Tactics
+R1378:1378 Corelib.Init.Datatypes <> S constr
+R1658:1661 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R1695:1698 Corelib.Init.Datatypes <> prod ind
+R2307:2308 Corelib.Init.Logic <> ex ind
+R2342:2344 Corelib.Init.Specif <> sig ind
+R2380:2383 Corelib.Init.Specif <> sigT ind
+R2420:2422 Corelib.Init.Logic <> ex2 ind
+R2459:2462 Corelib.Init.Specif <> sig2 ind
+R2501:2505 Corelib.Init.Specif <> sigT2 ind
+R3215:3218 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R4408:4410 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+def 6361:6369 <> fix_proto
+binder 6372:6372 <> A:1
+R6387:6387 Corelib.Program.Tactics <> A:1 var
+binder 6383:6383 <> a:2
+R6393:6393 Corelib.Program.Tactics <> a:2 var
+R6503:6511 Corelib.Program.Tactics <> fix_proto def
+R6628:6636 Corelib.Program.Tactics <> fix_proto def
+R6775:6777 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7296:7305 Corelib.Init.Logic <> False_rect scheme
+R8811:8819 Corelib.Init.Specif <> proj1_sig def
+R9071:9082 Corelib.Init.Wf <> well_founded def

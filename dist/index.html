@@ -38,12 +38,13 @@
     <div id="engineNote" class="engine-note" role="note">
       <span class="engine-note-icon" aria-hidden="true">ℹ️</span>
       <div class="engine-note-body">
-        The in-browser engine currently checks <strong>prelude-free core Gallina</strong>
-        (term-mode) proofs only. Tactics (<code>intros</code>, <code>apply</code>, …),
-        <code>nat</code>, and prelude notations (<code>-&gt;</code>, <code>=</code>) are
-        <strong>not</strong> available — write terms with <code>forall</code> / <code>fun</code>.
-        See <a href="BACKEND.md">BACKEND.md</a> for why (the engine runs with
-        <code>-noinit</code>) and the prelude-bundle plan.
+        The in-browser engine ships the <strong>Corelib prelude</strong> (regenerated
+        by a coerce-32bit-patched native <code>rocqc</code>), so it checks real Gallina
+        <strong>with</strong> <code>nat</code>, <code>=</code>, <code>-&gt;</code> and the
+        tactic language (<code>induction</code>, <code>simpl</code>, <code>rewrite</code>,
+        <code>auto</code>, …). Uncheck into <code>-noinit</code> for prelude-free core
+        Gallina. Full Stdlib / mathcomp are not yet bundled — see
+        <a href="BACKEND.md">BACKEND.md</a>.
       </div>
       <button type="button" class="engine-note-dismiss" id="engineNoteDismiss" aria-label="Dismiss note">×</button>
     </div>
@@ -109,8 +110,8 @@
             <span>Trust challenge-declared axioms<span class="hint">Parameters/Axioms/Admitted helpers the challenge itself declares are auto-permitted, pinned to their challenge type</span></span>
           </label>
           <label class="toggle">
-            <input type="checkbox" id="noinitToggle" checked />
-            <span>-noinit (no Corelib prelude)<span class="hint">this browser build ships no prelude <code>.vo</code> bundle yet, so stdlib types (<code>nat</code>, <code>=</code>, <code>-&gt;</code>) are unavailable and proofs must use core Gallina only. Leave checked. (See BACKEND.md.)</span></span>
+            <input type="checkbox" id="noinitToggle" />
+            <span>-noinit (skip Corelib prelude)<span class="hint">leave unchecked to load the bundled Corelib prelude (<code>nat</code>, <code>=</code>, <code>-&gt;</code>, tactics). Check it for a prelude-free core-Gallina check. (See BACKEND.md.)</span></span>
           </label>
           <label class="toggle">
             <input type="checkbox" id="impredicativeSet" />
@@ -131,7 +132,7 @@
 
     <p class="footer-note">
       Runs a real Rocq kernel (a <code>js_of_ocaml</code> build of <code>rocq-runtime</code>&nbsp;9.2 + <code>rocq-comparator</code>) inside a Web Worker in your browser — no source ever leaves your machine.
-      Serve with <code>make serve</code> (it assembles <code>dist/</code> and serves it on <code>http://localhost:8000/</code>); a same-origin HTTP server is required because the engine loads in a Web Worker. This build runs with <code>-noinit</code> — see <code>BACKEND.md</code>.
+      Serve with <code>make serve</code> (it assembles <code>dist/</code> and serves it on <code>http://localhost:8000/</code>); a same-origin HTTP server is required because the engine loads in a Web Worker and fetches the Corelib prelude <code>.vo</code> bundle. See <code>BACKEND.md</code>.
     </p>
 
   </main>

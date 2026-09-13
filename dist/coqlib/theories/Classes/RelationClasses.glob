@@ -1,0 +1,788 @@
+DIGEST 0abac2033945d8c6d725417642a8a112
+FCorelib.Classes.RelationClasses
+R945:964 Corelib.Classes.Init <> <> lib
+R982:1003 Corelib.Program.Basics <> <> lib
+R1021:1043 Corelib.Program.Tactics <> <> lib
+R1061:1098 Corelib.Relations.Relation_Definitions <> <> lib
+sec 1252:1255 <> Defs
+var  1269:1269 Defs A
+ind 1386:1394 <> Reflexive
+constr 1420:1430 <> reflexivity
+rec 1386:1394 <> Reflexive
+proj 1420:1430 <> reflexivity
+R1401:1408 Corelib.Relations.Relation_Definitions <> relation def
+R1410:1410 Corelib.Classes.RelationClasses <> Defs.A var
+binder 1397:1397 <> R:2
+R1445:1445 Corelib.Classes.RelationClasses <> Defs.A var
+binder 1441:1441 <> x:4
+R1448:1448 Corelib.Classes.RelationClasses <> R:2 var
+R1450:1450 Corelib.Classes.RelationClasses <> x:4 var
+R1452:1452 Corelib.Classes.RelationClasses <> x:4 var
+def 1469:1478 <> complement
+R1485:1492 Corelib.Relations.Relation_Definitions <> relation def
+R1494:1494 Corelib.Classes.RelationClasses <> Defs.A var
+binder 1481:1481 <> R:6
+R1499:1506 Corelib.Relations.Relation_Definitions <> relation def
+R1508:1508 Corelib.Classes.RelationClasses <> Defs.A var
+binder 1517:1517 <> x:7
+binder 1519:1519 <> y:8
+R1529:1532 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1524:1524 Corelib.Classes.RelationClasses <> R:6 var
+R1526:1526 Corelib.Classes.RelationClasses <> x:7 var
+R1528:1528 Corelib.Classes.RelationClasses <> y:8 var
+R1533:1537 Corelib.Init.Logic <> False ind
+prf 1651:1668 <> complement_inverse
+binder 1670:1670 <> R:9
+R1693:1695 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1674:1683 Corelib.Classes.RelationClasses <> complement def
+R1686:1689 Corelib.Program.Basics <> flip def
+R1691:1691 Corelib.Classes.RelationClasses <> R:9 var
+R1696:1699 Corelib.Program.Basics <> flip def
+R1702:1711 Corelib.Classes.RelationClasses <> complement def
+R1713:1713 Corelib.Classes.RelationClasses <> R:9 var
+ind 1753:1763 <> Irreflexive
+constr 1789:1801 <> irreflexivity
+rec 1753:1763 <> Irreflexive
+proj 1789:1801 <> irreflexivity
+R1770:1777 Corelib.Relations.Relation_Definitions <> relation def
+R1779:1779 Corelib.Classes.RelationClasses <> Defs.A var
+binder 1766:1766 <> R:10
+R1805:1813 Corelib.Classes.RelationClasses <> Reflexive class
+R1816:1825 Corelib.Classes.RelationClasses <> complement def
+R1827:1827 Corelib.Classes.RelationClasses <> R:10 var
+ind 1840:1848 <> Symmetric
+constr 1874:1881 <> symmetry
+rec 1840:1848 <> Symmetric
+proj 1874:1881 <> symmetry
+R1855:1862 Corelib.Relations.Relation_Definitions <> relation def
+R1864:1864 Corelib.Classes.RelationClasses <> Defs.A var
+binder 1851:1851 <> R:13
+binder 1893:1893 <> x:15
+binder 1895:1895 <> y:16
+R1904:1907 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1899:1899 Corelib.Classes.RelationClasses <> R:13 var
+R1901:1901 Corelib.Classes.RelationClasses <> x:15 var
+R1903:1903 Corelib.Classes.RelationClasses <> y:16 var
+R1908:1908 Corelib.Classes.RelationClasses <> R:13 var
+R1910:1910 Corelib.Classes.RelationClasses <> y:16 var
+R1912:1912 Corelib.Classes.RelationClasses <> x:15 var
+ind 1926:1935 <> Asymmetric
+constr 1961:1969 <> asymmetry
+rec 1926:1935 <> Asymmetric
+proj 1961:1969 <> asymmetry
+R1942:1949 Corelib.Relations.Relation_Definitions <> relation def
+R1951:1951 Corelib.Classes.RelationClasses <> Defs.A var
+binder 1938:1938 <> R:18
+binder 1981:1981 <> x:20
+binder 1983:1983 <> y:21
+R1992:1995 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1987:1987 Corelib.Classes.RelationClasses <> R:18 var
+R1989:1989 Corelib.Classes.RelationClasses <> x:20 var
+R1991:1991 Corelib.Classes.RelationClasses <> y:21 var
+R2001:2004 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1996:1996 Corelib.Classes.RelationClasses <> R:18 var
+R1998:1998 Corelib.Classes.RelationClasses <> y:21 var
+R2000:2000 Corelib.Classes.RelationClasses <> x:20 var
+R2005:2009 Corelib.Init.Logic <> False ind
+ind 2023:2032 <> Transitive
+constr 2058:2069 <> transitivity
+rec 2023:2032 <> Transitive
+proj 2058:2069 <> transitivity
+R2039:2046 Corelib.Relations.Relation_Definitions <> relation def
+R2048:2048 Corelib.Classes.RelationClasses <> Defs.A var
+binder 2035:2035 <> R:23
+binder 2081:2081 <> x:25
+binder 2083:2083 <> y:26
+binder 2085:2085 <> z:27
+R2094:2097 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2089:2089 Corelib.Classes.RelationClasses <> R:23 var
+R2091:2091 Corelib.Classes.RelationClasses <> x:25 var
+R2093:2093 Corelib.Classes.RelationClasses <> y:26 var
+R2103:2106 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2098:2098 Corelib.Classes.RelationClasses <> R:23 var
+R2100:2100 Corelib.Classes.RelationClasses <> y:26 var
+R2102:2102 Corelib.Classes.RelationClasses <> z:27 var
+R2107:2107 Corelib.Classes.RelationClasses <> R:23 var
+R2109:2109 Corelib.Classes.RelationClasses <> x:25 var
+R2111:2111 Corelib.Classes.RelationClasses <> z:27 var
+rec 2258:2265 <> PreOrder
+proj 2310:2327 <> PreOrder_Reflexive
+proj 2364:2382 <> PreOrder_Transitive
+R2272:2279 Corelib.Relations.Relation_Definitions <> relation def
+R2281:2281 Corelib.Classes.RelationClasses <> Defs.A var
+binder 2268:2268 <> R:29
+R2332:2340 Corelib.Classes.RelationClasses <> Reflexive class
+R2342:2342 Corelib.Classes.RelationClasses <> R:29 var
+R2387:2396 Corelib.Classes.RelationClasses <> Transitive class
+R2398:2398 Corelib.Classes.RelationClasses <> R:29 var
+rec 2478:2488 <> StrictOrder
+proj 2533:2555 <> StrictOrder_Irreflexive
+proj 2590:2611 <> StrictOrder_Transitive
+R2495:2502 Corelib.Relations.Relation_Definitions <> relation def
+R2504:2504 Corelib.Classes.RelationClasses <> Defs.A var
+binder 2491:2491 <> R:33
+R2560:2570 Corelib.Classes.RelationClasses <> Irreflexive class
+R2572:2572 Corelib.Classes.RelationClasses <> R:33 var
+R2616:2625 Corelib.Classes.RelationClasses <> Transitive class
+R2627:2627 Corelib.Classes.RelationClasses <> R:33 var
+inst 2709:2730 <> StrictOrder_Asymmetric
+R2734:2744 Corelib.Classes.RelationClasses <> StrictOrder class
+binder 2746:2746 <> R:37
+binder 2734:2746 <> H:38
+R2751:2760 Corelib.Classes.RelationClasses <> Asymmetric class
+R2762:2762 Corelib.Classes.RelationClasses <> R:37 var
+rec 2872:2874 <> PER
+proj 2919:2931 <> PER_Symmetric
+proj 2968:2981 <> PER_Transitive
+R2881:2888 Corelib.Relations.Relation_Definitions <> relation def
+R2890:2890 Corelib.Classes.RelationClasses <> Defs.A var
+binder 2877:2877 <> R:39
+R2936:2944 Corelib.Classes.RelationClasses <> Symmetric class
+R2946:2946 Corelib.Classes.RelationClasses <> R:39 var
+R2986:2995 Corelib.Classes.RelationClasses <> Transitive class
+R2997:2997 Corelib.Classes.RelationClasses <> R:39 var
+rec 3048:3058 <> Equivalence
+proj 3103:3123 <> Equivalence_Reflexive
+proj 3156:3176 <> Equivalence_Symmetric
+proj 3209:3230 <> Equivalence_Transitive
+R3065:3072 Corelib.Relations.Relation_Definitions <> relation def
+R3074:3074 Corelib.Classes.RelationClasses <> Defs.A var
+binder 3061:3061 <> R:43
+R3128:3136 Corelib.Classes.RelationClasses <> Reflexive class
+R3138:3138 Corelib.Classes.RelationClasses <> R:43 var
+R3181:3189 Corelib.Classes.RelationClasses <> Symmetric class
+R3191:3191 Corelib.Classes.RelationClasses <> R:43 var
+R3235:3244 Corelib.Classes.RelationClasses <> Transitive class
+R3246:3246 Corelib.Classes.RelationClasses <> R:43 var
+inst 3324:3338 <> Equivalence_PER
+binder 3341:3341 <> R:48
+R3348:3358 Corelib.Classes.RelationClasses <> Equivalence class
+R3360:3360 Corelib.Classes.RelationClasses <> R:48 var
+binder 3346:3346 <> E:49
+R3365:3367 Corelib.Classes.RelationClasses <> PER class
+R3369:3369 Corelib.Classes.RelationClasses <> R:48 var
+inst 3462:3481 <> Equivalence_PreOrder
+binder 3484:3484 <> R:50
+R3491:3501 Corelib.Classes.RelationClasses <> Equivalence class
+R3503:3503 Corelib.Classes.RelationClasses <> R:50 var
+binder 3489:3489 <> E:51
+R3508:3515 Corelib.Classes.RelationClasses <> PreOrder class
+R3517:3517 Corelib.Classes.RelationClasses <> R:50 var
+ind 3635:3647 <> Antisymmetric
+constr 3702:3713 <> antisymmetry
+rec 3635:3647 <> Antisymmetric
+proj 3702:3713 <> antisymmetry
+binder 3649:3651 <> eqA:52
+R3661:3671 Corelib.Classes.RelationClasses <> Equivalence class
+R3673:3675 Corelib.Classes.RelationClasses <> eqA:52 var
+binder 3655:3657 <> equ:53
+R3683:3690 Corelib.Relations.Relation_Definitions <> relation def
+R3692:3692 Corelib.Classes.RelationClasses <> Defs.A var
+binder 3679:3679 <> R:54
+binder 3725:3725 <> x:56
+binder 3727:3727 <> y:57
+R3736:3739 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3731:3731 Corelib.Classes.RelationClasses <> R:54 var
+R3733:3733 Corelib.Classes.RelationClasses <> x:56 var
+R3735:3735 Corelib.Classes.RelationClasses <> y:57 var
+R3745:3748 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3740:3740 Corelib.Classes.RelationClasses <> R:54 var
+R3742:3742 Corelib.Classes.RelationClasses <> y:57 var
+R3744:3744 Corelib.Classes.RelationClasses <> x:56 var
+R3749:3751 Corelib.Classes.RelationClasses <> eqA:52 var
+R3753:3753 Corelib.Classes.RelationClasses <> x:56 var
+R3755:3755 Corelib.Classes.RelationClasses <> y:57 var
+ind 3767:3777 <> subrelation
+constr 3813:3826 <> is_subrelation
+rec 3767:3777 <> subrelation
+proj 3813:3826 <> is_subrelation
+R3787:3794 Corelib.Relations.Relation_Definitions <> relation def
+R3796:3796 Corelib.Classes.RelationClasses <> Defs.A var
+binder 3780:3780 <> R:59
+binder 3782:3783 <> R':60
+binder 3838:3838 <> x:62
+binder 3840:3840 <> y:63
+R3849:3852 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3844:3844 Corelib.Classes.RelationClasses <> R:59 var
+R3846:3846 Corelib.Classes.RelationClasses <> x:62 var
+R3848:3848 Corelib.Classes.RelationClasses <> y:63 var
+R3853:3854 Corelib.Classes.RelationClasses <> R':60 var
+R3856:3856 Corelib.Classes.RelationClasses <> x:62 var
+R3858:3858 Corelib.Classes.RelationClasses <> y:63 var
+prf 3932:3952 <> subrelation_symmetric
+binder 3954:3954 <> R:65
+R3958:3966 Corelib.Classes.RelationClasses <> Symmetric class
+R3968:3968 Corelib.Classes.RelationClasses <> R:65 var
+binder 3958:3968 <> H:66
+R3973:3983 Corelib.Classes.RelationClasses <> subrelation class
+R3994:3994 Corelib.Classes.RelationClasses <> R:65 var
+R3986:3989 Corelib.Program.Basics <> flip def
+R3991:3991 Corelib.Classes.RelationClasses <> R:65 var
+R4043:4050 Corelib.Classes.RelationClasses <> symmetry def
+sec 4081:4084 Defs flip
+prf 4100:4113 <> flip_Reflexive
+R4117:4125 Corelib.Classes.RelationClasses <> Reflexive class
+binder 4127:4127 <> R:67
+binder 4117:4127 <> H:68
+R4132:4140 Corelib.Classes.RelationClasses <> Reflexive class
+R4143:4146 Corelib.Program.Basics <> flip def
+R4148:4148 Corelib.Classes.RelationClasses <> R:67 var
+def 4203:4218 <> flip_Irreflexive
+R4222:4232 Corelib.Classes.RelationClasses <> Irreflexive class
+binder 4234:4234 <> R:69
+binder 4222:4234 <> H:70
+R4239:4249 Corelib.Classes.RelationClasses <> Irreflexive class
+R4252:4255 Corelib.Program.Basics <> flip def
+R4257:4257 Corelib.Classes.RelationClasses <> R:69 var
+R4269:4281 Corelib.Classes.RelationClasses <> irreflexivity def
+R4287:4287 Corelib.Classes.RelationClasses <> R:69 var
+def 4319:4332 <> flip_Symmetric
+R4336:4344 Corelib.Classes.RelationClasses <> Symmetric class
+binder 4346:4346 <> R:71
+binder 4336:4346 <> H:72
+R4351:4359 Corelib.Classes.RelationClasses <> Symmetric class
+R4362:4365 Corelib.Program.Basics <> flip def
+R4367:4367 Corelib.Classes.RelationClasses <> R:71 var
+binder 4383:4383 <> x:73
+binder 4385:4385 <> y:74
+binder 4387:4387 <> H:75
+R4392:4399 Corelib.Classes.RelationClasses <> symmetry def
+R4408:4408 Corelib.Classes.RelationClasses <> H:75 var
+R4405:4405 Corelib.Classes.RelationClasses <> R:71 var
+def 4439:4453 <> flip_Asymmetric
+R4457:4466 Corelib.Classes.RelationClasses <> Asymmetric class
+binder 4468:4468 <> R:76
+binder 4457:4468 <> H:77
+R4473:4482 Corelib.Classes.RelationClasses <> Asymmetric class
+R4485:4488 Corelib.Program.Basics <> flip def
+R4490:4490 Corelib.Classes.RelationClasses <> R:76 var
+binder 4506:4506 <> x:78
+binder 4508:4508 <> y:79
+binder 4510:4510 <> H:80
+binder 4512:4513 <> H':81
+R4518:4526 Corelib.Classes.RelationClasses <> asymmetry def
+R4537:4538 Corelib.Classes.RelationClasses <> H':81 var
+R4535:4535 Corelib.Classes.RelationClasses <> H:80 var
+R4532:4532 Corelib.Classes.RelationClasses <> R:76 var
+def 4569:4583 <> flip_Transitive
+R4587:4596 Corelib.Classes.RelationClasses <> Transitive class
+binder 4598:4598 <> R:82
+binder 4587:4598 <> H:83
+R4603:4612 Corelib.Classes.RelationClasses <> Transitive class
+R4615:4618 Corelib.Program.Basics <> flip def
+R4620:4620 Corelib.Classes.RelationClasses <> R:82 var
+binder 4636:4636 <> x:84
+binder 4638:4638 <> y:85
+binder 4640:4640 <> z:86
+binder 4642:4642 <> H:87
+binder 4644:4645 <> H':88
+R4650:4661 Corelib.Classes.RelationClasses <> transitivity def
+R4673:4673 Corelib.Classes.RelationClasses <> H:87 var
+R4670:4671 Corelib.Classes.RelationClasses <> H':88 var
+R4667:4667 Corelib.Classes.RelationClasses <> R:82 var
+prf 4695:4712 <> flip_Antisymmetric
+R4716:4728 Corelib.Classes.RelationClasses <> Antisymmetric class
+binder 4730:4732 <> eqA:89
+binder 4734:4734 <> R:91
+binder 4716:4734 <> H:92
+R4745:4757 Corelib.Classes.RelationClasses <> Antisymmetric class
+R4764:4767 Corelib.Program.Basics <> flip def
+R4769:4769 Corelib.Classes.RelationClasses <> R:91 var
+R4759:4761 Corelib.Classes.RelationClasses <> eqA:89 var
+prf 4856:4868 <> flip_PreOrder
+R4872:4879 Corelib.Classes.RelationClasses <> PreOrder class
+binder 4881:4881 <> R:93
+binder 4872:4881 <> H:94
+R4886:4893 Corelib.Classes.RelationClasses <> PreOrder class
+R4896:4899 Corelib.Program.Basics <> flip def
+R4901:4901 Corelib.Classes.RelationClasses <> R:93 var
+prf 4944:4959 <> flip_StrictOrder
+R4963:4973 Corelib.Classes.RelationClasses <> StrictOrder class
+binder 4975:4975 <> R:95
+binder 4963:4975 <> H:96
+R4980:4990 Corelib.Classes.RelationClasses <> StrictOrder class
+R4993:4996 Corelib.Program.Basics <> flip def
+R4998:4998 Corelib.Classes.RelationClasses <> R:95 var
+prf 5041:5048 <> flip_PER
+R5052:5054 Corelib.Classes.RelationClasses <> PER class
+binder 5056:5056 <> R:97
+binder 5052:5056 <> H:98
+R5061:5063 Corelib.Classes.RelationClasses <> PER class
+R5066:5069 Corelib.Program.Basics <> flip def
+R5071:5071 Corelib.Classes.RelationClasses <> R:97 var
+prf 5114:5129 <> flip_Equivalence
+R5133:5143 Corelib.Classes.RelationClasses <> Equivalence class
+binder 5145:5145 <> R:99
+binder 5133:5145 <> H:100
+R5150:5160 Corelib.Classes.RelationClasses <> Equivalence class
+R5163:5166 Corelib.Program.Basics <> flip def
+R5168:5168 Corelib.Classes.RelationClasses <> R:99 var
+R5207:5210 Corelib.Classes.RelationClasses Defs.flip <> sec
+sec 5224:5233 Defs complement
+prf 5247:5268 <> complement_Irreflexive
+R5272:5280 Corelib.Classes.RelationClasses <> Reflexive class
+binder 5282:5282 <> R:101
+binder 5272:5282 <> H:102
+R5293:5303 Corelib.Classes.RelationClasses <> Irreflexive class
+R5306:5315 Corelib.Classes.RelationClasses <> complement def
+R5317:5317 Corelib.Classes.RelationClasses <> R:101 var
+prf 5360:5379 <> complement_Symmetric
+R5383:5391 Corelib.Classes.RelationClasses <> Symmetric class
+binder 5393:5393 <> R:103
+binder 5383:5393 <> H:104
+R5398:5406 Corelib.Classes.RelationClasses <> Symmetric class
+R5409:5418 Corelib.Classes.RelationClasses <> complement def
+R5420:5420 Corelib.Classes.RelationClasses <> R:103 var
+R5458:5467 Corelib.Classes.RelationClasses Defs.complement <> sec
+rec 6113:6127 <> RewriteRelation
+R6135:6142 Corelib.Relations.Relation_Definitions <> relation def
+R6144:6144 Corelib.Classes.RelationClasses <> Defs.A var
+binder 6130:6131 <> RA:105
+sec 6186:6192 Defs Leibniz
+inst 6215:6226 <> eq_Reflexive
+R6230:6238 Corelib.Classes.RelationClasses <> Reflexive class
+R6242:6243 Corelib.Init.Logic <> eq ind
+R6245:6245 Corelib.Classes.RelationClasses <> Defs.A var
+R6252:6258 Corelib.Init.Logic <> eq_refl constr
+R6260:6260 Corelib.Classes.RelationClasses <> Defs.A var
+inst 6283:6294 <> eq_Symmetric
+R6298:6306 Corelib.Classes.RelationClasses <> Symmetric class
+R6310:6311 Corelib.Init.Logic <> eq ind
+R6313:6313 Corelib.Classes.RelationClasses <> Defs.A var
+R6320:6325 Corelib.Init.Logic <> eq_sym scheme
+R6327:6327 Corelib.Classes.RelationClasses <> Defs.A var
+inst 6350:6362 <> eq_Transitive
+R6366:6375 Corelib.Classes.RelationClasses <> Transitive class
+R6379:6380 Corelib.Init.Logic <> eq ind
+R6382:6382 Corelib.Classes.RelationClasses <> Defs.A var
+R6389:6396 Corelib.Init.Logic <> eq_trans thm
+R6398:6398 Corelib.Classes.RelationClasses <> Defs.A var
+inst 6606:6619 <> eq_equivalence
+R6623:6633 Corelib.Classes.RelationClasses <> Equivalence class
+R6637:6638 Corelib.Init.Logic <> eq ind
+R6640:6640 Corelib.Classes.RelationClasses <> Defs.A var
+R6655:6661 Corelib.Classes.RelationClasses Defs.Leibniz <> sec
+sec 6707:6716 Defs LeibnizNot
+inst 6776:6788 <> neq_Symmetric
+R6792:6800 Corelib.Classes.RelationClasses <> Symmetric class
+R6813:6813 Corelib.Classes.RelationClasses <> Defs.A var
+binder 6807:6807 <> x:107
+binder 6809:6809 <> y:108
+R6819:6822 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R6818:6818 Corelib.Classes.RelationClasses <> x:107 var
+R6823:6823 Corelib.Classes.RelationClasses <> y:108 var
+R6831:6840 Corelib.Init.Logic <> not_eq_sym thm
+R6842:6842 Corelib.Classes.RelationClasses <> Defs.A var
+R6852:6861 Corelib.Classes.RelationClasses Defs.LeibnizNot <> sec
+R6868:6871 Corelib.Classes.RelationClasses Defs <> sec
+inst 6964:6992 <> inverse_impl_rewrite_relation
+R6996:7010 Corelib.Classes.RelationClasses <> RewriteRelation class
+R7013:7016 Corelib.Program.Basics <> flip def
+R7018:7021 Corelib.Program.Basics <> impl def
+inst 7054:7074 <> impl_rewrite_relation
+R7078:7092 Corelib.Classes.RelationClasses <> RewriteRelation class
+R7094:7097 Corelib.Program.Basics <> impl def
+inst 7129:7148 <> iff_rewrite_relation
+R7152:7166 Corelib.Classes.RelationClasses <> RewriteRelation class
+R7168:7170 Corelib.Init.Logic <> iff def
+def 7430:7457 <> equivalence_rewrite_relation
+R7467:7477 Corelib.Classes.RelationClasses <> Equivalence class
+binder 7479:7479 <> A:109
+binder 7481:7483 <> eqA:110
+binder 7461:7463 <> eqa:111
+R7488:7502 Corelib.Classes.RelationClasses <> RewriteRelation class
+R7504:7506 Corelib.Classes.RelationClasses <> eqA:110 var
+R7513:7533 Corelib.Classes.RelationClasses <> Build_RewriteRelation constr
+R7677:7691 Corelib.Classes.RelationClasses <> RewriteRelation class
+R7876:7884 Corelib.Classes.RelationClasses <> Reflexive class
+R7887:7896 Corelib.Classes.RelationClasses <> complement def
+R7918:7930 Corelib.Classes.RelationClasses <> irreflexivity def
+R7980:7988 Corelib.Classes.RelationClasses <> Symmetric class
+R7991:8000 Corelib.Classes.RelationClasses <> complement def
+R8090:8100 Corelib.Classes.RelationClasses <> Irreflexive class
+R8103:8112 Corelib.Classes.RelationClasses <> complement def
+R8205:8213 Corelib.Classes.RelationClasses <> Reflexive class
+R8216:8219 Corelib.Program.Basics <> flip def
+R8234:8247 Corelib.Classes.RelationClasses <> flip_Reflexive thm
+R8297:8307 Corelib.Classes.RelationClasses <> Irreflexive class
+R8310:8313 Corelib.Program.Basics <> flip def
+R8399:8407 Corelib.Classes.RelationClasses <> Symmetric class
+R8410:8413 Corelib.Program.Basics <> flip def
+R8497:8506 Corelib.Classes.RelationClasses <> Asymmetric class
+R8509:8512 Corelib.Program.Basics <> flip def
+R8597:8609 Corelib.Classes.RelationClasses <> Antisymmetric class
+R8612:8615 Corelib.Program.Basics <> flip def
+R8703:8712 Corelib.Classes.RelationClasses <> Transitive class
+R8715:8718 Corelib.Program.Basics <> flip def
+R8803:8813 Corelib.Classes.RelationClasses <> StrictOrder class
+R8816:8819 Corelib.Program.Basics <> flip def
+R8905:8912 Corelib.Classes.RelationClasses <> PreOrder class
+R8915:8918 Corelib.Program.Basics <> flip def
+R9002:9012 Corelib.Classes.RelationClasses <> subrelation class
+R9015:9018 Corelib.Program.Basics <> flip def
+R9045:9065 Corelib.Classes.RelationClasses <> subrelation_symmetric thm
+R9101:9113 Corelib.Classes.RelationClasses <> irreflexivity def
+R9159:9166 Corelib.Classes.RelationClasses <> symmetry def
+R9201:9209 Corelib.Classes.RelationClasses <> asymmetry def
+R9246:9257 Corelib.Classes.RelationClasses <> transitivity def
+R9298:9310 Corelib.Classes.RelationClasses <> Antisymmetric class
+R9803:9807 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R9919:9923 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R10323:10326 Corelib.Program.Basics <> flip def
+R10329:10332 Corelib.Program.Basics <> impl def
+R10335:10339 Corelib.Program.Basics <> arrow def
+inst 10540:10553 <> impl_Reflexive
+R10557:10565 Corelib.Classes.RelationClasses <> Reflexive class
+R10567:10570 Corelib.Program.Basics <> impl def
+inst 10600:10614 <> impl_Transitive
+R10618:10627 Corelib.Classes.RelationClasses <> Transitive class
+R10629:10632 Corelib.Program.Basics <> impl def
+inst 10684:10696 <> iff_Reflexive
+R10700:10708 Corelib.Classes.RelationClasses <> Reflexive class
+R10710:10712 Corelib.Init.Logic <> iff def
+R10717:10724 Corelib.Init.Logic <> iff_refl thm
+inst 10746:10758 <> iff_Symmetric
+R10762:10770 Corelib.Classes.RelationClasses <> Symmetric class
+R10772:10774 Corelib.Init.Logic <> iff def
+R10779:10785 Corelib.Init.Logic <> iff_sym thm
+inst 10807:10820 <> iff_Transitive
+R10824:10833 Corelib.Classes.RelationClasses <> Transitive class
+R10835:10837 Corelib.Init.Logic <> iff def
+R10842:10850 Corelib.Init.Logic <> iff_trans thm
+inst 10943:10957 <> iff_equivalence
+R10961:10971 Corelib.Classes.RelationClasses <> Equivalence class
+R10973:10975 Corelib.Init.Logic <> iff def
+ind 11403:11407 <> Tlist
+constr 11419:11422 <> Tnil
+constr 11434:11438 <> Tcons
+R11426:11430 Corelib.Classes.RelationClasses <> Tlist:112 ind
+R11446:11449 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R11455:11458 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R11450:11454 Corelib.Classes.RelationClasses <> Tlist:112 ind
+R11459:11463 Corelib.Classes.RelationClasses <> Tlist:112 ind
+scheme 11403:11407 <> Tlist_rect
+scheme 11403:11407 <> Tlist_ind
+scheme 11403:11407 <> Tlist_rec
+scheme 11403:11407 <> Tlist_sind
+R11486:11490 Corelib.Classes.RelationClasses <> Tcons constr
+not 11478:11478 <> :::x_'::'_x
+def 11503:11508 <> arrows
+R11515:11519 Corelib.Classes.RelationClasses <> Tlist ind
+binder 11511:11511 <> l:114
+binder 11523:11523 <> r:115
+R11551:11551 Corelib.Classes.RelationClasses <> l:114 var
+R11564:11567 Corelib.Classes.RelationClasses <> Tnil constr
+R11572:11572 Corelib.Classes.RelationClasses <> r:115 var
+R11581:11584 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R11592:11595 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R11596:11601 Corelib.Classes.RelationClasses <> arrows:116 def
+R11606:11606 Corelib.Classes.RelationClasses <> r:115 var
+def 11715:11729 <> unary_operation
+binder 11731:11731 <> A:118
+R11736:11741 Corelib.Classes.RelationClasses <> arrows def
+R11745:11746 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R11744:11744 Corelib.Classes.RelationClasses <> A:118 var
+R11747:11750 Corelib.Classes.RelationClasses <> Tnil constr
+R11753:11753 Corelib.Classes.RelationClasses <> A:118 var
+def 11767:11782 <> binary_operation
+binder 11784:11784 <> A:119
+R11789:11794 Corelib.Classes.RelationClasses <> arrows def
+R11798:11799 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R11797:11797 Corelib.Classes.RelationClasses <> A:119 var
+R11801:11802 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R11800:11800 Corelib.Classes.RelationClasses <> A:119 var
+R11803:11806 Corelib.Classes.RelationClasses <> Tnil constr
+R11809:11809 Corelib.Classes.RelationClasses <> A:119 var
+def 11823:11839 <> ternary_operation
+binder 11841:11841 <> A:120
+R11846:11851 Corelib.Classes.RelationClasses <> arrows def
+R11855:11856 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R11854:11854 Corelib.Classes.RelationClasses <> A:120 var
+R11858:11859 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R11857:11857 Corelib.Classes.RelationClasses <> A:120 var
+R11861:11862 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R11860:11860 Corelib.Classes.RelationClasses <> A:120 var
+R11863:11866 Corelib.Classes.RelationClasses <> Tnil constr
+R11869:11869 Corelib.Classes.RelationClasses <> A:120 var
+abbrev 11949:11957 <> predicate
+R11965:11970 Corelib.Classes.RelationClasses <> arrows def
+def 12028:12042 <> unary_predicate
+binder 12044:12044 <> A:121
+R12049:12057 Corelib.Classes.RelationClasses <> predicate abbrev
+R12061:12062 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R12060:12060 Corelib.Classes.RelationClasses <> A:121 var
+R12063:12066 Corelib.Classes.RelationClasses <> Tnil constr
+def 12148:12162 <> binary_relation
+binder 12164:12164 <> A:122
+R12169:12177 Corelib.Classes.RelationClasses <> predicate abbrev
+R12181:12182 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R12180:12180 Corelib.Classes.RelationClasses <> A:122 var
+R12184:12185 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R12183:12183 Corelib.Classes.RelationClasses <> A:122 var
+R12186:12189 Corelib.Classes.RelationClasses <> Tnil constr
+def 12280:12292 <> predicate_all
+R12299:12303 Corelib.Classes.RelationClasses <> Tlist ind
+binder 12295:12295 <> l:123
+R12319:12322 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R12308:12316 Corelib.Classes.RelationClasses <> predicate abbrev
+R12318:12318 Corelib.Classes.RelationClasses <> l:123 var
+R12339:12339 Corelib.Classes.RelationClasses <> l:123 var
+R12352:12355 Corelib.Classes.RelationClasses <> Tnil constr
+binder 12364:12364 <> f:126
+R12369:12369 Corelib.Classes.RelationClasses <> f:126 var
+R12378:12381 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+binder 12392:12392 <> f:127
+binder 12404:12404 <> x:128
+R12411:12423 Corelib.Classes.RelationClasses <> predicate_all:124 def
+R12429:12429 Corelib.Classes.RelationClasses <> f:127 var
+R12431:12431 Corelib.Classes.RelationClasses <> x:128 var
+def 12451:12466 <> predicate_exists
+R12473:12477 Corelib.Classes.RelationClasses <> Tlist ind
+binder 12469:12469 <> l:129
+R12493:12496 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R12482:12490 Corelib.Classes.RelationClasses <> predicate abbrev
+R12492:12492 Corelib.Classes.RelationClasses <> l:129 var
+R12513:12513 Corelib.Classes.RelationClasses <> l:129 var
+R12526:12529 Corelib.Classes.RelationClasses <> Tnil constr
+binder 12538:12538 <> f:132
+R12543:12543 Corelib.Classes.RelationClasses <> f:132 var
+R12552:12555 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+binder 12566:12566 <> f:133
+R12571:12577 Corelib.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12583:12584 Corelib.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 12578:12578 <> x:134
+R12585:12600 Corelib.Classes.RelationClasses <> predicate_exists:130 def
+R12606:12606 Corelib.Classes.RelationClasses <> f:133 var
+R12608:12608 Corelib.Classes.RelationClasses <> x:134 var
+def 12822:12840 <> pointwise_extension
+binder 12843:12843 <> T:135
+R12859:12874 Corelib.Classes.RelationClasses <> binary_operation def
+R12876:12876 Corelib.Classes.RelationClasses <> T:135 var
+binder 12854:12855 <> op:136
+R12886:12890 Corelib.Classes.RelationClasses <> Tlist ind
+binder 12882:12882 <> l:137
+R12895:12910 Corelib.Classes.RelationClasses <> binary_operation def
+R12913:12918 Corelib.Classes.RelationClasses <> arrows def
+R12920:12920 Corelib.Classes.RelationClasses <> l:137 var
+R12922:12922 Corelib.Classes.RelationClasses <> T:135 var
+R12936:12936 Corelib.Classes.RelationClasses <> l:137 var
+R12949:12952 Corelib.Classes.RelationClasses <> Tnil constr
+binder 12961:12961 <> R:140
+binder 12963:12964 <> R':141
+R12969:12970 Corelib.Classes.RelationClasses <> op:136 var
+R12972:12972 Corelib.Classes.RelationClasses <> R:140 var
+R12974:12975 Corelib.Classes.RelationClasses <> R':141 var
+R12984:12987 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+binder 12998:12998 <> R:142
+binder 13000:13001 <> R':143
+binder 13016:13016 <> x:144
+R13021:13039 Corelib.Classes.RelationClasses <> pointwise_extension:138 def
+R13054:13055 Corelib.Classes.RelationClasses <> R':143 var
+R13057:13057 Corelib.Classes.RelationClasses <> x:144 var
+R13048:13048 Corelib.Classes.RelationClasses <> R:142 var
+R13050:13050 Corelib.Classes.RelationClasses <> x:144 var
+R13041:13042 Corelib.Classes.RelationClasses <> op:136 var
+def 13181:13197 <> pointwise_lifting
+R13205:13219 Corelib.Classes.RelationClasses <> binary_relation def
+binder 13200:13201 <> op:145
+R13233:13237 Corelib.Classes.RelationClasses <> Tlist ind
+binder 13229:13229 <> l:146
+R13242:13256 Corelib.Classes.RelationClasses <> binary_relation def
+R13259:13267 Corelib.Classes.RelationClasses <> predicate abbrev
+R13269:13269 Corelib.Classes.RelationClasses <> l:146 var
+R13283:13283 Corelib.Classes.RelationClasses <> l:146 var
+R13296:13299 Corelib.Classes.RelationClasses <> Tnil constr
+binder 13308:13308 <> R:149
+binder 13310:13311 <> R':150
+R13316:13317 Corelib.Classes.RelationClasses <> op:145 var
+R13319:13319 Corelib.Classes.RelationClasses <> R:149 var
+R13321:13322 Corelib.Classes.RelationClasses <> R':150 var
+R13331:13334 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+binder 13345:13345 <> R:151
+binder 13347:13348 <> R':152
+binder 13366:13366 <> x:153
+R13369:13385 Corelib.Classes.RelationClasses <> pointwise_lifting:147 def
+R13400:13401 Corelib.Classes.RelationClasses <> R':152 var
+R13403:13403 Corelib.Classes.RelationClasses <> x:153 var
+R13394:13394 Corelib.Classes.RelationClasses <> R:151 var
+R13396:13396 Corelib.Classes.RelationClasses <> x:153 var
+R13387:13388 Corelib.Classes.RelationClasses <> op:145 var
+def 13510:13530 <> predicate_equivalence
+R13537:13541 Corelib.Classes.RelationClasses <> Tlist ind
+binder 13533:13533 <> l:154
+R13546:13560 Corelib.Classes.RelationClasses <> binary_relation def
+R13563:13571 Corelib.Classes.RelationClasses <> predicate abbrev
+R13573:13573 Corelib.Classes.RelationClasses <> l:154 var
+R13581:13597 Corelib.Classes.RelationClasses <> pointwise_lifting def
+R13599:13601 Corelib.Init.Logic <> iff def
+R13603:13603 Corelib.Classes.RelationClasses <> l:154 var
+def 13704:13724 <> predicate_implication
+R13731:13735 Corelib.Classes.RelationClasses <> Tlist ind
+binder 13727:13727 <> l:155
+R13743:13759 Corelib.Classes.RelationClasses <> pointwise_lifting def
+R13761:13764 Corelib.Program.Basics <> impl def
+R13766:13766 Corelib.Classes.RelationClasses <> l:155 var
+R13894:13914 Corelib.Classes.RelationClasses <> predicate_equivalence def
+not 13883:13883 <> ::predicate_scope:x_'<∙>'_x
+R13984:14004 Corelib.Classes.RelationClasses <> predicate_implication def
+not 13973:13973 <> ::predicate_scope:x_'-∙>'_x
+def 14255:14276 <> predicate_intersection
+R14281:14299 Corelib.Classes.RelationClasses <> pointwise_extension def
+R14301:14303 Corelib.Init.Logic <> and ind
+def 14317:14331 <> predicate_union
+R14336:14354 Corelib.Classes.RelationClasses <> pointwise_extension def
+R14356:14357 Corelib.Init.Logic <> or ind
+R14378:14399 Corelib.Classes.RelationClasses <> predicate_intersection def
+not 14367:14367 <> ::predicate_scope:x_'/∙\'_x
+R14472:14486 Corelib.Classes.RelationClasses <> predicate_union def
+not 14461:14461 <> ::predicate_scope:x_'\∙/'_x
+def 14609:14622 <> true_predicate
+R14629:14633 Corelib.Classes.RelationClasses <> Tlist ind
+binder 14625:14625 <> l:156
+R14638:14646 Corelib.Classes.RelationClasses <> predicate abbrev
+R14648:14648 Corelib.Classes.RelationClasses <> l:156 var
+R14661:14661 Corelib.Classes.RelationClasses <> l:156 var
+R14674:14677 Corelib.Classes.RelationClasses <> Tnil constr
+R14682:14685 Corelib.Init.Logic <> True ind
+R14694:14697 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R14714:14727 Corelib.Classes.RelationClasses <> true_predicate:157 def
+def 14749:14763 <> false_predicate
+R14770:14774 Corelib.Classes.RelationClasses <> Tlist ind
+binder 14766:14766 <> l:159
+R14779:14787 Corelib.Classes.RelationClasses <> predicate abbrev
+R14789:14789 Corelib.Classes.RelationClasses <> l:159 var
+R14802:14802 Corelib.Classes.RelationClasses <> l:159 var
+R14815:14818 Corelib.Classes.RelationClasses <> Tnil constr
+R14823:14827 Corelib.Init.Logic <> False ind
+R14836:14839 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R14856:14870 Corelib.Classes.RelationClasses <> false_predicate:160 def
+R14907:14920 Corelib.Classes.RelationClasses <> true_predicate def
+not 14892:14892 <> ::predicate_scope:'∙⊤∙'
+R14965:14979 Corelib.Classes.RelationClasses <> false_predicate def
+not 14950:14950 <> ::predicate_scope:'∙⊥∙'
+inst 15123:15155 <> predicate_equivalence_equivalence
+binder 15158:15158 <> l:162
+R15165:15175 Corelib.Classes.RelationClasses <> Equivalence class
+R15179:15199 Corelib.Classes.RelationClasses <> predicate_equivalence def
+R15201:15201 Corelib.Classes.RelationClasses <> l:162 var
+R15377:15393 Corelib.Classes.RelationClasses <> pointwise_lifting def
+inst 15559:15588 <> predicate_implication_preorder
+binder 15591:15591 <> l:163
+R15598:15605 Corelib.Classes.RelationClasses <> PreOrder class
+R15609:15629 Corelib.Classes.RelationClasses <> predicate_implication def
+R15631:15631 Corelib.Classes.RelationClasses <> l:163 var
+sec 15983:15988 <> Binary
+var  16002:16002 Binary A
+def 16027:16046 <> relation_equivalence
+R16050:16057 Corelib.Relations.Relation_Definitions <> relation def
+R16060:16067 Corelib.Relations.Relation_Definitions <> relation def
+R16069:16069 Corelib.Classes.RelationClasses <> Binary.A var
+R16080:16100 Corelib.Classes.RelationClasses <> predicate_equivalence def
+R16104:16105 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R16107:16108 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R16109:16112 Corelib.Classes.RelationClasses <> Tnil constr
+inst 16135:16171 <> relation_equivalence_rewrite_relation
+R16174:16188 Corelib.Classes.RelationClasses <> RewriteRelation class
+R16190:16209 Corelib.Classes.RelationClasses <> relation_equivalence def
+def 16234:16253 <> relation_conjunction
+R16260:16267 Corelib.Relations.Relation_Definitions <> relation def
+R16269:16269 Corelib.Classes.RelationClasses <> Binary.A var
+binder 16256:16256 <> R:165
+R16278:16285 Corelib.Relations.Relation_Definitions <> relation def
+R16287:16287 Corelib.Classes.RelationClasses <> Binary.A var
+binder 16273:16274 <> R':166
+R16292:16299 Corelib.Relations.Relation_Definitions <> relation def
+R16301:16301 Corelib.Classes.RelationClasses <> Binary.A var
+R16311:16332 Corelib.Classes.RelationClasses <> predicate_intersection def
+R16336:16337 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R16335:16335 Corelib.Classes.RelationClasses <> Binary.A var
+R16339:16340 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R16338:16338 Corelib.Classes.RelationClasses <> Binary.A var
+R16341:16344 Corelib.Classes.RelationClasses <> Tnil constr
+R16347:16347 Corelib.Classes.RelationClasses <> R:165 var
+R16349:16350 Corelib.Classes.RelationClasses <> R':166 var
+def 16367:16386 <> relation_disjunction
+R16393:16400 Corelib.Relations.Relation_Definitions <> relation def
+R16402:16402 Corelib.Classes.RelationClasses <> Binary.A var
+binder 16389:16389 <> R:167
+R16411:16418 Corelib.Relations.Relation_Definitions <> relation def
+R16420:16420 Corelib.Classes.RelationClasses <> Binary.A var
+binder 16406:16407 <> R':168
+R16425:16432 Corelib.Relations.Relation_Definitions <> relation def
+R16434:16434 Corelib.Classes.RelationClasses <> Binary.A var
+R16444:16458 Corelib.Classes.RelationClasses <> predicate_union def
+R16462:16463 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R16461:16461 Corelib.Classes.RelationClasses <> Binary.A var
+R16465:16466 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R16464:16464 Corelib.Classes.RelationClasses <> Binary.A var
+R16467:16470 Corelib.Classes.RelationClasses <> Tnil constr
+R16473:16473 Corelib.Classes.RelationClasses <> R:167 var
+R16475:16476 Corelib.Classes.RelationClasses <> R':168 var
+inst 16591:16622 <> relation_equivalence_equivalence
+R16630:16640 Corelib.Classes.RelationClasses <> Equivalence class
+R16642:16661 Corelib.Classes.RelationClasses <> relation_equivalence def
+R16681:16713 Corelib.Classes.RelationClasses <> predicate_equivalence_equivalence inst
+R16717:16718 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R16716:16716 Corelib.Classes.RelationClasses <> Binary.A var
+R16720:16721 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R16719:16719 Corelib.Classes.RelationClasses <> Binary.A var
+R16722:16725 Corelib.Classes.RelationClasses <> Tnil constr
+inst 16756:16784 <> relation_implication_preorder
+R16788:16795 Corelib.Classes.RelationClasses <> PreOrder class
+R16799:16809 Corelib.Classes.RelationClasses <> subrelation class
+R16811:16811 Corelib.Classes.RelationClasses <> Binary.A var
+R16832:16861 Corelib.Classes.RelationClasses <> predicate_implication_preorder inst
+R16865:16866 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R16864:16864 Corelib.Classes.RelationClasses <> Binary.A var
+R16868:16869 Corelib.Classes.RelationClasses <> :::x_'::'_x not
+R16867:16867 Corelib.Classes.RelationClasses <> Binary.A var
+R16870:16873 Corelib.Classes.RelationClasses <> Tnil constr
+ind 17077:17088 <> PartialOrder
+constr 17153:17177 <> partial_order_equivalence
+rec 17077:17088 <> PartialOrder
+proj 17153:17177 <> partial_order_equivalence
+binder 17090:17092 <> eqA:169
+R17102:17112 Corelib.Classes.RelationClasses <> Equivalence class
+R17114:17114 Corelib.Classes.RelationClasses <> Binary.A var
+R17116:17118 Corelib.Classes.RelationClasses <> eqA:169 var
+binder 17096:17098 <> equ:170
+binder 17121:17121 <> R:171
+R17132:17139 Corelib.Classes.RelationClasses <> PreOrder class
+R17141:17141 Corelib.Classes.RelationClasses <> Binary.A var
+R17143:17143 Corelib.Classes.RelationClasses <> R:171 var
+binder 17125:17128 <> preo:172
+R17181:17200 Corelib.Classes.RelationClasses <> relation_equivalence def
+R17202:17204 Corelib.Classes.RelationClasses <> eqA:169 var
+R17207:17226 Corelib.Classes.RelationClasses <> relation_conjunction def
+R17228:17228 Corelib.Classes.RelationClasses <> R:171 var
+R17231:17234 Corelib.Program.Basics <> flip def
+R17236:17236 Corelib.Classes.RelationClasses <> R:171 var
+inst 17457:17477 <> partial_order_antisym
+R17481:17492 Corelib.Classes.RelationClasses <> PartialOrder class
+binder 17494:17496 <> eqA:175
+binder 17498:17498 <> R:177
+binder 17481:17498 <> H:179
+R17503:17515 Corelib.Classes.RelationClasses <> Antisymmetric class
+R17523:17523 Corelib.Classes.RelationClasses <> R:177 var
+R17519:17521 Corelib.Classes.RelationClasses <> eqA:175 var
+R17517:17517 Corelib.Classes.RelationClasses <> Binary.A var
+R17577:17601 Corelib.Classes.RelationClasses <> partial_order_equivalence def
+prf 17675:17694 <> PartialOrder_inverse
+R17698:17709 Corelib.Classes.RelationClasses <> PartialOrder class
+binder 17711:17713 <> eqA:180
+binder 17715:17715 <> R:182
+binder 17698:17715 <> H:184
+R17720:17731 Corelib.Classes.RelationClasses <> PartialOrder class
+R17738:17741 Corelib.Program.Basics <> flip def
+R17743:17743 Corelib.Classes.RelationClasses <> R:182 var
+R17733:17735 Corelib.Classes.RelationClasses <> eqA:180 var
+R17777:17782 Corelib.Classes.RelationClasses Binary <> sec
+R17811:17822 Corelib.Classes.RelationClasses <> PartialOrder class
+R17825:17828 Corelib.Program.Basics <> flip def
+inst 17996:18020 <> subrelation_partial_order
+binder 18023:18023 <> A:185
+R18030:18041 Corelib.Classes.RelationClasses <> PartialOrder class
+R18069:18079 Corelib.Classes.RelationClasses <> subrelation class
+R18045:18064 Corelib.Classes.RelationClasses <> relation_equivalence def
+R18066:18066 Corelib.Classes.RelationClasses <> A:185 var
+R18116:18135 Corelib.Classes.RelationClasses <> relation_equivalence def

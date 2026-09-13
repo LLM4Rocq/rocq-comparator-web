@@ -1,0 +1,168 @@
+DIGEST 58b24542d08af49820f1e1c7e0417ef2
+FCorelib.Strings.PrimStringAxioms
+R28:34 Corelib.Numbers.BinNums <> <> lib
+R36:41 Corelib.BinNums.PosDef <> <> lib
+R43:48 Corelib.BinNums.IntDef <> <> lib
+R50:56 Corelib.Lists.ListDef <> <> lib
+R87:95 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> <> lib
+R97:108 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> <> lib
+R139:148 Corelib.Strings.PrimString <> <> lib
+def 163:174 <> char63_valid
+R181:186 Corelib.Strings.PrimString <> char63 def
+binder 177:177 <> c:1
+R221:223 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R194:207 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> land prim
+R209:209 Corelib.Strings.PrimStringAxioms <> c:1 var
+R224:224 Corelib.Strings.PrimStringAxioms <> c:1 var
+abbrev 278:283 <> of_nat
+R291:294 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> of_Z def
+R297:304 Corelib.BinNums.IntDef Z of_nat def
+abbrev 324:329 <> to_nat
+R337:344 Corelib.BinNums.IntDef Z to_nat def
+R347:350 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+def 369:375 <> to_list
+R382:387 Corelib.Strings.PrimString <> string prim
+binder 378:378 <> s:2
+R392:395 Corelib.Init.Datatypes <> list ind
+R397:402 Corelib.Strings.PrimString <> char63 def
+R409:419 Corelib.Lists.ListDef <> map def
+R450:460 Corelib.Lists.ListDef <> seq def
+R465:470 Corelib.Strings.PrimStringAxioms <> to_nat abbrev
+R473:478 Corelib.Strings.PrimString <> length prim
+R480:480 Corelib.Strings.PrimStringAxioms <> s:2 var
+binder 426:426 <> i:3
+R431:433 Corelib.Strings.PrimString <> get prim
+R435:435 Corelib.Strings.PrimStringAxioms <> s:2 var
+R438:443 Corelib.Strings.PrimStringAxioms <> of_nat abbrev
+R445:445 Corelib.Strings.PrimStringAxioms <> i:3 var
+def 496:502 <> of_list
+R510:513 Corelib.Init.Datatypes <> list ind
+R515:520 Corelib.Strings.PrimString <> char63 def
+binder 505:506 <> cs:4
+R525:530 Corelib.Strings.PrimString <> string prim
+R543:544 Corelib.Strings.PrimStringAxioms <> cs:4 var
+R555:557 Corelib.Init.Datatypes <> nil constr
+R583:586 Corelib.Init.Datatypes <> cons constr
+R596:598 Corelib.Strings.PrimString <> cat prim
+R601:604 Corelib.Strings.PrimString <> make prim
+R612:618 Corelib.Strings.PrimStringAxioms <> of_list:5 def
+R620:621 Corelib.Strings.PrimStringAxioms <> cs:4 var
+ax 638:647 <> of_to_list
+R665:670 Corelib.Strings.PrimString <> string prim
+binder 661:661 <> s:7
+R697:699 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R678:684 Corelib.Strings.PrimStringAxioms <> of_list def
+R687:693 Corelib.Strings.PrimStringAxioms <> to_list def
+R695:695 Corelib.Strings.PrimStringAxioms <> s:7 var
+R700:700 Corelib.Strings.PrimStringAxioms <> s:7 var
+ax 710:723 <> to_list_length
+R741:746 Corelib.Strings.PrimString <> string prim
+binder 737:737 <> s:10
+R782:785 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R754:769 Corelib.Init.Datatypes <> length def
+R772:778 Corelib.Strings.PrimStringAxioms <> to_list def
+R780:780 Corelib.Strings.PrimStringAxioms <> s:10 var
+R786:791 Corelib.Strings.PrimStringAxioms <> to_nat abbrev
+R793:802 Corelib.Strings.PrimString <> max_length prim
+ax 812:831 <> to_list_char63_valid
+R849:854 Corelib.Strings.PrimString <> string prim
+binder 845:845 <> s:13
+R862:875 Corelib.Lists.ListDef <> Forall ind
+R891:897 Corelib.Strings.PrimStringAxioms <> to_list def
+R899:899 Corelib.Strings.PrimStringAxioms <> s:13 var
+R877:888 Corelib.Strings.PrimStringAxioms <> char63_valid def
+ax 975:985 <> length_spec
+R1003:1008 Corelib.Strings.PrimString <> string prim
+binder 999:999 <> s:16
+R1033:1035 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1016:1021 Corelib.Strings.PrimStringAxioms <> to_nat abbrev
+R1024:1029 Corelib.Strings.PrimString <> length prim
+R1031:1031 Corelib.Strings.PrimStringAxioms <> s:16 var
+R1036:1051 Corelib.Init.Datatypes <> length def
+R1054:1060 Corelib.Strings.PrimStringAxioms <> to_list def
+R1062:1062 Corelib.Strings.PrimStringAxioms <> s:16 var
+ax 1073:1080 <> get_spec
+R1098:1103 Corelib.Strings.PrimString <> string prim
+binder 1094:1094 <> s:19
+R1111:1113 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+binder 1107:1107 <> i:20
+R1128:1130 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1121:1123 Corelib.Strings.PrimString <> get prim
+R1125:1125 Corelib.Strings.PrimStringAxioms <> s:19 var
+R1127:1127 Corelib.Strings.PrimStringAxioms <> i:20 var
+R1131:1141 Corelib.Lists.ListDef <> nth def
+R1155:1161 Corelib.Strings.PrimStringAxioms <> to_list def
+R1163:1163 Corelib.Strings.PrimStringAxioms <> s:19 var
+R1144:1149 Corelib.Strings.PrimStringAxioms <> to_nat abbrev
+R1151:1151 Corelib.Strings.PrimStringAxioms <> i:20 var
+ax 1183:1191 <> make_spec
+R1209:1211 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+binder 1205:1205 <> i:23
+R1219:1224 Corelib.Strings.PrimString <> char63 def
+binder 1215:1215 <> c:24
+R1250:1258 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1232:1238 Corelib.Strings.PrimStringAxioms <> to_list def
+R1241:1244 Corelib.Strings.PrimString <> make prim
+R1246:1246 Corelib.Strings.PrimStringAxioms <> i:23 var
+R1248:1248 Corelib.Strings.PrimStringAxioms <> c:24 var
+R1259:1272 Corelib.Lists.ListDef <> repeat def
+R1313:1319 Corelib.Init.Nat <> min def
+R1322:1327 Corelib.Strings.PrimStringAxioms <> to_nat abbrev
+R1329:1329 Corelib.Strings.PrimStringAxioms <> i:23 var
+R1333:1338 Corelib.Strings.PrimStringAxioms <> to_nat abbrev
+R1340:1349 Corelib.Strings.PrimString <> max_length prim
+R1275:1288 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> land prim
+R1290:1290 Corelib.Strings.PrimStringAxioms <> c:24 var
+ax 1361:1368 <> sub_spec
+R1386:1391 Corelib.Strings.PrimString <> string prim
+binder 1382:1382 <> s:27
+R1405:1407 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+binder 1395:1397 <> off:28
+binder 1399:1401 <> len:29
+R1438:1446 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1415:1421 Corelib.Strings.PrimStringAxioms <> to_list def
+R1424:1426 Corelib.Strings.PrimString <> sub prim
+R1428:1428 Corelib.Strings.PrimStringAxioms <> s:27 var
+R1430:1432 Corelib.Strings.PrimStringAxioms <> off:28 var
+R1434:1436 Corelib.Strings.PrimStringAxioms <> len:29 var
+R1447:1460 Corelib.Lists.ListDef <> firstn def
+R1476:1488 Corelib.Lists.ListDef <> skipn def
+R1504:1510 Corelib.Strings.PrimStringAxioms <> to_list def
+R1512:1512 Corelib.Strings.PrimStringAxioms <> s:27 var
+R1491:1496 Corelib.Strings.PrimStringAxioms <> to_nat abbrev
+R1498:1500 Corelib.Strings.PrimStringAxioms <> off:28 var
+R1463:1468 Corelib.Strings.PrimStringAxioms <> to_nat abbrev
+R1470:1472 Corelib.Strings.PrimStringAxioms <> len:29 var
+ax 1524:1531 <> cat_spec
+R1553:1558 Corelib.Strings.PrimString <> string prim
+binder 1545:1546 <> s1:32
+binder 1548:1549 <> s2:33
+R1585:1593 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1566:1572 Corelib.Strings.PrimStringAxioms <> to_list def
+R1575:1577 Corelib.Strings.PrimString <> cat prim
+R1579:1580 Corelib.Strings.PrimStringAxioms <> s1:32 var
+R1582:1583 Corelib.Strings.PrimStringAxioms <> s2:33 var
+R1594:1607 Corelib.Lists.ListDef <> firstn def
+R1640:1643 Corelib.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1630:1636 Corelib.Strings.PrimStringAxioms <> to_list def
+R1638:1639 Corelib.Strings.PrimStringAxioms <> s1:32 var
+R1644:1650 Corelib.Strings.PrimStringAxioms <> to_list def
+R1652:1653 Corelib.Strings.PrimStringAxioms <> s2:33 var
+R1610:1615 Corelib.Strings.PrimStringAxioms <> to_nat abbrev
+R1617:1626 Corelib.Strings.PrimString <> max_length prim
+abbrev 1671:1684 <> char63_compare
+R1689:1705 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> compare prim
+ax 1730:1741 <> compare_spec
+R1763:1768 Corelib.Strings.PrimString <> string prim
+binder 1755:1756 <> s1:36
+binder 1758:1759 <> s2:37
+R1789:1797 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1776:1782 Corelib.Strings.PrimString <> compare prim
+R1784:1785 Corelib.Strings.PrimStringAxioms <> s1:36 var
+R1787:1788 Corelib.Strings.PrimStringAxioms <> s2:37 var
+R1798:1817 Corelib.Lists.ListDef <> list_compare def
+R1848:1854 Corelib.Strings.PrimStringAxioms <> to_list def
+R1856:1857 Corelib.Strings.PrimStringAxioms <> s2:37 var
+R1835:1841 Corelib.Strings.PrimStringAxioms <> to_list def
+R1843:1844 Corelib.Strings.PrimStringAxioms <> s1:36 var
+R1819:1832 Corelib.Strings.PrimStringAxioms <> char63_compare abbrev

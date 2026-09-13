@@ -1,0 +1,19 @@
+DIGEST 98be6c9a085802af808c178c4205ce63
+FCorelib.Program.Utils
+R760:782 Corelib.Program.Tactics <> <> lib
+R925:927 Corelib.Init.Specif <> sig ind
+binder 934:942 <> anonymous:1
+R964:972 Corelib.Program.Utils <> anonymous:1 var
+binder 956:956 <> x:2
+binder 958:958 <> y:3
+not 891:891 <> ::type_scope:'{'_'('_x_','_x_')'_':'_x_'|'_x_'}'
+R1150:1159 Corelib.Init.Logic <> False_rect scheme
+not 1140:1140 <> ::program_scope:'!'
+R1288:1296 Corelib.Init.Specif <> proj1_sig def
+not 1275:1275 <> ::program_scope:'`'_x
+abbrev 1485:1487 <> dec
+R1492:1506 Corelib.Init.Sumbool <> sumbool_of_bool def
+abbrev 1682:1688 <> in_left
+R1695:1698 Corelib.Init.Specif <> left constr
+abbrev 1721:1728 <> in_right
+R1735:1739 Corelib.Init.Specif <> right constr

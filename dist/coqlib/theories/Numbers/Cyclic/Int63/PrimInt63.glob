@@ -1,0 +1,81 @@
+DIGEST 7d65f1412050dd2198930d1ff5671c0f
+FCorelib.Numbers.Cyclic.Int63.PrimInt63
+R691:699 Corelib.Numbers.Cyclic.Int63.CarryType <> <> lib
+ax 857:859 <> int
+ind 917:929 <> pos_neg_int63
+constr 934:936 <> Pos
+constr 948:950 <> Neg
+R941:943 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+binder 939:939 <> d:3
+R955:957 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+binder 953:953 <> d:4
+def 1051:1056 <> id_int
+R1063:1066 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1060:1062 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+R1067:1069 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+binder 1078:1078 <> x:5
+R1083:1083 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> x:5 var
+rec 1093:1103 <> int_wrapper
+proj 1118:1125 <> int_wrap
+R1129:1131 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+def 1234:1240 <> printer
+R1247:1257 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int_wrapper rec
+binder 1243:1243 <> x:8
+R1262:1274 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> pos_neg_int63 variant
+R1279:1281 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> Pos constr
+R1284:1291 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int_wrap proj
+R1293:1293 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> x:8 var
+def 1308:1313 <> parser
+R1320:1332 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> pos_neg_int63 variant
+binder 1316:1316 <> x:9
+R1337:1342 Corelib.Init.Datatypes <> option ind
+R1344:1346 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+R1359:1359 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> x:9 var
+R1370:1372 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> Pos constr
+R1379:1382 Corelib.Init.Datatypes <> Some constr
+R1390:1392 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> Neg constr
+R1399:1402 Corelib.Init.Datatypes <> None constr
+mod 1454:1476 <> Int63NotationsInternalA
+R1521:1543 Corelib.Numbers.Cyclic.Int63.PrimInt63 Int63NotationsInternalA <> mod
+R1562:1564 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+R1566:1571 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> parser def
+R1573:1579 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> printer def
+mod 1611:1634 <> Uint63NotationsInternalA
+R1715:1738 Corelib.Numbers.Cyclic.Int63.PrimInt63 Uint63NotationsInternalA <> mod
+R1757:1759 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+R1761:1766 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> parser def
+R1768:1774 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> printer def
+ax 1829:1831 <> lsl
+ax 1859:1861 <> lsr
+ax 1889:1892 <> land
+ax 1921:1923 <> lor
+ax 1951:1954 <> lxor
+ax 1984:1986 <> asr
+ax 2049:2051 <> add
+ax 2079:2081 <> sub
+ax 2109:2111 <> mul
+ax 2139:2142 <> mulc
+ax 2171:2173 <> div
+ax 2201:2203 <> mod
+ax 2231:2234 <> divs
+ax 2263:2266 <> mods
+ax 2313:2315 <> eqb
+ax 2373:2375 <> ltb
+ax 2402:2404 <> leb
+ax 2431:2434 <> ltsb
+ax 2462:2465 <> lesb
+ax 2529:2532 <> addc
+ax 2561:2569 <> addcarryc
+ax 2603:2606 <> subc
+ax 2635:2643 <> subcarryc
+ax 2677:2683 <> diveucl
+ax 2715:2724 <> diveucl_21
+ax 2754:2762 <> addmuldiv
+ax 2814:2820 <> compare
+ax 2852:2859 <> compares
+ax 2918:2922 <> head0
+ax 2951:2955 <> tail0
+mod 2989:3006 <> PrimInt63Notations
+R3018:3040 Corelib.Numbers.Cyclic.Int63.PrimInt63 Int63NotationsInternalA <> mod
+R3052:3075 Corelib.Numbers.Cyclic.Int63.PrimInt63 Uint63NotationsInternalA <> mod
+R3082:3099 Corelib.Numbers.Cyclic.Int63.PrimInt63 PrimInt63Notations <> mod

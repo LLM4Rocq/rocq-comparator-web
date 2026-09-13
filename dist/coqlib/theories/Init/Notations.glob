@@ -1,0 +1,6 @@
+DIGEST 64eb5718a5ed48317749f062c21b4e1f
+FCorelib.Init.Notations
+mod 4827:4837 <> IfNotations
+not 4850:4850 IfNotations :::'if'_x_'is'_x_'then'_x_'else'_x
+R4971:4981 Corelib.Init.Notations IfNotations <> mod
+not 5564:5564 <> ::type_scope:x_'->'_x

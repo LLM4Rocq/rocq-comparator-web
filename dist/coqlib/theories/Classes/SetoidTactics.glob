@@ -1,0 +1,55 @@
+DIGEST 3d280b4240d4c833ba19b9d28d3a1eb3
+FCorelib.Classes.SetoidTactics
+R817:848 Corelib.Classes.CRelationClasses <> <> lib
+R850:875 Corelib.Classes.CMorphisms <> <> lib
+R893:917 Corelib.Classes.Morphisms <> <> lib
+R919:948 Corelib.Classes.Morphisms_Prop <> <> lib
+R966:996 Corelib.Classes.RelationClasses <> <> lib
+R998:1035 Corelib.Relations.Relation_Definitions <> <> lib
+R1053:1079 Corelib.Classes.Equivalence <> <> lib
+R1081:1102 Corelib.Program.Basics <> <> lib
+R1143:1157 Corelib.Classes.Morphisms ProperNotations <> mod
+rec 1546:1560 <> DefaultRelation
+binder 1562:1562 <> A:1
+R1569:1576 Corelib.Relations.Relation_Definitions <> relation def
+R1578:1578 Corelib.Classes.SetoidTactics <> A:1 var
+binder 1565:1565 <> R:2
+def 1721:1736 <> default_relation
+R1740:1754 Corelib.Classes.SetoidTactics <> DefaultRelation class
+binder 1756:1756 <> A:4
+binder 1758:1758 <> R:5
+binder 1740:1758 <> H:6
+R1764:1764 Corelib.Classes.SetoidTactics <> R:5 var
+inst 1883:1901 <> equivalence_default
+R1905:1915 Corelib.Classes.RelationClasses <> Equivalence class
+binder 1917:1917 <> A:7
+binder 1919:1919 <> R:8
+binder 1905:1919 <> H:9
+R1924:1938 Corelib.Classes.SetoidTactics <> DefaultRelation class
+R1940:1940 Corelib.Classes.SetoidTactics <> R:8 var
+R2146:2161 Corelib.Classes.SetoidTactics <> default_relation def
+R2297:2312 Corelib.Classes.SetoidTactics <> default_relation def
+R2461:2476 Corelib.Classes.SetoidTactics <> default_relation def
+R2628:2643 Corelib.Classes.SetoidTactics <> default_relation def
+R2788:2803 Corelib.Classes.SetoidTactics <> default_relation def
+R2926:2941 Corelib.Classes.SetoidTactics <> default_relation def
+R3055:3070 Corelib.Classes.SetoidTactics <> default_relation def
+R3213:3228 Corelib.Classes.SetoidTactics <> default_relation def
+R3346:3361 Corelib.Classes.SetoidTactics <> default_relation def
+R3505:3520 Corelib.Classes.SetoidTactics <> default_relation def
+R3655:3670 Corelib.Classes.SetoidTactics <> default_relation def
+R3834:3849 Corelib.Classes.SetoidTactics <> default_relation def
+R5533:5555 Corelib.Program.Tactics <> <> lib
+R5667:5671 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R5656:5663 Corelib.Init.Logic <> eq ind
+R5735:5739 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R5866:5871 Corelib.Classes.Morphisms <> Proper class
+R5957:5961 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R5946:5953 Corelib.Init.Logic <> eq ind
+R6009:6013 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R6128:6131 Corelib.Program.Basics <> flip def
+R6199:6199 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R6202:6206 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R6209:6213 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R6244:6248 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R6271:6275 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not

@@ -1,0 +1,11 @@
+DIGEST 2157f7df68b1b3fa172dc553b3e91aef
+FCorelib.extraction.ExtrHaskellBasic
+R67:95 Corelib.extraction.Extraction <> <> lib
+R117:120 Corelib.Init.Datatypes <> bool ind
+R194:199 Corelib.Init.Datatypes <> option ind
+R276:279 Corelib.Init.Datatypes <> unit ind
+R317:320 Corelib.Init.Datatypes <> list ind
+R368:371 Corelib.Init.Datatypes <> prod ind
+R412:418 Corelib.Init.Specif <> sumbool ind
+R492:496 Corelib.Init.Specif <> sumor ind
+R573:575 Corelib.Init.Datatypes <> sum ind

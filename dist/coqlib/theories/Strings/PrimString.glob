@@ -1,0 +1,104 @@
+DIGEST 5ff85a55cc510af3849ed01c670c4b7c
+FCorelib.Strings.PrimString
+R15:23 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> <> lib
+def 38:43 <> char63
+R48:50 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+ax 64:69 <> string
+ax 99:108 <> max_length
+R112:114 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+ax 150:153 <> make
+R160:163 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R157:159 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+R170:173 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R164:169 Corelib.Strings.PrimString <> char63 def
+R174:179 Corelib.Strings.PrimString <> string prim
+ax 209:214 <> length
+R224:227 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R218:223 Corelib.Strings.PrimString <> string prim
+R228:230 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+ax 262:264 <> get
+R274:277 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R268:273 Corelib.Strings.PrimString <> string prim
+R281:284 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R278:280 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+R285:290 Corelib.Strings.PrimString <> char63 def
+ax 319:321 <> sub
+R331:334 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R325:330 Corelib.Strings.PrimString <> string prim
+R338:341 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R335:337 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+R345:348 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R342:344 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+R349:354 Corelib.Strings.PrimString <> string prim
+ax 383:385 <> cat
+R395:398 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R389:394 Corelib.Strings.PrimString <> string prim
+R405:408 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R399:404 Corelib.Strings.PrimString <> string prim
+R409:414 Corelib.Strings.PrimString <> string prim
+ax 443:449 <> compare
+R459:462 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R453:458 Corelib.Strings.PrimString <> string prim
+R469:472 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R463:468 Corelib.Strings.PrimString <> string prim
+R473:482 Corelib.Init.Datatypes <> comparison ind
+def 516:518 <> eqb
+R529:534 Corelib.Strings.PrimString <> string prim
+binder 521:522 <> s1:1
+binder 524:525 <> s2:2
+R546:552 Corelib.Strings.PrimString <> compare prim
+R554:555 Corelib.Strings.PrimString <> s1:1 var
+R557:558 Corelib.Strings.PrimString <> s2:2 var
+R567:568 Corelib.Init.Datatypes <> Eq constr
+R573:576 Corelib.Init.Datatypes <> true constr
+R580:581 Corelib.Init.Datatypes <> Lt constr
+R585:586 Corelib.Init.Datatypes <> Gt constr
+R591:595 Corelib.Init.Datatypes <> false constr
+mod 655:670 <> PStringNotations
+rec 682:695 PStringNotations string_wrapper
+proj 713:723 PStringNotations string_wrap
+R727:732 Corelib.Strings.PrimString <> string prim
+def 749:757 PStringNotations id_string
+R764:769 Corelib.Strings.PrimString <> string prim
+binder 760:760 <> s:5
+R774:779 Corelib.Strings.PrimString <> string prim
+R784:784 Corelib.Strings.PrimString <> s:5 var
+R1087:1095 Corelib.Strings.PrimString PStringNotations id_string def
+R1097:1105 Corelib.Strings.PrimString PStringNotations id_string def
+R1080:1085 Corelib.Strings.PrimString <> string prim
+R1128:1143 Corelib.Strings.PrimString PStringNotations <> mod
+rec 1154:1167 <> char63_wrapper
+proj 1186:1196 <> char63_wrap
+R1200:1205 Corelib.Strings.PrimString <> char63 def
+mod 1225:1239 <> Char63Notations
+R1244:1291 Corelib.Strings.PrimString <> char63_wrap proj
+def 1307:1311 Char63Notations parse
+R1318:1323 Corelib.Strings.PrimString <> string prim
+binder 1314:1314 <> s:8
+R1328:1333 Corelib.Init.Datatypes <> option ind
+R1335:1348 Corelib.Strings.PrimString <> char63_wrapper rec
+R1360:1372 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> eqb prim
+R1375:1380 Corelib.Strings.PrimString <> length prim
+R1382:1382 Corelib.Strings.PrimString <> s:8 var
+R1433:1436 Corelib.Init.Datatypes <> None constr
+R1399:1402 Corelib.Init.Datatypes <> Some constr
+R1405:1415 Corelib.Strings.PrimString <> wrap_char63 constr
+R1418:1420 Corelib.Strings.PrimString <> get prim
+R1422:1422 Corelib.Strings.PrimString <> s:8 var
+def 1452:1456 Char63Notations print
+R1463:1476 Corelib.Strings.PrimString <> char63_wrapper rec
+binder 1459:1459 <> i:9
+R1481:1486 Corelib.Init.Datatypes <> option ind
+R1488:1493 Corelib.Strings.PrimString <> string prim
+R1505:1517 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> ltb prim
+R1522:1532 Corelib.Strings.PrimString <> char63_wrap proj
+R1519:1519 Corelib.Strings.PrimString <> i:9 var
+R1586:1589 Corelib.Init.Datatypes <> None constr
+R1551:1554 Corelib.Init.Datatypes <> Some constr
+R1557:1560 Corelib.Strings.PrimString <> make prim
+R1567:1577 Corelib.Strings.PrimString <> char63_wrap proj
+R1564:1564 Corelib.Strings.PrimString <> i:9 var
+R1737:1741 Corelib.Strings.PrimString Char63Notations parse def
+R1743:1747 Corelib.Strings.PrimString Char63Notations print def
+R1722:1735 Corelib.Strings.PrimString <> char63_wrapper rec
+R1769:1783 Corelib.Strings.PrimString Char63Notations <> mod

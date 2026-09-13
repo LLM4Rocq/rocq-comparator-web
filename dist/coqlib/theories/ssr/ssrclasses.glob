@@ -1,0 +1,29 @@
+DIGEST fe6795e2e1688197ad81a7234d814dcd
+FCorelib.ssr.ssrclasses
+sec 1101:1104 <> Defs
+var  1118:1118 Defs A
+ind 1137:1145 <> Reflexive
+constr 1175:1185 <> reflexivity
+rec 1137:1145 <> Reflexive
+proj 1175:1185 <> reflexivity
+R1153:1156 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1152:1152 Corelib.ssr.ssrclasses <> Defs.A var
+R1158:1161 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1157:1157 Corelib.ssr.ssrclasses <> Defs.A var
+binder 1148:1148 <> R:2
+R1200:1200 Corelib.ssr.ssrclasses <> Defs.A var
+binder 1196:1196 <> x:4
+R1203:1203 Corelib.ssr.ssrclasses <> R:2 var
+R1207:1207 Corelib.ssr.ssrclasses <> x:4 var
+R1205:1205 Corelib.ssr.ssrclasses <> x:4 var
+R1214:1217 Corelib.ssr.ssrclasses Defs <> sec
+inst 1356:1367 <> eq_Reflexive
+binder 1370:1370 <> A:6
+R1382:1390 Corelib.ssr.ssrclasses <> Reflexive class
+R1394:1395 Corelib.Init.Logic <> eq ind
+R1397:1397 Corelib.ssr.ssrclasses <> A:6 var
+R1404:1410 Corelib.Init.Logic <> eq_refl constr
+inst 1434:1446 <> iff_Reflexive
+R1450:1458 Corelib.ssr.ssrclasses <> Reflexive class
+R1460:1462 Corelib.Init.Logic <> iff def
+R1467:1474 Corelib.Init.Logic <> iff_refl thm

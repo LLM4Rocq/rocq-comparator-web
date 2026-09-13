@@ -1,0 +1,19 @@
+DIGEST 86f7e817c05c3611ee994be4a6e132d7
+FLtac2.Constr
+R691:700 Ltac2.Init <> <> lib
+R711:719 Ltac2.Ind <> <> lib
+R721:731 Ltac2.Array <> <> lib
+mod 1041:1046 <> Binder
+R2149:2154 Ltac2.Constr Binder <> mod
+mod 2165:2173 <> Relevance
+R2860:2868 Ltac2.Constr Relevance <> mod
+mod 2879:2884 <> Unsafe
+mod 10946:10949 <> Unsafe.Case
+R11452:11455 Ltac2.Constr Unsafe.Case <> mod
+R17895:17900 Ltac2.Constr Unsafe <> mod
+mod 17911:17914 <> Cast
+R18280:18283 Ltac2.Constr Cast <> mod
+mod 18619:18625 <> Pretype
+mod 18637:18641 <> Pretype.Flags
+R20415:20419 Ltac2.Constr Pretype.Flags <> mod
+R21022:21028 Ltac2.Constr Pretype <> mod

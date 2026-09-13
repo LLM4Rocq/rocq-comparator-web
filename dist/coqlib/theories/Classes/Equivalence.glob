@@ -1,0 +1,159 @@
+DIGEST 0841fe520dfc6c074b97adfbaa8d6f58
+FCorelib.Classes.Equivalence
+R842:863 Corelib.Program.Basics <> <> lib
+R881:903 Corelib.Program.Tactics <> <> lib
+R922:941 Corelib.Classes.Init <> <> lib
+R959:978 Corelib.Relations.Relation_Definitions <> <> lib
+R996:1026 Corelib.Classes.RelationClasses <> <> lib
+R1044:1068 Corelib.Classes.Morphisms <> <> lib
+def 1263:1267 <> equiv
+R1271:1281 Corelib.Classes.RelationClasses <> Equivalence class
+binder 1283:1283 <> A:1
+binder 1285:1285 <> R:2
+binder 1271:1285 <> H:3
+R1290:1297 Corelib.Relations.Relation_Definitions <> relation def
+R1299:1299 Corelib.Classes.Equivalence <> A:1 var
+R1304:1304 Corelib.Classes.Equivalence <> R:2 var
+R1474:1478 Corelib.Classes.Equivalence <> equiv def
+not 1458:1458 <> ::equiv_scope:x_'==='_x
+R1558:1567 Corelib.Classes.RelationClasses <> complement def
+R1569:1573 Corelib.Classes.Equivalence <> equiv def
+not 1542:1542 <> ::equiv_scope:x_'=/='_x
+def 1701:1706 <> pequiv
+R1710:1712 Corelib.Classes.RelationClasses <> PER class
+binder 1714:1714 <> A:4
+binder 1716:1716 <> R:5
+binder 1710:1716 <> H:6
+R1721:1728 Corelib.Relations.Relation_Definitions <> relation def
+R1730:1730 Corelib.Classes.Equivalence <> A:4 var
+R1735:1735 Corelib.Classes.Equivalence <> R:5 var
+R1807:1812 Corelib.Classes.Equivalence <> pequiv def
+not 1798:1798 <> ::equiv_scope:x_'=~='_x
+inst 1937:1951 <> equiv_reflexive
+R1960:1970 Corelib.Classes.RelationClasses <> Equivalence class
+binder 1972:1972 <> A:7
+binder 1955:1956 <> sa:9
+R1977:1985 Corelib.Classes.RelationClasses <> Reflexive class
+R1987:1991 Corelib.Classes.Equivalence <> equiv def
+inst 2026:2040 <> equiv_symmetric
+R2049:2059 Corelib.Classes.RelationClasses <> Equivalence class
+binder 2061:2061 <> A:10
+binder 2044:2045 <> sa:12
+R2066:2074 Corelib.Classes.RelationClasses <> Symmetric class
+R2076:2080 Corelib.Classes.Equivalence <> equiv def
+inst 2115:2130 <> equiv_transitive
+R2139:2149 Corelib.Classes.RelationClasses <> Equivalence class
+binder 2151:2151 <> A:13
+binder 2134:2135 <> sa:15
+R2156:2165 Corelib.Classes.RelationClasses <> Transitive class
+R2167:2171 Corelib.Classes.Equivalence <> equiv def
+R2282:2296 Corelib.Classes.Equivalence <> equiv_symmetric inst
+R2331:2346 Corelib.Classes.Equivalence <> equiv_transitive inst
+R2517:2521 Corelib.Classes.Equivalence <> ::equiv_scope:x_'==='_x not
+R2621:2625 Corelib.Classes.Equivalence <> ::equiv_scope:x_'==='_x not
+R2954:2958 Corelib.Classes.Equivalence <> ::equiv_scope:x_'==='_x not
+R2994:2998 Corelib.Classes.Equivalence <> ::equiv_scope:x_'==='_x not
+R3040:3044 Corelib.Classes.Equivalence <> ::equiv_scope:x_'=/='_x not
+R3101:3102 Corelib.Init.Logic <> ::type_scope:'~'_x not
+R3105:3109 Corelib.Classes.Equivalence <> ::equiv_scope:x_'==='_x not
+R3399:3409 Corelib.Classes.RelationClasses <> Equivalence class
+R3487:3497 Corelib.Classes.RelationClasses <> Equivalence class
+R3558:3562 Corelib.Classes.Equivalence <> equiv def
+R3457:3461 Corelib.Classes.Equivalence <> equiv def
+sec 3630:3639 <> Respecting
+def 3780:3789 <> respecting
+R3799:3809 Corelib.Classes.RelationClasses <> Equivalence class
+R3818:3825 Corelib.Relations.Relation_Definitions <> relation def
+binder 3811:3811 <> A:16
+binder 3814:3814 <> R:17
+binder 3793:3795 <> eqa:18
+R3864:3874 Corelib.Classes.RelationClasses <> Equivalence class
+R3884:3891 Corelib.Relations.Relation_Definitions <> relation def
+binder 3876:3876 <> B:19
+binder 3879:3880 <> R':20
+binder 3858:3860 <> eqb:21
+R3911:3912 Corelib.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R3918:3920 Corelib.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R3927:3929 Corelib.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R3957:3958 Corelib.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R3922:3925 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3921:3921 Corelib.Classes.Equivalence <> A:16 var
+R3926:3926 Corelib.Classes.Equivalence <> B:19 var
+binder 3913:3917 <> morph:22
+R3930:3939 Corelib.Classes.Morphisms <> respectful def
+R3952:3956 Corelib.Classes.Equivalence <> morph:22 var
+R3946:3950 Corelib.Classes.Equivalence <> morph:22 var
+R3943:3944 Corelib.Classes.Equivalence <> R':20 var
+R3941:3941 Corelib.Classes.Equivalence <> R:17 var
+inst 3981:3996 <> respecting_equiv
+R4006:4016 Corelib.Classes.RelationClasses <> Equivalence class
+binder 4018:4018 <> A:23
+binder 4020:4020 <> R:24
+binder 4000:4002 <> eqa:25
+R4029:4039 Corelib.Classes.RelationClasses <> Equivalence class
+binder 4041:4041 <> B:26
+binder 4043:4044 <> R':27
+binder 4023:4025 <> eqb:28
+R4053:4063 Corelib.Classes.RelationClasses <> Equivalence class
+R4077:4086 Corelib.Classes.Equivalence <> respecting def
+R4092:4094 Corelib.Classes.Equivalence <> eqb:28 var
+R4088:4090 Corelib.Classes.Equivalence <> eqa:25 var
+binder 4071:4071 <> f:29
+binder 4073:4073 <> g:30
+R4134:4134 Corelib.Classes.Equivalence <> A:23 var
+binder 4128:4128 <> x:31
+binder 4130:4130 <> y:32
+R4143:4146 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4138:4138 Corelib.Classes.Equivalence <> R:24 var
+R4140:4140 Corelib.Classes.Equivalence <> x:31 var
+R4142:4142 Corelib.Classes.Equivalence <> y:32 var
+R4147:4148 Corelib.Classes.Equivalence <> R':27 var
+R4151:4159 Corelib.Init.Specif <> proj1_sig def
+R4163:4163 Corelib.Classes.Equivalence <> x:31 var
+R4161:4161 Corelib.Classes.Equivalence <> f:29 var
+R4167:4175 Corelib.Init.Specif <> proj1_sig def
+R4179:4179 Corelib.Classes.Equivalence <> y:32 var
+R4177:4177 Corelib.Classes.Equivalence <> g:30 var
+R4217:4226 Corelib.Classes.Equivalence <> respecting def
+R4347:4356 Corelib.Classes.Equivalence <> respecting def
+R4429:4438 Corelib.Classes.Equivalence Respecting <> sec
+inst 4545:4563 <> pointwise_reflexive
+binder 4566:4566 <> A:33
+R4579:4587 Corelib.Classes.RelationClasses <> Reflexive class
+binder 4589:4589 <> B:34
+binder 4591:4593 <> eqB:35
+binder 4571:4575 <> reflb:36
+R4600:4608 Corelib.Classes.RelationClasses <> Reflexive class
+R4611:4628 Corelib.Classes.Morphisms <> pointwise_relation def
+R4632:4634 Corelib.Classes.Equivalence <> eqB:35 var
+R4630:4630 Corelib.Classes.Equivalence <> A:33 var
+inst 4685:4703 <> pointwise_symmetric
+binder 4706:4706 <> A:37
+R4718:4726 Corelib.Classes.RelationClasses <> Symmetric class
+binder 4728:4728 <> B:38
+binder 4730:4732 <> eqB:39
+binder 4711:4714 <> symb:40
+R4739:4747 Corelib.Classes.RelationClasses <> Symmetric class
+R4750:4767 Corelib.Classes.Morphisms <> pointwise_relation def
+R4771:4773 Corelib.Classes.Equivalence <> eqB:39 var
+R4769:4769 Corelib.Classes.Equivalence <> A:37 var
+inst 4824:4843 <> pointwise_transitive
+binder 4846:4846 <> A:41
+R4860:4869 Corelib.Classes.RelationClasses <> Transitive class
+binder 4871:4871 <> B:42
+binder 4873:4875 <> eqB:43
+binder 4851:4856 <> transb:44
+R4882:4891 Corelib.Classes.RelationClasses <> Transitive class
+R4894:4911 Corelib.Classes.Morphisms <> pointwise_relation def
+R4915:4917 Corelib.Classes.Equivalence <> eqB:43 var
+R4913:4913 Corelib.Classes.Equivalence <> A:41 var
+inst 4968:4988 <> pointwise_equivalence
+binder 4991:4991 <> A:45
+R5002:5012 Corelib.Classes.RelationClasses <> Equivalence class
+binder 5014:5014 <> B:46
+binder 5016:5018 <> eqB:47
+binder 4996:4998 <> eqb:48
+R5025:5035 Corelib.Classes.RelationClasses <> Equivalence class
+R5038:5055 Corelib.Classes.Morphisms <> pointwise_relation def
+R5059:5061 Corelib.Classes.Equivalence <> eqB:47 var
+R5057:5057 Corelib.Classes.Equivalence <> A:45 var

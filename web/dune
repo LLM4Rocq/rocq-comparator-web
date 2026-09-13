@@ -15,11 +15,28 @@
 ;                    benign init-time VM tcode stubs (VM disabled via vm:false).
 ; zarith_stubs.js  : Jane Street zarith_stubs_js (pure-JS ml_z_* — zarith 1.14).
 ; ---------------------------------------------------------------------------
+; The Corelib prelude declares ML modules (cc, firstorder, number_string_notation,
+; ltac, tauto) and stdlib/mathcomp need more. jsoo has no Dynlink, so every
+; plugin the mounted .vo can [Declare ML Module] must be STATICALLY linked here
+; (its tactic/notation/grammar extensions register at module init) and its
+; findlib package resolved from a stripped META in the VFS (web_check.ml mounts
+; one with archive/plugin removed, so Rocq's findlib lookup succeeds but loads
+; nothing — the code is already linked). Adding a plugin here is what makes the
+; corresponding [Declare ML Module] a no-op instead of a Dynlink failure.
 (executable
  (name web_check)
  (modules web_check)
  (modes byte js)
- (libraries rocq_comparator js_of_ocaml yojson)
+ (link_flags (-linkall))
+ (libraries
+  rocq_comparator js_of_ocaml yojson findlib
+  rocq-runtime.plugins.ltac
+  rocq-runtime.plugins.cc_core
+  rocq-runtime.plugins.cc
+  rocq-runtime.plugins.firstorder_core
+  rocq-runtime.plugins.firstorder
+  rocq-runtime.plugins.number_string_notation
+  rocq-runtime.plugins.tauto)
  (js_of_ocaml
   (compilation_mode whole_program)
   (javascript_files runtime_shims.js zarith_stubs.js)))

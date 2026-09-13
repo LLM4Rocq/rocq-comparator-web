@@ -1,0 +1,193 @@
+DIGEST 7f99e5686d9a9e6db77cbf7bc544b383
+FCorelib.BinNums.NatDef
+R704:710 Corelib.Numbers.BinNums <> <> lib
+R712:717 Corelib.BinNums.PosDef <> <> lib
+mod 934:934 <> N
+def 983:993 N succ_double
+binder 995:995 <> x:1
+R1008:1008 Corelib.BinNums.NatDef <> x:1 var
+R1019:1020 Corelib.Numbers.BinNums <> N0 constr
+R1025:1028 Corelib.Numbers.BinNums <> Npos constr
+R1036:1039 Corelib.Numbers.BinNums <> Npos constr
+R1046:1049 Corelib.Numbers.BinNums <> Npos constr
+R1052:1053 Corelib.BinNums.PosDef <> ::positive_scope:x_'~'_'1' not
+def 1106:1111 N double
+binder 1113:1113 <> n:3
+R1126:1126 Corelib.BinNums.NatDef <> n:3 var
+R1137:1138 Corelib.Numbers.BinNums <> N0 constr
+R1143:1144 Corelib.Numbers.BinNums <> N0 constr
+R1150:1153 Corelib.Numbers.BinNums <> Npos constr
+R1160:1163 Corelib.Numbers.BinNums <> Npos constr
+R1166:1167 Corelib.BinNums.PosDef <> ::positive_scope:x_'~'_'0' not
+def 1250:1257 N succ_pos
+R1264:1264 Corelib.Numbers.BinNums <> N ind
+binder 1260:1260 <> n:5
+R1269:1276 Corelib.Numbers.BinNums <> positive ind
+R1288:1288 Corelib.BinNums.NatDef <> n:5 var
+R1300:1301 Corelib.Numbers.BinNums <> N0 constr
+R1306:1307 Corelib.Numbers.BinNums <> xH constr
+R1314:1317 Corelib.Numbers.BinNums <> Npos constr
+R1324:1331 Corelib.BinNums.PosDef Pos succ def
+def 1373:1375 N sub
+binder 1377:1377 <> n:7
+binder 1379:1379 <> m:8
+R1393:1393 Corelib.BinNums.NatDef <> m:8 var
+R1390:1390 Corelib.BinNums.NatDef <> n:7 var
+R1402:1403 Corelib.Numbers.BinNums <> N0 constr
+R1411:1412 Corelib.Numbers.BinNums <> N0 constr
+R1419:1420 Corelib.Numbers.BinNums <> N0 constr
+R1425:1425 Corelib.BinNums.NatDef <> n:7 var
+R1429:1432 Corelib.Numbers.BinNums <> Npos constr
+R1438:1441 Corelib.Numbers.BinNums <> Npos constr
+R1457:1468 Corelib.BinNums.PosDef Pos sub_mask def
+R1485:1493 Corelib.BinNums.PosDef Pos IsPos constr
+R1500:1503 Corelib.Numbers.BinNums <> Npos constr
+R1516:1517 Corelib.Numbers.BinNums <> N0 constr
+def 1556:1562 N compare
+binder 1564:1564 <> n:11
+binder 1566:1566 <> m:12
+R1582:1582 Corelib.BinNums.NatDef <> m:12 var
+R1579:1579 Corelib.BinNums.NatDef <> n:11 var
+R1593:1594 Corelib.Numbers.BinNums <> N0 constr
+R1597:1598 Corelib.Numbers.BinNums <> N0 constr
+R1603:1604 Corelib.Init.Datatypes <> Eq constr
+R1610:1611 Corelib.Numbers.BinNums <> N0 constr
+R1614:1617 Corelib.Numbers.BinNums <> Npos constr
+R1625:1626 Corelib.Init.Datatypes <> Lt constr
+R1632:1635 Corelib.Numbers.BinNums <> Npos constr
+R1641:1642 Corelib.Numbers.BinNums <> N0 constr
+R1647:1648 Corelib.Init.Datatypes <> Gt constr
+R1654:1657 Corelib.Numbers.BinNums <> Npos constr
+R1663:1666 Corelib.Numbers.BinNums <> Npos constr
+R1674:1684 Corelib.BinNums.PosDef Pos compare def
+def 1751:1753 N leb
+binder 1755:1755 <> x:15
+binder 1757:1757 <> y:16
+R1769:1775 Corelib.BinNums.NatDef N compare def
+R1777:1777 Corelib.BinNums.NatDef <> x:15 var
+R1779:1779 Corelib.BinNums.NatDef <> y:16 var
+R1786:1787 Corelib.Init.Datatypes <> Gt constr
+R1792:1796 Corelib.Init.Datatypes <> false constr
+R1805:1808 Corelib.Init.Datatypes <> true constr
+def 1852:1863 N pos_div_eucl
+R1868:1875 Corelib.Numbers.BinNums <> positive ind
+binder 1866:1866 <> a:17
+R1880:1880 Corelib.Numbers.BinNums <> N ind
+binder 1878:1878 <> b:18
+R1886:1888 Corelib.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1885:1885 Corelib.Numbers.BinNums <> N ind
+R1889:1889 Corelib.Numbers.BinNums <> N ind
+R1902:1902 Corelib.BinNums.NatDef <> a:17 var
+R1915:1916 Corelib.Numbers.BinNums <> xH constr
+R1934:1934 Corelib.BinNums.NatDef <> b:18 var
+R1941:1944 Corelib.Numbers.BinNums <> Npos constr
+R1951:1951 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1958:1959 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1962:1962 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1952:1955 Corelib.Numbers.BinNums <> Npos constr
+R1960:1961 Corelib.Numbers.BinNums <> N0 constr
+R1971:1971 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1974:1975 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1982:1982 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1972:1973 Corelib.Numbers.BinNums <> N0 constr
+R1976:1979 Corelib.Numbers.BinNums <> Npos constr
+R1994:1995 Corelib.Numbers.BinNums <> xO constr
+R2024:2035 Corelib.BinNums.NatDef <> pos_div_eucl:19 def
+R2040:2040 Corelib.BinNums.NatDef <> b:18 var
+binder 2015:2015 <> q:22
+binder 2018:2018 <> r:23
+R2062:2067 Corelib.BinNums.NatDef N double def
+R2069:2069 Corelib.BinNums.NatDef <> r:23 var
+binder 2056:2057 <> r':24
+R2084:2086 Corelib.BinNums.NatDef N leb def
+R2088:2088 Corelib.BinNums.NatDef <> b:18 var
+R2090:2091 Corelib.BinNums.NatDef <> r':24 var
+R2137:2137 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2146:2147 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2150:2150 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2138:2143 Corelib.BinNums.NatDef N double def
+R2145:2145 Corelib.BinNums.NatDef <> q:22 var
+R2148:2149 Corelib.BinNums.NatDef <> r':24 var
+R2098:2098 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2112:2113 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2122:2122 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2099:2109 Corelib.BinNums.NatDef N succ_double def
+R2111:2111 Corelib.BinNums.NatDef <> q:22 var
+R2114:2116 Corelib.BinNums.NatDef N sub def
+R2118:2119 Corelib.BinNums.NatDef <> r':24 var
+R2121:2121 Corelib.BinNums.NatDef <> b:18 var
+R2158:2159 Corelib.Numbers.BinNums <> xI constr
+R2188:2199 Corelib.BinNums.NatDef <> pos_div_eucl:19 def
+R2204:2204 Corelib.BinNums.NatDef <> b:18 var
+binder 2179:2179 <> q:25
+binder 2182:2182 <> r:26
+R2226:2236 Corelib.BinNums.NatDef N succ_double def
+R2238:2238 Corelib.BinNums.NatDef <> r:26 var
+binder 2220:2221 <> r':27
+R2253:2255 Corelib.BinNums.NatDef N leb def
+R2257:2257 Corelib.BinNums.NatDef <> b:18 var
+R2259:2260 Corelib.BinNums.NatDef <> r':27 var
+R2307:2307 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2316:2317 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2320:2320 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2308:2313 Corelib.BinNums.NatDef N double def
+R2315:2315 Corelib.BinNums.NatDef <> q:25 var
+R2318:2319 Corelib.BinNums.NatDef <> r':27 var
+R2267:2267 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2281:2282 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2291:2291 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2268:2278 Corelib.BinNums.NatDef N succ_double def
+R2280:2280 Corelib.BinNums.NatDef <> q:25 var
+R2283:2285 Corelib.BinNums.NatDef N sub def
+R2287:2288 Corelib.BinNums.NatDef <> r':27 var
+R2290:2290 Corelib.BinNums.NatDef <> b:18 var
+def 2407:2409 N lor
+binder 2411:2411 <> n:28
+binder 2413:2413 <> m:29
+R2428:2428 Corelib.BinNums.NatDef <> m:29 var
+R2425:2425 Corelib.BinNums.NatDef <> n:28 var
+R2440:2441 Corelib.Numbers.BinNums <> N0 constr
+R2449:2449 Corelib.BinNums.NatDef <> m:29 var
+R2459:2460 Corelib.Numbers.BinNums <> N0 constr
+R2465:2465 Corelib.BinNums.NatDef <> n:28 var
+R2472:2475 Corelib.Numbers.BinNums <> Npos constr
+R2480:2483 Corelib.Numbers.BinNums <> Npos constr
+R2490:2493 Corelib.Numbers.BinNums <> Npos constr
+R2496:2502 Corelib.BinNums.PosDef Pos lor def
+def 2549:2552 N land
+binder 2554:2554 <> n:32
+binder 2556:2556 <> m:33
+R2571:2571 Corelib.BinNums.NatDef <> m:33 var
+R2568:2568 Corelib.BinNums.NatDef <> n:32 var
+R2582:2583 Corelib.Numbers.BinNums <> N0 constr
+R2591:2592 Corelib.Numbers.BinNums <> N0 constr
+R2601:2602 Corelib.Numbers.BinNums <> N0 constr
+R2607:2608 Corelib.Numbers.BinNums <> N0 constr
+R2614:2617 Corelib.Numbers.BinNums <> Npos constr
+R2622:2625 Corelib.Numbers.BinNums <> Npos constr
+R2632:2639 Corelib.BinNums.PosDef Pos land def
+def 2686:2690 N ldiff
+binder 2692:2692 <> n:36
+binder 2694:2694 <> m:37
+R2709:2709 Corelib.BinNums.NatDef <> m:37 var
+R2706:2706 Corelib.BinNums.NatDef <> n:36 var
+R2720:2721 Corelib.Numbers.BinNums <> N0 constr
+R2729:2730 Corelib.Numbers.BinNums <> N0 constr
+R2739:2740 Corelib.Numbers.BinNums <> N0 constr
+R2745:2745 Corelib.BinNums.NatDef <> n:36 var
+R2751:2754 Corelib.Numbers.BinNums <> Npos constr
+R2759:2762 Corelib.Numbers.BinNums <> Npos constr
+R2769:2777 Corelib.BinNums.PosDef Pos ldiff def
+def 2815:2818 N lxor
+binder 2820:2820 <> n:40
+binder 2822:2822 <> m:41
+R2838:2838 Corelib.BinNums.NatDef <> m:41 var
+R2835:2835 Corelib.BinNums.NatDef <> n:40 var
+R2851:2852 Corelib.Numbers.BinNums <> N0 constr
+R2860:2860 Corelib.BinNums.NatDef <> m:41 var
+R2871:2872 Corelib.Numbers.BinNums <> N0 constr
+R2877:2877 Corelib.BinNums.NatDef <> n:40 var
+R2885:2888 Corelib.Numbers.BinNums <> Npos constr
+R2893:2896 Corelib.Numbers.BinNums <> Npos constr
+R2903:2910 Corelib.BinNums.PosDef Pos lxor def
+R2928:2928 Corelib.BinNums.NatDef N <> mod

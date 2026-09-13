@@ -1,0 +1,451 @@
+DIGEST 5a4e0b584931685a126f262088cb6a87
+FCorelib.Init.Peano
+R1250:1258 Corelib.Init.Notations <> <> lib
+R1276:1279 Corelib.Init.Ltac <> <> lib
+R1297:1305 Corelib.Init.Datatypes <> <> lib
+R1323:1327 Corelib.Init.Logic <> <> lib
+R1338:1353 Corelib.Init.Nat <> <> lib
+R1401:1401 Corelib.Init.Datatypes <> O constr
+not 1394:1394 <> :::'0'
+def 1416:1419 <> eq_S
+R1424:1430 Corelib.Init.Logic <> f_equal thm
+R1432:1432 Corelib.Init.Datatypes <> S constr
+def 1446:1456 <> f_equal_nat
+R1461:1467 Corelib.Init.Logic <> f_equal thm
+R1473:1475 Corelib.Init.Datatypes <> nat ind
+abbrev 1569:1572 <> pred
+R1577:1584 Corelib.Init.Nat <> pred def
+def 1614:1625 <> f_equal_pred
+R1630:1636 Corelib.Init.Logic <> f_equal thm
+R1638:1641 Corelib.Init.Peano <> pred abbrev
+prf 1653:1659 <> pred_Sn
+R1672:1674 Corelib.Init.Datatypes <> nat ind
+binder 1670:1670 <> n:1
+R1678:1680 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1677:1677 Corelib.Init.Peano <> n:1 var
+R1681:1684 Corelib.Init.Peano <> pred abbrev
+R1687:1687 Corelib.Init.Datatypes <> S constr
+R1689:1689 Corelib.Init.Peano <> n:1 var
+def 1772:1779 <> eq_add_S
+binder 1781:1781 <> n:2
+binder 1783:1783 <> m:3
+R1792:1794 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1789:1789 Corelib.Init.Datatypes <> S constr
+R1791:1791 Corelib.Init.Peano <> n:2 var
+R1795:1795 Corelib.Init.Datatypes <> S constr
+R1797:1797 Corelib.Init.Peano <> m:3 var
+binder 1786:1786 <> H:4
+R1802:1804 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1801:1801 Corelib.Init.Peano <> n:2 var
+R1805:1805 Corelib.Init.Peano <> m:3 var
+R1810:1816 Corelib.Init.Logic <> f_equal thm
+R1823:1823 Corelib.Init.Peano <> H:4 var
+R1818:1821 Corelib.Init.Peano <> pred abbrev
+prf 1876:1883 <> not_eq_S
+R1898:1900 Corelib.Init.Datatypes <> nat ind
+binder 1894:1894 <> n:5
+binder 1896:1896 <> m:6
+R1909:1912 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1904:1907 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R1903:1903 Corelib.Init.Peano <> n:5 var
+R1908:1908 Corelib.Init.Peano <> m:6 var
+R1916:1919 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R1913:1913 Corelib.Init.Datatypes <> S constr
+R1915:1915 Corelib.Init.Peano <> n:5 var
+R1920:1920 Corelib.Init.Datatypes <> S constr
+R1922:1922 Corelib.Init.Peano <> m:6 var
+def 2001:2006 <> IsSucc
+R2011:2013 Corelib.Init.Datatypes <> nat ind
+binder 2009:2009 <> n:7
+R2034:2034 Corelib.Init.Peano <> n:7 var
+R2045:2045 Corelib.Init.Datatypes <> O constr
+R2050:2054 Corelib.Init.Logic <> False ind
+R2060:2060 Corelib.Init.Datatypes <> S constr
+R2067:2070 Corelib.Init.Logic <> True ind
+prf 2134:2136 <> O_S
+R2149:2151 Corelib.Init.Datatypes <> nat ind
+binder 2147:2147 <> n:9
+R2155:2158 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R2159:2159 Corelib.Init.Datatypes <> S constr
+R2161:2161 Corelib.Init.Peano <> n:9 var
+prf 2235:2238 <> n_Sn
+R2251:2253 Corelib.Init.Datatypes <> nat ind
+binder 2249:2249 <> n:10
+R2257:2260 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R2256:2256 Corelib.Init.Peano <> n:10 var
+R2261:2261 Corelib.Init.Datatypes <> S constr
+R2263:2263 Corelib.Init.Peano <> n:10 var
+abbrev 2374:2377 <> plus
+R2382:2388 Corelib.Init.Nat <> add def
+R2419:2425 Corelib.Init.Nat <> add def
+not 2412:2412 <> ::nat_scope:x_'+'_x
+def 2452:2464 <> f_equal2_plus
+R2469:2476 Corelib.Init.Logic <> f_equal2 thm
+R2478:2481 Corelib.Init.Peano <> plus abbrev
+def 2495:2506 <> f_equal2_nat
+R2511:2518 Corelib.Init.Logic <> f_equal2 thm
+R2535:2537 Corelib.Init.Datatypes <> nat ind
+R2525:2527 Corelib.Init.Datatypes <> nat ind
+prf 2592:2599 <> plus_n_O
+R2612:2614 Corelib.Init.Datatypes <> nat ind
+binder 2610:2610 <> n:11
+R2618:2620 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2617:2617 Corelib.Init.Peano <> n:11 var
+R2622:2624 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R2621:2621 Corelib.Init.Peano <> n:11 var
+prf 2832:2839 <> plus_O_n
+R2852:2854 Corelib.Init.Datatypes <> nat ind
+binder 2850:2850 <> n:12
+R2862:2864 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2858:2860 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R2861:2861 Corelib.Init.Peano <> n:12 var
+R2865:2865 Corelib.Init.Peano <> n:12 var
+prf 2902:2910 <> plus_n_Sm
+R2925:2927 Corelib.Init.Datatypes <> nat ind
+binder 2921:2921 <> n:13
+binder 2923:2923 <> m:14
+R2939:2941 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2930:2930 Corelib.Init.Datatypes <> S constr
+R2934:2936 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R2933:2933 Corelib.Init.Peano <> n:13 var
+R2937:2937 Corelib.Init.Peano <> m:14 var
+R2943:2945 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R2942:2942 Corelib.Init.Peano <> n:13 var
+R2946:2946 Corelib.Init.Datatypes <> S constr
+R2948:2948 Corelib.Init.Peano <> m:14 var
+prf 3050:3058 <> plus_Sn_m
+R3073:3075 Corelib.Init.Datatypes <> nat ind
+binder 3069:3069 <> n:15
+binder 3071:3071 <> m:16
+R3085:3087 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3081:3083 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R3078:3078 Corelib.Init.Datatypes <> S constr
+R3080:3080 Corelib.Init.Peano <> n:15 var
+R3084:3084 Corelib.Init.Peano <> m:16 var
+R3088:3088 Corelib.Init.Datatypes <> S constr
+R3092:3094 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R3091:3091 Corelib.Init.Peano <> n:15 var
+R3095:3095 Corelib.Init.Peano <> m:16 var
+abbrev 3174:3189 <> plus_0_r_reverse
+R3194:3201 Corelib.Init.Peano <> plus_n_O thm
+abbrev 3232:3250 <> plus_succ_r_reverse
+R3255:3263 Corelib.Init.Peano <> plus_n_Sm thm
+abbrev 3318:3321 <> mult
+R3326:3332 Corelib.Init.Nat <> mul def
+R3363:3369 Corelib.Init.Nat <> mul def
+not 3356:3356 <> ::nat_scope:x_'*'_x
+def 3396:3408 <> f_equal2_mult
+R3413:3420 Corelib.Init.Logic <> f_equal2 thm
+R3422:3425 Corelib.Init.Peano <> mult abbrev
+prf 3479:3486 <> mult_n_O
+R3499:3501 Corelib.Init.Datatypes <> nat ind
+binder 3497:3497 <> n:17
+R3505:3507 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3509:3511 Corelib.Init.Peano <> ::nat_scope:x_'*'_x not
+R3508:3508 Corelib.Init.Peano <> n:17 var
+prf 3610:3618 <> mult_n_Sm
+R3633:3635 Corelib.Init.Datatypes <> nat ind
+binder 3629:3629 <> n:18
+binder 3631:3631 <> m:19
+R3647:3649 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3643:3645 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R3639:3641 Corelib.Init.Peano <> ::nat_scope:x_'*'_x not
+R3638:3638 Corelib.Init.Peano <> n:18 var
+R3642:3642 Corelib.Init.Peano <> m:19 var
+R3646:3646 Corelib.Init.Peano <> n:18 var
+R3651:3653 Corelib.Init.Peano <> ::nat_scope:x_'*'_x not
+R3650:3650 Corelib.Init.Peano <> n:18 var
+R3654:3654 Corelib.Init.Datatypes <> S constr
+R3656:3656 Corelib.Init.Peano <> m:19 var
+R3742:3750 Corelib.Init.Peano <> plus_n_Sm thm
+R3759:3762 Corelib.Init.Peano <> eq_S def
+abbrev 3899:3914 <> mult_0_r_reverse
+R3919:3926 Corelib.Init.Peano <> mult_n_O thm
+abbrev 3957:3975 <> mult_succ_r_reverse
+R3980:3988 Corelib.Init.Peano <> mult_n_Sm thm
+abbrev 4074:4078 <> minus
+R4083:4089 Corelib.Init.Nat <> sub def
+R4120:4126 Corelib.Init.Nat <> sub def
+not 4113:4113 <> ::nat_scope:x_'-'_x
+ind 4266:4267 <> le
+constr 4298:4301 <> le_n
+constr 4316:4319 <> le_S
+R4272:4274 Corelib.Init.Datatypes <> nat ind
+binder 4270:4270 <> n:20
+R4282:4285 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4279:4281 Corelib.Init.Datatypes <> nat ind
+R4376:4377 Corelib.Init.Peano <> le:22 ind
+R4306:4309 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R4305:4305 Corelib.Init.Peano <> n:20 var
+R4310:4310 Corelib.Init.Peano <> n:20 var
+R4332:4334 Corelib.Init.Datatypes <> nat ind
+binder 4330:4330 <> m:23
+R4343:4346 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4338:4341 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R4337:4337 Corelib.Init.Peano <> n:20 var
+R4342:4342 Corelib.Init.Peano <> m:23 var
+R4348:4351 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R4347:4347 Corelib.Init.Peano <> n:20 var
+R4352:4352 Corelib.Init.Datatypes <> S constr
+R4354:4354 Corelib.Init.Peano <> m:23 var
+scheme 4266:4267 <> le_ind
+scheme 4266:4267 <> le_sind
+R4376:4377 Corelib.Init.Peano <> le ind
+not 4363:4363 <> ::nat_scope:x_'<='_x
+R4458:4459 Corelib.Init.Peano <> le ind
+def 4538:4539 <> lt
+R4546:4548 Corelib.Init.Datatypes <> nat ind
+binder 4542:4542 <> n:24
+binder 4544:4544 <> m:25
+R4557:4560 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R4554:4554 Corelib.Init.Datatypes <> S constr
+R4556:4556 Corelib.Init.Peano <> n:24 var
+R4561:4561 Corelib.Init.Peano <> m:25 var
+R4586:4587 Corelib.Init.Peano <> lt def
+R4610:4611 Corelib.Init.Peano <> lt def
+not 4603:4603 <> ::nat_scope:x_'<'_x
+def 4638:4639 <> ge
+R4646:4648 Corelib.Init.Datatypes <> nat ind
+binder 4642:4642 <> n:26
+binder 4644:4644 <> m:27
+R4655:4658 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R4654:4654 Corelib.Init.Peano <> m:27 var
+R4659:4659 Corelib.Init.Peano <> n:26 var
+R4684:4685 Corelib.Init.Peano <> ge def
+R4709:4710 Corelib.Init.Peano <> ge def
+not 4701:4701 <> ::nat_scope:x_'>='_x
+def 4737:4738 <> gt
+R4745:4747 Corelib.Init.Datatypes <> nat ind
+binder 4741:4741 <> n:28
+binder 4743:4743 <> m:29
+R4754:4756 Corelib.Init.Peano <> ::nat_scope:x_'<'_x not
+R4753:4753 Corelib.Init.Peano <> m:29 var
+R4757:4757 Corelib.Init.Peano <> n:28 var
+R4782:4783 Corelib.Init.Peano <> gt def
+R4806:4807 Corelib.Init.Peano <> gt def
+not 4799:4799 <> ::nat_scope:x_'>'_x
+R4856:4859 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R4851:4854 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R4861:4864 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+not 4832:4832 <> ::nat_scope:x_'<='_x_'<='_x
+R4913:4916 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R4908:4911 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R4918:4920 Corelib.Init.Peano <> ::nat_scope:x_'<'_x not
+not 4890:4890 <> ::nat_scope:x_'<='_x_'<'_x
+R4967:4970 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R4963:4965 Corelib.Init.Peano <> ::nat_scope:x_'<'_x not
+R4972:4974 Corelib.Init.Peano <> ::nat_scope:x_'<'_x not
+not 4946:4946 <> ::nat_scope:x_'<'_x_'<'_x
+R5022:5025 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R5018:5020 Corelib.Init.Peano <> ::nat_scope:x_'<'_x not
+R5027:5030 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+not 5000:5000 <> ::nat_scope:x_'<'_x_'<='_x
+prf 5165:5171 <> le_pred
+binder 5182:5182 <> n:30
+binder 5184:5184 <> m:31
+R5193:5196 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5188:5191 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R5187:5187 Corelib.Init.Peano <> n:30 var
+R5192:5192 Corelib.Init.Peano <> m:31 var
+R5203:5206 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R5197:5200 Corelib.Init.Peano <> pred abbrev
+R5202:5202 Corelib.Init.Peano <> n:30 var
+R5207:5210 Corelib.Init.Peano <> pred abbrev
+R5212:5212 Corelib.Init.Peano <> m:31 var
+prf 5290:5295 <> le_S_n
+binder 5306:5306 <> n:32
+binder 5308:5308 <> m:33
+R5321:5324 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5314:5317 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R5311:5311 Corelib.Init.Datatypes <> S constr
+R5313:5313 Corelib.Init.Peano <> n:32 var
+R5318:5318 Corelib.Init.Datatypes <> S constr
+R5320:5320 Corelib.Init.Peano <> m:33 var
+R5326:5329 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R5325:5325 Corelib.Init.Peano <> n:32 var
+R5330:5330 Corelib.Init.Peano <> m:33 var
+R5359:5365 Corelib.Init.Peano <> le_pred thm
+R5368:5368 Corelib.Init.Datatypes <> S constr
+R5374:5374 Corelib.Init.Datatypes <> S constr
+prf 5395:5400 <> le_0_n
+binder 5411:5411 <> n:34
+R5415:5418 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R5419:5419 Corelib.Init.Peano <> n:34 var
+prf 5488:5493 <> le_n_S
+binder 5504:5504 <> n:35
+binder 5506:5506 <> m:36
+R5515:5518 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5510:5513 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R5509:5509 Corelib.Init.Peano <> n:35 var
+R5514:5514 Corelib.Init.Peano <> m:36 var
+R5522:5525 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R5519:5519 Corelib.Init.Datatypes <> S constr
+R5521:5521 Corelib.Init.Peano <> n:35 var
+R5526:5526 Corelib.Init.Datatypes <> S constr
+R5528:5528 Corelib.Init.Peano <> m:36 var
+prf 5610:5617 <> nat_case
+R5632:5634 Corelib.Init.Datatypes <> nat ind
+binder 5630:5630 <> n:37
+R5643:5646 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5640:5642 Corelib.Init.Datatypes <> nat ind
+binder 5638:5638 <> P:38
+R5657:5660 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5654:5654 Corelib.Init.Peano <> P:38 var
+R5661:5661 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5683:5687 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5671:5673 Corelib.Init.Datatypes <> nat ind
+binder 5669:5669 <> m:39
+R5676:5676 Corelib.Init.Peano <> P:38 var
+R5679:5679 Corelib.Init.Datatypes <> S constr
+R5681:5681 Corelib.Init.Peano <> m:39 var
+R5688:5688 Corelib.Init.Peano <> P:38 var
+R5690:5690 Corelib.Init.Peano <> n:37 var
+prf 5788:5801 <> nat_double_ind
+R5818:5821 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5815:5817 Corelib.Init.Datatypes <> nat ind
+R5825:5828 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5822:5824 Corelib.Init.Datatypes <> nat ind
+binder 5813:5813 <> R:40
+R5838:5838 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5858:5865 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5848:5850 Corelib.Init.Datatypes <> nat ind
+binder 5846:5846 <> n:41
+R5853:5853 Corelib.Init.Peano <> R:40 var
+R5857:5857 Corelib.Init.Peano <> n:41 var
+R5866:5866 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5890:5897 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5876:5878 Corelib.Init.Datatypes <> nat ind
+binder 5874:5874 <> n:42
+R5881:5881 Corelib.Init.Peano <> R:40 var
+R5884:5884 Corelib.Init.Datatypes <> S constr
+R5886:5886 Corelib.Init.Peano <> n:42 var
+R5898:5898 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5937:5941 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5910:5912 Corelib.Init.Datatypes <> nat ind
+binder 5906:5906 <> n:43
+binder 5908:5908 <> m:44
+R5920:5923 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5915:5915 Corelib.Init.Peano <> R:40 var
+R5919:5919 Corelib.Init.Peano <> m:44 var
+R5917:5917 Corelib.Init.Peano <> n:43 var
+R5924:5924 Corelib.Init.Peano <> R:40 var
+R5933:5933 Corelib.Init.Datatypes <> S constr
+R5935:5935 Corelib.Init.Peano <> m:44 var
+R5927:5927 Corelib.Init.Datatypes <> S constr
+R5929:5929 Corelib.Init.Peano <> n:43 var
+R5953:5955 Corelib.Init.Datatypes <> nat ind
+binder 5949:5949 <> n:45
+binder 5951:5951 <> m:46
+R5958:5958 Corelib.Init.Peano <> R:40 var
+R5962:5962 Corelib.Init.Peano <> m:46 var
+R5960:5960 Corelib.Init.Peano <> n:45 var
+abbrev 6122:6124 <> max
+R6129:6135 Corelib.Init.Nat <> max def
+abbrev 6166:6168 <> min
+R6173:6179 Corelib.Init.Nat <> min def
+prf 6204:6208 <> max_l
+binder 6210:6210 <> n:47
+binder 6212:6212 <> m:48
+R6222:6225 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R6217:6220 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R6216:6216 Corelib.Init.Peano <> m:48 var
+R6221:6221 Corelib.Init.Peano <> n:47 var
+R6237:6239 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6226:6232 Corelib.Init.Nat <> max def
+R6234:6234 Corelib.Init.Peano <> n:47 var
+R6236:6236 Corelib.Init.Peano <> m:48 var
+R6240:6240 Corelib.Init.Peano <> n:47 var
+R6356:6362 Corelib.Init.Logic <> f_equal thm
+R6370:6375 Corelib.Init.Peano <> le_S_n thm
+prf 6399:6403 <> max_r
+binder 6405:6405 <> n:49
+binder 6407:6407 <> m:50
+R6417:6420 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R6412:6415 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R6411:6411 Corelib.Init.Peano <> n:49 var
+R6416:6416 Corelib.Init.Peano <> m:50 var
+R6432:6434 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6421:6427 Corelib.Init.Nat <> max def
+R6429:6429 Corelib.Init.Peano <> n:49 var
+R6431:6431 Corelib.Init.Peano <> m:50 var
+R6435:6435 Corelib.Init.Peano <> m:50 var
+R6551:6557 Corelib.Init.Logic <> f_equal thm
+R6565:6570 Corelib.Init.Peano <> le_S_n thm
+prf 6594:6598 <> min_l
+binder 6600:6600 <> n:51
+binder 6602:6602 <> m:52
+R6612:6615 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R6607:6610 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R6606:6606 Corelib.Init.Peano <> n:51 var
+R6611:6611 Corelib.Init.Peano <> m:52 var
+R6627:6629 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6616:6622 Corelib.Init.Nat <> min def
+R6624:6624 Corelib.Init.Peano <> n:51 var
+R6626:6626 Corelib.Init.Peano <> m:52 var
+R6630:6630 Corelib.Init.Peano <> n:51 var
+R6746:6752 Corelib.Init.Logic <> f_equal thm
+R6760:6765 Corelib.Init.Peano <> le_S_n thm
+prf 6789:6793 <> min_r
+binder 6795:6795 <> n:53
+binder 6797:6797 <> m:54
+R6807:6810 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R6802:6805 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R6801:6801 Corelib.Init.Peano <> m:54 var
+R6806:6806 Corelib.Init.Peano <> n:53 var
+R6822:6824 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6811:6817 Corelib.Init.Nat <> min def
+R6819:6819 Corelib.Init.Peano <> n:53 var
+R6821:6821 Corelib.Init.Peano <> m:54 var
+R6825:6825 Corelib.Init.Peano <> m:54 var
+R6941:6947 Corelib.Init.Logic <> f_equal thm
+R6955:6960 Corelib.Init.Peano <> le_S_n thm
+prf 6985:6999 <> nat_rect_succ_r
+binder 7002:7002 <> A:55
+R7010:7013 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R7009:7009 Corelib.Init.Peano <> A:55 var
+R7014:7014 Corelib.Init.Peano <> A:55 var
+binder 7006:7006 <> f:56
+R7020:7020 Corelib.Init.Peano <> A:55 var
+binder 7018:7018 <> x:57
+binder 7023:7023 <> n:58
+R7071:7073 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7029:7036 Corelib.Init.Datatypes <> nat_rect scheme
+R7067:7067 Corelib.Init.Datatypes <> S constr
+R7069:7069 Corelib.Init.Peano <> n:58 var
+R7063:7063 Corelib.Init.Peano <> f:56 var
+R7051:7051 Corelib.Init.Peano <> x:57 var
+R7048:7048 Corelib.Init.Peano <> A:55 var
+R7074:7081 Corelib.Init.Datatypes <> nat_rect scheme
+R7115:7115 Corelib.Init.Peano <> n:58 var
+R7112:7112 Corelib.Init.Peano <> f:56 var
+R7097:7097 Corelib.Init.Peano <> f:56 var
+R7099:7099 Corelib.Init.Peano <> x:57 var
+R7093:7093 Corelib.Init.Peano <> A:55 var
+prf 7207:7219 <> nat_rect_plus
+R7237:7239 Corelib.Init.Datatypes <> nat ind
+binder 7233:7233 <> n:59
+binder 7235:7235 <> m:60
+binder 7243:7243 <> A:61
+R7250:7253 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R7249:7249 Corelib.Init.Peano <> A:61 var
+R7254:7254 Corelib.Init.Peano <> A:61 var
+binder 7247:7247 <> f:62
+R7260:7260 Corelib.Init.Peano <> A:61 var
+binder 7258:7258 <> x:63
+R7312:7320 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7268:7275 Corelib.Init.Datatypes <> nat_rect scheme
+R7307:7309 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R7306:7306 Corelib.Init.Peano <> n:59 var
+R7310:7310 Corelib.Init.Peano <> m:60 var
+R7302:7302 Corelib.Init.Peano <> f:62 var
+R7290:7290 Corelib.Init.Peano <> x:63 var
+R7287:7287 Corelib.Init.Peano <> A:61 var
+R7321:7328 Corelib.Init.Datatypes <> nat_rect scheme
+R7397:7397 Corelib.Init.Peano <> n:59 var
+R7394:7394 Corelib.Init.Peano <> f:62 var
+R7344:7351 Corelib.Init.Datatypes <> nat_rect scheme
+R7381:7381 Corelib.Init.Peano <> m:60 var
+R7378:7378 Corelib.Init.Peano <> f:62 var
+R7366:7366 Corelib.Init.Peano <> x:63 var
+R7363:7363 Corelib.Init.Peano <> A:61 var
+R7340:7340 Corelib.Init.Peano <> A:61 var

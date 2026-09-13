@@ -1,0 +1,158 @@
+DIGEST 780172c3813c8d5d882ce16de73672c1
+FCorelib.Relations.Relation_Definitions
+sec 684:702 <> Relation_Definition
+var 717:717 Relation_Definition A
+def 741:748 <> relation
+R754:757 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R753:753 Corelib.Relations.Relation_Definitions <> Relation_Definition.A var
+R759:762 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R758:758 Corelib.Relations.Relation_Definitions <> Relation_Definition.A var
+var 781:781 Relation_Definition R
+R785:792 Corelib.Relations.Relation_Definitions <> relation def
+sec 807:837 Relation_Definition General_Properties_of_Relations
+def 856:864 <> reflexive
+R885:885 Corelib.Relations.Relation_Definitions <> Relation_Definition.A var
+binder 883:883 <> x:5
+R888:888 Corelib.Relations.Relation_Definitions <> Relation_Definition.R var
+R890:890 Corelib.Relations.Relation_Definitions <> x:5 var
+R892:892 Corelib.Relations.Relation_Definitions <> x:5 var
+def 910:919 <> transitive
+R944:944 Corelib.Relations.Relation_Definitions <> Relation_Definition.A var
+binder 938:938 <> x:6
+binder 940:940 <> y:7
+binder 942:942 <> z:8
+R952:955 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R947:947 Corelib.Relations.Relation_Definitions <> Relation_Definition.R var
+R949:949 Corelib.Relations.Relation_Definitions <> x:6 var
+R951:951 Corelib.Relations.Relation_Definitions <> y:7 var
+R961:964 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R956:956 Corelib.Relations.Relation_Definitions <> Relation_Definition.R var
+R958:958 Corelib.Relations.Relation_Definitions <> y:7 var
+R960:960 Corelib.Relations.Relation_Definitions <> z:8 var
+R965:965 Corelib.Relations.Relation_Definitions <> Relation_Definition.R var
+R967:967 Corelib.Relations.Relation_Definitions <> x:6 var
+R969:969 Corelib.Relations.Relation_Definitions <> z:8 var
+def 987:995 <> symmetric
+R1018:1018 Corelib.Relations.Relation_Definitions <> Relation_Definition.A var
+binder 1014:1014 <> x:9
+binder 1016:1016 <> y:10
+R1026:1029 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1021:1021 Corelib.Relations.Relation_Definitions <> Relation_Definition.R var
+R1023:1023 Corelib.Relations.Relation_Definitions <> x:9 var
+R1025:1025 Corelib.Relations.Relation_Definitions <> y:10 var
+R1030:1030 Corelib.Relations.Relation_Definitions <> Relation_Definition.R var
+R1032:1032 Corelib.Relations.Relation_Definitions <> y:10 var
+R1034:1034 Corelib.Relations.Relation_Definitions <> x:9 var
+def 1052:1064 <> antisymmetric
+R1087:1087 Corelib.Relations.Relation_Definitions <> Relation_Definition.A var
+binder 1083:1083 <> x:11
+binder 1085:1085 <> y:12
+R1095:1098 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1090:1090 Corelib.Relations.Relation_Definitions <> Relation_Definition.R var
+R1092:1092 Corelib.Relations.Relation_Definitions <> x:11 var
+R1094:1094 Corelib.Relations.Relation_Definitions <> y:12 var
+R1104:1107 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1099:1099 Corelib.Relations.Relation_Definitions <> Relation_Definition.R var
+R1101:1101 Corelib.Relations.Relation_Definitions <> y:12 var
+R1103:1103 Corelib.Relations.Relation_Definitions <> x:11 var
+R1109:1111 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1108:1108 Corelib.Relations.Relation_Definitions <> x:11 var
+R1112:1112 Corelib.Relations.Relation_Definitions <> y:12 var
+def 1198:1202 <> equiv
+R1216:1219 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R1207:1215 Corelib.Relations.Relation_Definitions <> reflexive def
+R1230:1233 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R1220:1229 Corelib.Relations.Relation_Definitions <> transitive def
+R1234:1242 Corelib.Relations.Relation_Definitions <> symmetric def
+R1252:1282 Corelib.Relations.Relation_Definitions Relation_Definition.General_Properties_of_Relations <> sec
+sec 1298:1314 Relation_Definition Sets_of_Relations
+rec 1329:1336 <> preorder
+proj 1356:1366 <> preord_refl
+proj 1381:1392 <> preord_trans
+R1370:1378 Corelib.Relations.Relation_Definitions <> reflexive def
+R1396:1405 Corelib.Relations.Relation_Definitions <> transitive def
+rec 1421:1425 <> order
+proj 1445:1452 <> ord_refl
+proj 1468:1476 <> ord_trans
+proj 1493:1503 <> ord_antisym
+R1456:1464 Corelib.Relations.Relation_Definitions <> reflexive def
+R1480:1489 Corelib.Relations.Relation_Definitions <> transitive def
+R1507:1519 Corelib.Relations.Relation_Definitions <> antisymmetric def
+rec 1535:1545 <> equivalence
+proj 1565:1574 <> equiv_refl
+proj 1590:1600 <> equiv_trans
+proj 1617:1625 <> equiv_sym
+R1578:1586 Corelib.Relations.Relation_Definitions <> reflexive def
+R1604:1613 Corelib.Relations.Relation_Definitions <> transitive def
+R1629:1637 Corelib.Relations.Relation_Definitions <> symmetric def
+rec 1653:1655 <> PER
+proj 1669:1675 <> per_sym
+proj 1690:1698 <> per_trans
+R1679:1687 Corelib.Relations.Relation_Definitions <> symmetric def
+R1702:1711 Corelib.Relations.Relation_Definitions <> transitive def
+R1722:1738 Corelib.Relations.Relation_Definitions Relation_Definition.Sets_of_Relations <> sec
+sec 1753:1774 Relation_Definition Relations_of_Relations
+def 1793:1801 <> inclusion
+R1810:1817 Corelib.Relations.Relation_Definitions <> relation def
+binder 1804:1805 <> R1:27
+binder 1807:1808 <> R2:28
+R1847:1847 Corelib.Relations.Relation_Definitions <> Relation_Definition.A var
+binder 1843:1843 <> x:29
+binder 1845:1845 <> y:30
+R1856:1859 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1850:1851 Corelib.Relations.Relation_Definitions <> R1:27 var
+R1853:1853 Corelib.Relations.Relation_Definitions <> x:29 var
+R1855:1855 Corelib.Relations.Relation_Definitions <> y:30 var
+R1860:1861 Corelib.Relations.Relation_Definitions <> R2:28 var
+R1863:1863 Corelib.Relations.Relation_Definitions <> x:29 var
+R1865:1865 Corelib.Relations.Relation_Definitions <> y:30 var
+def 1884:1896 <> same_relation
+R1905:1912 Corelib.Relations.Relation_Definitions <> relation def
+binder 1899:1900 <> R1:31
+binder 1902:1903 <> R2:32
+R1946:1949 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R1931:1939 Corelib.Relations.Relation_Definitions <> inclusion def
+R1941:1942 Corelib.Relations.Relation_Definitions <> R1:31 var
+R1944:1945 Corelib.Relations.Relation_Definitions <> R2:32 var
+R1950:1958 Corelib.Relations.Relation_Definitions <> inclusion def
+R1960:1961 Corelib.Relations.Relation_Definitions <> R2:32 var
+R1963:1964 Corelib.Relations.Relation_Definitions <> R1:31 var
+def 1983:1988 <> commut
+R1997:2004 Corelib.Relations.Relation_Definitions <> relation def
+binder 1991:1992 <> R1:33
+binder 1994:1995 <> R2:34
+R2034:2034 Corelib.Relations.Relation_Definitions <> Relation_Definition.A var
+binder 2030:2030 <> x:35
+binder 2032:2032 <> y:36
+R2044:2047 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2038:2039 Corelib.Relations.Relation_Definitions <> R1:33 var
+R2041:2041 Corelib.Relations.Relation_Definitions <> y:36 var
+R2043:2043 Corelib.Relations.Relation_Definitions <> x:35 var
+R2057:2057 Corelib.Relations.Relation_Definitions <> Relation_Definition.A var
+binder 2055:2055 <> z:37
+R2066:2070 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2060:2061 Corelib.Relations.Relation_Definitions <> R2:34 var
+R2063:2063 Corelib.Relations.Relation_Definitions <> z:37 var
+R2065:2065 Corelib.Relations.Relation_Definitions <> y:36 var
+R2071:2078 Corelib.Init.Logic <> ::type_scope:'exists2'_x_':'_x_','_x_'&'_x not
+R2081:2083 Corelib.Init.Logic <> ::type_scope:'exists2'_x_':'_x_','_x_'&'_x not
+R2085:2086 Corelib.Init.Logic <> ::type_scope:'exists2'_x_':'_x_','_x_'&'_x not
+R2094:2096 Corelib.Init.Logic <> ::type_scope:'exists2'_x_':'_x_','_x_'&'_x not
+R2084:2084 Corelib.Relations.Relation_Definitions <> Relation_Definition.A var
+binder 2079:2080 <> y':38
+R2087:2088 Corelib.Relations.Relation_Definitions <> R2:34 var
+R2090:2091 Corelib.Relations.Relation_Definitions <> y':38 var
+R2093:2093 Corelib.Relations.Relation_Definitions <> x:35 var
+binder 2079:2080 <> y':39
+R2097:2098 Corelib.Relations.Relation_Definitions <> R1:33 var
+R2100:2100 Corelib.Relations.Relation_Definitions <> z:37 var
+R2102:2103 Corelib.Relations.Relation_Definitions <> y':39 var
+R2113:2134 Corelib.Relations.Relation_Definitions Relation_Definition.Relations_of_Relations <> sec
+R2143:2161 Corelib.Relations.Relation_Definitions Relation_Definition <> sec
+R2218:2226 Corelib.Relations.Relation_Definitions <> reflexive def
+R2228:2237 Corelib.Relations.Relation_Definitions <> transitive def
+R2239:2251 Corelib.Relations.Relation_Definitions <> antisymmetric def
+R2253:2261 Corelib.Relations.Relation_Definitions <> symmetric def
+R2490:2498 Corelib.Relations.Relation_Definitions <> inclusion def
+R2500:2512 Corelib.Relations.Relation_Definitions <> same_relation def
+R2514:2519 Corelib.Relations.Relation_Definitions <> commut def

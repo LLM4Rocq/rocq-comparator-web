@@ -1,0 +1,74 @@
+DIGEST b8ab3eef503709abf60b76f31d0ce958
+FCorelib.Setoids.Setoid
+R691:719 Corelib.Classes.SetoidTactics <> <> lib
+R730:754 Corelib.Classes.Morphisms ProperNotations <> mod
+R766:786 Corelib.ssr.ssrsetoid <> <> lib
+def 836:848 <> Setoid_Theory
+R854:864 Corelib.Classes.RelationClasses <> Equivalence class
+def 878:896 <> Build_Setoid_Theory
+R902:918 Corelib.Classes.RelationClasses <> Build_Equivalence constr
+def 1000:1007 <> Seq_refl
+binder 1009:1009 <> A:1
+binder 1011:1013 <> Aeq:2
+R1020:1032 Corelib.Setoids.Setoid <> Setoid_Theory def
+R1034:1034 Corelib.Setoids.Setoid <> A:1 var
+R1036:1038 Corelib.Setoids.Setoid <> Aeq:2 var
+binder 1016:1016 <> s:3
+R1052:1052 Corelib.Setoids.Setoid <> A:1 var
+binder 1050:1050 <> x:4
+R1055:1057 Corelib.Setoids.Setoid <> Aeq:2 var
+R1059:1059 Corelib.Setoids.Setoid <> x:4 var
+R1061:1061 Corelib.Setoids.Setoid <> x:4 var
+R1080:1092 Corelib.Setoids.Setoid <> Setoid_Theory def
+def 1143:1149 <> Seq_sym
+binder 1151:1151 <> A:5
+binder 1153:1155 <> Aeq:6
+R1162:1174 Corelib.Setoids.Setoid <> Setoid_Theory def
+R1176:1176 Corelib.Setoids.Setoid <> A:5 var
+R1178:1180 Corelib.Setoids.Setoid <> Aeq:6 var
+binder 1158:1158 <> s:7
+R1196:1196 Corelib.Setoids.Setoid <> A:5 var
+binder 1192:1192 <> x:8
+binder 1194:1194 <> y:9
+R1206:1209 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1199:1201 Corelib.Setoids.Setoid <> Aeq:6 var
+R1203:1203 Corelib.Setoids.Setoid <> x:8 var
+R1205:1205 Corelib.Setoids.Setoid <> y:9 var
+R1210:1212 Corelib.Setoids.Setoid <> Aeq:6 var
+R1214:1214 Corelib.Setoids.Setoid <> y:9 var
+R1216:1216 Corelib.Setoids.Setoid <> x:8 var
+R1235:1247 Corelib.Setoids.Setoid <> Setoid_Theory def
+def 1308:1316 <> Seq_trans
+binder 1318:1318 <> A:10
+binder 1320:1322 <> Aeq:11
+R1329:1341 Corelib.Setoids.Setoid <> Setoid_Theory def
+R1343:1343 Corelib.Setoids.Setoid <> A:10 var
+R1345:1347 Corelib.Setoids.Setoid <> Aeq:11 var
+binder 1325:1325 <> s:12
+R1365:1365 Corelib.Setoids.Setoid <> A:10 var
+binder 1359:1359 <> x:13
+binder 1361:1361 <> y:14
+binder 1363:1363 <> z:15
+R1375:1378 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1368:1370 Corelib.Setoids.Setoid <> Aeq:11 var
+R1372:1372 Corelib.Setoids.Setoid <> x:13 var
+R1374:1374 Corelib.Setoids.Setoid <> y:14 var
+R1386:1389 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1379:1381 Corelib.Setoids.Setoid <> Aeq:11 var
+R1383:1383 Corelib.Setoids.Setoid <> y:14 var
+R1385:1385 Corelib.Setoids.Setoid <> z:15 var
+R1390:1392 Corelib.Setoids.Setoid <> Aeq:11 var
+R1394:1394 Corelib.Setoids.Setoid <> x:13 var
+R1396:1396 Corelib.Setoids.Setoid <> z:15 var
+R1415:1427 Corelib.Setoids.Setoid <> Setoid_Theory def
+R1733:1745 Corelib.Setoids.Setoid <> Setoid_Theory def
+R1782:1790 Corelib.Setoids.Setoid <> Seq_trans def
+R1957:1969 Corelib.Setoids.Setoid <> Setoid_Theory def
+R2006:2012 Corelib.Setoids.Setoid <> Seq_sym def
+R2177:2189 Corelib.Setoids.Setoid <> Setoid_Theory def
+R2226:2233 Corelib.Setoids.Setoid <> Seq_refl def
+def 2267:2272 <> gen_st
+binder 2283:2283 <> A:16
+R2292:2304 Corelib.Setoids.Setoid <> Setoid_Theory def
+R2310:2311 Corelib.Init.Logic <> eq ind
+R2313:2313 Corelib.Setoids.Setoid <> A:16 var

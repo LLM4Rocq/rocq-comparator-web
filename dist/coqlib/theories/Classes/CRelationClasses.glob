@@ -1,0 +1,582 @@
+DIGEST 0e794a6ccfb58632bd5271bfd967391e
+FCorelib.Classes.CRelationClasses
+R945:964 Corelib.Classes.Init <> <> lib
+R982:1003 Corelib.Program.Basics <> <> lib
+R1021:1043 Corelib.Program.Tactics <> <> lib
+def 1146:1154 <> crelation
+binder 1157:1157 <> A:1
+R1171:1174 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1170:1170 Corelib.Classes.CRelationClasses <> A:1 var
+R1176:1179 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1175:1175 Corelib.Classes.CRelationClasses <> A:1 var
+def 1198:1202 <> arrow
+binder 1205:1205 <> A:2
+binder 1207:1207 <> B:3
+R1221:1224 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1220:1220 Corelib.Classes.CRelationClasses <> A:2 var
+R1225:1225 Corelib.Classes.CRelationClasses <> B:3 var
+def 1240:1243 <> flip
+binder 1246:1246 <> A:4
+binder 1248:1248 <> B:5
+binder 1250:1250 <> C:6
+R1266:1269 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1265:1265 Corelib.Classes.CRelationClasses <> A:4 var
+R1271:1274 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1270:1270 Corelib.Classes.CRelationClasses <> B:5 var
+R1275:1275 Corelib.Classes.CRelationClasses <> C:6 var
+binder 1261:1261 <> f:7
+binder 1285:1285 <> x:8
+binder 1287:1287 <> y:9
+R1292:1292 Corelib.Classes.CRelationClasses <> f:7 var
+R1296:1296 Corelib.Classes.CRelationClasses <> x:8 var
+R1294:1294 Corelib.Classes.CRelationClasses <> y:9 var
+def 1311:1314 <> iffT
+binder 1317:1317 <> A:10
+binder 1319:1319 <> B:11
+R1333:1333 Corelib.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1340:1344 Corelib.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1351:1351 Corelib.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1335:1338 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1334:1334 Corelib.Classes.CRelationClasses <> A:10 var
+R1339:1339 Corelib.Classes.CRelationClasses <> B:11 var
+R1346:1349 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1345:1345 Corelib.Classes.CRelationClasses <> B:11 var
+R1350:1350 Corelib.Classes.CRelationClasses <> A:10 var
+sec 1496:1499 <> Defs
+var  1513:1513 Defs A
+ind 1631:1639 <> Reflexive
+constr 1666:1676 <> reflexivity
+rec 1631:1639 <> Reflexive
+proj 1666:1676 <> reflexivity
+R1646:1654 Corelib.Classes.CRelationClasses <> crelation def
+R1656:1656 Corelib.Classes.CRelationClasses <> Defs.A var
+binder 1642:1642 <> R:13
+R1691:1691 Corelib.Classes.CRelationClasses <> Defs.A var
+binder 1687:1687 <> x:15
+R1694:1694 Corelib.Classes.CRelationClasses <> R:13 var
+R1696:1696 Corelib.Classes.CRelationClasses <> x:15 var
+R1698:1698 Corelib.Classes.CRelationClasses <> x:15 var
+def 1715:1724 <> complement
+R1731:1739 Corelib.Classes.CRelationClasses <> crelation def
+R1741:1741 Corelib.Classes.CRelationClasses <> Defs.A var
+binder 1727:1727 <> R:17
+R1746:1754 Corelib.Classes.CRelationClasses <> crelation def
+R1756:1756 Corelib.Classes.CRelationClasses <> Defs.A var
+binder 1770:1770 <> x:18
+binder 1772:1772 <> y:19
+R1782:1785 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1777:1777 Corelib.Classes.CRelationClasses <> R:17 var
+R1779:1779 Corelib.Classes.CRelationClasses <> x:18 var
+R1781:1781 Corelib.Classes.CRelationClasses <> y:19 var
+R1786:1790 Corelib.Init.Logic <> False ind
+prf 1909:1926 <> complement_inverse
+binder 1928:1928 <> R:20
+R1951:1953 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1932:1941 Corelib.Classes.CRelationClasses <> complement def
+R1944:1947 Corelib.Classes.CRelationClasses <> flip def
+R1949:1949 Corelib.Classes.CRelationClasses <> R:20 var
+R1954:1957 Corelib.Classes.CRelationClasses <> flip def
+R1960:1969 Corelib.Classes.CRelationClasses <> complement def
+R1971:1971 Corelib.Classes.CRelationClasses <> R:20 var
+ind 2011:2021 <> Irreflexive
+constr 2048:2060 <> irreflexivity
+rec 2011:2021 <> Irreflexive
+proj 2048:2060 <> irreflexivity
+R2028:2036 Corelib.Classes.CRelationClasses <> crelation def
+R2038:2038 Corelib.Classes.CRelationClasses <> Defs.A var
+binder 2024:2024 <> R:21
+R2064:2072 Corelib.Classes.CRelationClasses <> Reflexive class
+R2075:2084 Corelib.Classes.CRelationClasses <> complement def
+R2086:2086 Corelib.Classes.CRelationClasses <> R:21 var
+ind 2099:2107 <> Symmetric
+constr 2134:2141 <> symmetry
+rec 2099:2107 <> Symmetric
+proj 2134:2141 <> symmetry
+R2114:2122 Corelib.Classes.CRelationClasses <> crelation def
+R2124:2124 Corelib.Classes.CRelationClasses <> Defs.A var
+binder 2110:2110 <> R:24
+binder 2153:2153 <> x:26
+binder 2155:2155 <> y:27
+R2164:2167 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2159:2159 Corelib.Classes.CRelationClasses <> R:24 var
+R2161:2161 Corelib.Classes.CRelationClasses <> x:26 var
+R2163:2163 Corelib.Classes.CRelationClasses <> y:27 var
+R2168:2168 Corelib.Classes.CRelationClasses <> R:24 var
+R2170:2170 Corelib.Classes.CRelationClasses <> y:27 var
+R2172:2172 Corelib.Classes.CRelationClasses <> x:26 var
+ind 2186:2195 <> Asymmetric
+constr 2222:2230 <> asymmetry
+rec 2186:2195 <> Asymmetric
+proj 2222:2230 <> asymmetry
+R2202:2210 Corelib.Classes.CRelationClasses <> crelation def
+R2212:2212 Corelib.Classes.CRelationClasses <> Defs.A var
+binder 2198:2198 <> R:29
+binder 2242:2242 <> x:31
+binder 2244:2244 <> y:32
+R2253:2257 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2281:2281 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2248:2248 Corelib.Classes.CRelationClasses <> R:29 var
+R2250:2250 Corelib.Classes.CRelationClasses <> x:31 var
+R2252:2252 Corelib.Classes.CRelationClasses <> y:32 var
+R2258:2267 Corelib.Classes.CRelationClasses <> complement def
+R2269:2269 Corelib.Classes.CRelationClasses <> R:29 var
+R2271:2271 Corelib.Classes.CRelationClasses <> y:32 var
+R2273:2273 Corelib.Classes.CRelationClasses <> x:31 var
+ind 2295:2304 <> Transitive
+constr 2331:2342 <> transitivity
+rec 2295:2304 <> Transitive
+proj 2331:2342 <> transitivity
+R2311:2319 Corelib.Classes.CRelationClasses <> crelation def
+R2321:2321 Corelib.Classes.CRelationClasses <> Defs.A var
+binder 2307:2307 <> R:34
+binder 2354:2354 <> x:36
+binder 2356:2356 <> y:37
+binder 2358:2358 <> z:38
+R2367:2370 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2362:2362 Corelib.Classes.CRelationClasses <> R:34 var
+R2364:2364 Corelib.Classes.CRelationClasses <> x:36 var
+R2366:2366 Corelib.Classes.CRelationClasses <> y:37 var
+R2376:2379 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2371:2371 Corelib.Classes.CRelationClasses <> R:34 var
+R2373:2373 Corelib.Classes.CRelationClasses <> y:37 var
+R2375:2375 Corelib.Classes.CRelationClasses <> z:38 var
+R2380:2380 Corelib.Classes.CRelationClasses <> R:34 var
+R2382:2382 Corelib.Classes.CRelationClasses <> x:36 var
+R2384:2384 Corelib.Classes.CRelationClasses <> z:38 var
+rec 2529:2536 <> PreOrder
+proj 2576:2593 <> PreOrder_Reflexive
+proj 2630:2648 <> PreOrder_Transitive
+R2543:2551 Corelib.Classes.CRelationClasses <> crelation def
+R2553:2553 Corelib.Classes.CRelationClasses <> Defs.A var
+binder 2539:2539 <> R:40
+R2598:2606 Corelib.Classes.CRelationClasses <> Reflexive class
+R2608:2608 Corelib.Classes.CRelationClasses <> R:40 var
+R2653:2662 Corelib.Classes.CRelationClasses <> Transitive class
+R2664:2664 Corelib.Classes.CRelationClasses <> R:40 var
+rec 2744:2754 <> StrictOrder
+proj 2794:2816 <> StrictOrder_Irreflexive
+proj 2851:2872 <> StrictOrder_Transitive
+R2761:2769 Corelib.Classes.CRelationClasses <> crelation def
+R2771:2771 Corelib.Classes.CRelationClasses <> Defs.A var
+binder 2757:2757 <> R:44
+R2821:2831 Corelib.Classes.CRelationClasses <> Irreflexive class
+R2833:2833 Corelib.Classes.CRelationClasses <> R:44 var
+R2877:2886 Corelib.Classes.CRelationClasses <> Transitive class
+R2888:2888 Corelib.Classes.CRelationClasses <> R:44 var
+inst 2970:2991 <> StrictOrder_Asymmetric
+R2995:3005 Corelib.Classes.CRelationClasses <> StrictOrder class
+binder 3007:3007 <> R:48
+binder 2995:3007 <> H:49
+R3012:3021 Corelib.Classes.CRelationClasses <> Asymmetric class
+R3023:3023 Corelib.Classes.CRelationClasses <> R:48 var
+rec 3134:3136 <> PER
+proj 3176:3188 <> PER_Symmetric
+proj 3225:3238 <> PER_Transitive
+R3143:3151 Corelib.Classes.CRelationClasses <> crelation def
+R3153:3153 Corelib.Classes.CRelationClasses <> Defs.A var
+binder 3139:3139 <> R:50
+R3193:3201 Corelib.Classes.CRelationClasses <> Symmetric class
+R3203:3203 Corelib.Classes.CRelationClasses <> R:50 var
+R3243:3252 Corelib.Classes.CRelationClasses <> Transitive class
+R3254:3254 Corelib.Classes.CRelationClasses <> R:50 var
+rec 3306:3316 <> Equivalence
+proj 3356:3376 <> Equivalence_Reflexive
+proj 3409:3429 <> Equivalence_Symmetric
+proj 3462:3483 <> Equivalence_Transitive
+R3323:3331 Corelib.Classes.CRelationClasses <> crelation def
+R3333:3333 Corelib.Classes.CRelationClasses <> Defs.A var
+binder 3319:3319 <> R:54
+R3381:3389 Corelib.Classes.CRelationClasses <> Reflexive class
+R3391:3391 Corelib.Classes.CRelationClasses <> R:54 var
+R3434:3442 Corelib.Classes.CRelationClasses <> Symmetric class
+R3444:3444 Corelib.Classes.CRelationClasses <> R:54 var
+R3488:3497 Corelib.Classes.CRelationClasses <> Transitive class
+R3499:3499 Corelib.Classes.CRelationClasses <> R:54 var
+inst 3577:3591 <> Equivalence_PER
+binder 3594:3594 <> R:59
+R3599:3609 Corelib.Classes.CRelationClasses <> Equivalence class
+R3611:3611 Corelib.Classes.CRelationClasses <> R:59 var
+binder 3599:3611 <> H:60
+R3616:3618 Corelib.Classes.CRelationClasses <> PER class
+R3620:3620 Corelib.Classes.CRelationClasses <> R:59 var
+R3683:3696 Corelib.Classes.CRelationClasses <> PER_Transitive meth
+R3636:3648 Corelib.Classes.CRelationClasses <> PER_Symmetric meth
+R3653:3673 Corelib.Classes.CRelationClasses <> Equivalence_Symmetric meth
+R3701:3722 Corelib.Classes.CRelationClasses <> Equivalence_Transitive meth
+ind 3827:3839 <> Antisymmetric
+constr 3895:3906 <> antisymmetry
+rec 3827:3839 <> Antisymmetric
+proj 3895:3906 <> antisymmetry
+binder 3841:3843 <> eqA:61
+R3853:3863 Corelib.Classes.CRelationClasses <> Equivalence class
+R3865:3867 Corelib.Classes.CRelationClasses <> eqA:61 var
+binder 3847:3849 <> equ:62
+R3875:3883 Corelib.Classes.CRelationClasses <> crelation def
+R3885:3885 Corelib.Classes.CRelationClasses <> Defs.A var
+binder 3871:3871 <> R:63
+binder 3918:3918 <> x:65
+binder 3920:3920 <> y:66
+R3929:3932 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3924:3924 Corelib.Classes.CRelationClasses <> R:63 var
+R3926:3926 Corelib.Classes.CRelationClasses <> x:65 var
+R3928:3928 Corelib.Classes.CRelationClasses <> y:66 var
+R3938:3941 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3933:3933 Corelib.Classes.CRelationClasses <> R:63 var
+R3935:3935 Corelib.Classes.CRelationClasses <> y:66 var
+R3937:3937 Corelib.Classes.CRelationClasses <> x:65 var
+R3942:3944 Corelib.Classes.CRelationClasses <> eqA:61 var
+R3946:3946 Corelib.Classes.CRelationClasses <> x:65 var
+R3948:3948 Corelib.Classes.CRelationClasses <> y:66 var
+ind 3960:3970 <> subrelation
+constr 4000:4013 <> is_subrelation
+rec 3960:3970 <> subrelation
+proj 4000:4013 <> is_subrelation
+R3980:3988 Corelib.Classes.CRelationClasses <> crelation def
+R3990:3990 Corelib.Classes.CRelationClasses <> Defs.A var
+binder 3973:3973 <> R:68
+binder 3975:3976 <> R':69
+binder 4025:4025 <> x:71
+binder 4027:4027 <> y:72
+R4036:4039 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4031:4031 Corelib.Classes.CRelationClasses <> R:68 var
+R4033:4033 Corelib.Classes.CRelationClasses <> x:71 var
+R4035:4035 Corelib.Classes.CRelationClasses <> y:72 var
+R4040:4041 Corelib.Classes.CRelationClasses <> R':69 var
+R4043:4043 Corelib.Classes.CRelationClasses <> x:71 var
+R4045:4045 Corelib.Classes.CRelationClasses <> y:72 var
+prf 4120:4140 <> subrelation_symmetric
+binder 4142:4142 <> R:74
+R4146:4154 Corelib.Classes.CRelationClasses <> Symmetric class
+R4156:4156 Corelib.Classes.CRelationClasses <> R:74 var
+binder 4146:4156 <> H:75
+R4161:4171 Corelib.Classes.CRelationClasses <> subrelation class
+R4182:4182 Corelib.Classes.CRelationClasses <> R:74 var
+R4174:4177 Corelib.Classes.CRelationClasses <> flip def
+R4179:4179 Corelib.Classes.CRelationClasses <> R:74 var
+R4231:4238 Corelib.Classes.CRelationClasses <> symmetry def
+sec 4269:4272 Defs flip
+prf 4288:4301 <> flip_Reflexive
+R4305:4313 Corelib.Classes.CRelationClasses <> Reflexive class
+binder 4315:4315 <> R:76
+binder 4305:4315 <> H:77
+R4320:4328 Corelib.Classes.CRelationClasses <> Reflexive class
+R4331:4334 Corelib.Classes.CRelationClasses <> flip def
+R4336:4336 Corelib.Classes.CRelationClasses <> R:76 var
+def 4391:4406 <> flip_Irreflexive
+R4410:4420 Corelib.Classes.CRelationClasses <> Irreflexive class
+binder 4422:4422 <> R:78
+binder 4410:4422 <> H:79
+R4427:4437 Corelib.Classes.CRelationClasses <> Irreflexive class
+R4440:4443 Corelib.Classes.CRelationClasses <> flip def
+R4445:4445 Corelib.Classes.CRelationClasses <> R:78 var
+R4457:4469 Corelib.Classes.CRelationClasses <> irreflexivity def
+R4475:4475 Corelib.Classes.CRelationClasses <> R:78 var
+def 4507:4520 <> flip_Symmetric
+R4524:4532 Corelib.Classes.CRelationClasses <> Symmetric class
+binder 4534:4534 <> R:80
+binder 4524:4534 <> H:81
+R4539:4547 Corelib.Classes.CRelationClasses <> Symmetric class
+R4550:4553 Corelib.Classes.CRelationClasses <> flip def
+R4555:4555 Corelib.Classes.CRelationClasses <> R:80 var
+binder 4571:4571 <> x:82
+binder 4573:4573 <> y:83
+binder 4575:4575 <> H:84
+R4580:4587 Corelib.Classes.CRelationClasses <> symmetry def
+R4596:4596 Corelib.Classes.CRelationClasses <> H:84 var
+R4593:4593 Corelib.Classes.CRelationClasses <> R:80 var
+def 4627:4641 <> flip_Asymmetric
+R4645:4654 Corelib.Classes.CRelationClasses <> Asymmetric class
+binder 4656:4656 <> R:85
+binder 4645:4656 <> H:86
+R4661:4670 Corelib.Classes.CRelationClasses <> Asymmetric class
+R4673:4676 Corelib.Classes.CRelationClasses <> flip def
+R4678:4678 Corelib.Classes.CRelationClasses <> R:85 var
+binder 4694:4694 <> x:87
+binder 4696:4696 <> y:88
+binder 4698:4698 <> H:89
+binder 4700:4701 <> H':90
+R4706:4714 Corelib.Classes.CRelationClasses <> asymmetry def
+R4725:4726 Corelib.Classes.CRelationClasses <> H':90 var
+R4723:4723 Corelib.Classes.CRelationClasses <> H:89 var
+R4720:4720 Corelib.Classes.CRelationClasses <> R:85 var
+def 4757:4771 <> flip_Transitive
+R4775:4784 Corelib.Classes.CRelationClasses <> Transitive class
+binder 4786:4786 <> R:91
+binder 4775:4786 <> H:92
+R4791:4800 Corelib.Classes.CRelationClasses <> Transitive class
+R4803:4806 Corelib.Classes.CRelationClasses <> flip def
+R4808:4808 Corelib.Classes.CRelationClasses <> R:91 var
+binder 4824:4824 <> x:93
+binder 4826:4826 <> y:94
+binder 4828:4828 <> z:95
+binder 4830:4830 <> H:96
+binder 4832:4833 <> H':97
+R4838:4849 Corelib.Classes.CRelationClasses <> transitivity def
+R4861:4861 Corelib.Classes.CRelationClasses <> H:96 var
+R4858:4859 Corelib.Classes.CRelationClasses <> H':97 var
+R4855:4855 Corelib.Classes.CRelationClasses <> R:91 var
+prf 4883:4900 <> flip_Antisymmetric
+R4904:4916 Corelib.Classes.CRelationClasses <> Antisymmetric class
+binder 4918:4920 <> eqA:98
+binder 4922:4922 <> R:100
+binder 4904:4922 <> H:101
+R4933:4945 Corelib.Classes.CRelationClasses <> Antisymmetric class
+R4952:4955 Corelib.Classes.CRelationClasses <> flip def
+R4957:4957 Corelib.Classes.CRelationClasses <> R:100 var
+R4947:4949 Corelib.Classes.CRelationClasses <> eqA:98 var
+prf 5044:5056 <> flip_PreOrder
+R5060:5067 Corelib.Classes.CRelationClasses <> PreOrder class
+binder 5069:5069 <> R:102
+binder 5060:5069 <> H:103
+R5074:5081 Corelib.Classes.CRelationClasses <> PreOrder class
+R5084:5087 Corelib.Classes.CRelationClasses <> flip def
+R5089:5089 Corelib.Classes.CRelationClasses <> R:102 var
+prf 5132:5147 <> flip_StrictOrder
+R5151:5161 Corelib.Classes.CRelationClasses <> StrictOrder class
+binder 5163:5163 <> R:104
+binder 5151:5163 <> H:105
+R5168:5178 Corelib.Classes.CRelationClasses <> StrictOrder class
+R5181:5184 Corelib.Classes.CRelationClasses <> flip def
+R5186:5186 Corelib.Classes.CRelationClasses <> R:104 var
+prf 5229:5236 <> flip_PER
+R5240:5242 Corelib.Classes.CRelationClasses <> PER class
+binder 5244:5244 <> R:106
+binder 5240:5244 <> H:107
+R5249:5251 Corelib.Classes.CRelationClasses <> PER class
+R5254:5257 Corelib.Classes.CRelationClasses <> flip def
+R5259:5259 Corelib.Classes.CRelationClasses <> R:106 var
+prf 5302:5317 <> flip_Equivalence
+R5321:5331 Corelib.Classes.CRelationClasses <> Equivalence class
+binder 5333:5333 <> R:108
+binder 5321:5333 <> H:109
+R5338:5348 Corelib.Classes.CRelationClasses <> Equivalence class
+R5351:5354 Corelib.Classes.CRelationClasses <> flip def
+R5356:5356 Corelib.Classes.CRelationClasses <> R:108 var
+R5395:5398 Corelib.Classes.CRelationClasses Defs.flip <> sec
+sec 5412:5421 Defs complement
+prf 5435:5456 <> complement_Irreflexive
+R5460:5468 Corelib.Classes.CRelationClasses <> Reflexive class
+binder 5470:5470 <> R:110
+binder 5460:5470 <> H:111
+R5481:5491 Corelib.Classes.CRelationClasses <> Irreflexive class
+R5494:5503 Corelib.Classes.CRelationClasses <> complement def
+R5505:5505 Corelib.Classes.CRelationClasses <> R:110 var
+prf 5548:5567 <> complement_Symmetric
+R5571:5579 Corelib.Classes.CRelationClasses <> Symmetric class
+binder 5581:5581 <> R:112
+binder 5571:5581 <> H:113
+R5586:5594 Corelib.Classes.CRelationClasses <> Symmetric class
+R5597:5606 Corelib.Classes.CRelationClasses <> complement def
+R5608:5608 Corelib.Classes.CRelationClasses <> R:112 var
+R5646:5655 Corelib.Classes.CRelationClasses Defs.complement <> sec
+rec 6104:6118 <> RewriteRelation
+R6126:6134 Corelib.Classes.CRelationClasses <> crelation def
+R6136:6136 Corelib.Classes.CRelationClasses <> Defs.A var
+binder 6121:6122 <> RA:114
+inst 6267:6295 <> equivalence_rewrite_crelation
+R6299:6309 Corelib.Classes.CRelationClasses <> Equivalence class
+binder 6311:6313 <> eqA:116
+binder 6299:6313 <> H:117
+R6318:6332 Corelib.Classes.CRelationClasses <> RewriteRelation class
+R6334:6336 Corelib.Classes.CRelationClasses <> eqA:116 var
+sec 6388:6394 Defs Leibniz
+inst 6417:6428 <> eq_Reflexive
+R6432:6440 Corelib.Classes.CRelationClasses <> Reflexive class
+R6444:6445 Corelib.Init.Logic <> eq ind
+R6447:6447 Corelib.Classes.CRelationClasses <> Defs.A var
+R6454:6460 Corelib.Init.Logic <> eq_refl constr
+R6462:6462 Corelib.Classes.CRelationClasses <> Defs.A var
+inst 6485:6496 <> eq_Symmetric
+R6500:6508 Corelib.Classes.CRelationClasses <> Symmetric class
+R6512:6513 Corelib.Init.Logic <> eq ind
+R6515:6515 Corelib.Classes.CRelationClasses <> Defs.A var
+R6522:6527 Corelib.Init.Logic <> eq_sym scheme
+R6529:6529 Corelib.Classes.CRelationClasses <> Defs.A var
+inst 6552:6564 <> eq_Transitive
+R6568:6577 Corelib.Classes.CRelationClasses <> Transitive class
+R6581:6582 Corelib.Init.Logic <> eq ind
+R6584:6584 Corelib.Classes.CRelationClasses <> Defs.A var
+R6591:6598 Corelib.Init.Logic <> eq_trans thm
+R6600:6600 Corelib.Classes.CRelationClasses <> Defs.A var
+inst 6809:6822 <> eq_equivalence
+R6826:6836 Corelib.Classes.CRelationClasses <> Equivalence class
+R6840:6841 Corelib.Init.Logic <> eq ind
+R6843:6843 Corelib.Classes.CRelationClasses <> Defs.A var
+R6858:6864 Corelib.Classes.CRelationClasses Defs.Leibniz <> sec
+R6874:6877 Corelib.Classes.CRelationClasses Defs <> sec
+R6964:6978 Corelib.Classes.CRelationClasses <> RewriteRelation class
+R6980:6983 Corelib.Program.Basics <> impl def
+R7016:7030 Corelib.Classes.CRelationClasses <> RewriteRelation class
+R7032:7034 Corelib.Init.Logic <> iff def
+R7171:7179 Corelib.Classes.CRelationClasses <> Reflexive class
+R7182:7191 Corelib.Classes.CRelationClasses <> complement def
+R7213:7225 Corelib.Classes.CRelationClasses <> irreflexivity def
+R7275:7283 Corelib.Classes.CRelationClasses <> Symmetric class
+R7286:7295 Corelib.Classes.CRelationClasses <> complement def
+R7385:7395 Corelib.Classes.CRelationClasses <> Irreflexive class
+R7398:7407 Corelib.Classes.CRelationClasses <> complement def
+R7500:7508 Corelib.Classes.CRelationClasses <> Reflexive class
+R7511:7514 Corelib.Classes.CRelationClasses <> flip def
+R7529:7542 Corelib.Classes.CRelationClasses <> flip_Reflexive thm
+R7592:7602 Corelib.Classes.CRelationClasses <> Irreflexive class
+R7605:7608 Corelib.Classes.CRelationClasses <> flip def
+R7694:7702 Corelib.Classes.CRelationClasses <> Symmetric class
+R7705:7708 Corelib.Classes.CRelationClasses <> flip def
+R7792:7801 Corelib.Classes.CRelationClasses <> Asymmetric class
+R7804:7807 Corelib.Classes.CRelationClasses <> flip def
+R7892:7904 Corelib.Classes.CRelationClasses <> Antisymmetric class
+R7907:7910 Corelib.Classes.CRelationClasses <> flip def
+R7998:8007 Corelib.Classes.CRelationClasses <> Transitive class
+R8010:8013 Corelib.Classes.CRelationClasses <> flip def
+R8098:8108 Corelib.Classes.CRelationClasses <> StrictOrder class
+R8111:8114 Corelib.Classes.CRelationClasses <> flip def
+R8200:8207 Corelib.Classes.CRelationClasses <> PreOrder class
+R8210:8213 Corelib.Classes.CRelationClasses <> flip def
+R8297:8307 Corelib.Classes.CRelationClasses <> subrelation class
+R8310:8313 Corelib.Classes.CRelationClasses <> flip def
+R8340:8360 Corelib.Classes.CRelationClasses <> subrelation_symmetric thm
+R8867:8871 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R8983:8987 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R9388:9391 Corelib.Classes.CRelationClasses <> flip def
+R9394:9397 Corelib.Program.Basics <> impl def
+R9400:9404 Corelib.Classes.CRelationClasses <> arrow def
+inst 9593:9606 <> impl_Reflexive
+R9610:9618 Corelib.Classes.CRelationClasses <> Reflexive class
+R9620:9623 Corelib.Program.Basics <> impl def
+inst 9653:9667 <> impl_Transitive
+R9671:9680 Corelib.Classes.CRelationClasses <> Transitive class
+R9682:9685 Corelib.Program.Basics <> impl def
+inst 9737:9749 <> iff_Reflexive
+R9753:9761 Corelib.Classes.CRelationClasses <> Reflexive class
+R9763:9765 Corelib.Init.Logic <> iff def
+R9770:9777 Corelib.Init.Logic <> iff_refl thm
+inst 9799:9811 <> iff_Symmetric
+R9815:9823 Corelib.Classes.CRelationClasses <> Symmetric class
+R9825:9827 Corelib.Init.Logic <> iff def
+R9832:9838 Corelib.Init.Logic <> iff_sym thm
+inst 9860:9873 <> iff_Transitive
+R9877:9886 Corelib.Classes.CRelationClasses <> Transitive class
+R9888:9890 Corelib.Init.Logic <> iff def
+R9895:9903 Corelib.Init.Logic <> iff_trans thm
+inst 9997:10011 <> iff_equivalence
+R10015:10025 Corelib.Classes.CRelationClasses <> Equivalence class
+R10027:10029 Corelib.Init.Logic <> iff def
+inst 10060:10074 <> arrow_Reflexive
+R10078:10086 Corelib.Classes.CRelationClasses <> Reflexive class
+R10088:10092 Corelib.Classes.CRelationClasses <> arrow def
+inst 10122:10137 <> arrow_Transitive
+R10141:10150 Corelib.Classes.CRelationClasses <> Transitive class
+R10152:10156 Corelib.Classes.CRelationClasses <> arrow def
+inst 10179:10192 <> iffT_Reflexive
+R10196:10204 Corelib.Classes.CRelationClasses <> Reflexive class
+R10206:10209 Corelib.Classes.CRelationClasses <> iffT def
+inst 10260:10273 <> iffT_Symmetric
+R10277:10285 Corelib.Classes.CRelationClasses <> Symmetric class
+R10287:10290 Corelib.Classes.CRelationClasses <> iffT def
+inst 10342:10356 <> iffT_Transitive
+R10360:10369 Corelib.Classes.CRelationClasses <> Transitive class
+R10371:10374 Corelib.Classes.CRelationClasses <> iffT def
+sec 10826:10831 <> Binary
+var  10845:10845 Binary A
+def 10870:10889 <> relation_equivalence
+R10893:10901 Corelib.Classes.CRelationClasses <> crelation def
+R10904:10912 Corelib.Classes.CRelationClasses <> crelation def
+R10914:10914 Corelib.Classes.CRelationClasses <> Binary.A var
+binder 10928:10928 <> R:119
+binder 10930:10931 <> R':120
+binder 10943:10943 <> x:121
+binder 10945:10945 <> y:122
+R10948:10951 Corelib.Classes.CRelationClasses <> iffT def
+R10954:10954 Corelib.Classes.CRelationClasses <> R:119 var
+R10956:10956 Corelib.Classes.CRelationClasses <> x:121 var
+R10958:10958 Corelib.Classes.CRelationClasses <> y:122 var
+R10962:10963 Corelib.Classes.CRelationClasses <> R':120 var
+R10965:10965 Corelib.Classes.CRelationClasses <> x:121 var
+R10967:10967 Corelib.Classes.CRelationClasses <> y:122 var
+R10991:11005 Corelib.Classes.CRelationClasses <> RewriteRelation class
+R11007:11026 Corelib.Classes.CRelationClasses <> relation_equivalence def
+def 11054:11073 <> relation_conjunction
+R11080:11088 Corelib.Classes.CRelationClasses <> crelation def
+R11090:11090 Corelib.Classes.CRelationClasses <> Binary.A var
+binder 11076:11076 <> R:123
+R11099:11107 Corelib.Classes.CRelationClasses <> crelation def
+R11109:11109 Corelib.Classes.CRelationClasses <> Binary.A var
+binder 11094:11095 <> R':124
+R11114:11122 Corelib.Classes.CRelationClasses <> crelation def
+R11124:11124 Corelib.Classes.CRelationClasses <> Binary.A var
+binder 11137:11137 <> x:125
+binder 11139:11139 <> y:126
+R11144:11147 Corelib.Init.Datatypes <> prod ind
+R11158:11159 Corelib.Classes.CRelationClasses <> R':124 var
+R11161:11161 Corelib.Classes.CRelationClasses <> x:125 var
+R11163:11163 Corelib.Classes.CRelationClasses <> y:126 var
+R11150:11150 Corelib.Classes.CRelationClasses <> R:123 var
+R11152:11152 Corelib.Classes.CRelationClasses <> x:125 var
+R11154:11154 Corelib.Classes.CRelationClasses <> y:126 var
+def 11181:11200 <> relation_disjunction
+R11207:11215 Corelib.Classes.CRelationClasses <> crelation def
+R11217:11217 Corelib.Classes.CRelationClasses <> Binary.A var
+binder 11203:11203 <> R:127
+R11226:11234 Corelib.Classes.CRelationClasses <> crelation def
+R11236:11236 Corelib.Classes.CRelationClasses <> Binary.A var
+binder 11221:11222 <> R':128
+R11241:11249 Corelib.Classes.CRelationClasses <> crelation def
+R11251:11251 Corelib.Classes.CRelationClasses <> Binary.A var
+binder 11264:11264 <> x:129
+binder 11266:11266 <> y:130
+R11271:11273 Corelib.Init.Datatypes <> sum ind
+R11284:11285 Corelib.Classes.CRelationClasses <> R':128 var
+R11287:11287 Corelib.Classes.CRelationClasses <> x:129 var
+R11289:11289 Corelib.Classes.CRelationClasses <> y:130 var
+R11276:11276 Corelib.Classes.CRelationClasses <> R:127 var
+R11278:11278 Corelib.Classes.CRelationClasses <> x:129 var
+R11280:11280 Corelib.Classes.CRelationClasses <> y:130 var
+inst 11405:11436 <> relation_equivalence_equivalence
+R11444:11454 Corelib.Classes.CRelationClasses <> Equivalence class
+R11456:11475 Corelib.Classes.CRelationClasses <> relation_equivalence def
+R11510:11529 Corelib.Classes.CRelationClasses <> relation_equivalence def
+R11532:11535 Corelib.Classes.CRelationClasses <> iffT def
+inst 11692:11720 <> relation_implication_preorder
+R11724:11731 Corelib.Classes.CRelationClasses <> PreOrder class
+R11735:11745 Corelib.Classes.CRelationClasses <> subrelation class
+R11747:11747 Corelib.Classes.CRelationClasses <> Binary.A var
+ind 11972:11983 <> PartialOrder
+constr 12048:12072 <> partial_order_equivalence
+rec 11972:11983 <> PartialOrder
+proj 12048:12072 <> partial_order_equivalence
+binder 11985:11987 <> eqA:131
+R11997:12007 Corelib.Classes.CRelationClasses <> Equivalence class
+R12009:12009 Corelib.Classes.CRelationClasses <> Binary.A var
+R12011:12013 Corelib.Classes.CRelationClasses <> eqA:131 var
+binder 11991:11993 <> equ:132
+binder 12016:12016 <> R:133
+R12027:12034 Corelib.Classes.CRelationClasses <> PreOrder class
+R12036:12036 Corelib.Classes.CRelationClasses <> Binary.A var
+R12038:12038 Corelib.Classes.CRelationClasses <> R:133 var
+binder 12020:12023 <> preo:134
+R12076:12095 Corelib.Classes.CRelationClasses <> relation_equivalence def
+R12097:12099 Corelib.Classes.CRelationClasses <> eqA:131 var
+R12102:12121 Corelib.Classes.CRelationClasses <> relation_conjunction def
+R12123:12123 Corelib.Classes.CRelationClasses <> R:133 var
+R12126:12129 Corelib.Classes.CRelationClasses <> flip def
+R12131:12131 Corelib.Classes.CRelationClasses <> R:133 var
+inst 12352:12372 <> partial_order_antisym
+R12376:12387 Corelib.Classes.CRelationClasses <> PartialOrder class
+binder 12389:12391 <> eqA:137
+binder 12393:12393 <> R:139
+binder 12376:12393 <> H:141
+R12398:12410 Corelib.Classes.CRelationClasses <> Antisymmetric class
+R12416:12416 Corelib.Classes.CRelationClasses <> R:139 var
+R12412:12414 Corelib.Classes.CRelationClasses <> eqA:137 var
+prf 12487:12506 <> PartialOrder_inverse
+R12510:12521 Corelib.Classes.CRelationClasses <> PartialOrder class
+binder 12523:12525 <> eqA:142
+binder 12527:12527 <> R:144
+binder 12510:12527 <> H:146
+R12532:12543 Corelib.Classes.CRelationClasses <> PartialOrder class
+R12550:12553 Corelib.Classes.CRelationClasses <> flip def
+R12555:12555 Corelib.Classes.CRelationClasses <> R:144 var
+R12545:12547 Corelib.Classes.CRelationClasses <> eqA:142 var
+R12595:12600 Corelib.Classes.CRelationClasses Binary <> sec
+R12629:12640 Corelib.Classes.CRelationClasses <> PartialOrder class
+R12643:12646 Corelib.Classes.CRelationClasses <> flip def

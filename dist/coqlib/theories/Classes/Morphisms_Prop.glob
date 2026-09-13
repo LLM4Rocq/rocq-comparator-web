@@ -1,0 +1,169 @@
+DIGEST 03e042d1219d6c5262f9f257174ce670
+FCorelib.Classes.Morphisms_Prop
+R837:861 Corelib.Classes.Morphisms <> <> lib
+R879:900 Corelib.Program.Basics <> <> lib
+R918:940 Corelib.Program.Tactics <> <> lib
+inst 1127:1143 <> not_impl_morphism
+R1149:1154 Corelib.Classes.Morphisms <> Proper class
+R1172:1174 Corelib.Init.Logic <> not def
+R1161:1165 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'-->'_x not
+R1157:1160 Corelib.Program.Basics <> impl def
+R1166:1169 Corelib.Program.Basics <> impl def
+inst 1209:1224 <> not_iff_morphism
+R1230:1235 Corelib.Classes.Morphisms <> Proper class
+R1251:1253 Corelib.Init.Logic <> not def
+R1241:1245 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'++>'_x not
+R1238:1240 Corelib.Init.Logic <> iff def
+R1246:1248 Corelib.Init.Logic <> iff def
+inst 1313:1329 <> and_impl_morphism
+R1335:1340 Corelib.Classes.Morphisms <> Proper class
+R1367:1369 Corelib.Init.Logic <> and ind
+R1347:1351 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R1343:1346 Corelib.Program.Basics <> impl def
+R1356:1360 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R1352:1355 Corelib.Program.Basics <> impl def
+R1361:1364 Corelib.Program.Basics <> impl def
+inst 1404:1419 <> and_iff_morphism
+R1425:1430 Corelib.Classes.Morphisms <> Proper class
+R1454:1456 Corelib.Init.Logic <> and ind
+R1436:1440 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R1433:1435 Corelib.Init.Logic <> iff def
+R1444:1448 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R1441:1443 Corelib.Init.Logic <> iff def
+R1449:1451 Corelib.Init.Logic <> iff def
+inst 1516:1531 <> or_impl_morphism
+R1537:1542 Corelib.Classes.Morphisms <> Proper class
+R1569:1570 Corelib.Init.Logic <> or ind
+R1549:1553 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R1545:1548 Corelib.Program.Basics <> impl def
+R1558:1562 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R1554:1557 Corelib.Program.Basics <> impl def
+R1563:1566 Corelib.Program.Basics <> impl def
+inst 1605:1619 <> or_iff_morphism
+R1625:1630 Corelib.Classes.Morphisms <> Proper class
+R1654:1655 Corelib.Init.Logic <> or ind
+R1636:1640 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R1633:1635 Corelib.Init.Logic <> iff def
+R1644:1648 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R1641:1643 Corelib.Init.Logic <> iff def
+R1649:1651 Corelib.Init.Logic <> iff def
+inst 1760:1784 <> iff_iff_iff_impl_morphism
+R1788:1793 Corelib.Classes.Morphisms <> Proper class
+R1817:1820 Corelib.Program.Basics <> impl def
+R1799:1803 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R1796:1798 Corelib.Init.Logic <> iff def
+R1807:1811 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R1804:1806 Corelib.Init.Logic <> iff def
+R1812:1814 Corelib.Init.Logic <> iff def
+inst 1885:1899 <> ex_iff_morphism
+binder 1902:1902 <> A:1
+R1914:1919 Corelib.Classes.Morphisms <> Proper class
+R1958:1959 Corelib.Init.Logic <> ex ind
+R1961:1961 Corelib.Classes.Morphisms_Prop <> A:1 var
+R1946:1950 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R1922:1939 Corelib.Classes.Morphisms <> pointwise_relation def
+R1943:1945 Corelib.Init.Logic <> iff def
+R1941:1941 Corelib.Classes.Morphisms_Prop <> A:1 var
+R1951:1953 Corelib.Init.Logic <> iff def
+inst 1993:2008 <> ex_impl_morphism
+binder 2011:2011 <> A:2
+R2025:2030 Corelib.Classes.Morphisms <> Proper class
+R2071:2072 Corelib.Init.Logic <> ex ind
+R2074:2074 Corelib.Classes.Morphisms_Prop <> A:2 var
+R2058:2062 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R2033:2050 Corelib.Classes.Morphisms <> pointwise_relation def
+R2054:2057 Corelib.Program.Basics <> impl def
+R2052:2052 Corelib.Classes.Morphisms_Prop <> A:2 var
+R2063:2066 Corelib.Program.Basics <> impl def
+inst 2110:2130 <> ex_flip_impl_morphism
+binder 2133:2133 <> A:3
+R2147:2152 Corelib.Classes.Morphisms <> Proper class
+R2205:2206 Corelib.Init.Logic <> ex ind
+R2208:2208 Corelib.Classes.Morphisms_Prop <> A:3 var
+R2187:2191 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R2155:2172 Corelib.Classes.Morphisms <> pointwise_relation def
+R2177:2180 Corelib.Program.Basics <> flip def
+R2182:2185 Corelib.Program.Basics <> impl def
+R2174:2174 Corelib.Classes.Morphisms_Prop <> A:3 var
+R2192:2195 Corelib.Program.Basics <> flip def
+R2197:2200 Corelib.Program.Basics <> impl def
+inst 2244:2259 <> all_iff_morphism
+binder 2262:2262 <> A:4
+R2276:2281 Corelib.Classes.Morphisms <> Proper class
+R2320:2322 Corelib.Init.Logic <> all def
+R2324:2324 Corelib.Classes.Morphisms_Prop <> A:4 var
+R2308:2312 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R2284:2301 Corelib.Classes.Morphisms <> pointwise_relation def
+R2305:2307 Corelib.Init.Logic <> iff def
+R2303:2303 Corelib.Classes.Morphisms_Prop <> A:4 var
+R2313:2315 Corelib.Init.Logic <> iff def
+inst 2356:2372 <> all_impl_morphism
+binder 2375:2375 <> A:5
+R2389:2394 Corelib.Classes.Morphisms <> Proper class
+R2435:2437 Corelib.Init.Logic <> all def
+R2439:2439 Corelib.Classes.Morphisms_Prop <> A:5 var
+R2422:2426 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R2397:2414 Corelib.Classes.Morphisms <> pointwise_relation def
+R2418:2421 Corelib.Program.Basics <> impl def
+R2416:2416 Corelib.Classes.Morphisms_Prop <> A:5 var
+R2427:2430 Corelib.Program.Basics <> impl def
+inst 2475:2496 <> all_flip_impl_morphism
+binder 2499:2499 <> A:6
+R2513:2518 Corelib.Classes.Morphisms <> Proper class
+R2571:2573 Corelib.Init.Logic <> all def
+R2575:2575 Corelib.Classes.Morphisms_Prop <> A:6 var
+R2553:2557 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R2521:2538 Corelib.Classes.Morphisms <> pointwise_relation def
+R2543:2546 Corelib.Program.Basics <> flip def
+R2548:2551 Corelib.Program.Basics <> impl def
+R2540:2540 Corelib.Classes.Morphisms_Prop <> A:6 var
+R2558:2561 Corelib.Program.Basics <> flip def
+R2563:2566 Corelib.Program.Basics <> impl def
+inst 2666:2680 <> Acc_pt_morphism
+binder 2683:2683 <> A:7
+R2698:2699 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2697:2697 Corelib.Classes.Morphisms_Prop <> A:7 var
+R2701:2702 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2700:2700 Corelib.Classes.Morphisms_Prop <> A:7 var
+binder 2691:2691 <> E:8
+binder 2693:2693 <> R:9
+R2712:2722 Corelib.Classes.RelationClasses <> Equivalence class
+R2726:2726 Corelib.Classes.Morphisms_Prop <> E:8 var
+binder 2712:2726 <> H:10
+R2731:2736 Corelib.Classes.Morphisms <> Proper class
+R2742:2744 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R2741:2741 Corelib.Classes.Morphisms_Prop <> E:8 var
+R2746:2748 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R2745:2745 Corelib.Classes.Morphisms_Prop <> E:8 var
+R2749:2751 Corelib.Init.Logic <> iff def
+R2754:2754 Corelib.Classes.Morphisms_Prop <> R:9 var
+binder 2731:2754 <> H0:11
+R2760:2765 Corelib.Classes.Morphisms <> Proper class
+R2778:2780 Corelib.Init.Wf <> Acc ind
+R2782:2782 Corelib.Classes.Morphisms_Prop <> R:9 var
+R2769:2771 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R2768:2768 Corelib.Classes.Morphisms_Prop <> E:8 var
+R2772:2774 Corelib.Init.Logic <> iff def
+R2801:2819 Corelib.Classes.Morphisms <> proper_sym_impl_iff thm
+R2875:2883 Corelib.Init.Wf <> Acc_intro constr
+R2934:2940 Corelib.Init.Wf <> Acc_inv thm
+inst 3036:3051 <> Acc_rel_morphism
+binder 3054:3054 <> A:12
+R3065:3070 Corelib.Classes.Morphisms <> Proper class
+R3118:3120 Corelib.Init.Wf <> Acc ind
+R3122:3122 Corelib.Classes.Morphisms_Prop <> A:12 var
+R3093:3097 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R3073:3092 Corelib.Classes.RelationClasses <> relation_equivalence def
+R3106:3110 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R3098:3105 Corelib.Init.Logic <> eq ind
+R3111:3113 Corelib.Init.Logic <> iff def
+R3141:3161 Corelib.Classes.Morphisms <> proper_sym_impl_iff_2 thm
+inst 3425:3445 <> well_founded_morphism
+binder 3448:3448 <> A:13
+R3461:3466 Corelib.Classes.Morphisms <> Proper class
+R3501:3512 Corelib.Init.Wf <> well_founded def
+R3514:3514 Corelib.Classes.Morphisms_Prop <> A:13 var
+R3489:3493 Corelib.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R3469:3488 Corelib.Classes.RelationClasses <> relation_equivalence def
+R3494:3496 Corelib.Init.Logic <> iff def
+R3533:3544 Corelib.Init.Wf <> well_founded def

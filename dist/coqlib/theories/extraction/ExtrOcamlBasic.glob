@@ -1,0 +1,10 @@
+DIGEST 7275db53ebdd80b49dcf1e4fb7fef1e4
+FCorelib.extraction.ExtrOcamlBasic
+R684:712 Corelib.extraction.Extraction <> <> lib
+R789:792 Corelib.Init.Datatypes <> bool ind
+R836:841 Corelib.Init.Datatypes <> option ind
+R886:889 Corelib.Init.Datatypes <> unit ind
+R927:930 Corelib.Init.Datatypes <> list ind
+R977:980 Corelib.Init.Datatypes <> prod ind
+R1221:1227 Corelib.Init.Specif <> sumbool ind
+R1271:1275 Corelib.Init.Specif <> sumor ind

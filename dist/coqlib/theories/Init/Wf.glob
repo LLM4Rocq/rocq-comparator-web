@@ -1,0 +1,512 @@
+DIGEST 8ca95680129dd3ecc868be221fb21375
+FCorelib.Init.Wf
+R900:908 Corelib.Init.Notations <> <> lib
+R926:929 Corelib.Init.Ltac <> <> lib
+R947:951 Corelib.Init.Logic <> <> lib
+R969:977 Corelib.Init.Datatypes <> <> lib
+sec 1040:1051 <> Well_founded
+var 1065:1065 Well_founded A
+var 1085:1085 Well_founded R
+R1090:1093 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1089:1089 Corelib.Init.Wf <> Well_founded.A var
+R1095:1098 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1094:1094 Corelib.Init.Wf <> Well_founded.A var
+ind 1263:1265 <> Acc
+constr 1289:1297 <> Acc_intro
+R1271:1271 Corelib.Init.Wf <> Well_founded.A var
+binder 1268:1268 <> x:5
+R1301:1301 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1328:1332 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1311:1311 Corelib.Init.Wf <> Well_founded.A var
+binder 1309:1309 <> y:8
+R1319:1322 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1314:1314 Corelib.Init.Wf <> Well_founded.R var
+R1318:1318 Corelib.Init.Wf <> x:5 var
+R1316:1316 Corelib.Init.Wf <> y:8 var
+R1323:1325 Corelib.Init.Wf <> Acc:6 ind
+R1327:1327 Corelib.Init.Wf <> y:8 var
+R1333:1335 Corelib.Init.Wf <> Acc:6 ind
+R1337:1337 Corelib.Init.Wf <> x:5 var
+scheme 1263:1265 <> Acc_rect
+scheme 1263:1265 <> Acc_ind
+scheme 1263:1265 <> Acc_rec
+scheme 1263:1265 <> Acc_sind
+prf 1379:1385 <> Acc_inv
+R1398:1398 Corelib.Init.Wf <> Well_founded.A var
+binder 1396:1396 <> x:9
+R1406:1409 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1401:1403 Corelib.Init.Wf <> Acc ind
+R1405:1405 Corelib.Init.Wf <> x:9 var
+R1419:1419 Corelib.Init.Wf <> Well_founded.A var
+binder 1417:1417 <> y:10
+R1427:1430 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1422:1422 Corelib.Init.Wf <> Well_founded.R var
+R1426:1426 Corelib.Init.Wf <> x:9 var
+R1424:1424 Corelib.Init.Wf <> y:10 var
+R1431:1433 Corelib.Init.Wf <> Acc ind
+R1435:1435 Corelib.Init.Wf <> y:10 var
+R1490:1496 Corelib.Init.Wf <> Acc_inv thm
+def 1640:1651 <> well_founded
+R1665:1665 Corelib.Init.Wf <> Well_founded.A var
+binder 1663:1663 <> a:11
+R1668:1670 Corelib.Init.Wf <> Acc ind
+R1672:1672 Corelib.Init.Wf <> a:11 var
+var 1789:1791 Well_founded Rwf
+R1795:1806 Corelib.Init.Wf <> well_founded def
+prf 1819:1845 <> well_founded_induction_type
+R1861:1864 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1860:1860 Corelib.Init.Wf <> Well_founded.A var
+binder 1858:1858 <> P:14
+R1875:1875 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1921:1925 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1885:1885 Corelib.Init.Wf <> Well_founded.A var
+binder 1883:1883 <> x:15
+R1888:1888 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1913:1917 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1898:1898 Corelib.Init.Wf <> Well_founded.A var
+binder 1896:1896 <> y:16
+R1906:1909 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1901:1901 Corelib.Init.Wf <> Well_founded.R var
+R1905:1905 Corelib.Init.Wf <> x:15 var
+R1903:1903 Corelib.Init.Wf <> y:16 var
+R1910:1910 Corelib.Init.Wf <> P:14 var
+R1912:1912 Corelib.Init.Wf <> y:16 var
+R1918:1918 Corelib.Init.Wf <> P:14 var
+R1920:1920 Corelib.Init.Wf <> x:15 var
+R1935:1935 Corelib.Init.Wf <> Well_founded.A var
+binder 1933:1933 <> a:17
+R1938:1938 Corelib.Init.Wf <> P:14 var
+R1940:1940 Corelib.Init.Wf <> a:17 var
+R1967:1974 Corelib.Init.Wf <> Acc_rect scheme
+prf 2003:2024 <> well_founded_induction
+R2040:2043 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2039:2039 Corelib.Init.Wf <> Well_founded.A var
+binder 2037:2037 <> P:18
+R2053:2053 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2099:2103 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2063:2063 Corelib.Init.Wf <> Well_founded.A var
+binder 2061:2061 <> x:19
+R2066:2066 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2091:2095 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2076:2076 Corelib.Init.Wf <> Well_founded.A var
+binder 2074:2074 <> y:20
+R2084:2087 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2079:2079 Corelib.Init.Wf <> Well_founded.R var
+R2083:2083 Corelib.Init.Wf <> x:19 var
+R2081:2081 Corelib.Init.Wf <> y:20 var
+R2088:2088 Corelib.Init.Wf <> P:18 var
+R2090:2090 Corelib.Init.Wf <> y:20 var
+R2096:2096 Corelib.Init.Wf <> P:18 var
+R2098:2098 Corelib.Init.Wf <> x:19 var
+R2113:2113 Corelib.Init.Wf <> Well_founded.A var
+binder 2111:2111 <> a:21
+R2116:2116 Corelib.Init.Wf <> P:18 var
+R2118:2118 Corelib.Init.Wf <> a:21 var
+R2145:2148 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2144:2144 Corelib.Init.Wf <> Well_founded.A var
+binder 2142:2142 <> P:22
+R2156:2182 Corelib.Init.Wf <> well_founded_induction_type thm
+R2184:2184 Corelib.Init.Wf <> P:22 var
+binder 2142:2142 <> P:23
+R2184:2184 Corelib.Init.Wf <> P:23 var
+prf 2208:2223 <> well_founded_ind
+R2239:2242 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2238:2238 Corelib.Init.Wf <> Well_founded.A var
+binder 2236:2236 <> P:24
+R2253:2253 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2299:2303 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2263:2263 Corelib.Init.Wf <> Well_founded.A var
+binder 2261:2261 <> x:25
+R2266:2266 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2291:2295 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2276:2276 Corelib.Init.Wf <> Well_founded.A var
+binder 2274:2274 <> y:26
+R2284:2287 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2279:2279 Corelib.Init.Wf <> Well_founded.R var
+R2283:2283 Corelib.Init.Wf <> x:25 var
+R2281:2281 Corelib.Init.Wf <> y:26 var
+R2288:2288 Corelib.Init.Wf <> P:24 var
+R2290:2290 Corelib.Init.Wf <> y:26 var
+R2296:2296 Corelib.Init.Wf <> P:24 var
+R2298:2298 Corelib.Init.Wf <> x:25 var
+R2313:2313 Corelib.Init.Wf <> Well_founded.A var
+binder 2311:2311 <> a:27
+R2316:2316 Corelib.Init.Wf <> P:24 var
+R2318:2318 Corelib.Init.Wf <> a:27 var
+R2345:2348 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2344:2344 Corelib.Init.Wf <> Well_founded.A var
+binder 2342:2342 <> P:28
+R2357:2383 Corelib.Init.Wf <> well_founded_induction_type thm
+R2385:2385 Corelib.Init.Wf <> P:28 var
+binder 2342:2342 <> P:29
+R2385:2385 Corelib.Init.Wf <> P:29 var
+sec 2440:2447 Well_founded FixPoint
+var 2462:2462 Well_founded.FixPoint P
+R2467:2470 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2466:2466 Corelib.Init.Wf <> Well_founded.A var
+var 2488:2488 Well_founded.FixPoint F
+R2501:2501 Corelib.Init.Wf <> Well_founded.A var
+binder 2499:2499 <> x:32
+R2504:2504 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2529:2533 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2514:2514 Corelib.Init.Wf <> Well_founded.A var
+binder 2512:2512 <> y:33
+R2522:2525 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2517:2517 Corelib.Init.Wf <> Well_founded.R var
+R2521:2521 Corelib.Init.Wf <> x:32 var
+R2519:2519 Corelib.Init.Wf <> y:33 var
+R2526:2526 Corelib.Init.Wf <> Well_founded.FixPoint.P var
+R2528:2528 Corelib.Init.Wf <> y:33 var
+R2534:2534 Corelib.Init.Wf <> Well_founded.FixPoint.P var
+R2536:2536 Corelib.Init.Wf <> x:32 var
+def 2551:2555 <> Fix_F
+R2560:2560 Corelib.Init.Wf <> Well_founded.A var
+binder 2558:2558 <> x:36
+R2566:2568 Corelib.Init.Wf <> Acc ind
+R2570:2570 Corelib.Init.Wf <> x:36 var
+binder 2564:2564 <> a:37
+R2575:2575 Corelib.Init.Wf <> Well_founded.FixPoint.P var
+R2577:2577 Corelib.Init.Wf <> x:36 var
+R2586:2586 Corelib.Init.Wf <> Well_founded.FixPoint.F var
+R2596:2596 Corelib.Init.Wf <> Well_founded.A var
+binder 2594:2594 <> y:39
+R2602:2602 Corelib.Init.Wf <> Well_founded.R var
+R2606:2606 Corelib.Init.Wf <> x:36 var
+R2604:2604 Corelib.Init.Wf <> y:39 var
+binder 2600:2600 <> h:40
+R2612:2616 Corelib.Init.Wf <> Fix_F:38 def
+R2619:2625 Corelib.Init.Wf <> Acc_inv thm
+R2629:2629 Corelib.Init.Wf <> h:40 var
+R2627:2627 Corelib.Init.Wf <> a:37 var
+def 2644:2654 <> Acc_inv_dep
+R2673:2675 Corelib.Init.Wf <> Acc ind
+prf 2697:2704 <> Fix_F_eq
+R2709:2709 Corelib.Init.Wf <> Well_founded.A var
+binder 2707:2707 <> x:41
+R2715:2717 Corelib.Init.Wf <> Acc ind
+R2719:2719 Corelib.Init.Wf <> x:41 var
+binder 2713:2713 <> r:42
+R2782:2784 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2729:2729 Corelib.Init.Wf <> Well_founded.FixPoint.F var
+R2739:2739 Corelib.Init.Wf <> Well_founded.A var
+binder 2737:2737 <> y:43
+R2745:2745 Corelib.Init.Wf <> Well_founded.R var
+R2749:2749 Corelib.Init.Wf <> x:41 var
+R2747:2747 Corelib.Init.Wf <> y:43 var
+binder 2743:2743 <> p:44
+R2755:2759 Corelib.Init.Wf <> Fix_F def
+R2769:2775 Corelib.Init.Wf <> Acc_inv thm
+R2779:2779 Corelib.Init.Wf <> p:44 var
+R2777:2777 Corelib.Init.Wf <> r:42 var
+R2765:2765 Corelib.Init.Wf <> y:43 var
+R2785:2789 Corelib.Init.Wf <> Fix_F def
+R2798:2798 Corelib.Init.Wf <> r:42 var
+R2795:2795 Corelib.Init.Wf <> x:41 var
+R2830:2840 Corelib.Init.Wf <> Acc_inv_dep def
+def 2870:2872 <> Fix
+R2877:2877 Corelib.Init.Wf <> Well_founded.A var
+binder 2875:2875 <> x:45
+R2883:2887 Corelib.Init.Wf <> Fix_F def
+R2890:2892 Corelib.Init.Wf <> Well_founded.Rwf var
+R2894:2894 Corelib.Init.Wf <> x:45 var
+sec 2909:2919 Well_founded.FixPoint FixPointGen
+var 2943:2947 Well_founded.FixPoint.FixPointGen F_ext
+R2967:2967 Corelib.Init.Wf <> Well_founded.A var
+binder 2965:2965 <> x:46
+R2984:2984 Corelib.Init.Wf <> Well_founded.A var
+binder 2982:2982 <> y:47
+R2992:2995 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2987:2987 Corelib.Init.Wf <> Well_founded.R var
+R2991:2991 Corelib.Init.Wf <> x:46 var
+R2989:2989 Corelib.Init.Wf <> y:47 var
+R2996:2996 Corelib.Init.Wf <> Well_founded.FixPoint.P var
+R2998:2998 Corelib.Init.Wf <> y:47 var
+binder 2971:2971 <> f:48
+binder 2973:2973 <> g:49
+R3010:3010 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3050:3054 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3021:3021 Corelib.Init.Wf <> Well_founded.A var
+binder 3019:3019 <> y:50
+R3029:3029 Corelib.Init.Wf <> Well_founded.R var
+R3033:3033 Corelib.Init.Wf <> x:46 var
+R3031:3031 Corelib.Init.Wf <> y:50 var
+binder 3025:3025 <> p:51
+binder 3027:3027 <> q:52
+R3042:3044 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3037:3037 Corelib.Init.Wf <> f:48 var
+R3041:3041 Corelib.Init.Wf <> p:51 var
+R3039:3039 Corelib.Init.Wf <> y:50 var
+R3045:3045 Corelib.Init.Wf <> g:49 var
+R3049:3049 Corelib.Init.Wf <> q:52 var
+R3047:3047 Corelib.Init.Wf <> y:50 var
+R3058:3060 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3055:3055 Corelib.Init.Wf <> Well_founded.FixPoint.F var
+R3057:3057 Corelib.Init.Wf <> f:48 var
+R3061:3061 Corelib.Init.Wf <> Well_founded.FixPoint.F var
+R3063:3063 Corelib.Init.Wf <> g:49 var
+prf 3077:3089 <> Fix_F_inv_gen
+R3103:3103 Corelib.Init.Wf <> Well_founded.A var
+binder 3101:3101 <> x:55
+R3111:3113 Corelib.Init.Wf <> Acc ind
+R3115:3115 Corelib.Init.Wf <> x:55 var
+binder 3107:3107 <> r:56
+binder 3109:3109 <> s:57
+R3126:3128 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3119:3123 Corelib.Init.Wf <> Fix_F def
+R3125:3125 Corelib.Init.Wf <> r:56 var
+R3129:3133 Corelib.Init.Wf <> Fix_F def
+R3135:3135 Corelib.Init.Wf <> s:57 var
+R3175:3177 Corelib.Init.Wf <> Well_founded.Rwf var
+R3213:3220 Corelib.Init.Wf <> Fix_F_eq thm
+R3238:3245 Corelib.Init.Wf <> Fix_F_eq thm
+R3271:3275 Corelib.Init.Wf <> Well_founded.FixPoint.FixPointGen.F_ext var
+prf 3304:3313 <> Fix_eq_gen
+R3326:3326 Corelib.Init.Wf <> Well_founded.A var
+binder 3324:3324 <> x:58
+R3334:3336 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3329:3331 Corelib.Init.Wf <> Fix def
+R3333:3333 Corelib.Init.Wf <> x:58 var
+R3337:3337 Corelib.Init.Wf <> Well_founded.FixPoint.F var
+R3347:3347 Corelib.Init.Wf <> Well_founded.A var
+binder 3345:3345 <> y:59
+R3353:3353 Corelib.Init.Wf <> Well_founded.R var
+R3357:3357 Corelib.Init.Wf <> x:58 var
+R3355:3355 Corelib.Init.Wf <> y:59 var
+binder 3351:3351 <> p:60
+R3363:3365 Corelib.Init.Wf <> Fix def
+R3367:3367 Corelib.Init.Wf <> y:59 var
+R3404:3406 Corelib.Init.Wf <> Fix def
+R3426:3433 Corelib.Init.Wf <> Fix_F_eq thm
+R3448:3452 Corelib.Init.Wf <> Well_founded.FixPoint.FixPointGen.F_ext var
+R3475:3487 Corelib.Init.Wf <> Fix_F_inv_gen thm
+R3505:3515 Corelib.Init.Wf Well_founded.FixPoint.FixPointGen <> sec
+var 3669:3673 Well_founded.FixPoint F_ext
+R3693:3693 Corelib.Init.Wf <> Well_founded.A var
+binder 3691:3691 <> x:61
+R3710:3710 Corelib.Init.Wf <> Well_founded.A var
+binder 3708:3708 <> y:62
+R3718:3721 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3713:3713 Corelib.Init.Wf <> Well_founded.R var
+R3717:3717 Corelib.Init.Wf <> x:61 var
+R3715:3715 Corelib.Init.Wf <> y:62 var
+R3722:3722 Corelib.Init.Wf <> Well_founded.FixPoint.P var
+R3724:3724 Corelib.Init.Wf <> y:62 var
+binder 3697:3697 <> f:63
+binder 3699:3699 <> g:64
+R3736:3736 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3774:3778 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3747:3747 Corelib.Init.Wf <> Well_founded.A var
+binder 3745:3745 <> y:65
+R3753:3753 Corelib.Init.Wf <> Well_founded.R var
+R3757:3757 Corelib.Init.Wf <> x:61 var
+R3755:3755 Corelib.Init.Wf <> y:65 var
+binder 3751:3751 <> p:66
+R3766:3768 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3761:3761 Corelib.Init.Wf <> f:63 var
+R3765:3765 Corelib.Init.Wf <> p:66 var
+R3763:3763 Corelib.Init.Wf <> y:65 var
+R3769:3769 Corelib.Init.Wf <> g:64 var
+R3773:3773 Corelib.Init.Wf <> p:66 var
+R3771:3771 Corelib.Init.Wf <> y:65 var
+R3782:3784 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3779:3779 Corelib.Init.Wf <> Well_founded.FixPoint.F var
+R3781:3781 Corelib.Init.Wf <> f:63 var
+R3785:3785 Corelib.Init.Wf <> Well_founded.FixPoint.F var
+R3787:3787 Corelib.Init.Wf <> g:64 var
+prf 3799:3807 <> Fix_F_inv
+R3821:3821 Corelib.Init.Wf <> Well_founded.A var
+binder 3819:3819 <> x:69
+R3829:3831 Corelib.Init.Wf <> Acc ind
+R3833:3833 Corelib.Init.Wf <> x:69 var
+binder 3825:3825 <> r:70
+binder 3827:3827 <> s:71
+R3844:3846 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3837:3841 Corelib.Init.Wf <> Fix_F def
+R3843:3843 Corelib.Init.Wf <> r:70 var
+R3847:3851 Corelib.Init.Wf <> Fix_F def
+R3853:3853 Corelib.Init.Wf <> s:71 var
+R3880:3892 Corelib.Init.Wf <> Fix_F_inv_gen thm
+prf 3911:3916 <> Fix_eq
+R3929:3929 Corelib.Init.Wf <> Well_founded.A var
+binder 3927:3927 <> x:72
+R3937:3939 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3932:3934 Corelib.Init.Wf <> Fix def
+R3936:3936 Corelib.Init.Wf <> x:72 var
+R3940:3940 Corelib.Init.Wf <> Well_founded.FixPoint.F var
+R3950:3950 Corelib.Init.Wf <> Well_founded.A var
+binder 3948:3948 <> y:73
+R3956:3956 Corelib.Init.Wf <> Well_founded.R var
+R3960:3960 Corelib.Init.Wf <> x:72 var
+R3958:3958 Corelib.Init.Wf <> y:73 var
+binder 3954:3954 <> p:74
+R3966:3968 Corelib.Init.Wf <> Fix def
+R3970:3970 Corelib.Init.Wf <> y:73 var
+R3998:4007 Corelib.Init.Wf <> Fix_eq_gen thm
+R4023:4030 Corelib.Init.Wf Well_founded.FixPoint <> sec
+R4038:4049 Corelib.Init.Wf Well_founded <> sec
+sec 4103:4116 <> Well_founded_2
+var 4132:4132 Well_founded_2 A
+var 4134:4134 Well_founded_2 B
+var 4155:4155 Well_founded_2 R
+R4164:4167 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4160:4162 Corelib.Init.Datatypes <> ::type_scope:x_'*'_x not
+R4159:4159 Corelib.Init.Wf <> Well_founded_2.A var
+R4163:4163 Corelib.Init.Wf <> Well_founded_2.B var
+R4173:4176 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4169:4171 Corelib.Init.Datatypes <> ::type_scope:x_'*'_x not
+R4168:4168 Corelib.Init.Wf <> Well_founded_2.A var
+R4172:4172 Corelib.Init.Wf <> Well_founded_2.B var
+var 4195:4195 Well_founded_2 P
+R4200:4203 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4199:4199 Corelib.Init.Wf <> Well_founded_2.A var
+R4205:4208 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4204:4204 Corelib.Init.Wf <> Well_founded_2.B var
+sec 4226:4235 Well_founded_2 FixPoint_2
+var 4254:4254 Well_founded_2.FixPoint_2 F
+R4274:4274 Corelib.Init.Wf <> Well_founded_2.A var
+binder 4272:4272 <> x:83
+R4281:4281 Corelib.Init.Wf <> Well_founded_2.B var
+binder 4278:4279 <> x':84
+R4293:4293 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4342:4346 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4304:4304 Corelib.Init.Wf <> Well_founded_2.A var
+binder 4302:4302 <> y:85
+R4311:4311 Corelib.Init.Wf <> Well_founded_2.B var
+binder 4308:4309 <> y':86
+R4332:4335 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4315:4315 Corelib.Init.Wf <> Well_founded_2.R var
+R4325:4325 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4327:4328 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4331:4331 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4326:4326 Corelib.Init.Wf <> x:83 var
+R4329:4330 Corelib.Init.Wf <> x':84 var
+R4317:4317 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4319:4320 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4323:4323 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4318:4318 Corelib.Init.Wf <> y:85 var
+R4321:4322 Corelib.Init.Wf <> y':86 var
+R4336:4336 Corelib.Init.Wf <> Well_founded_2.P var
+R4340:4341 Corelib.Init.Wf <> y':86 var
+R4338:4338 Corelib.Init.Wf <> y:85 var
+R4347:4347 Corelib.Init.Wf <> Well_founded_2.P var
+R4351:4352 Corelib.Init.Wf <> x':84 var
+R4349:4349 Corelib.Init.Wf <> x:83 var
+def 4367:4373 <> Fix_F_2
+R4378:4378 Corelib.Init.Wf <> Well_founded_2.A var
+binder 4376:4376 <> x:89
+R4385:4385 Corelib.Init.Wf <> Well_founded_2.B var
+binder 4382:4383 <> x':90
+R4391:4393 Corelib.Init.Wf <> Acc ind
+R4397:4397 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4399:4400 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4403:4403 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4398:4398 Corelib.Init.Wf <> x:89 var
+R4401:4402 Corelib.Init.Wf <> x':90 var
+R4395:4395 Corelib.Init.Wf <> Well_founded_2.R var
+binder 4389:4389 <> a:91
+R4408:4408 Corelib.Init.Wf <> Well_founded_2.P var
+R4412:4413 Corelib.Init.Wf <> x':90 var
+R4410:4410 Corelib.Init.Wf <> x:89 var
+R4422:4422 Corelib.Init.Wf <> Well_founded_2.FixPoint_2.F var
+R4438:4438 Corelib.Init.Wf <> Well_founded_2.A var
+binder 4436:4436 <> y:93
+R4445:4445 Corelib.Init.Wf <> Well_founded_2.B var
+binder 4442:4443 <> y':94
+R4451:4451 Corelib.Init.Wf <> Well_founded_2.R var
+R4461:4461 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4463:4464 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4467:4467 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4462:4462 Corelib.Init.Wf <> x:89 var
+R4465:4466 Corelib.Init.Wf <> x':90 var
+R4453:4453 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4455:4456 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4459:4459 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4454:4454 Corelib.Init.Wf <> y:93 var
+R4457:4458 Corelib.Init.Wf <> y':94 var
+binder 4449:4449 <> h:95
+R4482:4488 Corelib.Init.Wf <> Fix_F_2:92 def
+R4507:4513 Corelib.Init.Wf <> Acc_inv thm
+R4524:4524 Corelib.Init.Wf <> h:95 var
+R4517:4517 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4519:4519 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4522:4522 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4518:4518 Corelib.Init.Wf <> y:93 var
+R4520:4521 Corelib.Init.Wf <> y':94 var
+R4515:4515 Corelib.Init.Wf <> a:91 var
+R4502:4503 Corelib.Init.Wf <> y':94 var
+R4494:4494 Corelib.Init.Wf <> y:93 var
+R4536:4545 Corelib.Init.Wf Well_founded_2.FixPoint_2 <> sec
+var 4562:4564 Well_founded_2 Rwf
+R4568:4579 Corelib.Init.Wf <> well_founded def
+R4581:4581 Corelib.Init.Wf <> Well_founded_2.R var
+prf 4595:4623 <> well_founded_induction_type_2
+R4630:4630 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4718:4725 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4641:4641 Corelib.Init.Wf <> Well_founded_2.A var
+binder 4639:4639 <> x:98
+R4648:4648 Corelib.Init.Wf <> Well_founded_2.B var
+binder 4645:4646 <> x':99
+R4658:4658 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4707:4711 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4669:4669 Corelib.Init.Wf <> Well_founded_2.A var
+binder 4667:4667 <> y:100
+R4676:4676 Corelib.Init.Wf <> Well_founded_2.B var
+binder 4673:4674 <> y':101
+R4697:4700 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4680:4680 Corelib.Init.Wf <> Well_founded_2.R var
+R4690:4690 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4692:4693 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4696:4696 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4691:4691 Corelib.Init.Wf <> x:98 var
+R4694:4695 Corelib.Init.Wf <> x':99 var
+R4682:4682 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4684:4685 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4688:4688 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4683:4683 Corelib.Init.Wf <> y:100 var
+R4686:4687 Corelib.Init.Wf <> y':101 var
+R4701:4701 Corelib.Init.Wf <> Well_founded_2.P var
+R4705:4706 Corelib.Init.Wf <> y':101 var
+R4703:4703 Corelib.Init.Wf <> y:100 var
+R4712:4712 Corelib.Init.Wf <> Well_founded_2.P var
+R4716:4717 Corelib.Init.Wf <> x':99 var
+R4714:4714 Corelib.Init.Wf <> x:98 var
+R4736:4736 Corelib.Init.Wf <> Well_founded_2.A var
+binder 4734:4734 <> a:102
+R4742:4742 Corelib.Init.Wf <> Well_founded_2.B var
+binder 4740:4740 <> b:103
+R4746:4746 Corelib.Init.Wf <> Well_founded_2.P var
+R4750:4750 Corelib.Init.Wf <> b:103 var
+R4748:4748 Corelib.Init.Wf <> a:102 var
+R4779:4785 Corelib.Init.Wf <> Fix_F_2 def
+R4810:4823 Corelib.Init.Wf Well_founded_2 <> sec
+abbrev 4840:4847 <> Acc_iter
+R4854:4858 Corelib.Init.Wf <> Fix_F def
+abbrev 4911:4920 <> Acc_iter_2
+R4925:4931 Corelib.Init.Wf <> Fix_F_2 def
+sec 5144:5156 <> Acc_generator
+var 5170:5170 Acc_generator A
+var 5191:5191 Acc_generator R
+R5196:5199 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5195:5195 Corelib.Init.Wf <> Acc_generator.A var
+R5201:5204 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5200:5200 Corelib.Init.Wf <> Acc_generator.A var
+def 5394:5412 <> Acc_intro_generator
+binder 5414:5414 <> n:108
+R5422:5433 Corelib.Init.Wf <> well_founded def
+R5435:5435 Corelib.Init.Wf <> Acc_generator.R var
+binder 5417:5418 <> wf:109
+R5453:5453 Corelib.Init.Wf <> n:108 var
+R5471:5471 Corelib.Init.Datatypes <> O constr
+R5476:5477 Corelib.Init.Wf <> wf:109 var
+R5489:5489 Corelib.Init.Datatypes <> S constr
+binder 5500:5500 <> x:112
+R5505:5513 Corelib.Init.Wf <> Acc_intro constr
+binder 5522:5522 <> y:113
+R5529:5547 Corelib.Init.Wf <> Acc_intro_generator:110 def
+R5578:5578 Corelib.Init.Wf <> y:113 var
+R5552:5570 Corelib.Init.Wf <> Acc_intro_generator:110 def
+R5574:5575 Corelib.Init.Wf <> wf:109 var
+R5572:5572 Corelib.Init.Wf <> n:108 var
+R5549:5549 Corelib.Init.Wf <> n:108 var
+R5515:5515 Corelib.Init.Wf <> x:112 var
+R5596:5608 Corelib.Init.Wf Acc_generator <> sec

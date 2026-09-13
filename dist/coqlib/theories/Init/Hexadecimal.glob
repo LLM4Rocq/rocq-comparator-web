@@ -1,0 +1,573 @@
+DIGEST 0bb90f0af9b21febe6d8a97dee27c455
+FCorelib.Init.Hexadecimal
+R1026:1034 Corelib.Init.Datatypes <> <> lib
+R1036:1041 Corelib.Init.Specif <> <> lib
+R1043:1049 Corelib.Init.Decimal <> <> lib
+ind 1158:1161 <> uint
+constr 1169:1171 <> Nil
+constr 1176:1177 <> D0
+constr 1191:1192 <> D1
+constr 1206:1207 <> D2
+constr 1221:1222 <> D3
+constr 1236:1237 <> D4
+constr 1251:1252 <> D5
+constr 1266:1267 <> D6
+constr 1281:1282 <> D7
+constr 1296:1297 <> D8
+constr 1311:1312 <> D9
+constr 1326:1327 <> Da
+constr 1341:1342 <> Db
+constr 1356:1357 <> Dc
+constr 1371:1372 <> Dd
+constr 1386:1387 <> De
+constr 1401:1402 <> Df
+R1182:1185 Corelib.Init.Hexadecimal <> uint:1 ind
+R1197:1200 Corelib.Init.Hexadecimal <> uint:1 ind
+R1212:1215 Corelib.Init.Hexadecimal <> uint:1 ind
+R1227:1230 Corelib.Init.Hexadecimal <> uint:1 ind
+R1242:1245 Corelib.Init.Hexadecimal <> uint:1 ind
+R1257:1260 Corelib.Init.Hexadecimal <> uint:1 ind
+R1272:1275 Corelib.Init.Hexadecimal <> uint:1 ind
+R1287:1290 Corelib.Init.Hexadecimal <> uint:1 ind
+R1302:1305 Corelib.Init.Hexadecimal <> uint:1 ind
+R1317:1320 Corelib.Init.Hexadecimal <> uint:1 ind
+R1332:1335 Corelib.Init.Hexadecimal <> uint:1 ind
+R1347:1350 Corelib.Init.Hexadecimal <> uint:1 ind
+R1362:1365 Corelib.Init.Hexadecimal <> uint:1 ind
+R1377:1380 Corelib.Init.Hexadecimal <> uint:1 ind
+R1392:1395 Corelib.Init.Hexadecimal <> uint:1 ind
+R1407:1410 Corelib.Init.Hexadecimal <> uint:1 ind
+scheme 1158:1161 <> uint_rect
+scheme 1158:1161 <> uint_ind
+scheme 1158:1161 <> uint_rec
+scheme 1158:1161 <> uint_sind
+abbrev 1620:1623 <> zero
+R1629:1630 Corelib.Init.Hexadecimal <> D0 constr
+R1632:1634 Corelib.Init.Hexadecimal <> Nil constr
+ind 1717:1726 <> signed_int
+constr 1731:1733 <> Pos
+constr 1746:1748 <> Neg
+R1738:1741 Corelib.Init.Hexadecimal <> uint ind
+binder 1736:1736 <> d:5
+R1753:1756 Corelib.Init.Hexadecimal <> uint ind
+binder 1751:1751 <> d:6
+abbrev 1773:1775 <> int
+R1780:1789 Corelib.Init.Hexadecimal <> signed_int variant
+ind 2080:2090 <> hexadecimal
+constr 2098:2108 <> Hexadecimal
+constr 2130:2143 <> HexadecimalExp
+R2113:2115 Corelib.Init.Hexadecimal <> int abbrev
+binder 2111:2111 <> i:9
+R2121:2124 Corelib.Init.Hexadecimal <> uint ind
+binder 2119:2119 <> f:10
+R2148:2150 Corelib.Init.Hexadecimal <> int abbrev
+binder 2146:2146 <> i:11
+R2156:2159 Corelib.Init.Hexadecimal <> uint ind
+binder 2154:2154 <> f:12
+R2165:2175 Corelib.Init.Decimal <> int abbrev
+binder 2163:2163 <> e:13
+R2200:2203 Corelib.Init.Hexadecimal <> uint ind
+scheme 2180:2204 <> uint_eq_dec
+R2226:2228 Corelib.Init.Hexadecimal <> signed_int variant
+scheme 2206:2229 <> signed_int_eq_dec
+R2251:2261 Corelib.Init.Hexadecimal <> hexadecimal variant
+scheme 2231:2262 <> hexadecimal_eq_dec
+abbrev 2277:2286 <> int_eq_dec
+R2291:2307 Corelib.Init.Hexadecimal <> signed_int_eq_dec scheme
+abbrev 2323:2329 <> int_beq
+R2334:2347 Corelib.Init.Hexadecimal <> signed_int_beq scheme
+abbrev 2363:2381 <> internal_int_dec_lb
+R2386:2411 Corelib.Init.Decimal <> internal_signed_int_dec_lb scheme
+abbrev 2427:2445 <> internal_int_dec_bl
+R2450:2475 Corelib.Init.Decimal <> internal_signed_int_dec_bl scheme
+def 2834:2842 <> nb_digits
+binder 2844:2844 <> d:14
+R2857:2857 Corelib.Init.Hexadecimal <> d:14 var
+R2868:2870 Corelib.Init.Hexadecimal <> Nil constr
+R2875:2875 Corelib.Init.Datatypes <> O constr
+R2881:2882 Corelib.Init.Hexadecimal <> D0 constr
+R2888:2889 Corelib.Init.Hexadecimal <> D1 constr
+R2895:2896 Corelib.Init.Hexadecimal <> D2 constr
+R2902:2903 Corelib.Init.Hexadecimal <> D3 constr
+R2909:2910 Corelib.Init.Hexadecimal <> D4 constr
+R2916:2917 Corelib.Init.Hexadecimal <> D5 constr
+R2923:2924 Corelib.Init.Hexadecimal <> D6 constr
+R2930:2931 Corelib.Init.Hexadecimal <> D7 constr
+R2937:2938 Corelib.Init.Hexadecimal <> D8 constr
+R2944:2945 Corelib.Init.Hexadecimal <> D9 constr
+R2953:2954 Corelib.Init.Hexadecimal <> Da constr
+R2960:2961 Corelib.Init.Hexadecimal <> Db constr
+R2967:2968 Corelib.Init.Hexadecimal <> Dc constr
+R2974:2975 Corelib.Init.Hexadecimal <> Dd constr
+R2981:2982 Corelib.Init.Hexadecimal <> De constr
+R2988:2989 Corelib.Init.Hexadecimal <> Df constr
+R3000:3000 Corelib.Init.Datatypes <> S constr
+R3003:3011 Corelib.Init.Hexadecimal <> nb_digits:15 def
+R3013:3013 Corelib.Init.Hexadecimal <> d:14 var
+def 3336:3341 <> nzhead
+binder 3343:3343 <> d:17
+R3356:3356 Corelib.Init.Hexadecimal <> d:17 var
+R3367:3368 Corelib.Init.Hexadecimal <> D0 constr
+R3375:3380 Corelib.Init.Hexadecimal <> nzhead:18 def
+R3382:3382 Corelib.Init.Hexadecimal <> d:17 var
+R3393:3393 Corelib.Init.Hexadecimal <> d:17 var
+def 3467:3471 <> unorm
+binder 3473:3473 <> d:20
+R3486:3491 Corelib.Init.Hexadecimal <> nzhead def
+R3493:3493 Corelib.Init.Hexadecimal <> d:20 var
+R3504:3506 Corelib.Init.Hexadecimal <> Nil constr
+R3511:3514 Corelib.Init.Hexadecimal <> zero abbrev
+R3525:3525 Corelib.Init.Hexadecimal <> d:20 var
+def 3596:3599 <> norm
+binder 3601:3601 <> d:21
+R3614:3614 Corelib.Init.Hexadecimal <> d:21 var
+R3625:3627 Corelib.Init.Hexadecimal <> Pos constr
+R3634:3636 Corelib.Init.Hexadecimal <> Pos constr
+R3639:3643 Corelib.Init.Hexadecimal <> unorm def
+R3645:3645 Corelib.Init.Hexadecimal <> d:21 var
+R3652:3654 Corelib.Init.Hexadecimal <> Neg constr
+R3671:3676 Corelib.Init.Hexadecimal <> nzhead def
+R3678:3678 Corelib.Init.Hexadecimal <> d:21 var
+R3691:3693 Corelib.Init.Hexadecimal <> Nil constr
+R3698:3700 Corelib.Init.Hexadecimal <> Pos constr
+R3702:3705 Corelib.Init.Hexadecimal <> zero abbrev
+R3718:3720 Corelib.Init.Hexadecimal <> Neg constr
+R3722:3722 Corelib.Init.Hexadecimal <> d:21 var
+def 3909:3911 <> opp
+R3916:3918 Corelib.Init.Hexadecimal <> int abbrev
+binder 3914:3914 <> d:23
+R3932:3932 Corelib.Init.Hexadecimal <> d:23 var
+R3943:3945 Corelib.Init.Hexadecimal <> Pos constr
+R3952:3954 Corelib.Init.Hexadecimal <> Neg constr
+R3956:3956 Corelib.Init.Hexadecimal <> d:23 var
+R3962:3964 Corelib.Init.Hexadecimal <> Neg constr
+R3971:3973 Corelib.Init.Hexadecimal <> Pos constr
+R3975:3975 Corelib.Init.Hexadecimal <> d:23 var
+def 3996:3998 <> abs
+R4003:4005 Corelib.Init.Hexadecimal <> int abbrev
+binder 4001:4001 <> d:25
+R4010:4013 Corelib.Init.Hexadecimal <> uint ind
+R4026:4026 Corelib.Init.Hexadecimal <> d:25 var
+R4037:4039 Corelib.Init.Hexadecimal <> Pos constr
+R4046:4046 Corelib.Init.Hexadecimal <> d:25 var
+R4052:4054 Corelib.Init.Hexadecimal <> Neg constr
+R4061:4061 Corelib.Init.Hexadecimal <> d:25 var
+def 4179:4184 <> revapp
+R4194:4197 Corelib.Init.Hexadecimal <> uint ind
+binder 4187:4187 <> d:27
+binder 4189:4190 <> d':28
+R4211:4211 Corelib.Init.Hexadecimal <> d:27 var
+R4222:4224 Corelib.Init.Hexadecimal <> Nil constr
+R4229:4230 Corelib.Init.Hexadecimal <> d':28 var
+R4236:4237 Corelib.Init.Hexadecimal <> D0 constr
+R4244:4249 Corelib.Init.Hexadecimal <> revapp:29 def
+R4254:4255 Corelib.Init.Hexadecimal <> D0 constr
+R4257:4258 Corelib.Init.Hexadecimal <> d':28 var
+R4251:4251 Corelib.Init.Hexadecimal <> d:27 var
+R4265:4266 Corelib.Init.Hexadecimal <> D1 constr
+R4273:4278 Corelib.Init.Hexadecimal <> revapp:29 def
+R4283:4284 Corelib.Init.Hexadecimal <> D1 constr
+R4286:4287 Corelib.Init.Hexadecimal <> d':28 var
+R4280:4280 Corelib.Init.Hexadecimal <> d:27 var
+R4294:4295 Corelib.Init.Hexadecimal <> D2 constr
+R4302:4307 Corelib.Init.Hexadecimal <> revapp:29 def
+R4312:4313 Corelib.Init.Hexadecimal <> D2 constr
+R4315:4316 Corelib.Init.Hexadecimal <> d':28 var
+R4309:4309 Corelib.Init.Hexadecimal <> d:27 var
+R4323:4324 Corelib.Init.Hexadecimal <> D3 constr
+R4331:4336 Corelib.Init.Hexadecimal <> revapp:29 def
+R4341:4342 Corelib.Init.Hexadecimal <> D3 constr
+R4344:4345 Corelib.Init.Hexadecimal <> d':28 var
+R4338:4338 Corelib.Init.Hexadecimal <> d:27 var
+R4352:4353 Corelib.Init.Hexadecimal <> D4 constr
+R4360:4365 Corelib.Init.Hexadecimal <> revapp:29 def
+R4370:4371 Corelib.Init.Hexadecimal <> D4 constr
+R4373:4374 Corelib.Init.Hexadecimal <> d':28 var
+R4367:4367 Corelib.Init.Hexadecimal <> d:27 var
+R4381:4382 Corelib.Init.Hexadecimal <> D5 constr
+R4389:4394 Corelib.Init.Hexadecimal <> revapp:29 def
+R4399:4400 Corelib.Init.Hexadecimal <> D5 constr
+R4402:4403 Corelib.Init.Hexadecimal <> d':28 var
+R4396:4396 Corelib.Init.Hexadecimal <> d:27 var
+R4410:4411 Corelib.Init.Hexadecimal <> D6 constr
+R4418:4423 Corelib.Init.Hexadecimal <> revapp:29 def
+R4428:4429 Corelib.Init.Hexadecimal <> D6 constr
+R4431:4432 Corelib.Init.Hexadecimal <> d':28 var
+R4425:4425 Corelib.Init.Hexadecimal <> d:27 var
+R4439:4440 Corelib.Init.Hexadecimal <> D7 constr
+R4447:4452 Corelib.Init.Hexadecimal <> revapp:29 def
+R4457:4458 Corelib.Init.Hexadecimal <> D7 constr
+R4460:4461 Corelib.Init.Hexadecimal <> d':28 var
+R4454:4454 Corelib.Init.Hexadecimal <> d:27 var
+R4468:4469 Corelib.Init.Hexadecimal <> D8 constr
+R4476:4481 Corelib.Init.Hexadecimal <> revapp:29 def
+R4486:4487 Corelib.Init.Hexadecimal <> D8 constr
+R4489:4490 Corelib.Init.Hexadecimal <> d':28 var
+R4483:4483 Corelib.Init.Hexadecimal <> d:27 var
+R4497:4498 Corelib.Init.Hexadecimal <> D9 constr
+R4505:4510 Corelib.Init.Hexadecimal <> revapp:29 def
+R4515:4516 Corelib.Init.Hexadecimal <> D9 constr
+R4518:4519 Corelib.Init.Hexadecimal <> d':28 var
+R4512:4512 Corelib.Init.Hexadecimal <> d:27 var
+R4526:4527 Corelib.Init.Hexadecimal <> Da constr
+R4534:4539 Corelib.Init.Hexadecimal <> revapp:29 def
+R4544:4545 Corelib.Init.Hexadecimal <> Da constr
+R4547:4548 Corelib.Init.Hexadecimal <> d':28 var
+R4541:4541 Corelib.Init.Hexadecimal <> d:27 var
+R4555:4556 Corelib.Init.Hexadecimal <> Db constr
+R4563:4568 Corelib.Init.Hexadecimal <> revapp:29 def
+R4573:4574 Corelib.Init.Hexadecimal <> Db constr
+R4576:4577 Corelib.Init.Hexadecimal <> d':28 var
+R4570:4570 Corelib.Init.Hexadecimal <> d:27 var
+R4584:4585 Corelib.Init.Hexadecimal <> Dc constr
+R4592:4597 Corelib.Init.Hexadecimal <> revapp:29 def
+R4602:4603 Corelib.Init.Hexadecimal <> Dc constr
+R4605:4606 Corelib.Init.Hexadecimal <> d':28 var
+R4599:4599 Corelib.Init.Hexadecimal <> d:27 var
+R4613:4614 Corelib.Init.Hexadecimal <> Dd constr
+R4621:4626 Corelib.Init.Hexadecimal <> revapp:29 def
+R4631:4632 Corelib.Init.Hexadecimal <> Dd constr
+R4634:4635 Corelib.Init.Hexadecimal <> d':28 var
+R4628:4628 Corelib.Init.Hexadecimal <> d:27 var
+R4642:4643 Corelib.Init.Hexadecimal <> De constr
+R4650:4655 Corelib.Init.Hexadecimal <> revapp:29 def
+R4660:4661 Corelib.Init.Hexadecimal <> De constr
+R4663:4664 Corelib.Init.Hexadecimal <> d':28 var
+R4657:4657 Corelib.Init.Hexadecimal <> d:27 var
+R4671:4672 Corelib.Init.Hexadecimal <> Df constr
+R4679:4684 Corelib.Init.Hexadecimal <> revapp:29 def
+R4689:4690 Corelib.Init.Hexadecimal <> Df constr
+R4692:4693 Corelib.Init.Hexadecimal <> d':28 var
+R4686:4686 Corelib.Init.Hexadecimal <> d:27 var
+def 4715:4717 <> rev
+binder 4719:4719 <> d:31
+R4724:4729 Corelib.Init.Hexadecimal <> revapp def
+R4731:4731 Corelib.Init.Hexadecimal <> d:31 var
+R4733:4735 Corelib.Init.Hexadecimal <> Nil constr
+def 4750:4752 <> app
+binder 4754:4754 <> d:32
+binder 4756:4757 <> d':33
+R4762:4767 Corelib.Init.Hexadecimal <> revapp def
+R4770:4772 Corelib.Init.Hexadecimal <> rev def
+R4774:4774 Corelib.Init.Hexadecimal <> d:32 var
+R4777:4778 Corelib.Init.Hexadecimal <> d':33 var
+def 4793:4799 <> app_int
+binder 4801:4802 <> d1:34
+binder 4804:4805 <> d2:35
+R4818:4819 Corelib.Init.Hexadecimal <> d1:34 var
+R4826:4828 Corelib.Init.Hexadecimal <> Pos constr
+R4836:4838 Corelib.Init.Hexadecimal <> Pos constr
+R4841:4843 Corelib.Init.Hexadecimal <> app def
+R4845:4846 Corelib.Init.Hexadecimal <> d1:34 var
+R4848:4849 Corelib.Init.Hexadecimal <> d2:35 var
+R4854:4856 Corelib.Init.Hexadecimal <> Neg constr
+R4864:4866 Corelib.Init.Hexadecimal <> Neg constr
+R4869:4871 Corelib.Init.Hexadecimal <> app def
+R4873:4874 Corelib.Init.Hexadecimal <> d1:34 var
+R4876:4877 Corelib.Init.Hexadecimal <> d2:35 var
+def 5012:5017 <> nztail
+binder 5019:5019 <> d:37
+binder 5038:5042 <> d_rev:38
+R5057:5061 Corelib.Init.Hexadecimal <> d_rev:38 var
+R5074:5075 Corelib.Init.Hexadecimal <> D0 constr
+R5100:5102 Corelib.Init.Hexadecimal <> aux:39 var
+R5104:5108 Corelib.Init.Hexadecimal <> d_rev:38 var
+binder 5091:5091 <> r:41
+binder 5094:5094 <> n:42
+R5113:5116 Corelib.Init.Datatypes <> pair constr
+R5121:5121 Corelib.Init.Datatypes <> S constr
+R5123:5123 Corelib.Init.Hexadecimal <> n:42 var
+R5118:5118 Corelib.Init.Hexadecimal <> r:41 var
+R5137:5140 Corelib.Init.Datatypes <> pair constr
+R5148:5148 Corelib.Init.Datatypes <> O constr
+R5142:5146 Corelib.Init.Hexadecimal <> d_rev:38 var
+binder 5034:5036 <> aux:43
+R5177:5179 Corelib.Init.Hexadecimal <> aux:43 var
+R5182:5184 Corelib.Init.Hexadecimal <> rev def
+R5186:5186 Corelib.Init.Hexadecimal <> d:37 var
+binder 5168:5168 <> r:44
+binder 5171:5171 <> n:45
+R5192:5195 Corelib.Init.Datatypes <> pair constr
+R5205:5205 Corelib.Init.Hexadecimal <> n:45 var
+R5198:5200 Corelib.Init.Hexadecimal <> rev def
+R5202:5202 Corelib.Init.Hexadecimal <> r:44 var
+def 5220:5229 <> nztail_int
+binder 5231:5231 <> d:46
+R5244:5244 Corelib.Init.Hexadecimal <> d:46 var
+R5255:5257 Corelib.Init.Hexadecimal <> Pos constr
+R5278:5283 Corelib.Init.Hexadecimal <> nztail def
+R5285:5285 Corelib.Init.Hexadecimal <> d:46 var
+binder 5269:5269 <> r:48
+binder 5272:5272 <> n:49
+R5290:5293 Corelib.Init.Datatypes <> pair constr
+R5303:5303 Corelib.Init.Hexadecimal <> n:49 var
+R5296:5298 Corelib.Init.Hexadecimal <> Pos constr
+R5300:5300 Corelib.Init.Hexadecimal <> r:48 var
+R5309:5311 Corelib.Init.Hexadecimal <> Neg constr
+R5332:5337 Corelib.Init.Hexadecimal <> nztail def
+R5339:5339 Corelib.Init.Hexadecimal <> d:46 var
+binder 5323:5323 <> r:50
+binder 5326:5326 <> n:51
+R5344:5347 Corelib.Init.Datatypes <> pair constr
+R5357:5357 Corelib.Init.Hexadecimal <> n:51 var
+R5350:5352 Corelib.Init.Hexadecimal <> Neg constr
+R5354:5354 Corelib.Init.Hexadecimal <> r:50 var
+def 5493:5500 <> del_head
+binder 5502:5502 <> n:52
+binder 5504:5504 <> d:53
+R5517:5517 Corelib.Init.Hexadecimal <> n:52 var
+R5528:5528 Corelib.Init.Datatypes <> O constr
+R5533:5533 Corelib.Init.Hexadecimal <> d:53 var
+R5539:5539 Corelib.Init.Datatypes <> S constr
+R5556:5556 Corelib.Init.Hexadecimal <> d:53 var
+R5569:5571 Corelib.Init.Hexadecimal <> Nil constr
+R5576:5579 Corelib.Init.Hexadecimal <> zero abbrev
+R5587:5588 Corelib.Init.Hexadecimal <> D0 constr
+R5594:5595 Corelib.Init.Hexadecimal <> D1 constr
+R5601:5602 Corelib.Init.Hexadecimal <> D2 constr
+R5608:5609 Corelib.Init.Hexadecimal <> D3 constr
+R5615:5616 Corelib.Init.Hexadecimal <> D4 constr
+R5622:5623 Corelib.Init.Hexadecimal <> D5 constr
+R5629:5630 Corelib.Init.Hexadecimal <> D6 constr
+R5636:5637 Corelib.Init.Hexadecimal <> D7 constr
+R5643:5644 Corelib.Init.Hexadecimal <> D8 constr
+R5650:5651 Corelib.Init.Hexadecimal <> D9 constr
+R5661:5662 Corelib.Init.Hexadecimal <> Da constr
+R5668:5669 Corelib.Init.Hexadecimal <> Db constr
+R5675:5676 Corelib.Init.Hexadecimal <> Dc constr
+R5682:5683 Corelib.Init.Hexadecimal <> Dd constr
+R5689:5690 Corelib.Init.Hexadecimal <> De constr
+R5696:5697 Corelib.Init.Hexadecimal <> Df constr
+R5710:5717 Corelib.Init.Hexadecimal <> del_head:54 def
+R5721:5721 Corelib.Init.Hexadecimal <> d:53 var
+R5719:5719 Corelib.Init.Hexadecimal <> n:52 var
+def 5750:5761 <> del_head_int
+binder 5763:5763 <> n:57
+binder 5765:5765 <> d:58
+R5778:5778 Corelib.Init.Hexadecimal <> d:58 var
+R5789:5791 Corelib.Init.Hexadecimal <> Pos constr
+R5798:5805 Corelib.Init.Hexadecimal <> del_head def
+R5807:5807 Corelib.Init.Hexadecimal <> n:57 var
+R5809:5809 Corelib.Init.Hexadecimal <> d:58 var
+R5815:5817 Corelib.Init.Hexadecimal <> Neg constr
+R5824:5831 Corelib.Init.Hexadecimal <> del_head def
+R5833:5833 Corelib.Init.Hexadecimal <> n:57 var
+R5835:5835 Corelib.Init.Hexadecimal <> d:58 var
+def 5967:5974 <> del_tail
+binder 5976:5976 <> n:60
+binder 5978:5978 <> d:61
+R5983:5985 Corelib.Init.Hexadecimal <> rev def
+R5988:5995 Corelib.Init.Hexadecimal <> del_head def
+R5997:5997 Corelib.Init.Hexadecimal <> n:60 var
+R6000:6002 Corelib.Init.Hexadecimal <> rev def
+R6004:6004 Corelib.Init.Hexadecimal <> d:61 var
+def 6021:6032 <> del_tail_int
+binder 6034:6034 <> n:62
+binder 6036:6036 <> d:63
+R6049:6049 Corelib.Init.Hexadecimal <> d:63 var
+R6060:6062 Corelib.Init.Hexadecimal <> Pos constr
+R6069:6071 Corelib.Init.Hexadecimal <> Pos constr
+R6074:6081 Corelib.Init.Hexadecimal <> del_tail def
+R6083:6083 Corelib.Init.Hexadecimal <> n:62 var
+R6085:6085 Corelib.Init.Hexadecimal <> d:63 var
+R6092:6094 Corelib.Init.Hexadecimal <> Neg constr
+R6101:6103 Corelib.Init.Hexadecimal <> Neg constr
+R6106:6113 Corelib.Init.Hexadecimal <> del_tail def
+R6115:6115 Corelib.Init.Hexadecimal <> n:62 var
+R6117:6117 Corelib.Init.Hexadecimal <> d:63 var
+mod 6135:6140 <> Little
+def 6196:6199 Little succ
+binder 6201:6201 <> d:65
+R6214:6214 Corelib.Init.Hexadecimal <> d:65 var
+R6225:6227 Corelib.Init.Hexadecimal <> Nil constr
+R6232:6233 Corelib.Init.Hexadecimal <> D1 constr
+R6235:6237 Corelib.Init.Hexadecimal <> Nil constr
+R6243:6244 Corelib.Init.Hexadecimal <> D0 constr
+R6251:6252 Corelib.Init.Hexadecimal <> D1 constr
+R6254:6254 Corelib.Init.Hexadecimal <> d:65 var
+R6260:6261 Corelib.Init.Hexadecimal <> D1 constr
+R6268:6269 Corelib.Init.Hexadecimal <> D2 constr
+R6271:6271 Corelib.Init.Hexadecimal <> d:65 var
+R6277:6278 Corelib.Init.Hexadecimal <> D2 constr
+R6285:6286 Corelib.Init.Hexadecimal <> D3 constr
+R6288:6288 Corelib.Init.Hexadecimal <> d:65 var
+R6294:6295 Corelib.Init.Hexadecimal <> D3 constr
+R6302:6303 Corelib.Init.Hexadecimal <> D4 constr
+R6305:6305 Corelib.Init.Hexadecimal <> d:65 var
+R6311:6312 Corelib.Init.Hexadecimal <> D4 constr
+R6319:6320 Corelib.Init.Hexadecimal <> D5 constr
+R6322:6322 Corelib.Init.Hexadecimal <> d:65 var
+R6328:6329 Corelib.Init.Hexadecimal <> D5 constr
+R6336:6337 Corelib.Init.Hexadecimal <> D6 constr
+R6339:6339 Corelib.Init.Hexadecimal <> d:65 var
+R6345:6346 Corelib.Init.Hexadecimal <> D6 constr
+R6353:6354 Corelib.Init.Hexadecimal <> D7 constr
+R6356:6356 Corelib.Init.Hexadecimal <> d:65 var
+R6362:6363 Corelib.Init.Hexadecimal <> D7 constr
+R6370:6371 Corelib.Init.Hexadecimal <> D8 constr
+R6373:6373 Corelib.Init.Hexadecimal <> d:65 var
+R6379:6380 Corelib.Init.Hexadecimal <> D8 constr
+R6387:6388 Corelib.Init.Hexadecimal <> D9 constr
+R6390:6390 Corelib.Init.Hexadecimal <> d:65 var
+R6396:6397 Corelib.Init.Hexadecimal <> D9 constr
+R6404:6405 Corelib.Init.Hexadecimal <> Da constr
+R6407:6407 Corelib.Init.Hexadecimal <> d:65 var
+R6413:6414 Corelib.Init.Hexadecimal <> Da constr
+R6421:6422 Corelib.Init.Hexadecimal <> Db constr
+R6424:6424 Corelib.Init.Hexadecimal <> d:65 var
+R6430:6431 Corelib.Init.Hexadecimal <> Db constr
+R6438:6439 Corelib.Init.Hexadecimal <> Dc constr
+R6441:6441 Corelib.Init.Hexadecimal <> d:65 var
+R6447:6448 Corelib.Init.Hexadecimal <> Dc constr
+R6455:6456 Corelib.Init.Hexadecimal <> Dd constr
+R6458:6458 Corelib.Init.Hexadecimal <> d:65 var
+R6464:6465 Corelib.Init.Hexadecimal <> Dd constr
+R6472:6473 Corelib.Init.Hexadecimal <> De constr
+R6475:6475 Corelib.Init.Hexadecimal <> d:65 var
+R6481:6482 Corelib.Init.Hexadecimal <> De constr
+R6489:6490 Corelib.Init.Hexadecimal <> Df constr
+R6492:6492 Corelib.Init.Hexadecimal <> d:65 var
+R6498:6499 Corelib.Init.Hexadecimal <> Df constr
+R6506:6507 Corelib.Init.Hexadecimal <> D0 constr
+R6510:6513 Corelib.Init.Hexadecimal <> succ:66 def
+R6515:6515 Corelib.Init.Hexadecimal <> d:65 var
+def 6574:6579 Little double
+def 7084:7094 Little succ_double
+binder 6581:6581 <> d:68
+binder 7096:7096 <> d:69
+R6594:6594 Corelib.Init.Hexadecimal <> d:68 var
+R6605:6607 Corelib.Init.Hexadecimal <> Nil constr
+R6612:6614 Corelib.Init.Hexadecimal <> Nil constr
+R6620:6621 Corelib.Init.Hexadecimal <> D0 constr
+R6628:6629 Corelib.Init.Hexadecimal <> D0 constr
+R6632:6637 Corelib.Init.Hexadecimal <> double:70 def
+R6639:6639 Corelib.Init.Hexadecimal <> d:68 var
+R6646:6647 Corelib.Init.Hexadecimal <> D1 constr
+R6654:6655 Corelib.Init.Hexadecimal <> D2 constr
+R6658:6663 Corelib.Init.Hexadecimal <> double:70 def
+R6665:6665 Corelib.Init.Hexadecimal <> d:68 var
+R6672:6673 Corelib.Init.Hexadecimal <> D2 constr
+R6680:6681 Corelib.Init.Hexadecimal <> D4 constr
+R6684:6689 Corelib.Init.Hexadecimal <> double:70 def
+R6691:6691 Corelib.Init.Hexadecimal <> d:68 var
+R6698:6699 Corelib.Init.Hexadecimal <> D3 constr
+R6706:6707 Corelib.Init.Hexadecimal <> D6 constr
+R6710:6715 Corelib.Init.Hexadecimal <> double:70 def
+R6717:6717 Corelib.Init.Hexadecimal <> d:68 var
+R6724:6725 Corelib.Init.Hexadecimal <> D4 constr
+R6732:6733 Corelib.Init.Hexadecimal <> D8 constr
+R6736:6741 Corelib.Init.Hexadecimal <> double:70 def
+R6743:6743 Corelib.Init.Hexadecimal <> d:68 var
+R6750:6751 Corelib.Init.Hexadecimal <> D5 constr
+R6758:6759 Corelib.Init.Hexadecimal <> Da constr
+R6762:6767 Corelib.Init.Hexadecimal <> double:70 def
+R6769:6769 Corelib.Init.Hexadecimal <> d:68 var
+R6776:6777 Corelib.Init.Hexadecimal <> D6 constr
+R6784:6785 Corelib.Init.Hexadecimal <> Dc constr
+R6788:6793 Corelib.Init.Hexadecimal <> double:70 def
+R6795:6795 Corelib.Init.Hexadecimal <> d:68 var
+R6802:6803 Corelib.Init.Hexadecimal <> D7 constr
+R6810:6811 Corelib.Init.Hexadecimal <> De constr
+R6814:6819 Corelib.Init.Hexadecimal <> double:70 def
+R6821:6821 Corelib.Init.Hexadecimal <> d:68 var
+R6828:6829 Corelib.Init.Hexadecimal <> D8 constr
+R6836:6837 Corelib.Init.Hexadecimal <> D0 constr
+R6840:6850 Corelib.Init.Hexadecimal <> succ_double:71 def
+R6852:6852 Corelib.Init.Hexadecimal <> d:68 var
+R6859:6860 Corelib.Init.Hexadecimal <> D9 constr
+R6867:6868 Corelib.Init.Hexadecimal <> D2 constr
+R6871:6881 Corelib.Init.Hexadecimal <> succ_double:71 def
+R6883:6883 Corelib.Init.Hexadecimal <> d:68 var
+R6890:6891 Corelib.Init.Hexadecimal <> Da constr
+R6898:6899 Corelib.Init.Hexadecimal <> D4 constr
+R6902:6912 Corelib.Init.Hexadecimal <> succ_double:71 def
+R6914:6914 Corelib.Init.Hexadecimal <> d:68 var
+R6921:6922 Corelib.Init.Hexadecimal <> Db constr
+R6929:6930 Corelib.Init.Hexadecimal <> D6 constr
+R6933:6943 Corelib.Init.Hexadecimal <> succ_double:71 def
+R6945:6945 Corelib.Init.Hexadecimal <> d:68 var
+R6952:6953 Corelib.Init.Hexadecimal <> Dc constr
+R6960:6961 Corelib.Init.Hexadecimal <> D8 constr
+R6964:6974 Corelib.Init.Hexadecimal <> succ_double:71 def
+R6976:6976 Corelib.Init.Hexadecimal <> d:68 var
+R6983:6984 Corelib.Init.Hexadecimal <> Dd constr
+R6991:6992 Corelib.Init.Hexadecimal <> Da constr
+R6995:7005 Corelib.Init.Hexadecimal <> succ_double:71 def
+R7007:7007 Corelib.Init.Hexadecimal <> d:68 var
+R7014:7015 Corelib.Init.Hexadecimal <> De constr
+R7022:7023 Corelib.Init.Hexadecimal <> Dc constr
+R7026:7036 Corelib.Init.Hexadecimal <> succ_double:71 def
+R7038:7038 Corelib.Init.Hexadecimal <> d:68 var
+R7045:7046 Corelib.Init.Hexadecimal <> Df constr
+R7053:7054 Corelib.Init.Hexadecimal <> De constr
+R7057:7067 Corelib.Init.Hexadecimal <> succ_double:71 def
+R7069:7069 Corelib.Init.Hexadecimal <> d:68 var
+R7109:7109 Corelib.Init.Hexadecimal <> d:69 var
+R7120:7122 Corelib.Init.Hexadecimal <> Nil constr
+R7127:7128 Corelib.Init.Hexadecimal <> D1 constr
+R7130:7132 Corelib.Init.Hexadecimal <> Nil constr
+R7138:7139 Corelib.Init.Hexadecimal <> D0 constr
+R7146:7147 Corelib.Init.Hexadecimal <> D1 constr
+R7150:7155 Corelib.Init.Hexadecimal <> double:70 def
+R7157:7157 Corelib.Init.Hexadecimal <> d:69 var
+R7164:7165 Corelib.Init.Hexadecimal <> D1 constr
+R7172:7173 Corelib.Init.Hexadecimal <> D3 constr
+R7176:7181 Corelib.Init.Hexadecimal <> double:70 def
+R7183:7183 Corelib.Init.Hexadecimal <> d:69 var
+R7190:7191 Corelib.Init.Hexadecimal <> D2 constr
+R7198:7199 Corelib.Init.Hexadecimal <> D5 constr
+R7202:7207 Corelib.Init.Hexadecimal <> double:70 def
+R7209:7209 Corelib.Init.Hexadecimal <> d:69 var
+R7216:7217 Corelib.Init.Hexadecimal <> D3 constr
+R7224:7225 Corelib.Init.Hexadecimal <> D7 constr
+R7228:7233 Corelib.Init.Hexadecimal <> double:70 def
+R7235:7235 Corelib.Init.Hexadecimal <> d:69 var
+R7242:7243 Corelib.Init.Hexadecimal <> D4 constr
+R7250:7251 Corelib.Init.Hexadecimal <> D9 constr
+R7254:7259 Corelib.Init.Hexadecimal <> double:70 def
+R7261:7261 Corelib.Init.Hexadecimal <> d:69 var
+R7268:7269 Corelib.Init.Hexadecimal <> D5 constr
+R7276:7277 Corelib.Init.Hexadecimal <> Db constr
+R7280:7285 Corelib.Init.Hexadecimal <> double:70 def
+R7287:7287 Corelib.Init.Hexadecimal <> d:69 var
+R7294:7295 Corelib.Init.Hexadecimal <> D6 constr
+R7302:7303 Corelib.Init.Hexadecimal <> Dd constr
+R7306:7311 Corelib.Init.Hexadecimal <> double:70 def
+R7313:7313 Corelib.Init.Hexadecimal <> d:69 var
+R7320:7321 Corelib.Init.Hexadecimal <> D7 constr
+R7328:7329 Corelib.Init.Hexadecimal <> Df constr
+R7332:7337 Corelib.Init.Hexadecimal <> double:70 def
+R7339:7339 Corelib.Init.Hexadecimal <> d:69 var
+R7346:7347 Corelib.Init.Hexadecimal <> D8 constr
+R7354:7355 Corelib.Init.Hexadecimal <> D1 constr
+R7358:7368 Corelib.Init.Hexadecimal <> succ_double:71 def
+R7370:7370 Corelib.Init.Hexadecimal <> d:69 var
+R7377:7378 Corelib.Init.Hexadecimal <> D9 constr
+R7385:7386 Corelib.Init.Hexadecimal <> D3 constr
+R7389:7399 Corelib.Init.Hexadecimal <> succ_double:71 def
+R7401:7401 Corelib.Init.Hexadecimal <> d:69 var
+R7408:7409 Corelib.Init.Hexadecimal <> Da constr
+R7416:7417 Corelib.Init.Hexadecimal <> D5 constr
+R7420:7430 Corelib.Init.Hexadecimal <> succ_double:71 def
+R7432:7432 Corelib.Init.Hexadecimal <> d:69 var
+R7439:7440 Corelib.Init.Hexadecimal <> Db constr
+R7447:7448 Corelib.Init.Hexadecimal <> D7 constr
+R7451:7461 Corelib.Init.Hexadecimal <> succ_double:71 def
+R7463:7463 Corelib.Init.Hexadecimal <> d:69 var
+R7470:7471 Corelib.Init.Hexadecimal <> Dc constr
+R7478:7479 Corelib.Init.Hexadecimal <> D9 constr
+R7482:7492 Corelib.Init.Hexadecimal <> succ_double:71 def
+R7494:7494 Corelib.Init.Hexadecimal <> d:69 var
+R7501:7502 Corelib.Init.Hexadecimal <> Dd constr
+R7509:7510 Corelib.Init.Hexadecimal <> Db constr
+R7513:7523 Corelib.Init.Hexadecimal <> succ_double:71 def
+R7525:7525 Corelib.Init.Hexadecimal <> d:69 var
+R7532:7533 Corelib.Init.Hexadecimal <> De constr
+R7540:7541 Corelib.Init.Hexadecimal <> Dd constr
+R7544:7554 Corelib.Init.Hexadecimal <> succ_double:71 def
+R7556:7556 Corelib.Init.Hexadecimal <> d:69 var
+R7563:7564 Corelib.Init.Hexadecimal <> Df constr
+R7571:7572 Corelib.Init.Hexadecimal <> Df constr
+R7575:7585 Corelib.Init.Hexadecimal <> succ_double:71 def
+R7587:7587 Corelib.Init.Hexadecimal <> d:69 var
+R7602:7607 Corelib.Init.Hexadecimal Little <> mod

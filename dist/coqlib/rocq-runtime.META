@@ -1,0 +1,336 @@
+package "boot" (
+  directory = "boot"
+  version = "dev"
+  description = "Rocq Enviroment and Paths facilities"
+  requires = "rocq-runtime.clib rocq-runtime.config"
+)
+package "checklib" (
+  directory = "checklib"
+  version = "dev"
+  description = "Rocq's Standalone Proof Checker"
+  requires = "rocq-runtime.boot rocq-runtime.kernel"
+)
+package "clib" (
+  directory = "clib"
+  version = "dev"
+  description = "Coq's Utility Library [general purpose]"
+  requires = "memprof-limits str threads unix"
+)
+package "config" (
+  directory = "config"
+  version = "dev"
+  description = "Rocq Configuration Variables"
+  requires = ""
+  package "byte" (
+    directory = "byte"
+    version = "dev"
+    description = "Rocq Configuration Variables (for bytecode only)"
+    requires = "compiler-libs.toplevel"
+  )
+)
+package "coqargs" (
+  directory = "coqargs"
+  version = "dev"
+  description = "Rocq command line argument parsing"
+  requires = "rocq-runtime.boot rocq-runtime.clib rocq-runtime.config"
+)
+package "coqdeplib" (
+  directory = "coqdeplib"
+  version = "dev"
+  description = ""
+  requires = "findlib.internal rocq-runtime.boot rocq-runtime.lib"
+)
+package "coqworkmgrapi" (
+  directory = "coqworkmgrapi"
+  version = "dev"
+  description = ""
+  requires = "str unix"
+)
+package "debugger_support" (
+  directory = "debugger_support"
+  version = "dev"
+  description = "Rocq Support for ocamldebug"
+  requires = "rocq-runtime.dev"
+)
+package "dev" (
+  directory = "dev"
+  version = "dev"
+  description = "Rocq's Debug Printers"
+  requires =
+  "rocq-runtime.plugins.ltac rocq-runtime.plugins.ltac2 rocq-runtime.vernac"
+)
+package "engine" (
+  directory = "engine"
+  version = "dev"
+  description = "Rocq's Tactic Engine"
+  requires = "rocq-runtime.library"
+)
+package "gramlib" (
+  directory = "gramlib"
+  version = "dev"
+  description = ""
+  requires = "rocq-runtime.lib"
+)
+package "interp" (
+  directory = "interp"
+  version = "dev"
+  description =
+  "Rocq's Syntactic Interpretation for AST [notations, implicits]"
+  requires = "rocq-runtime.gramlib rocq-runtime.pretyping zarith"
+)
+package "kernel" (
+  directory = "kernel"
+  version = "dev"
+  description = "The Rocq Kernel"
+  requires = "dynlink rocq-runtime.boot rocq-runtime.lib rocq-runtime.vm"
+)
+package "lib" (
+  directory = "lib"
+  version = "dev"
+  description = "Rocq's Utility Library [rocq-specific]"
+  requires = "rocq-runtime.boot rocq-runtime.clib rocq-runtime.config"
+)
+package "library" (
+  directory = "library"
+  version = "dev"
+  description = "Rocq's Loadable Libraries (vo) Support"
+  requires = "rocq-runtime.kernel"
+)
+package "parsing" (
+  directory = "parsing"
+  version = "dev"
+  description = ""
+  requires = "rocq-runtime.gramlib rocq-runtime.interp"
+)
+package "plugins" (
+  directory = "plugins"
+  package "btauto" (
+    directory = "btauto"
+    version = "dev"
+    description = "Rocq's btauto plugin"
+    requires = "rocq-runtime.plugins.ltac"
+  )
+  package "cc" (
+    directory = "cc"
+    version = "dev"
+    description = "Rocq's congruence closure plugin (Ltac1 syntax)"
+    requires = "rocq-runtime.plugins.cc_core rocq-runtime.plugins.ltac"
+  )
+  package "cc_core" (
+    directory = "cc_core"
+    version = "dev"
+    description = "Rocq's congruence closure plugin"
+    requires = "rocq-runtime.tactics"
+  )
+  package "derive" (
+    directory = "derive"
+    version = "dev"
+    description = "Rocq's derive plugin"
+    requires = "rocq-runtime.vernac"
+  )
+  package "extraction" (
+    directory = "extraction"
+    version = "dev"
+    description = "Rocq's extraction plugin"
+    requires = "rocq-runtime.vernac"
+  )
+  package "firstorder" (
+    directory = "firstorder"
+    version = "dev"
+    description = "Rocq's first order logic solver plugin (Ltac1 syntax)"
+    requires =
+    "rocq-runtime.plugins.firstorder_core rocq-runtime.plugins.ltac"
+  )
+  package "firstorder_core" (
+    directory = "firstorder_core"
+    version = "dev"
+    description = "Rocq's first order logic solver plugin"
+    requires = "rocq-runtime.tactics"
+  )
+  package "funind" (
+    directory = "funind"
+    version = "dev"
+    description = "Rocq's functional induction plugin"
+    requires = "rocq-runtime.plugins.extraction rocq-runtime.plugins.ltac"
+  )
+  package "ltac" (
+    directory = "ltac"
+    version = "dev"
+    description = "Rocq's LTAC tactic language"
+    requires = "rocq-runtime.vernac"
+  )
+  package "ltac2" (
+    directory = "ltac2"
+    version = "dev"
+    description = "Ltac2 plugin"
+    requires = "rocq-runtime.plugins.cc_core rocq-runtime.vernac"
+  )
+  package "ltac2_ltac1" (
+    directory = "ltac2_ltac1"
+    version = "dev"
+    description = "Ltac2 and Ltac1 interoperability plugin"
+    requires = "rocq-runtime.plugins.ltac rocq-runtime.plugins.ltac2"
+  )
+  package "micromega" (
+    directory = "micromega"
+    version = "dev"
+    description = "Rocq's micromega plugin"
+    requires =
+    "rocq-runtime.plugins.ltac rocq-runtime.plugins.micromega_core"
+  )
+  package "micromega_core" (
+    directory = "micromega_core"
+    version = "dev"
+    description = "Rocq's micromega core plugin"
+    requires = "rocq-runtime.clib zarith"
+  )
+  package "nsatz" (
+    directory = "nsatz"
+    version = "dev"
+    description = "Rocq's nsatz solver plugin (Ltac1 syntax)"
+    requires = "rocq-runtime.plugins.ltac rocq-runtime.plugins.nsatz_core"
+  )
+  package "nsatz_core" (
+    directory = "nsatz_core"
+    version = "dev"
+    description = "Rocq's nsatz solver plugin"
+    requires = "rocq-runtime.tactics"
+  )
+  package "number_string_notation" (
+    directory = "number_string_notation"
+    version = "dev"
+    description = "Rocq number and string notation plugin"
+    requires = "rocq-runtime.vernac"
+  )
+  package "ring" (
+    directory = "ring"
+    version = "dev"
+    description = "Rocq's ring plugin"
+    requires = "rocq-runtime.plugins.ltac"
+  )
+  package "rtauto" (
+    directory = "rtauto"
+    version = "dev"
+    description = "Rocq's rtauto plugin"
+    requires = "rocq-runtime.plugins.ltac"
+  )
+  package "ssreflect" (
+    directory = "ssreflect"
+    version = "dev"
+    description = "Rocq's ssreflect plugin"
+    requires = "rocq-runtime.plugins.ssrmatching"
+  )
+  package "ssrmatching" (
+    directory = "ssrmatching"
+    version = "dev"
+    description = "Rocq ssrmatching plugin"
+    requires = "rocq-runtime.plugins.ltac"
+  )
+  package "tauto" (
+    directory = "tauto"
+    version = "dev"
+    description = "Rocq's tauto tactic"
+    requires = "rocq-runtime.plugins.ltac"
+  )
+  package "tutorial" (
+    directory = "tutorial"
+    package "p0" (
+      directory = "p0"
+      version = "dev"
+      description = ""
+      requires = "rocq-runtime.plugins.ltac"
+    )
+    package "p1" (
+      directory = "p1"
+      version = "dev"
+      description = ""
+      requires = "rocq-runtime.plugins.ltac"
+    )
+    package "p2" (
+      directory = "p2"
+      version = "dev"
+      description = ""
+      requires = "rocq-runtime.plugins.ltac"
+    )
+    package "p3" (
+      directory = "p3"
+      version = "dev"
+      description = ""
+      requires = "rocq-runtime.plugins.ltac"
+    )
+    package "p4" (
+      directory = "p4"
+      version = "dev"
+      description = ""
+      requires = "rocq-runtime.plugins.ltac2"
+    )
+  )
+  package "zify" (
+    directory = "zify"
+    version = "dev"
+    description = "Rocq's zify plugin"
+    requires = "rocq-runtime.plugins.ltac"
+  )
+)
+package "pretyping" (
+  directory = "pretyping"
+  version = "dev"
+  description = "Rocq's Type Inference Component (Pretyper)"
+  requires = "rocq-runtime.engine"
+)
+package "printing" (
+  directory = "printing"
+  version = "dev"
+  description = "Rocq's Term Pretty Printing Library"
+  requires = "rocq-runtime.parsing rocq-runtime.proofs"
+)
+package "proofs" (
+  directory = "proofs"
+  version = "dev"
+  description =
+  "Rocq's Higher-level Refinement Proof Engine and Top-level Proof Structure"
+  requires = "rocq-runtime.pretyping"
+)
+package "rocqshim" (
+  directory = "rocqshim"
+  version = "dev"
+  description = "Rocq support for finding and exec-ing subcommands"
+  requires = "findlib rocq-runtime.boot unix"
+)
+package "stm" (
+  directory = "stm"
+  version = "dev"
+  description = "Rocq's Document Manager and Proof Checking Scheduler"
+  requires = "rocq-runtime.coqworkmgrapi rocq-runtime.sysinit"
+)
+package "sysinit" (
+  directory = "sysinit"
+  version = "dev"
+  description = "Rocq's initialization"
+  requires =
+  "findlib rocq-runtime.boot rocq-runtime.coqargs rocq-runtime.vernac"
+)
+package "tactics" (
+  directory = "tactics"
+  version = "dev"
+  description = "Rocq's Core Tactics [ML implementation]"
+  requires = "rocq-runtime.printing"
+)
+package "toplevel" (
+  directory = "toplevel"
+  version = "dev"
+  description = "Rocq's Interactive Shell [terminal-based]"
+  requires = "rocq-runtime.stm"
+)
+package "vernac" (
+  directory = "vernac"
+  version = "dev"
+  description = "Rocq's Vernacular Language"
+  requires = "findlib.dynload rocq-runtime.parsing rocq-runtime.tactics"
+)
+package "vm" (
+  directory = "vm"
+  version = "dev"
+  description = "Rocq's Kernel Abstract Reduction Machine [C implementation]"
+  requires = ""
+)

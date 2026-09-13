@@ -1,0 +1,855 @@
+DIGEST b88941afb1745092d1121c6968ffe92f
+FCorelib.Init.Datatypes
+R716:724 Corelib.Init.Notations <> <> lib
+R742:745 Corelib.Init.Ltac <> <> lib
+R763:767 Corelib.Init.Logic <> <> lib
+ind 951:959 <> Empty_set
+scheme 951:959 <> Empty_set_rect
+scheme 951:959 <> Empty_set_ind
+scheme 951:959 <> Empty_set_rec
+scheme 951:959 <> Empty_set_sind
+ind 1091:1094 <> unit
+constr 1109:1110 <> tt
+R1114:1117 Corelib.Init.Datatypes <> unit:3 ind
+scheme 1091:1094 <> unit_rect
+scheme 1091:1094 <> unit_ind
+scheme 1091:1094 <> unit_rec
+scheme 1091:1094 <> unit_sind
+ind 1368:1371 <> bool
+constr 1386:1389 <> true
+constr 1402:1406 <> false
+R1393:1396 Corelib.Init.Datatypes <> bool:5 ind
+R1410:1413 Corelib.Init.Datatypes <> bool:5 ind
+scheme 1368:1371 <> bool_rect
+scheme 1368:1371 <> bool_ind
+scheme 1368:1371 <> bool_rec
+scheme 1368:1371 <> bool_sind
+ind 1890:1896 <> reflect
+constr 1930:1937 <> ReflectT
+constr 1965:1972 <> ReflectF
+binder 1899:1899 <> P:7
+R1915:1918 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1911:1914 Corelib.Init.Datatypes <> bool ind
+R1942:1945 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1941:1941 Corelib.Init.Datatypes <> P:7 var
+R1946:1952 Corelib.Init.Datatypes <> reflect:8 ind
+R1956:1959 Corelib.Init.Datatypes <> true constr
+R1954:1954 Corelib.Init.Datatypes <> P:7 var
+R1979:1982 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1976:1977 Corelib.Init.Logic <> ::type_scope:'~'_x not
+R1978:1978 Corelib.Init.Datatypes <> P:7 var
+R1983:1989 Corelib.Init.Datatypes <> reflect:8 ind
+R1993:1997 Corelib.Init.Datatypes <> false constr
+R1991:1991 Corelib.Init.Datatypes <> P:7 var
+scheme 1890:1896 <> reflect_rect
+scheme 1890:1896 <> reflect_ind
+scheme 1890:1896 <> reflect_rec
+scheme 1890:1896 <> reflect_sind
+R2060:2066 Corelib.Init.Datatypes <> reflect ind
+R2086:2093 Corelib.Init.Datatypes <> ReflectT constr
+R2124:2131 Corelib.Init.Datatypes <> ReflectF constr
+def 2347:2350 <> andb
+R2359:2362 Corelib.Init.Datatypes <> bool ind
+binder 2353:2354 <> b1:10
+binder 2356:2357 <> b2:11
+R2367:2370 Corelib.Init.Datatypes <> bool ind
+R2378:2379 Corelib.Init.Datatypes <> b1:10 var
+R2394:2398 Corelib.Init.Datatypes <> false constr
+R2386:2387 Corelib.Init.Datatypes <> b2:11 var
+def 2413:2415 <> orb
+R2424:2427 Corelib.Init.Datatypes <> bool ind
+binder 2418:2419 <> b1:12
+binder 2421:2422 <> b2:13
+R2432:2435 Corelib.Init.Datatypes <> bool ind
+R2443:2444 Corelib.Init.Datatypes <> b1:12 var
+R2461:2462 Corelib.Init.Datatypes <> b2:13 var
+R2451:2454 Corelib.Init.Datatypes <> true constr
+def 2477:2481 <> implb
+R2490:2493 Corelib.Init.Datatypes <> bool ind
+binder 2484:2485 <> b1:14
+binder 2487:2488 <> b2:15
+R2498:2501 Corelib.Init.Datatypes <> bool ind
+R2509:2510 Corelib.Init.Datatypes <> b1:14 var
+R2525:2528 Corelib.Init.Datatypes <> true constr
+R2517:2518 Corelib.Init.Datatypes <> b2:15 var
+def 2543:2546 <> xorb
+R2555:2558 Corelib.Init.Datatypes <> bool ind
+binder 2549:2550 <> b1:16
+binder 2552:2553 <> b2:17
+R2563:2566 Corelib.Init.Datatypes <> bool ind
+R2576:2577 Corelib.Init.Datatypes <> b1:16 var
+R2622:2623 Corelib.Init.Datatypes <> b2:17 var
+R2591:2592 Corelib.Init.Datatypes <> b2:17 var
+R2610:2613 Corelib.Init.Datatypes <> true constr
+R2599:2603 Corelib.Init.Datatypes <> false constr
+def 2638:2641 <> negb
+R2646:2649 Corelib.Init.Datatypes <> bool ind
+binder 2644:2644 <> b:18
+R2658:2658 Corelib.Init.Datatypes <> b:18 var
+R2676:2679 Corelib.Init.Datatypes <> true constr
+R2665:2669 Corelib.Init.Datatypes <> false constr
+R2697:2699 Corelib.Init.Datatypes <> orb def
+not 2689:2689 <> ::bool_scope:x_'||'_x
+R2729:2732 Corelib.Init.Datatypes <> andb def
+not 2721:2721 <> ::bool_scope:x_'&&'_x
+prf 2956:2964 <> andb_prop
+R2971:2974 Corelib.Init.Datatypes <> bool ind
+binder 2967:2967 <> a:19
+binder 2969:2969 <> b:20
+R2994:2997 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2987:2989 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2979:2982 Corelib.Init.Datatypes <> andb def
+R2986:2986 Corelib.Init.Datatypes <> b:20 var
+R2984:2984 Corelib.Init.Datatypes <> a:19 var
+R2990:2993 Corelib.Init.Datatypes <> true constr
+R3006:3009 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R2999:3001 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2998:2998 Corelib.Init.Datatypes <> a:19 var
+R3002:3005 Corelib.Init.Datatypes <> true constr
+R3011:3013 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3010:3010 Corelib.Init.Datatypes <> b:20 var
+R3014:3017 Corelib.Init.Datatypes <> true constr
+prf 3166:3180 <> andb_true_intro
+R3189:3192 Corelib.Init.Datatypes <> bool ind
+binder 3183:3184 <> b1:21
+binder 3186:3187 <> b2:22
+R3221:3224 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3208:3211 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R3201:3203 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3199:3200 Corelib.Init.Datatypes <> b1:21 var
+R3204:3207 Corelib.Init.Datatypes <> true constr
+R3214:3216 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3212:3213 Corelib.Init.Datatypes <> b2:22 var
+R3217:3220 Corelib.Init.Datatypes <> true constr
+R3235:3237 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3225:3228 Corelib.Init.Datatypes <> andb def
+R3233:3234 Corelib.Init.Datatypes <> b2:22 var
+R3230:3231 Corelib.Init.Datatypes <> b1:21 var
+R3238:3241 Corelib.Init.Datatypes <> true constr
+ind 3481:3487 <> eq_true
+constr 3507:3516 <> is_eq_true
+R3495:3498 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3491:3494 Corelib.Init.Datatypes <> bool ind
+R3520:3526 Corelib.Init.Datatypes <> eq_true:23 ind
+R3528:3531 Corelib.Init.Datatypes <> true constr
+scheme 3481:3487 <> eq_true_rect
+scheme 3481:3487 <> eq_true_ind
+scheme 3481:3487 <> eq_true_rec
+scheme 3481:3487 <> eq_true_sind
+R3597:3603 Corelib.Init.Datatypes <> eq_true ind
+R3678:3684 Corelib.Init.Datatypes <> eq_true ind
+scheme 3657:3685 <> eq_true_rew
+scheme 3657:3685 <> eq_true_rew_dep
+scheme 3657:3685 <> eq_true_rew_fwd_dep
+def 3760:3766 <> is_true
+binder 3768:3768 <> b:25
+R3774:3776 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3773:3773 Corelib.Init.Datatypes <> b:25 var
+R3777:3780 Corelib.Init.Datatypes <> true constr
+prf 3948:3960 <> eq_true_ind_r
+R3982:3985 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3978:3981 Corelib.Init.Datatypes <> bool ind
+binder 3974:3974 <> P:26
+R3997:4000 Corelib.Init.Datatypes <> bool ind
+binder 3993:3993 <> b:27
+R4007:4010 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4004:4004 Corelib.Init.Datatypes <> P:26 var
+R4006:4006 Corelib.Init.Datatypes <> b:27 var
+R4020:4023 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4011:4017 Corelib.Init.Datatypes <> eq_true ind
+R4019:4019 Corelib.Init.Datatypes <> b:27 var
+R4024:4024 Corelib.Init.Datatypes <> P:26 var
+R4026:4029 Corelib.Init.Datatypes <> true constr
+prf 4104:4116 <> eq_true_rec_r
+R4138:4141 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4134:4137 Corelib.Init.Datatypes <> bool ind
+binder 4130:4130 <> P:28
+R4152:4155 Corelib.Init.Datatypes <> bool ind
+binder 4148:4148 <> b:29
+R4162:4165 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4159:4159 Corelib.Init.Datatypes <> P:28 var
+R4161:4161 Corelib.Init.Datatypes <> b:29 var
+R4175:4178 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4166:4172 Corelib.Init.Datatypes <> eq_true ind
+R4174:4174 Corelib.Init.Datatypes <> b:29 var
+R4179:4179 Corelib.Init.Datatypes <> P:28 var
+R4181:4184 Corelib.Init.Datatypes <> true constr
+prf 4259:4272 <> eq_true_rect_r
+R4294:4297 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4290:4293 Corelib.Init.Datatypes <> bool ind
+binder 4286:4286 <> P:30
+R4309:4312 Corelib.Init.Datatypes <> bool ind
+binder 4305:4305 <> b:31
+R4319:4322 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4316:4316 Corelib.Init.Datatypes <> P:30 var
+R4318:4318 Corelib.Init.Datatypes <> b:31 var
+R4332:4335 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4323:4329 Corelib.Init.Datatypes <> eq_true ind
+R4331:4331 Corelib.Init.Datatypes <> b:31 var
+R4336:4336 Corelib.Init.Datatypes <> P:30 var
+R4338:4341 Corelib.Init.Datatypes <> true constr
+ind 4701:4708 <> BoolSpec
+constr 4745:4753 <> BoolSpecT
+constr 4784:4792 <> BoolSpecF
+binder 4711:4711 <> P:32
+binder 4713:4713 <> Q:33
+R4729:4732 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4725:4728 Corelib.Init.Datatypes <> bool ind
+R4758:4761 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4757:4757 Corelib.Init.Datatypes <> P:32 var
+R4762:4769 Corelib.Init.Datatypes <> BoolSpec:34 ind
+R4775:4778 Corelib.Init.Datatypes <> true constr
+R4773:4773 Corelib.Init.Datatypes <> Q:33 var
+R4771:4771 Corelib.Init.Datatypes <> P:32 var
+R4797:4800 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4796:4796 Corelib.Init.Datatypes <> Q:33 var
+R4801:4808 Corelib.Init.Datatypes <> BoolSpec:34 ind
+R4814:4818 Corelib.Init.Datatypes <> false constr
+R4812:4812 Corelib.Init.Datatypes <> Q:33 var
+R4810:4810 Corelib.Init.Datatypes <> P:32 var
+scheme 4701:4708 <> BoolSpec_ind
+scheme 4701:4708 <> BoolSpec_sind
+R4849:4856 Corelib.Init.Datatypes <> BoolSpec ind
+ind 5356:5358 <> nat
+constr 5373:5373 <> O
+constr 5385:5385 <> S
+R5377:5379 Corelib.Init.Datatypes <> nat:36 ind
+R5392:5395 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5389:5391 Corelib.Init.Datatypes <> nat:36 ind
+R5396:5398 Corelib.Init.Datatypes <> nat:36 ind
+scheme 5356:5358 <> nat_rect
+scheme 5356:5358 <> nat_ind
+scheme 5356:5358 <> nat_rec
+scheme 5356:5358 <> nat_sind
+R5571:5571 Corelib.Init.Datatypes <> S constr
+ind 5903:5908 <> option
+constr 5933:5936 <> Some
+constr 5958:5961 <> None
+binder 5911:5911 <> A:38
+R5941:5944 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5940:5940 Corelib.Init.Datatypes <> A:38 var
+R5945:5950 Corelib.Init.Datatypes <> option:39 ind
+R5952:5952 Corelib.Init.Datatypes <> A:38 var
+R5965:5970 Corelib.Init.Datatypes <> option:39 ind
+R5972:5972 Corelib.Init.Datatypes <> A:38 var
+scheme 5903:5908 <> option_rect
+scheme 5903:5908 <> option_ind
+scheme 5903:5908 <> option_rec
+scheme 5903:5908 <> option_sind
+R5986:5989 Corelib.Init.Datatypes <> Some constr
+R6008:6011 Corelib.Init.Datatypes <> None constr
+def 6138:6147 <> option_map
+binder 6150:6150 <> A:41
+binder 6152:6152 <> B:42
+R6164:6165 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R6163:6163 Corelib.Init.Datatypes <> A:41 var
+R6166:6166 Corelib.Init.Datatypes <> B:42 var
+binder 6161:6161 <> f:43
+R6174:6179 Corelib.Init.Datatypes <> option ind
+R6181:6181 Corelib.Init.Datatypes <> A:41 var
+binder 6170:6170 <> o:44
+R6186:6191 Corelib.Init.Datatypes <> option ind
+R6193:6193 Corelib.Init.Datatypes <> B:42 var
+R6206:6206 Corelib.Init.Datatypes <> o:44 var
+R6219:6222 Corelib.Init.Datatypes <> Some constr
+R6230:6233 Corelib.Init.Datatypes <> Some constr
+R6235:6235 Corelib.Init.Datatypes <> B:42 var
+R6238:6238 Corelib.Init.Datatypes <> f:43 var
+R6249:6252 Corelib.Init.Datatypes <> None constr
+R6258:6261 Corelib.Init.Datatypes <> None constr
+R6263:6263 Corelib.Init.Datatypes <> B:42 var
+ind 6377:6379 <> sum
+constr 6406:6408 <> inl
+constr 6429:6431 <> inr
+binder 6382:6382 <> A:46
+binder 6384:6384 <> B:47
+R6413:6416 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R6412:6412 Corelib.Init.Datatypes <> A:46 var
+R6417:6419 Corelib.Init.Datatypes <> sum:48 ind
+R6423:6423 Corelib.Init.Datatypes <> B:47 var
+R6421:6421 Corelib.Init.Datatypes <> A:46 var
+R6436:6439 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R6435:6435 Corelib.Init.Datatypes <> B:47 var
+R6440:6442 Corelib.Init.Datatypes <> sum:48 ind
+R6446:6446 Corelib.Init.Datatypes <> B:47 var
+R6444:6444 Corelib.Init.Datatypes <> A:46 var
+scheme 6377:6379 <> sum_rect
+scheme 6377:6379 <> sum_ind
+scheme 6377:6379 <> sum_rec
+scheme 6377:6379 <> sum_sind
+R6471:6473 Corelib.Init.Datatypes <> sum ind
+not 6459:6459 <> ::type_scope:x_'+'_x
+R6505:6507 Corelib.Init.Datatypes <> inl constr
+R6538:6540 Corelib.Init.Datatypes <> inr constr
+ind 6664:6669 <> result
+constr 6689:6690 <> Ok
+constr 6700:6704 <> Error
+binder 6672:6672 <> A:50
+binder 6674:6674 <> E:51
+R6695:6695 Corelib.Init.Datatypes <> A:50 var
+R6709:6709 Corelib.Init.Datatypes <> E:51 var
+scheme 6664:6669 <> result_rect
+scheme 6664:6669 <> result_ind
+scheme 6664:6669 <> result_rec
+scheme 6664:6669 <> result_sind
+R6724:6725 Corelib.Init.Datatypes <> Ok constr
+R6755:6759 Corelib.Init.Datatypes <> Error constr
+ind 6985:6988 <> prod
+constr 7013:7016 <> pair
+binder 6991:6991 <> A:54
+binder 6993:6993 <> B:55
+R7055:7058 Corelib.Init.Datatypes <> prod:57 ind
+R7021:7024 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R7020:7020 Corelib.Init.Datatypes <> A:54 var
+R7026:7029 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R7025:7025 Corelib.Init.Datatypes <> B:55 var
+R7031:7033 Corelib.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7030:7030 Corelib.Init.Datatypes <> A:54 var
+R7034:7034 Corelib.Init.Datatypes <> B:55 var
+scheme 6985:6988 <> prod_rect
+scheme 6985:6988 <> prod_ind
+scheme 6985:6988 <> prod_rec
+scheme 6985:6988 <> prod_sind
+R7055:7058 Corelib.Init.Datatypes <> prod ind
+not 7043:7043 <> ::type_scope:x_'*'_x
+R7138:7141 Corelib.Init.Datatypes <> pair constr
+R7147:7150 Corelib.Init.Datatypes <> pair constr
+not 7113:7113 <> ::core_scope:'('_x_','_x_','_'..'_','_x_')'
+R7188:7191 Corelib.Init.Datatypes <> pair constr
+sec 7319:7329 <> projections
+var  7343:7343 projections A
+var  7354:7354 projections B
+def 7379:7381 <> fst
+R7387:7389 Corelib.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7386:7386 Corelib.Init.Datatypes <> projections.A var
+R7390:7390 Corelib.Init.Datatypes <> projections.B var
+binder 7384:7384 <> p:60
+R7402:7402 Corelib.Init.Datatypes <> p:60 var
+R7409:7409 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7411:7412 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7414:7414 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+def 7439:7441 <> snd
+R7447:7449 Corelib.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7446:7446 Corelib.Init.Datatypes <> projections.A var
+R7450:7450 Corelib.Init.Datatypes <> projections.B var
+binder 7444:7444 <> p:62
+R7462:7462 Corelib.Init.Datatypes <> p:62 var
+R7469:7469 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7471:7472 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7474:7474 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7562:7572 Corelib.Init.Datatypes projections <> sec
+prf 7626:7643 <> surjective_pairing
+binder 7646:7646 <> A:64
+binder 7648:7648 <> B:65
+R7660:7662 Corelib.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7659:7659 Corelib.Init.Datatypes <> A:64 var
+R7663:7663 Corelib.Init.Datatypes <> B:65 var
+binder 7657:7657 <> p:66
+R7669:7671 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7668:7668 Corelib.Init.Datatypes <> p:66 var
+R7672:7672 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7678:7679 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7685:7685 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7673:7675 Corelib.Init.Datatypes <> fst def
+R7677:7677 Corelib.Init.Datatypes <> p:66 var
+R7680:7682 Corelib.Init.Datatypes <> snd def
+R7684:7684 Corelib.Init.Datatypes <> p:66 var
+prf 7734:7754 <> injective_projections
+binder 7757:7757 <> A:67
+binder 7759:7759 <> B:68
+R7775:7777 Corelib.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7774:7774 Corelib.Init.Datatypes <> A:67 var
+R7778:7778 Corelib.Init.Datatypes <> B:68 var
+binder 7768:7769 <> p1:69
+binder 7771:7772 <> p2:70
+R7802:7805 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R7793:7795 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7787:7789 Corelib.Init.Datatypes <> fst def
+R7791:7792 Corelib.Init.Datatypes <> p1:69 var
+R7796:7798 Corelib.Init.Datatypes <> fst def
+R7800:7801 Corelib.Init.Datatypes <> p2:70 var
+R7821:7824 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R7812:7814 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7806:7808 Corelib.Init.Datatypes <> snd def
+R7810:7811 Corelib.Init.Datatypes <> p1:69 var
+R7815:7817 Corelib.Init.Datatypes <> snd def
+R7819:7820 Corelib.Init.Datatypes <> p2:70 var
+R7827:7829 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7825:7826 Corelib.Init.Datatypes <> p1:69 var
+R7830:7831 Corelib.Init.Datatypes <> p2:70 var
+prf 7949:7963 <> pair_equal_spec
+binder 7966:7966 <> A:71
+binder 7968:7968 <> B:72
+R7987:7987 Corelib.Init.Datatypes <> A:71 var
+binder 7979:7980 <> a1:73
+binder 7982:7983 <> a2:74
+R7999:7999 Corelib.Init.Datatypes <> B:72 var
+binder 7991:7992 <> b1:75
+binder 7994:7995 <> b2:76
+R8027:8031 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R8016:8018 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8008:8008 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8011:8012 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8015:8015 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8009:8010 Corelib.Init.Datatypes <> a1:73 var
+R8013:8014 Corelib.Init.Datatypes <> b1:75 var
+R8019:8019 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8022:8023 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8026:8026 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8020:8021 Corelib.Init.Datatypes <> a2:74 var
+R8024:8025 Corelib.Init.Datatypes <> b2:76 var
+R8039:8042 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R8034:8036 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8032:8033 Corelib.Init.Datatypes <> a1:73 var
+R8037:8038 Corelib.Init.Datatypes <> a2:74 var
+R8045:8047 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8043:8044 Corelib.Init.Datatypes <> b1:75 var
+R8048:8049 Corelib.Init.Datatypes <> b2:76 var
+R8111:8113 Corelib.Init.Datatypes <> fst def
+R8115:8115 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8118:8119 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8122:8122 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8143:8145 Corelib.Init.Datatypes <> fst def
+R8147:8147 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8150:8151 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8154:8154 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8210:8212 Corelib.Init.Datatypes <> snd def
+R8214:8214 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8217:8218 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8221:8221 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8242:8244 Corelib.Init.Datatypes <> snd def
+R8246:8246 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8249:8250 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8253:8253 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+def 8332:8336 <> curry
+binder 8339:8339 <> A:77
+binder 8341:8341 <> B:78
+binder 8343:8343 <> C:79
+R8359:8362 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R8355:8357 Corelib.Init.Datatypes <> ::type_scope:x_'*'_x not
+R8354:8354 Corelib.Init.Datatypes <> A:77 var
+R8358:8358 Corelib.Init.Datatypes <> B:78 var
+R8363:8363 Corelib.Init.Datatypes <> C:79 var
+binder 8352:8352 <> f:80
+R8371:8371 Corelib.Init.Datatypes <> A:77 var
+binder 8369:8369 <> x:81
+R8377:8377 Corelib.Init.Datatypes <> B:78 var
+binder 8375:8375 <> y:82
+R8382:8382 Corelib.Init.Datatypes <> C:79 var
+R8387:8387 Corelib.Init.Datatypes <> f:80 var
+R8389:8389 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8391:8391 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8393:8393 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8390:8390 Corelib.Init.Datatypes <> x:81 var
+R8392:8392 Corelib.Init.Datatypes <> y:82 var
+def 8408:8414 <> uncurry
+binder 8417:8417 <> A:83
+binder 8419:8419 <> B:84
+binder 8421:8421 <> C:85
+R8433:8436 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R8432:8432 Corelib.Init.Datatypes <> A:83 var
+R8438:8441 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R8437:8437 Corelib.Init.Datatypes <> B:84 var
+R8442:8442 Corelib.Init.Datatypes <> C:85 var
+binder 8430:8430 <> f:86
+R8451:8453 Corelib.Init.Datatypes <> ::type_scope:x_'*'_x not
+R8450:8450 Corelib.Init.Datatypes <> A:83 var
+R8454:8454 Corelib.Init.Datatypes <> B:84 var
+binder 8448:8448 <> p:87
+R8459:8459 Corelib.Init.Datatypes <> C:85 var
+R8470:8470 Corelib.Init.Datatypes <> p:87 var
+R8477:8477 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8479:8480 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8482:8482 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8487:8487 Corelib.Init.Datatypes <> f:86 var
+R8506:8516 Corelib.Init.Logic EqNotations <> mod
+prf 8526:8533 <> rew_pair
+binder 8535:8535 <> A:89
+R8545:8546 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R8544:8544 Corelib.Init.Datatypes <> A:89 var
+binder 8538:8538 <> P:90
+binder 8540:8540 <> Q:91
+binder 8553:8554 <> x1:92
+binder 8556:8557 <> x2:93
+R8563:8563 Corelib.Init.Datatypes <> P:90 var
+R8565:8566 Corelib.Init.Datatypes <> x1:92 var
+binder 8560:8561 <> y1:94
+R8573:8573 Corelib.Init.Datatypes <> Q:91 var
+R8575:8576 Corelib.Init.Datatypes <> x1:92 var
+binder 8570:8571 <> y2:95
+R8584:8584 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8582:8583 Corelib.Init.Datatypes <> x1:92 var
+R8585:8586 Corelib.Init.Datatypes <> x2:93 var
+binder 8580:8580 <> H:96
+R8619:8621 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8593:8593 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8605:8606 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8618:8618 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8594:8597 Corelib.Init.Logic EqNotations :::'rew'_x_'in'_x not
+R8599:8602 Corelib.Init.Logic EqNotations :::'rew'_x_'in'_x not
+R8603:8604 Corelib.Init.Datatypes <> y1:94 var
+R8598:8598 Corelib.Init.Datatypes <> H:96 var
+R8607:8610 Corelib.Init.Logic EqNotations :::'rew'_x_'in'_x not
+R8612:8615 Corelib.Init.Logic EqNotations :::'rew'_x_'in'_x not
+R8616:8617 Corelib.Init.Datatypes <> y2:95 var
+R8611:8611 Corelib.Init.Datatypes <> H:96 var
+R8622:8626 Corelib.Init.Logic EqNotations :::'rew'_'['_x_']'_x_'in'_x not
+R8652:8653 Corelib.Init.Logic EqNotations :::'rew'_'['_x_']'_x_'in'_x not
+R8655:8658 Corelib.Init.Logic EqNotations :::'rew'_'['_x_']'_x_'in'_x not
+binder 8631:8631 <> x:97
+R8640:8642 Corelib.Init.Datatypes <> ::type_scope:x_'*'_x not
+R8637:8637 Corelib.Init.Datatypes <> P:90 var
+R8639:8639 Corelib.Init.Datatypes <> x:97 var
+R8643:8643 Corelib.Init.Datatypes <> Q:91 var
+R8645:8645 Corelib.Init.Datatypes <> x:97 var
+R8659:8659 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8662:8662 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8665:8665 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8660:8661 Corelib.Init.Datatypes <> y1:94 var
+R8663:8664 Corelib.Init.Datatypes <> y2:95 var
+R8654:8654 Corelib.Init.Datatypes <> H:96 var
+ind 8791:8794 <> list
+constr 8820:8822 <> nil
+constr 8836:8839 <> cons
+binder 8797:8797 <> A:98
+R8826:8829 Corelib.Init.Datatypes <> list:99 ind
+R8831:8831 Corelib.Init.Datatypes <> A:98 var
+R8844:8847 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R8843:8843 Corelib.Init.Datatypes <> A:98 var
+R8854:8857 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R8848:8851 Corelib.Init.Datatypes <> list:99 ind
+R8853:8853 Corelib.Init.Datatypes <> A:98 var
+R8858:8861 Corelib.Init.Datatypes <> list:99 ind
+R8863:8863 Corelib.Init.Datatypes <> A:98 var
+scheme 8791:8794 <> list_rect
+scheme 8791:8794 <> list_ind
+scheme 8791:8794 <> list_rec
+scheme 8791:8794 <> list_sind
+R8877:8879 Corelib.Init.Datatypes <> nil constr
+R8896:8899 Corelib.Init.Datatypes <> cons constr
+R9021:9024 Corelib.Init.Datatypes <> cons constr
+not 9013:9013 <> ::list_scope:x_'::'_x
+def 9215:9220 <> length
+binder 9223:9223 <> A:101
+R9241:9244 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R9235:9238 Corelib.Init.Datatypes <> list ind
+R9240:9240 Corelib.Init.Datatypes <> A:101 var
+R9245:9247 Corelib.Init.Datatypes <> nat ind
+binder 9265:9265 <> l:102
+R9278:9278 Corelib.Init.Datatypes <> l:102 var
+R9290:9292 Corelib.Init.Datatypes <> nil constr
+R9297:9297 Corelib.Init.Datatypes <> O constr
+R9305:9308 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9315:9315 Corelib.Init.Datatypes <> S constr
+R9318:9323 Corelib.Init.Datatypes <> length:103 var
+def 9383:9385 <> app
+binder 9388:9388 <> A:105
+R9406:9409 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R9400:9403 Corelib.Init.Datatypes <> list ind
+R9405:9405 Corelib.Init.Datatypes <> A:105 var
+R9416:9419 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R9410:9413 Corelib.Init.Datatypes <> list ind
+R9415:9415 Corelib.Init.Datatypes <> A:105 var
+R9420:9423 Corelib.Init.Datatypes <> list ind
+R9425:9425 Corelib.Init.Datatypes <> A:105 var
+binder 9440:9440 <> l:106
+binder 9442:9442 <> m:107
+R9455:9455 Corelib.Init.Datatypes <> l:106 var
+R9467:9469 Corelib.Init.Datatypes <> nil constr
+R9474:9474 Corelib.Init.Datatypes <> m:107 var
+R9482:9485 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9493:9496 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9497:9499 Corelib.Init.Datatypes <> app:108 var
+R9504:9504 Corelib.Init.Datatypes <> m:107 var
+R9528:9530 Corelib.Init.Datatypes <> app def
+not 9520:9520 <> ::list_scope:x_'++'_x
+ind 9733:9742 <> comparison
+constr 9757:9758 <> Eq
+constr 9777:9778 <> Lt
+constr 9797:9798 <> Gt
+R9762:9771 Corelib.Init.Datatypes <> comparison:110 ind
+R9782:9791 Corelib.Init.Datatypes <> comparison:110 ind
+R9802:9811 Corelib.Init.Datatypes <> comparison:110 ind
+scheme 9733:9742 <> comparison_rect
+scheme 9733:9742 <> comparison_ind
+scheme 9733:9742 <> comparison_rec
+scheme 9733:9742 <> comparison_sind
+prf 9972:9991 <> comparison_eq_stable
+R10001:10010 Corelib.Init.Datatypes <> comparison ind
+binder 9994:9994 <> c:112
+binder 9996:9997 <> c':113
+R10024:10027 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R10015:10015 Corelib.Init.Logic <> ::type_scope:'~'_x not
+R10016:10017 Corelib.Init.Logic <> ::type_scope:'~'_x not
+R10019:10021 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10018:10018 Corelib.Init.Datatypes <> c:112 var
+R10022:10023 Corelib.Init.Datatypes <> c':113 var
+R10029:10031 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10028:10028 Corelib.Init.Datatypes <> c:112 var
+R10032:10033 Corelib.Init.Datatypes <> c':113 var
+def 10128:10134 <> CompOpp
+R10139:10148 Corelib.Init.Datatypes <> comparison ind
+binder 10137:10137 <> r:114
+R10162:10162 Corelib.Init.Datatypes <> r:114 var
+R10175:10176 Corelib.Init.Datatypes <> Eq constr
+R10181:10182 Corelib.Init.Datatypes <> Eq constr
+R10190:10191 Corelib.Init.Datatypes <> Lt constr
+R10196:10197 Corelib.Init.Datatypes <> Gt constr
+R10205:10206 Corelib.Init.Datatypes <> Gt constr
+R10211:10212 Corelib.Init.Datatypes <> Lt constr
+prf 10228:10245 <> CompOpp_involutive
+binder 10247:10247 <> c:116
+R10270:10272 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10251:10257 Corelib.Init.Datatypes <> CompOpp def
+R10260:10266 Corelib.Init.Datatypes <> CompOpp def
+R10268:10268 Corelib.Init.Datatypes <> c:116 var
+R10273:10273 Corelib.Init.Datatypes <> c:116 var
+prf 10322:10332 <> CompOpp_inj
+binder 10334:10334 <> c:117
+binder 10336:10337 <> c':118
+R10363:10366 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R10350:10352 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10341:10347 Corelib.Init.Datatypes <> CompOpp def
+R10349:10349 Corelib.Init.Datatypes <> c:117 var
+R10353:10359 Corelib.Init.Datatypes <> CompOpp def
+R10361:10362 Corelib.Init.Datatypes <> c':118 var
+R10368:10370 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10367:10367 Corelib.Init.Datatypes <> c:117 var
+R10371:10372 Corelib.Init.Datatypes <> c':118 var
+prf 10441:10451 <> CompOpp_iff
+binder 10462:10462 <> c:119
+binder 10464:10465 <> c':120
+R10482:10486 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R10477:10479 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10468:10474 Corelib.Init.Datatypes <> CompOpp def
+R10476:10476 Corelib.Init.Datatypes <> c:119 var
+R10480:10481 Corelib.Init.Datatypes <> c':120 var
+R10488:10490 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10487:10487 Corelib.Init.Datatypes <> c:119 var
+R10491:10497 Corelib.Init.Datatypes <> CompOpp def
+R10499:10500 Corelib.Init.Datatypes <> c':120 var
+R10533:10543 Corelib.Init.Datatypes <> CompOpp_inj thm
+R10554:10571 Corelib.Init.Datatypes <> CompOpp_involutive thm
+ind 10888:10898 <> CompareSpec
+constr 10948:10953 <> CompEq
+constr 10994:10999 <> CompLt
+constr 11040:11045 <> CompGt
+binder 10901:10903 <> Peq:121
+binder 10905:10907 <> Plt:122
+binder 10909:10911 <> Pgt:123
+R10933:10936 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R10923:10932 Corelib.Init.Datatypes <> comparison ind
+R10960:10963 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R10957:10959 Corelib.Init.Datatypes <> Peq:121 var
+R10964:10974 Corelib.Init.Datatypes <> CompareSpec:124 ind
+R10988:10989 Corelib.Init.Datatypes <> Eq constr
+R10984:10986 Corelib.Init.Datatypes <> Pgt:123 var
+R10980:10982 Corelib.Init.Datatypes <> Plt:122 var
+R10976:10978 Corelib.Init.Datatypes <> Peq:121 var
+R11006:11009 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R11003:11005 Corelib.Init.Datatypes <> Plt:122 var
+R11010:11020 Corelib.Init.Datatypes <> CompareSpec:124 ind
+R11034:11035 Corelib.Init.Datatypes <> Lt constr
+R11030:11032 Corelib.Init.Datatypes <> Pgt:123 var
+R11026:11028 Corelib.Init.Datatypes <> Plt:122 var
+R11022:11024 Corelib.Init.Datatypes <> Peq:121 var
+R11052:11055 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R11049:11051 Corelib.Init.Datatypes <> Pgt:123 var
+R11056:11066 Corelib.Init.Datatypes <> CompareSpec:124 ind
+R11080:11081 Corelib.Init.Datatypes <> Gt constr
+R11076:11078 Corelib.Init.Datatypes <> Pgt:123 var
+R11072:11074 Corelib.Init.Datatypes <> Plt:122 var
+R11068:11070 Corelib.Init.Datatypes <> Peq:121 var
+scheme 10888:10898 <> CompareSpec_ind
+scheme 10888:10898 <> CompareSpec_sind
+R11112:11122 Corelib.Init.Datatypes <> CompareSpec ind
+ind 11543:11554 <> CompareSpecT
+constr 11604:11610 <> CompEqT
+constr 11652:11658 <> CompLtT
+constr 11700:11706 <> CompGtT
+binder 11557:11559 <> Peq:126
+binder 11561:11563 <> Plt:127
+binder 11565:11567 <> Pgt:128
+R11589:11592 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R11579:11588 Corelib.Init.Datatypes <> comparison ind
+R11617:11620 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R11614:11616 Corelib.Init.Datatypes <> Peq:126 var
+R11621:11632 Corelib.Init.Datatypes <> CompareSpecT:129 ind
+R11646:11647 Corelib.Init.Datatypes <> Eq constr
+R11642:11644 Corelib.Init.Datatypes <> Pgt:128 var
+R11638:11640 Corelib.Init.Datatypes <> Plt:127 var
+R11634:11636 Corelib.Init.Datatypes <> Peq:126 var
+R11665:11668 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R11662:11664 Corelib.Init.Datatypes <> Plt:127 var
+R11669:11680 Corelib.Init.Datatypes <> CompareSpecT:129 ind
+R11694:11695 Corelib.Init.Datatypes <> Lt constr
+R11690:11692 Corelib.Init.Datatypes <> Pgt:128 var
+R11686:11688 Corelib.Init.Datatypes <> Plt:127 var
+R11682:11684 Corelib.Init.Datatypes <> Peq:126 var
+R11713:11716 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R11710:11712 Corelib.Init.Datatypes <> Pgt:128 var
+R11717:11728 Corelib.Init.Datatypes <> CompareSpecT:129 ind
+R11742:11743 Corelib.Init.Datatypes <> Gt constr
+R11738:11740 Corelib.Init.Datatypes <> Pgt:128 var
+R11734:11736 Corelib.Init.Datatypes <> Plt:127 var
+R11730:11732 Corelib.Init.Datatypes <> Peq:126 var
+scheme 11543:11554 <> CompareSpecT_rect
+scheme 11543:11554 <> CompareSpecT_ind
+scheme 11543:11554 <> CompareSpecT_rec
+scheme 11543:11554 <> CompareSpecT_sind
+R11774:11785 Corelib.Init.Datatypes <> CompareSpecT ind
+prf 11993:12008 <> CompareSpec2Type
+binder 12010:12012 <> Peq:131
+binder 12014:12016 <> Plt:132
+binder 12018:12020 <> Pgt:133
+binder 12022:12022 <> c:134
+R12052:12055 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R12027:12037 Corelib.Init.Datatypes <> CompareSpec ind
+R12051:12051 Corelib.Init.Datatypes <> c:134 var
+R12047:12049 Corelib.Init.Datatypes <> Pgt:133 var
+R12043:12045 Corelib.Init.Datatypes <> Plt:132 var
+R12039:12041 Corelib.Init.Datatypes <> Peq:131 var
+R12056:12067 Corelib.Init.Datatypes <> CompareSpecT ind
+R12081:12081 Corelib.Init.Datatypes <> c:134 var
+R12077:12079 Corelib.Init.Datatypes <> Pgt:133 var
+R12073:12075 Corelib.Init.Datatypes <> Plt:132 var
+R12069:12071 Corelib.Init.Datatypes <> Peq:131 var
+def 12396:12403 <> CompSpec
+binder 12406:12406 <> A:135
+R12419:12420 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R12418:12418 Corelib.Init.Datatypes <> A:135 var
+R12422:12423 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R12421:12421 Corelib.Init.Datatypes <> A:135 var
+binder 12410:12411 <> eq:136
+binder 12413:12414 <> lt:137
+R12434:12434 Corelib.Init.Datatypes <> A:135 var
+binder 12430:12430 <> x:138
+binder 12432:12432 <> y:139
+R12449:12452 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R12439:12448 Corelib.Init.Datatypes <> comparison ind
+R12462:12472 Corelib.Init.Datatypes <> CompareSpec ind
+R12493:12494 Corelib.Init.Datatypes <> lt:137 var
+R12498:12498 Corelib.Init.Datatypes <> x:138 var
+R12496:12496 Corelib.Init.Datatypes <> y:139 var
+R12484:12485 Corelib.Init.Datatypes <> lt:137 var
+R12489:12489 Corelib.Init.Datatypes <> y:139 var
+R12487:12487 Corelib.Init.Datatypes <> x:138 var
+R12475:12476 Corelib.Init.Datatypes <> eq:136 var
+R12480:12480 Corelib.Init.Datatypes <> y:139 var
+R12478:12478 Corelib.Init.Datatypes <> x:138 var
+def 12514:12522 <> CompSpecT
+binder 12525:12525 <> A:140
+R12538:12539 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R12537:12537 Corelib.Init.Datatypes <> A:140 var
+R12541:12542 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R12540:12540 Corelib.Init.Datatypes <> A:140 var
+binder 12529:12530 <> eq:141
+binder 12532:12533 <> lt:142
+R12553:12553 Corelib.Init.Datatypes <> A:140 var
+binder 12549:12549 <> x:143
+binder 12551:12551 <> y:144
+R12568:12571 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R12558:12567 Corelib.Init.Datatypes <> comparison ind
+R12581:12592 Corelib.Init.Datatypes <> CompareSpecT ind
+R12613:12614 Corelib.Init.Datatypes <> lt:142 var
+R12618:12618 Corelib.Init.Datatypes <> x:143 var
+R12616:12616 Corelib.Init.Datatypes <> y:144 var
+R12604:12605 Corelib.Init.Datatypes <> lt:142 var
+R12609:12609 Corelib.Init.Datatypes <> y:144 var
+R12607:12607 Corelib.Init.Datatypes <> x:143 var
+R12595:12596 Corelib.Init.Datatypes <> eq:141 var
+R12600:12600 Corelib.Init.Datatypes <> y:144 var
+R12598:12598 Corelib.Init.Datatypes <> x:143 var
+R12644:12651 Corelib.Init.Datatypes <> CompSpec def
+R12653:12661 Corelib.Init.Datatypes <> CompSpecT def
+prf 12678:12690 <> CompSpec2Type
+binder 12701:12701 <> A:145
+R12711:12712 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R12710:12710 Corelib.Init.Datatypes <> A:145 var
+R12714:12715 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R12713:12713 Corelib.Init.Datatypes <> A:145 var
+binder 12704:12705 <> eq:146
+binder 12707:12708 <> lt:147
+binder 12722:12722 <> x:148
+binder 12724:12724 <> y:149
+binder 12726:12726 <> c:150
+R12750:12753 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R12730:12737 Corelib.Init.Datatypes <> CompSpec def
+R12749:12749 Corelib.Init.Datatypes <> c:150 var
+R12747:12747 Corelib.Init.Datatypes <> y:149 var
+R12745:12745 Corelib.Init.Datatypes <> x:148 var
+R12742:12743 Corelib.Init.Datatypes <> lt:147 var
+R12739:12740 Corelib.Init.Datatypes <> eq:146 var
+R12754:12762 Corelib.Init.Datatypes <> CompSpecT def
+R12774:12774 Corelib.Init.Datatypes <> c:150 var
+R12772:12772 Corelib.Init.Datatypes <> y:149 var
+R12770:12770 Corelib.Init.Datatypes <> x:148 var
+R12767:12768 Corelib.Init.Datatypes <> lt:147 var
+R12764:12765 Corelib.Init.Datatypes <> eq:146 var
+R12798:12813 Corelib.Init.Datatypes <> CompareSpec2Type thm
+abbrev 13190:13197 <> identity
+R13202:13203 Corelib.Init.Logic <> eq ind
+abbrev 13289:13301 <> identity_refl
+R13306:13312 Corelib.Init.Logic <> eq_refl constr
+abbrev 13397:13408 <> identity_ind
+R13413:13418 Corelib.Init.Logic <> eq_ind scheme
+abbrev 13503:13514 <> identity_rec
+R13519:13524 Corelib.Init.Logic <> eq_rec scheme
+abbrev 13610:13622 <> identity_rect
+R13627:13633 Corelib.Init.Logic <> eq_rect scheme
+abbrev 13718:13729 <> identity_sym
+R13734:13739 Corelib.Init.Logic <> eq_sym scheme
+abbrev 13826:13839 <> identity_trans
+R13844:13851 Corelib.Init.Logic <> eq_trans thm
+abbrev 13937:13950 <> identity_congr
+R13955:13961 Corelib.Init.Logic <> f_equal thm
+abbrev 14050:14065 <> not_identity_sym
+R14070:14079 Corelib.Init.Logic <> not_eq_sym thm
+abbrev 14166:14179 <> identity_ind_r
+R14184:14191 Corelib.Init.Logic <> eq_ind_r def
+abbrev 14278:14291 <> identity_rec_r
+R14296:14303 Corelib.Init.Logic <> eq_rec_r def
+abbrev 14391:14405 <> identity_rect_r
+R14410:14418 Corelib.Init.Logic <> eq_rect_r def
+abbrev 14740:14746 <> refl_id
+R14751:14757 Corelib.Init.Logic <> eq_refl constr
+abbrev 14842:14847 <> sym_id
+R14852:14857 Corelib.Init.Logic <> eq_sym scheme
+abbrev 14944:14951 <> trans_id
+R14956:14963 Corelib.Init.Logic <> eq_trans thm
+abbrev 15052:15061 <> sym_not_id
+R15066:15075 Corelib.Init.Logic <> not_eq_sym thm
+def 15127:15128 <> ID
+binder 15140:15140 <> A:151
+R15149:15152 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R15148:15148 Corelib.Init.Datatypes <> A:151 var
+R15153:15153 Corelib.Init.Datatypes <> A:151 var
+def 15167:15168 <> id
+R15172:15173 Corelib.Init.Datatypes <> ID def
+binder 15182:15182 <> A:152
+binder 15184:15184 <> x:153
+R15189:15189 Corelib.Init.Datatypes <> x:153 var
+def 15204:15209 <> IDProp
+binder 15221:15221 <> A:154
+R15230:15233 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R15229:15229 Corelib.Init.Datatypes <> A:154 var
+R15234:15234 Corelib.Init.Datatypes <> A:154 var
+def 15248:15253 <> idProp
+R15257:15262 Corelib.Init.Datatypes <> IDProp def
+binder 15271:15271 <> A:155
+binder 15273:15273 <> x:156
+R15278:15278 Corelib.Init.Datatypes <> x:156 var
+abbrev 15374:15378 <> prodT
+R15383:15386 Corelib.Init.Datatypes <> prod ind
+abbrev 15417:15421 <> pairT
+R15426:15429 Corelib.Init.Datatypes <> pair constr
+abbrev 15460:15469 <> prodT_rect
+R15474:15482 Corelib.Init.Datatypes <> prod_rect scheme
+abbrev 15513:15521 <> prodT_rec
+R15526:15533 Corelib.Init.Datatypes <> prod_rec scheme
+abbrev 15564:15572 <> prodT_ind
+R15577:15584 Corelib.Init.Datatypes <> prod_ind scheme
+abbrev 15615:15618 <> fstT
+R15623:15625 Corelib.Init.Datatypes <> fst def
+abbrev 15656:15659 <> sndT
+R15664:15666 Corelib.Init.Datatypes <> snd def

@@ -1,0 +1,5 @@
+DIGEST e55889d20279396b6444250d0e01f3bb
+FLtac2.Bool
+R691:700 Ltac2.Init <> <> lib
+mod 1626:1638 <> BoolNotations
+R1863:1875 Ltac2.Bool BoolNotations <> mod

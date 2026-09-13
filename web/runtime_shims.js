@@ -107,6 +107,32 @@ function caml_unix_sigprocmask(how, mask){ caml_failwith("caml_unix_sigprocmask 
 //Requires: caml_failwith
 function caml_unix_sleep(seconds){ caml_failwith("caml_unix_sleep not implemented (browser)"); }
 
+// ---- Unix.stat over the in-memory VFS (needed to mount a coqlib) -----------
+// jsoo's caml_unix_stat delegates to the mounted device's `stat`. The node
+// device has one (real stat); the browser's MlFakeDevice does NOT, so it
+// raised Failure("caml_unix_stat: not implemented"). Rocq's directory scanner
+// (lib/system.ml process_directory) reads (Unix.stat path).st_kind to decide
+// dir-vs-file while building the coqlib loadpath, so this is on the critical
+// prelude path once a .vo bundle is mounted. We keep the node behaviour (real
+// stat) and synthesize a minimal Unix.stats for the fake device. The stats
+// block is [0, dev, ino, st_kind, perm, nlink, uid, gid, rdev, size, atime,
+// mtime, ctime]; index 3 (st_kind) is all Rocq's scanner reads: 1 = S_DIR,
+// 0 = S_REG. A missing entry raises Unix_error(ENOENT), which the scanner
+// catches (it maps Unix_error to S_BLK and skips), never a Failure anomaly.
+//Provides: caml_unix_stat
+//Requires: resolve_fs_device, caml_raise_system_error
+function caml_unix_stat(name, large){
+  var root = resolve_fs_device(name, 1);
+  var dev = root.device;
+  if (dev.stat) return dev.stat(root.rest, large || false, true); // node device: real stat
+  if (!dev.exists(root.rest))
+    caml_raise_system_error(1, "ENOENT", "stat", "no such file or directory", root.path + root.rest);
+  var isdir = dev.is_dir && dev.is_dir(root.rest) ? 1 : 0;
+  var size = 0;
+  if (!isdir) { var f = dev.content && dev.content[root.rest]; if (f && f.length) { try { size = f.length() | 0; } catch (e) {} } }
+  return [0, 1, 1, isdir ? 1 : 0, isdir ? 0o755 : 0o644, 1, 0, 0, 0, size, 0, 0, 0];
+}
+
 // ---- Float64 primitives ------------------------------------------------
 // kernel/float64_31.ml declares these as C externals and RUNS an IEEE-754
 // self-test at module-init time, so they must exist and behave. jsoo's float

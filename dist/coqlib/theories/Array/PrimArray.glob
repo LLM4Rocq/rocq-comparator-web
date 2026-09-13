@@ -1,0 +1,63 @@
+DIGEST f9228cd94531bb105d530274b64ae26b
+FCorelib.Array.PrimArray
+R28:36 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> <> lib
+ax 78:82 <> array
+ax 111:114 <> make
+binder 125:125 <> A:1
+R131:134 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R128:130 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+R136:139 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R135:135 Corelib.Array.PrimArray <> A:1 var
+R140:144 Corelib.Array.PrimArray <> array prim
+R146:146 Corelib.Array.PrimArray <> A:1 var
+R174:177 Corelib.Array.PrimArray <> make prim
+ax 199:201 <> get
+binder 212:212 <> A:2
+R222:225 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R215:219 Corelib.Array.PrimArray <> array prim
+R221:221 Corelib.Array.PrimArray <> A:2 var
+R229:232 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R226:228 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+R233:233 Corelib.Array.PrimArray <> A:2 var
+R260:262 Corelib.Array.PrimArray <> get prim
+ax 284:290 <> default
+binder 301:301 <> A:3
+R311:314 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R304:308 Corelib.Array.PrimArray <> array prim
+R310:310 Corelib.Array.PrimArray <> A:3 var
+R315:315 Corelib.Array.PrimArray <> A:3 var
+R345:351 Corelib.Array.PrimArray <> default prim
+ax 371:373 <> set
+binder 384:384 <> A:4
+R394:397 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R387:391 Corelib.Array.PrimArray <> array prim
+R393:393 Corelib.Array.PrimArray <> A:4 var
+R401:404 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R398:400 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+R406:409 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R405:405 Corelib.Array.PrimArray <> A:4 var
+R410:414 Corelib.Array.PrimArray <> array prim
+R416:416 Corelib.Array.PrimArray <> A:4 var
+R443:445 Corelib.Array.PrimArray <> set prim
+ax 469:474 <> length
+binder 485:485 <> A:5
+R495:498 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R488:492 Corelib.Array.PrimArray <> array prim
+R494:494 Corelib.Array.PrimArray <> A:5 var
+R499:501 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+R531:536 Corelib.Array.PrimArray <> length prim
+ax 556:559 <> copy
+binder 570:570 <> A:6
+R580:583 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R573:577 Corelib.Array.PrimArray <> array prim
+R579:579 Corelib.Array.PrimArray <> A:6 var
+R584:588 Corelib.Array.PrimArray <> array prim
+R590:590 Corelib.Array.PrimArray <> A:6 var
+R618:621 Corelib.Array.PrimArray <> copy prim
+mod 645:659 <> PArrayNotations
+R1053:1055 Corelib.Array.PrimArray <> get prim
+not 1038:1038 PArrayNotations :::x_'.['_x_']'
+R1146:1148 Corelib.Array.PrimArray <> set prim
+not 1126:1126 PArrayNotations :::x_'.['_x_'<-'_x_']'
+R1222:1236 Corelib.Array.PrimArray PArrayNotations <> mod
+ax 1250:1259 <> max_length

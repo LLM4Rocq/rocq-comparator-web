@@ -1,0 +1,15 @@
+DIGEST 3e0289f007ed9a3919958e1eec6e34cc
+FCorelib.Classes.Init
+R960:981 Corelib.Program.Basics <> <> lib
+ind 1332:1344 <> Unconvertible
+constr 1370:1382 <> unconvertible
+rec 1332:1344 <> Unconvertible
+proj 1370:1382 <> unconvertible
+binder 1347:1347 <> A:1
+R1364:1364 Corelib.Classes.Init <> A:1 var
+binder 1358:1358 <> a:2
+binder 1360:1360 <> b:3
+R1386:1389 Corelib.Init.Datatypes <> unit ind
+R1443:1455 Corelib.Classes.Init <> Unconvertible class
+R1546:1547 Corelib.Init.Datatypes <> tt constr
+R1583:1595 Corelib.Classes.Init <> Unconvertible class

@@ -1,0 +1,16 @@
+DIGEST 57bb24eb053435e30d4be70dbe1ec536
+FCorelib.ssr.ssrsetoid
+R1207:1216 Corelib.ssr.ssrclasses <> <> lib
+R1234:1241 Corelib.ssr.ssrunder <> <> lib
+R1259:1273 Corelib.Classes.RelationClasses <> <> lib
+R1291:1310 Corelib.Relations.Relation_Definitions <> <> lib
+inst 1439:1454 <> compat_Reflexive
+binder 1468:1468 <> A:1
+R1476:1483 Corelib.Relations.Relation_Definitions <> relation def
+R1485:1485 Corelib.ssr.ssrsetoid <> A:1 var
+binder 1472:1472 <> R:2
+R1520:1527 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1493:1517 Corelib.Classes.RelationClasses <> Reflexive class
+R1519:1519 Corelib.ssr.ssrsetoid <> R:2 var
+R1528:1547 Corelib.ssr.ssrclasses <> Reflexive class
+R1549:1549 Corelib.ssr.ssrsetoid <> R:2 var

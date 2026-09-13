@@ -1,0 +1,14 @@
+DIGEST d4d05184bbdb2b1dd177418f6056eed8
+FCorelib.Numbers.Cyclic.Int63.CarryType
+ind 882:886 <> carry
+constr 904:905 <> C0
+constr 924:925 <> C1
+binder 889:889 <> A:1
+R910:913 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R909:909 Corelib.Numbers.Cyclic.Int63.CarryType <> A:1 var
+R914:918 Corelib.Numbers.Cyclic.Int63.CarryType <> carry:2 ind
+R920:920 Corelib.Numbers.Cyclic.Int63.CarryType <> A:1 var
+R930:933 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R929:929 Corelib.Numbers.Cyclic.Int63.CarryType <> A:1 var
+R934:938 Corelib.Numbers.Cyclic.Int63.CarryType <> carry:2 ind
+R940:940 Corelib.Numbers.Cyclic.Int63.CarryType <> A:1 var

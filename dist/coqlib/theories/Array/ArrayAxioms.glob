@@ -1,0 +1,213 @@
+DIGEST 32ac12f3f096771e52bce7af33a73b45
+FCorelib.Array.ArrayAxioms
+R28:36 Corelib.Array.PrimArray <> <> lib
+abbrev 87:95 <> in_bounds
+R105:117 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> ltb prim
+R122:127 Corelib.Array.PrimArray <> length prim
+ax 141:157 <> get_out_of_bounds
+binder 173:173 <> A:1
+R188:192 Corelib.Array.PrimArray <> array prim
+R194:194 Corelib.Array.ArrayAxioms <> A:1 var
+binder 186:186 <> t:2
+binder 197:197 <> i:3
+R223:226 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R215:217 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R202:210 Corelib.Array.ArrayAxioms <> in_bounds abbrev
+R212:212 Corelib.Array.ArrayAxioms <> i:3 var
+R214:214 Corelib.Array.ArrayAxioms <> t:2 var
+R218:222 Corelib.Init.Datatypes <> false constr
+R232:234 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R228:229 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_']' not
+R231:231 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_']' not
+R227:227 Corelib.Array.ArrayAxioms <> t:2 var
+R230:230 Corelib.Array.ArrayAxioms <> i:3 var
+R235:241 Corelib.Array.PrimArray <> default prim
+R243:243 Corelib.Array.ArrayAxioms <> t:2 var
+ax 253:264 <> get_set_same
+binder 280:280 <> A:6
+binder 292:292 <> t:7
+binder 294:294 <> i:8
+R299:299 Corelib.Array.ArrayAxioms <> A:6 var
+binder 297:297 <> a:9
+R325:328 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R318:320 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R305:313 Corelib.Array.ArrayAxioms <> in_bounds abbrev
+R315:315 Corelib.Array.ArrayAxioms <> i:8 var
+R317:317 Corelib.Array.ArrayAxioms <> t:7 var
+R321:324 Corelib.Init.Datatypes <> true constr
+R341:343 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R337:338 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_']' not
+R340:340 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_']' not
+R330:331 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_'<-'_x_']' not
+R333:334 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_'<-'_x_']' not
+R336:336 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_'<-'_x_']' not
+R329:329 Corelib.Array.ArrayAxioms <> t:7 var
+R332:332 Corelib.Array.ArrayAxioms <> i:8 var
+R335:335 Corelib.Array.ArrayAxioms <> a:9 var
+R339:339 Corelib.Array.ArrayAxioms <> i:8 var
+R344:344 Corelib.Array.ArrayAxioms <> a:9 var
+ax 353:365 <> get_set_other
+binder 381:381 <> A:12
+binder 393:393 <> t:13
+binder 395:395 <> i:14
+binder 397:397 <> j:15
+R402:402 Corelib.Array.ArrayAxioms <> A:12 var
+binder 400:400 <> a:16
+R412:415 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R407:410 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R406:406 Corelib.Array.ArrayAxioms <> i:14 var
+R411:411 Corelib.Array.ArrayAxioms <> j:15 var
+R428:430 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R424:425 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_']' not
+R427:427 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_']' not
+R417:418 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_'<-'_x_']' not
+R420:421 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_'<-'_x_']' not
+R423:423 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_'<-'_x_']' not
+R416:416 Corelib.Array.ArrayAxioms <> t:13 var
+R419:419 Corelib.Array.ArrayAxioms <> i:14 var
+R422:422 Corelib.Array.ArrayAxioms <> a:16 var
+R426:426 Corelib.Array.ArrayAxioms <> j:15 var
+R432:433 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_']' not
+R435:435 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_']' not
+R431:431 Corelib.Array.ArrayAxioms <> t:13 var
+R434:434 Corelib.Array.ArrayAxioms <> j:15 var
+ax 444:454 <> default_set
+binder 470:470 <> A:19
+binder 482:482 <> t:20
+binder 484:484 <> i:21
+R489:489 Corelib.Array.ArrayAxioms <> A:19 var
+binder 487:487 <> a:22
+R509:511 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R493:499 Corelib.Array.PrimArray <> default prim
+R502:503 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_'<-'_x_']' not
+R505:506 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_'<-'_x_']' not
+R508:508 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_'<-'_x_']' not
+R501:501 Corelib.Array.ArrayAxioms <> t:20 var
+R504:504 Corelib.Array.ArrayAxioms <> i:21 var
+R507:507 Corelib.Array.ArrayAxioms <> a:22 var
+R512:518 Corelib.Array.PrimArray <> default prim
+R520:520 Corelib.Array.ArrayAxioms <> t:20 var
+ax 531:538 <> get_make
+binder 554:554 <> A:25
+R569:569 Corelib.Array.ArrayAxioms <> A:25 var
+binder 567:567 <> a:26
+binder 572:575 <> size:27
+binder 577:577 <> i:28
+R597:599 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R580:580 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_']' not
+R592:594 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_']' not
+R596:596 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_']' not
+R581:584 Corelib.Array.PrimArray <> make prim
+R591:591 Corelib.Array.ArrayAxioms <> a:26 var
+R586:589 Corelib.Array.ArrayAxioms <> size:27 var
+R595:595 Corelib.Array.ArrayAxioms <> i:28 var
+R600:600 Corelib.Array.ArrayAxioms <> a:26 var
+ax 610:619 <> leb_length
+binder 635:635 <> A:31
+R650:654 Corelib.Array.PrimArray <> array prim
+R656:656 Corelib.Array.ArrayAxioms <> A:31 var
+binder 648:648 <> t:32
+R697:699 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R662:674 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> leb prim
+R677:682 Corelib.Array.PrimArray <> length prim
+R684:684 Corelib.Array.ArrayAxioms <> t:32 var
+R687:696 Corelib.Array.PrimArray <> max_length prim
+R700:703 Corelib.Init.Datatypes <> true constr
+ax 713:723 <> length_make
+binder 739:739 <> A:35
+binder 751:754 <> size:36
+R759:759 Corelib.Array.ArrayAxioms <> A:35 var
+binder 757:757 <> a:37
+R785:787 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R765:770 Corelib.Array.PrimArray <> length prim
+R773:776 Corelib.Array.PrimArray <> make prim
+R783:783 Corelib.Array.ArrayAxioms <> a:37 var
+R778:781 Corelib.Array.ArrayAxioms <> size:36 var
+R791:803 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> leb prim
+R805:808 Corelib.Array.ArrayAxioms <> size:36 var
+R810:819 Corelib.Array.PrimArray <> max_length prim
+R836:845 Corelib.Array.PrimArray <> max_length prim
+R826:829 Corelib.Array.ArrayAxioms <> size:36 var
+ax 854:863 <> length_set
+binder 879:879 <> A:40
+binder 891:891 <> t:41
+binder 893:893 <> i:42
+R898:898 Corelib.Array.ArrayAxioms <> A:40 var
+binder 896:896 <> a:43
+R919:921 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R904:909 Corelib.Array.PrimArray <> length prim
+R912:913 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_'<-'_x_']' not
+R915:916 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_'<-'_x_']' not
+R918:918 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_'<-'_x_']' not
+R911:911 Corelib.Array.ArrayAxioms <> t:41 var
+R914:914 Corelib.Array.ArrayAxioms <> i:42 var
+R917:917 Corelib.Array.ArrayAxioms <> a:43 var
+R922:927 Corelib.Array.PrimArray <> length prim
+R929:929 Corelib.Array.ArrayAxioms <> t:41 var
+ax 939:946 <> get_copy
+binder 962:962 <> A:46
+R977:981 Corelib.Array.PrimArray <> array prim
+R983:983 Corelib.Array.ArrayAxioms <> A:46 var
+binder 975:975 <> t:47
+binder 986:986 <> i:48
+R1001:1003 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R989:989 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_']' not
+R996:998 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_']' not
+R1000:1000 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_']' not
+R990:993 Corelib.Array.PrimArray <> copy prim
+R995:995 Corelib.Array.ArrayAxioms <> t:47 var
+R999:999 Corelib.Array.ArrayAxioms <> i:48 var
+R1005:1006 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_']' not
+R1008:1008 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_']' not
+R1004:1004 Corelib.Array.ArrayAxioms <> t:47 var
+R1007:1007 Corelib.Array.ArrayAxioms <> i:48 var
+ax 1017:1027 <> length_copy
+binder 1043:1043 <> A:51
+R1058:1062 Corelib.Array.PrimArray <> array prim
+R1064:1064 Corelib.Array.ArrayAxioms <> A:51 var
+binder 1056:1056 <> t:52
+R1083:1085 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1068:1073 Corelib.Array.PrimArray <> length prim
+R1076:1079 Corelib.Array.PrimArray <> copy prim
+R1081:1081 Corelib.Array.ArrayAxioms <> t:52 var
+R1086:1091 Corelib.Array.PrimArray <> length prim
+R1093:1093 Corelib.Array.ArrayAxioms <> t:52 var
+ax 1103:1111 <> array_ext
+binder 1127:1127 <> A:55
+R1146:1150 Corelib.Array.PrimArray <> array prim
+R1152:1152 Corelib.Array.ArrayAxioms <> A:55 var
+binder 1140:1141 <> t1:56
+binder 1143:1144 <> t2:57
+R1179:1184 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1167:1169 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1158:1163 Corelib.Array.PrimArray <> length prim
+R1165:1166 Corelib.Array.ArrayAxioms <> t1:56 var
+R1170:1175 Corelib.Array.PrimArray <> length prim
+R1177:1178 Corelib.Array.ArrayAxioms <> t2:57 var
+R1185:1185 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1236:1242 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+binder 1193:1193 <> i:58
+R1217:1220 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1210:1212 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1196:1204 Corelib.Array.ArrayAxioms <> in_bounds abbrev
+R1206:1206 Corelib.Array.ArrayAxioms <> i:58 var
+R1208:1209 Corelib.Array.ArrayAxioms <> t1:56 var
+R1213:1216 Corelib.Init.Datatypes <> true constr
+R1227:1229 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1223:1224 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_']' not
+R1226:1226 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_']' not
+R1221:1222 Corelib.Array.ArrayAxioms <> t1:56 var
+R1225:1225 Corelib.Array.ArrayAxioms <> i:58 var
+R1232:1233 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_']' not
+R1235:1235 Corelib.Array.PrimArray PArrayNotations :::x_'.['_x_']' not
+R1230:1231 Corelib.Array.ArrayAxioms <> t2:57 var
+R1234:1234 Corelib.Array.ArrayAxioms <> i:58 var
+R1266:1271 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1253:1255 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1243:1249 Corelib.Array.PrimArray <> default prim
+R1251:1252 Corelib.Array.ArrayAxioms <> t1:56 var
+R1256:1262 Corelib.Array.PrimArray <> default prim
+R1264:1265 Corelib.Array.ArrayAxioms <> t2:57 var
+R1274:1276 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1272:1273 Corelib.Array.ArrayAxioms <> t1:56 var
+R1277:1278 Corelib.Array.ArrayAxioms <> t2:57 var

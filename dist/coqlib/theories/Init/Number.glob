@@ -1,0 +1,49 @@
+DIGEST 5ca457188dc1beaf4599d313c1b05a2d
+FCorelib.Init.Number
+R732:738 Corelib.Init.Decimal <> <> lib
+R740:750 Corelib.Init.Hexadecimal <> <> lib
+ind 762:765 <> uint
+constr 770:780 <> UIntDecimal
+constr 801:815 <> UIntHexadecimal
+R785:796 Corelib.Init.Decimal <> uint ind
+binder 783:783 <> u:3
+R820:835 Corelib.Init.Hexadecimal <> uint ind
+binder 818:818 <> u:4
+ind 848:857 <> signed_int
+constr 862:871 <> IntDecimal
+constr 891:904 <> IntHexadecimal
+R876:886 Corelib.Init.Decimal <> int abbrev
+binder 874:874 <> i:7
+R909:923 Corelib.Init.Hexadecimal <> int abbrev
+binder 907:907 <> i:8
+abbrev 940:942 <> int
+R947:956 Corelib.Init.Number <> signed_int variant
+ind 968:973 <> number
+constr 978:984 <> Decimal
+constr 1008:1018 <> Hexadecimal
+R989:1003 Corelib.Init.Decimal <> decimal variant
+binder 987:987 <> d:11
+R1023:1045 Corelib.Init.Hexadecimal <> hexadecimal variant
+binder 1021:1021 <> h:12
+R1070:1073 Corelib.Init.Number <> uint variant
+scheme 1050:1074 <> uint_eq_dec
+R1096:1098 Corelib.Init.Number <> signed_int variant
+scheme 1076:1099 <> signed_int_eq_dec
+R1121:1126 Corelib.Init.Number <> number variant
+scheme 1101:1127 <> number_eq_dec
+abbrev 1142:1151 <> int_eq_dec
+R1156:1172 Corelib.Init.Number <> signed_int_eq_dec scheme
+abbrev 1188:1194 <> int_beq
+R1199:1212 Corelib.Init.Number <> signed_int_beq scheme
+abbrev 1228:1246 <> internal_int_dec_lb
+R1251:1276 Corelib.Init.Decimal <> internal_signed_int_dec_lb scheme
+abbrev 1292:1310 <> internal_int_dec_bl
+R1315:1340 Corelib.Init.Decimal <> internal_signed_int_dec_bl scheme
+def 1560:1571 <> uint_of_uint
+R1576:1579 Corelib.Init.Number <> uint variant
+binder 1574:1574 <> i:13
+R1585:1585 Corelib.Init.Number <> i:13 var
+def 1599:1608 <> int_of_int
+R1613:1615 Corelib.Init.Number <> int abbrev
+binder 1611:1611 <> i:14
+R1621:1621 Corelib.Init.Number <> i:14 var

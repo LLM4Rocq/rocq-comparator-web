@@ -1,0 +1,12 @@
+DIGEST 441238edac11e139a24587b080332f92
+FLtac2.Notations
+R691:707 Corelib.Init.Ltac <> <> lib
+R725:734 Ltac2.Init <> <> lib
+R745:757 Ltac2.Control <> <> lib
+R759:769 Ltac2.Fresh <> <> lib
+R771:782 Ltac2.Option <> <> lib
+R784:796 Ltac2.Pattern <> <> lib
+R798:808 Ltac2.Array <> <> lib
+R810:818 Ltac2.Int <> <> lib
+R820:828 Ltac2.Std <> <> lib
+R830:841 Ltac2.Constr <> <> lib

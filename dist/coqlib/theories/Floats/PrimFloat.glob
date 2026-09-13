@@ -1,0 +1,132 @@
+DIGEST ba2cae6a0167e0b4c4bcd957d6b00b2e
+FCorelib.Floats.PrimFloat
+R691:699 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> <> lib
+R701:710 Corelib.Floats.FloatClass <> <> lib
+ind 957:972 <> float_comparison
+constr 983:985 <> FEq
+constr 989:991 <> FLt
+constr 995:997 <> FGt
+constr 1001:1014 <> FNotComparable
+ax 1213:1217 <> float
+rec 1279:1291 <> float_wrapper
+proj 1309:1318 <> float_wrap
+R1322:1326 Corelib.Floats.PrimFloat <> float prim
+def 1438:1444 <> printer
+R1451:1463 Corelib.Floats.PrimFloat <> float_wrapper rec
+binder 1447:1447 <> x:5
+R1468:1472 Corelib.Floats.PrimFloat <> float prim
+R1477:1486 Corelib.Floats.PrimFloat <> float_wrap proj
+R1488:1488 Corelib.Floats.PrimFloat <> x:5 var
+def 1502:1507 <> parser
+R1514:1518 Corelib.Floats.PrimFloat <> float prim
+binder 1510:1510 <> x:6
+R1523:1527 Corelib.Floats.PrimFloat <> float prim
+R1532:1532 Corelib.Floats.PrimFloat <> x:6 var
+mod 1575:1601 <> PrimFloatNotationsInternalA
+R1708:1734 Corelib.Floats.PrimFloat PrimFloatNotationsInternalA <> mod
+R1753:1757 Corelib.Floats.PrimFloat <> float prim
+R1759:1764 Corelib.Floats.PrimFloat <> parser def
+R1766:1772 Corelib.Floats.PrimFloat <> printer def
+ax 1835:1842 <> classify
+ax 1877:1879 <> abs
+ax 1909:1912 <> sqrt
+ax 1943:1945 <> opp
+ax 2074:2076 <> eqb
+ax 2105:2107 <> ltb
+ax 2136:2138 <> leb
+ax 2167:2173 <> compare
+mod 2236:2242 <> Leibniz
+ax 2255:2257 Leibniz eqb
+R2282:2288 Corelib.Floats.PrimFloat Leibniz <> mod
+ax 2350:2352 <> mul
+ax 2382:2384 <> add
+ax 2414:2416 <> sub
+ax 2446:2448 <> div
+mod 2482:2508 <> PrimFloatNotationsInternalB
+R2530:2532 Corelib.Floats.PrimFloat <> opp prim
+not 2520:2520 PrimFloatNotationsInternalB ::float_scope:'-'_x
+R2574:2576 Corelib.Floats.PrimFloat <> eqb prim
+not 2561:2561 PrimFloatNotationsInternalB ::float_scope:x_'=?'_x
+R2652:2654 Corelib.Floats.PrimFloat <> ltb prim
+not 2639:2639 PrimFloatNotationsInternalB ::float_scope:x_'<?'_x
+R2731:2733 Corelib.Floats.PrimFloat <> leb prim
+not 2717:2717 PrimFloatNotationsInternalB ::float_scope:x_'<=?'_x
+R2809:2815 Corelib.Floats.PrimFloat <> compare prim
+not 2796:2796 PrimFloatNotationsInternalB ::float_scope:x_'?='_x
+R2890:2892 Corelib.Floats.PrimFloat <> mul prim
+not 2878:2878 PrimFloatNotationsInternalB ::float_scope:x_'*'_x
+R2935:2937 Corelib.Floats.PrimFloat <> add prim
+not 2923:2923 PrimFloatNotationsInternalB ::float_scope:x_'+'_x
+R2980:2982 Corelib.Floats.PrimFloat <> sub prim
+not 2968:2968 PrimFloatNotationsInternalB ::float_scope:x_'-'_x
+R3025:3027 Corelib.Floats.PrimFloat <> div prim
+not 3013:3013 PrimFloatNotationsInternalB ::float_scope:x_'/'_x
+R3053:3079 Corelib.Floats.PrimFloat PrimFloatNotationsInternalB <> mod
+ax 3230:3238 <> of_uint63
+ax 3587:3601 <> normfr_mantissa
+ax 3785:3794 <> frshiftexp
+ax 3896:3905 <> ldshiftexp
+ax 4051:4057 <> next_up
+ax 4160:4168 <> next_down
+def 4259:4266 <> infinity
+R4287:4289 Corelib.Floats.PrimFloat <> div prim
+R4292:4300 Corelib.Floats.PrimFloat <> of_uint63 prim
+R4306:4314 Corelib.Floats.PrimFloat <> of_uint63 prim
+def 4331:4342 <> neg_infinity
+R4363:4365 Corelib.Floats.PrimFloat <> opp prim
+R4367:4374 Corelib.Floats.PrimFloat <> infinity def
+def 4388:4390 <> nan
+R4411:4413 Corelib.Floats.PrimFloat <> div prim
+R4416:4424 Corelib.Floats.PrimFloat <> of_uint63 prim
+R4430:4438 Corelib.Floats.PrimFloat <> of_uint63 prim
+def 4609:4611 <> one
+R4633:4641 Corelib.Floats.PrimFloat <> of_uint63 prim
+def 4658:4661 <> zero
+R4683:4691 Corelib.Floats.PrimFloat <> of_uint63 prim
+def 4708:4715 <> neg_zero
+R4737:4737 Corelib.Floats.PrimFloat PrimFloatNotationsInternalB ::float_scope:'-'_x not
+R4738:4741 Corelib.Floats.PrimFloat <> zero def
+def 4762:4764 <> two
+R4786:4794 Corelib.Floats.PrimFloat <> of_uint63 prim
+def 4854:4859 <> is_nan
+binder 4861:4861 <> f:7
+R4866:4869 Corelib.Init.Datatypes <> negb def
+R4873:4876 Corelib.Floats.PrimFloat PrimFloatNotationsInternalB ::float_scope:x_'=?'_x not
+R4872:4872 Corelib.Floats.PrimFloat <> f:7 var
+R4877:4877 Corelib.Floats.PrimFloat <> f:7 var
+def 4899:4905 <> is_zero
+binder 4907:4907 <> f:8
+R4914:4917 Corelib.Floats.PrimFloat PrimFloatNotationsInternalB ::float_scope:x_'=?'_x not
+R4913:4913 Corelib.Floats.PrimFloat <> f:8 var
+R4918:4921 Corelib.Floats.PrimFloat <> zero def
+def 4975:4985 <> is_infinity
+binder 4987:4987 <> f:9
+R4998:5001 Corelib.Floats.PrimFloat PrimFloatNotationsInternalB ::float_scope:x_'=?'_x not
+R4993:4995 Corelib.Floats.PrimFloat <> abs prim
+R4997:4997 Corelib.Floats.PrimFloat <> f:9 var
+R5002:5009 Corelib.Floats.PrimFloat <> infinity def
+def 5031:5039 <> is_finite
+R5046:5050 Corelib.Floats.PrimFloat <> float prim
+binder 5042:5042 <> x:10
+R5056:5059 Corelib.Init.Datatypes <> negb def
+R5070:5073 Corelib.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R5062:5067 Corelib.Floats.PrimFloat <> is_nan def
+R5069:5069 Corelib.Floats.PrimFloat <> x:10 var
+R5074:5084 Corelib.Floats.PrimFloat <> is_infinity def
+R5086:5086 Corelib.Floats.PrimFloat <> x:10 var
+def 5171:5178 <> get_sign
+binder 5180:5180 <> f:11
+R5199:5205 Corelib.Floats.PrimFloat <> is_zero def
+R5207:5207 Corelib.Floats.PrimFloat <> f:11 var
+R5235:5235 Corelib.Floats.PrimFloat <> f:11 var
+R5218:5220 Corelib.Floats.PrimFloat PrimFloatNotationsInternalB ::float_scope:x_'/'_x not
+R5215:5217 Corelib.Floats.PrimFloat <> one def
+R5221:5221 Corelib.Floats.PrimFloat <> f:11 var
+binder 5191:5191 <> f:12
+R5244:5247 Corelib.Floats.PrimFloat PrimFloatNotationsInternalB ::float_scope:x_'<?'_x not
+R5243:5243 Corelib.Floats.PrimFloat <> f:12 var
+R5248:5251 Corelib.Floats.PrimFloat <> zero def
+mod 5276:5293 <> PrimFloatNotations
+R5337:5363 Corelib.Floats.PrimFloat PrimFloatNotationsInternalA <> mod
+R5375:5401 Corelib.Floats.PrimFloat PrimFloatNotationsInternalB <> mod
+R5408:5425 Corelib.Floats.PrimFloat PrimFloatNotations <> mod

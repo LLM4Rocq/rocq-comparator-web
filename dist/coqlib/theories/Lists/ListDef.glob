@@ -1,0 +1,187 @@
+DIGEST c2710d4565aaf83d44ecf51b6f793555
+FCorelib.Lists.ListDef
+sec 1052:1054 <> Map
+var 1071:1071 Map A
+var 1082:1082 Map B
+var 1104:1104 Map f
+R1109:1112 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1108:1108 Corelib.Lists.ListDef <> Map.A var
+R1113:1113 Corelib.Lists.ListDef <> Map.B var
+def 1128:1130 <> map
+R1135:1138 Corelib.Init.Datatypes <> list ind
+R1140:1140 Corelib.Lists.ListDef <> Map.A var
+binder 1133:1133 <> l:7
+R1145:1148 Corelib.Init.Datatypes <> list ind
+R1150:1150 Corelib.Lists.ListDef <> Map.B var
+R1165:1165 Corelib.Lists.ListDef <> l:7 var
+R1180:1182 Corelib.Init.Datatypes <> nil constr
+R1187:1189 Corelib.Init.Datatypes <> nil constr
+R1200:1203 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1209:1209 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1213:1218 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1224:1224 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1210:1210 Corelib.Lists.ListDef <> Map.f var
+R1219:1221 Corelib.Lists.ListDef <> map:8 def
+R1223:1223 Corelib.Lists.ListDef <> l:7 var
+R1240:1242 Corelib.Lists.ListDef Map <> sec
+sec 1254:1259 <> NatSeq
+def 1414:1416 <> seq
+R1429:1431 Corelib.Init.Datatypes <> nat ind
+binder 1419:1423 <> start:10
+binder 1425:1427 <> len:11
+R1436:1439 Corelib.Init.Datatypes <> list ind
+R1441:1443 Corelib.Init.Datatypes <> nat ind
+R1458:1460 Corelib.Lists.ListDef <> len:11 var
+R1480:1482 Corelib.Init.Datatypes <> nil constr
+R1492:1492 Corelib.Init.Datatypes <> S constr
+R1506:1509 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1501:1505 Corelib.Lists.ListDef <> start:10 var
+R1510:1512 Corelib.Lists.ListDef <> seq:12 def
+R1524:1526 Corelib.Lists.ListDef <> len:11 var
+R1515:1515 Corelib.Init.Datatypes <> S constr
+R1517:1521 Corelib.Lists.ListDef <> start:10 var
+R1542:1547 Corelib.Lists.ListDef NatSeq <> sec
+sec 1559:1564 <> Repeat
+var 1579:1579 Repeat A
+def 1600:1605 <> repeat
+R1612:1612 Corelib.Lists.ListDef <> Repeat.A var
+binder 1608:1608 <> x:16
+R1619:1621 Corelib.Init.Datatypes <> nat ind
+binder 1616:1616 <> n:17
+R1638:1638 Corelib.Lists.ListDef <> n:17 var
+R1653:1653 Corelib.Init.Datatypes <> O constr
+R1658:1660 Corelib.Init.Datatypes <> nil constr
+R1670:1670 Corelib.Init.Datatypes <> S constr
+R1678:1681 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1677:1677 Corelib.Lists.ListDef <> x:16 var
+R1682:1687 Corelib.Lists.ListDef <> repeat:18 def
+R1689:1689 Corelib.Lists.ListDef <> x:16 var
+R1707:1712 Corelib.Lists.ListDef Repeat <> sec
+sec 1724:1727 <> Elts
+var 1742:1742 Elts A
+def 1867:1869 <> nth
+R1874:1876 Corelib.Init.Datatypes <> nat ind
+binder 1872:1872 <> n:22
+R1882:1885 Corelib.Init.Datatypes <> list ind
+R1887:1887 Corelib.Lists.ListDef <> Elts.A var
+binder 1880:1880 <> l:23
+R1899:1899 Corelib.Lists.ListDef <> Elts.A var
+binder 1891:1897 <> default:24
+R1915:1915 Corelib.Lists.ListDef <> Elts.A var
+R1933:1933 Corelib.Lists.ListDef <> l:23 var
+R1930:1930 Corelib.Lists.ListDef <> n:22 var
+R1948:1948 Corelib.Init.Datatypes <> O constr
+R1952:1955 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1972:1972 Corelib.Init.Datatypes <> O constr
+R1975:1977 Corelib.Init.Datatypes <> nil constr
+R1982:1988 Corelib.Lists.ListDef <> default:24 var
+R1998:1998 Corelib.Init.Datatypes <> S constr
+R2003:2005 Corelib.Init.Datatypes <> nil constr
+R2010:2016 Corelib.Lists.ListDef <> default:24 var
+R2026:2026 Corelib.Init.Datatypes <> S constr
+R2032:2035 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2042:2044 Corelib.Lists.ListDef <> nth:25 def
+R2051:2057 Corelib.Lists.ListDef <> default:24 var
+R2073:2076 Corelib.Lists.ListDef Elts <> sec
+sec 2088:2094 <> Cutting
+var 2109:2109 Cutting A
+def 2131:2136 <> firstn
+R2141:2143 Corelib.Init.Datatypes <> nat ind
+binder 2139:2139 <> n:30
+R2149:2152 Corelib.Init.Datatypes <> list ind
+R2154:2154 Corelib.Lists.ListDef <> Cutting.A var
+binder 2147:2147 <> l:31
+R2159:2162 Corelib.Init.Datatypes <> list ind
+R2164:2164 Corelib.Lists.ListDef <> Cutting.A var
+R2179:2179 Corelib.Lists.ListDef <> n:30 var
+R2199:2201 Corelib.Init.Datatypes <> nil constr
+R2211:2211 Corelib.Init.Datatypes <> S constr
+R2224:2224 Corelib.Lists.ListDef <> l:31 var
+R2250:2252 Corelib.Init.Datatypes <> nil constr
+R2257:2259 Corelib.Init.Datatypes <> nil constr
+R2281:2282 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2289:2291 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2302:2302 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2292:2297 Corelib.Lists.ListDef <> firstn:32 def
+R2301:2301 Corelib.Lists.ListDef <> l:31 var
+R2299:2299 Corelib.Lists.ListDef <> n:30 var
+def 2344:2348 <> skipn
+R2353:2355 Corelib.Init.Datatypes <> nat ind
+binder 2351:2351 <> n:35
+R2361:2364 Corelib.Init.Datatypes <> list ind
+R2366:2366 Corelib.Lists.ListDef <> Cutting.A var
+binder 2359:2359 <> l:36
+R2371:2374 Corelib.Init.Datatypes <> list ind
+R2376:2376 Corelib.Lists.ListDef <> Cutting.A var
+R2391:2391 Corelib.Lists.ListDef <> n:35 var
+R2411:2411 Corelib.Lists.ListDef <> l:36 var
+R2421:2421 Corelib.Init.Datatypes <> S constr
+R2434:2434 Corelib.Lists.ListDef <> l:36 var
+R2460:2462 Corelib.Init.Datatypes <> nil constr
+R2467:2469 Corelib.Init.Datatypes <> nil constr
+R2491:2492 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2498:2502 Corelib.Lists.ListDef <> skipn:37 def
+R2506:2506 Corelib.Lists.ListDef <> l:36 var
+R2504:2504 Corelib.Lists.ListDef <> n:35 var
+R2541:2547 Corelib.Lists.ListDef Cutting <> sec
+sec 2559:2571 <> Exists_Forall
+var 2646:2646 Exists_Forall A
+sec 2665:2677 Exists_Forall One_predicate
+var 2694:2694 Exists_Forall.One_predicate P
+R2699:2702 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2698:2698 Corelib.Lists.ListDef <> Exists_Forall.A var
+ind 2724:2729 <> Forall
+constr 2759:2768 <> Forall_nil
+constr 2791:2801 <> Forall_cons
+R2739:2742 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2733:2736 Corelib.Init.Datatypes <> list ind
+R2738:2738 Corelib.Lists.ListDef <> Exists_Forall.A var
+R2772:2777 Corelib.Lists.ListDef <> Forall:44 ind
+R2779:2781 Corelib.Init.Datatypes <> nil constr
+binder 2812:2812 <> x:46
+binder 2814:2814 <> l:47
+R2820:2823 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2817:2817 Corelib.Lists.ListDef <> Exists_Forall.One_predicate.P var
+R2819:2819 Corelib.Lists.ListDef <> x:46 var
+R2832:2835 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2824:2829 Corelib.Lists.ListDef <> Forall:44 ind
+R2831:2831 Corelib.Lists.ListDef <> l:47 var
+R2836:2841 Corelib.Lists.ListDef <> Forall:44 ind
+R2845:2848 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2844:2844 Corelib.Lists.ListDef <> x:46 var
+R2849:2849 Corelib.Lists.ListDef <> l:47 var
+scheme 2724:2729 <> Forall_ind
+scheme 2724:2729 <> Forall_sind
+R2860:2872 Corelib.Lists.ListDef Exists_Forall.One_predicate <> sec
+R2880:2892 Corelib.Lists.ListDef Exists_Forall <> sec
+sec 2983:2989 <> Compare
+var 3004:3004 Compare A
+var 3025:3027 Compare cmp
+R3032:3035 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3031:3031 Corelib.Lists.ListDef <> Compare.A var
+R3037:3040 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3036:3036 Corelib.Lists.ListDef <> Compare.A var
+R3041:3050 Corelib.Init.Datatypes <> comparison ind
+def 3065:3076 <> list_compare
+R3087:3090 Corelib.Init.Datatypes <> list ind
+R3092:3092 Corelib.Lists.ListDef <> Compare.A var
+binder 3079:3080 <> xs:52
+binder 3082:3083 <> ys:53
+R3097:3106 Corelib.Init.Datatypes <> comparison ind
+R3125:3126 Corelib.Lists.ListDef <> ys:53 var
+R3121:3122 Corelib.Lists.ListDef <> xs:52 var
+R3139:3141 Corelib.Init.Datatypes <> nil constr
+R3147:3149 Corelib.Init.Datatypes <> nil constr
+R3157:3158 Corelib.Init.Datatypes <> Eq constr
+R3166:3168 Corelib.Init.Datatypes <> nil constr
+R3184:3185 Corelib.Init.Datatypes <> Lt constr
+R3201:3203 Corelib.Init.Datatypes <> nil constr
+R3211:3212 Corelib.Init.Datatypes <> Gt constr
+R3221:3224 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3230:3233 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3254:3256 Corelib.Lists.ListDef <> Compare.cmp var
+R3277:3278 Corelib.Init.Datatypes <> Eq constr
+R3283:3294 Corelib.Lists.ListDef <> list_compare:54 def
+R3299:3300 Corelib.Lists.ListDef <> ys:53 var
+R3296:3297 Corelib.Lists.ListDef <> xs:52 var
+R3351:3357 Corelib.Lists.ListDef Compare <> sec

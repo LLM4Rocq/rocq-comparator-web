@@ -1,0 +1,628 @@
+DIGEST 337aae547e49336943120a7040443c45
+FCorelib.Numbers.Cyclic.Int63.Uint63Axioms
+R854:860 Corelib.Numbers.BinNums <> <> lib
+R862:867 Corelib.BinNums.PosDef <> <> lib
+R869:874 Corelib.BinNums.IntDef <> <> lib
+R905:913 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> <> lib
+R966:967 Corelib.Numbers.BinNums <> Z0 constr
+not 959:959 <> ::Z_scope:'0'
+R1003:1006 Corelib.Numbers.BinNums <> Zpos constr
+not 995:995 <> ::Z_scope:'1'
+R1045:1048 Corelib.Numbers.BinNums <> Zpos constr
+not 1037:1037 <> ::Z_scope:'2'
+R1083:1087 Corelib.BinNums.IntDef Z add def
+not 1076:1076 <> ::Z_scope:x_'+'_x
+R1119:1123 Corelib.BinNums.IntDef Z sub def
+not 1112:1112 <> ::Z_scope:x_'-'_x
+R1155:1159 Corelib.BinNums.IntDef Z mul def
+not 1148:1148 <> ::Z_scope:x_'*'_x
+R1191:1195 Corelib.BinNums.IntDef Z pow def
+not 1184:1184 <> ::Z_scope:x_'^'_x
+R1228:1231 Corelib.BinNums.IntDef Z le def
+not 1220:1220 <> ::Z_scope:x_'<='_x
+R1263:1266 Corelib.BinNums.IntDef Z lt def
+not 1256:1256 <> ::Z_scope:x_'<'_x
+R1317:1320 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R1312:1315 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'<='_x not
+R1322:1324 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'<'_x not
+not 1294:1294 <> ::Z_scope:x_'<='_x_'<'_x
+def 1351:1354 <> size
+def 1417:1422 <> digits
+def 1473:1479 <> max_int
+R1503:1505 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> sub prim
+def 1556:1564 <> get_digit
+binder 1566:1566 <> x:1
+binder 1568:1568 <> p:2
+R1573:1575 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> ltb prim
+R1580:1583 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> land prim
+R1585:1585 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:1 var
+R1588:1590 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> lsl prim
+R1594:1594 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> p:2 var
+def 1611:1619 <> set_digit
+binder 1621:1621 <> x:3
+binder 1623:1623 <> p:4
+R1628:1631 Corelib.Init.Datatypes <> bool ind
+binder 1626:1626 <> b:5
+R1645:1647 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> leb prim
+R1651:1651 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> p:4 var
+R1676:1680 Corelib.Init.Datatypes <> false constr
+R1658:1660 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> ltb prim
+R1662:1662 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> p:4 var
+R1664:1669 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> digits def
+R1765:1765 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:3 var
+R1694:1694 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> b:5 var
+R1726:1729 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> land prim
+R1731:1731 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:3 var
+R1734:1737 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> lxor prim
+R1739:1745 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> max_int def
+R1748:1750 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> lsl prim
+R1754:1754 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> p:4 var
+R1701:1703 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> lor prim
+R1705:1705 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:3 var
+R1708:1710 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> lsl prim
+R1714:1714 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> p:4 var
+def 1804:1810 <> is_zero
+R1815:1817 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+binder 1813:1813 <> i:6
+R1823:1825 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> eqb prim
+R1827:1827 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> i:6 var
+def 1843:1849 <> is_even
+R1854:1856 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+binder 1852:1852 <> i:7
+R1862:1868 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> is_zero def
+R1871:1874 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> land prim
+R1876:1876 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> i:7 var
+def 1891:1898 <> to_Z_rec
+R1903:1905 Corelib.Init.Datatypes <> nat ind
+binder 1901:1901 <> n:8
+R1911:1913 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> int prim
+binder 1909:1909 <> i:9
+R1927:1927 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> n:8 var
+R1938:1938 Corelib.Init.Datatypes <> O constr
+R1949:1949 Corelib.Init.Datatypes <> S constr
+R1966:1972 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> is_even def
+R1974:1974 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> i:9 var
+R1995:2007 Corelib.BinNums.IntDef Z succ_double def
+R1981:1988 Corelib.BinNums.IntDef Z double def
+R2011:2018 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z_rec:10 def
+R2023:2025 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> lsr prim
+R2027:2027 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> i:9 var
+R2020:2020 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> n:8 var
+def 2052:2055 <> to_Z
+R2060:2067 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z_rec def
+R2069:2072 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> size def
+def 2085:2094 <> of_pos_rec
+R2099:2101 Corelib.Init.Datatypes <> nat ind
+binder 2097:2097 <> n:12
+R2107:2114 Corelib.Numbers.BinNums <> positive ind
+binder 2105:2105 <> p:13
+R2142:2142 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> p:13 var
+R2139:2139 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> n:12 var
+R2153:2153 Corelib.Init.Datatypes <> O constr
+R2174:2174 Corelib.Init.Datatypes <> S constr
+R2179:2180 Corelib.Numbers.BinNums <> xH constr
+R2198:2198 Corelib.Init.Datatypes <> S constr
+R2203:2204 Corelib.Numbers.BinNums <> xO constr
+R2211:2213 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> lsl prim
+R2216:2225 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> of_pos_rec:14 def
+R2229:2229 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> p:13 var
+R2227:2227 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> n:12 var
+R2238:2238 Corelib.Init.Datatypes <> S constr
+R2243:2244 Corelib.Numbers.BinNums <> xI constr
+R2251:2253 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> lor prim
+R2256:2258 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> lsl prim
+R2261:2270 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> of_pos_rec:14 def
+R2274:2274 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> p:13 var
+R2272:2272 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> n:12 var
+def 2301:2306 <> of_pos
+R2311:2320 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> of_pos_rec def
+R2322:2325 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> size def
+def 2340:2343 <> of_Z
+binder 2345:2345 <> z:17
+R2358:2358 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> z:17 var
+R2369:2372 Corelib.Numbers.BinNums <> Zpos constr
+R2379:2384 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> of_pos def
+R2410:2413 Corelib.Numbers.BinNums <> Zneg constr
+R2420:2422 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> sub prim
+R2427:2432 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> of_pos def
+def 2456:2457 <> wB
+R2463:2466 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'^'_x not
+R2480:2480 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'^'_x not
+R2467:2474 Corelib.BinNums.IntDef Z of_nat def
+R2476:2479 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> size def
+ax 2533:2539 <> of_to_Z
+binder 2550:2550 <> x:19
+R2566:2568 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2553:2556 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> of_Z def
+R2559:2562 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R2564:2564 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:19 var
+R2569:2569 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:19 var
+ax 2623:2630 <> lsl_spec
+binder 2641:2641 <> x:22
+binder 2643:2643 <> p:23
+R2660:2662 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2646:2649 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R2652:2654 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> lsl prim
+R2656:2656 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:22 var
+R2658:2658 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> p:23 var
+R2663:2670 Corelib.BinNums.IntDef Z modulo def
+R2679:2681 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'*'_x not
+R2673:2676 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R2678:2678 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:22 var
+R2683:2685 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'^'_x not
+R2686:2689 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R2691:2691 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> p:23 var
+R2694:2695 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> wB def
+ax 2705:2712 <> lsr_spec
+binder 2723:2723 <> x:26
+binder 2725:2725 <> p:27
+R2742:2744 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2728:2731 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R2734:2736 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> lsr prim
+R2738:2738 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:26 var
+R2740:2740 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> p:27 var
+R2745:2749 Corelib.BinNums.IntDef Z div def
+R2752:2755 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R2757:2757 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:26 var
+R2762:2764 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'^'_x not
+R2765:2768 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R2770:2770 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> p:27 var
+def 2786:2788 <> bit
+binder 2790:2790 <> i:30
+binder 2792:2792 <> n:31
+R2797:2800 Corelib.Init.Datatypes <> negb def
+R2803:2809 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> is_zero def
+R2812:2814 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> lsl prim
+R2817:2819 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> lsr prim
+R2821:2821 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> i:30 var
+R2823:2823 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> n:31 var
+R2827:2829 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> sub prim
+R2831:2836 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> digits def
+ax 2851:2859 <> land_spec
+binder 2870:2870 <> x:32
+binder 2872:2872 <> y:33
+binder 2874:2874 <> i:34
+R2893:2895 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2877:2879 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> bit def
+R2882:2885 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> land prim
+R2887:2887 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:32 var
+R2889:2889 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:33 var
+R2892:2892 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> i:34 var
+R2896:2899 Corelib.Init.Datatypes <> andb def
+R2912:2914 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> bit def
+R2916:2916 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:33 var
+R2918:2918 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> i:34 var
+R2902:2904 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> bit def
+R2906:2906 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:32 var
+R2908:2908 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> i:34 var
+ax 2929:2936 <> lor_spec
+binder 2947:2947 <> x:37
+binder 2949:2949 <> y:38
+binder 2951:2951 <> i:39
+R2969:2971 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2954:2956 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> bit def
+R2959:2961 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> lor prim
+R2963:2963 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:37 var
+R2965:2965 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:38 var
+R2968:2968 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> i:39 var
+R2972:2974 Corelib.Init.Datatypes <> orb def
+R2987:2989 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> bit def
+R2991:2991 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:38 var
+R2993:2993 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> i:39 var
+R2977:2979 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> bit def
+R2981:2981 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:37 var
+R2983:2983 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> i:39 var
+ax 3004:3012 <> lxor_spec
+binder 3023:3023 <> x:42
+binder 3025:3025 <> y:43
+binder 3027:3027 <> i:44
+R3046:3048 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3030:3032 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> bit def
+R3035:3038 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> lxor prim
+R3040:3040 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:42 var
+R3042:3042 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:43 var
+R3045:3045 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> i:44 var
+R3049:3052 Corelib.Init.Datatypes <> xorb def
+R3065:3067 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> bit def
+R3069:3069 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:43 var
+R3071:3071 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> i:44 var
+R3055:3057 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> bit def
+R3059:3059 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:42 var
+R3061:3061 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> i:44 var
+ax 3295:3302 <> add_spec
+binder 3313:3313 <> x:47
+binder 3315:3315 <> y:48
+R3332:3334 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3318:3321 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3324:3326 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> add prim
+R3328:3328 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:47 var
+R3330:3330 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:48 var
+R3335:3342 Corelib.BinNums.IntDef Z modulo def
+R3351:3353 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'+'_x not
+R3345:3348 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3350:3350 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:47 var
+R3354:3357 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3359:3359 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:48 var
+R3362:3363 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> wB def
+ax 3373:3380 <> sub_spec
+binder 3391:3391 <> x:51
+binder 3393:3393 <> y:52
+R3410:3412 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3396:3399 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3402:3404 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> sub prim
+R3406:3406 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:51 var
+R3408:3408 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:52 var
+R3413:3420 Corelib.BinNums.IntDef Z modulo def
+R3429:3431 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'-'_x not
+R3423:3426 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3428:3428 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:51 var
+R3432:3435 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3437:3437 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:52 var
+R3440:3441 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> wB def
+ax 3451:3458 <> mul_spec
+binder 3469:3469 <> x:55
+binder 3471:3471 <> y:56
+R3488:3490 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3474:3477 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3480:3482 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> mul prim
+R3484:3484 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:55 var
+R3486:3486 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:56 var
+R3491:3498 Corelib.BinNums.IntDef Z modulo def
+R3507:3509 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'*'_x not
+R3501:3504 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3506:3506 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:55 var
+R3510:3513 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3515:3515 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:56 var
+R3518:3519 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> wB def
+ax 3529:3537 <> mulc_spec
+binder 3548:3548 <> x:59
+binder 3550:3550 <> y:60
+R3570:3572 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3561:3563 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'*'_x not
+R3555:3558 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3560:3560 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:59 var
+R3564:3567 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3569:3569 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:60 var
+R3599:3601 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'+'_x not
+R3594:3596 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'*'_x not
+R3573:3576 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3579:3581 Corelib.Init.Datatypes <> fst def
+R3584:3587 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> mulc prim
+R3589:3589 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:59 var
+R3591:3591 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:60 var
+R3597:3598 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> wB def
+R3602:3605 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3608:3610 Corelib.Init.Datatypes <> snd def
+R3613:3616 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> mulc prim
+R3618:3618 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:59 var
+R3620:3620 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:60 var
+ax 3632:3639 <> div_spec
+binder 3650:3650 <> x:63
+binder 3652:3652 <> y:64
+R3669:3671 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3655:3658 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3661:3663 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> div prim
+R3665:3665 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:63 var
+R3667:3667 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:64 var
+R3672:3676 Corelib.BinNums.IntDef Z div def
+R3679:3682 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3684:3684 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:63 var
+R3688:3691 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3693:3693 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:64 var
+ax 3704:3711 <> mod_spec
+binder 3722:3722 <> x:67
+binder 3724:3724 <> y:68
+R3753:3755 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3729:3732 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3735:3747 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> mod prim
+R3749:3749 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:67 var
+R3751:3751 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:68 var
+R3756:3763 Corelib.BinNums.IntDef Z modulo def
+R3766:3769 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3771:3771 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:67 var
+R3775:3778 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3780:3780 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:68 var
+ax 3809:3819 <> eqb_correct
+binder 3830:3830 <> i:71
+binder 3832:3832 <> j:72
+R3849:3852 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3842:3844 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3835:3837 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> eqb prim
+R3839:3839 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> i:71 var
+R3841:3841 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> j:72 var
+R3845:3848 Corelib.Init.Datatypes <> true constr
+R3854:3856 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3853:3853 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> i:71 var
+R3857:3857 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> j:72 var
+ax 3867:3874 <> eqb_refl
+binder 3885:3885 <> x:75
+R3895:3897 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3888:3890 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> eqb prim
+R3892:3892 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:75 var
+R3894:3894 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:75 var
+R3898:3901 Corelib.Init.Datatypes <> true constr
+ax 3911:3918 <> ltb_spec
+binder 3929:3929 <> x:78
+binder 3931:3931 <> y:79
+R3948:3952 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R3941:3943 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3934:3936 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> ltb prim
+R3938:3938 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:78 var
+R3940:3940 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:79 var
+R3944:3947 Corelib.Init.Datatypes <> true constr
+R3959:3961 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'<'_x not
+R3953:3956 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3958:3958 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:78 var
+R3962:3965 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R3967:3967 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:79 var
+ax 3977:3984 <> leb_spec
+binder 3995:3995 <> x:82
+binder 3997:3997 <> y:83
+R4014:4018 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R4007:4009 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4000:4002 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> leb prim
+R4004:4004 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:82 var
+R4006:4006 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:83 var
+R4010:4013 Corelib.Init.Datatypes <> true constr
+R4025:4028 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'<='_x not
+R4019:4022 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R4024:4024 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:82 var
+R4029:4032 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R4034:4034 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:83 var
+def 4129:4139 <> compare_def
+binder 4141:4141 <> x:86
+binder 4143:4143 <> y:87
+R4153:4155 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> ltb prim
+R4157:4157 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:86 var
+R4159:4159 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:87 var
+R4177:4179 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> eqb prim
+R4181:4181 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:86 var
+R4183:4183 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:87 var
+R4198:4199 Corelib.Init.Datatypes <> Gt constr
+R4190:4191 Corelib.Init.Datatypes <> Eq constr
+R4166:4167 Corelib.Init.Datatypes <> Lt constr
+ax 4209:4224 <> compare_def_spec
+binder 4235:4235 <> x:88
+binder 4237:4237 <> y:89
+R4251:4253 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4240:4246 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> compare prim
+R4248:4248 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:88 var
+R4250:4250 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:89 var
+R4254:4264 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> compare_def def
+R4266:4266 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:88 var
+R4268:4268 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:89 var
+ax 4278:4287 <> head0_spec
+binder 4298:4298 <> x:92
+R4311:4316 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4302:4304 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'<'_x not
+R4305:4308 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R4310:4310 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:92 var
+R4327:4330 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'<='_x_'<'_x not
+R4360:4362 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'<='_x_'<'_x not
+R4317:4321 Corelib.BinNums.IntDef Z div def
+R4323:4324 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> wB def
+R4351:4353 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'*'_x not
+R4332:4335 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'^'_x not
+R4350:4350 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'^'_x not
+R4336:4339 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R4342:4346 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> head0 prim
+R4348:4348 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:92 var
+R4354:4357 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R4359:4359 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:92 var
+R4363:4364 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> wB def
+ax 4374:4383 <> tail0_spec
+binder 4394:4394 <> x:95
+R4407:4412 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4398:4400 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'<'_x not
+R4401:4404 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R4406:4406 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:95 var
+R4413:4419 Corelib.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4421:4422 Corelib.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4420:4420 <> y:96
+R4430:4433 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R4425:4428 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'<='_x not
+R4423:4424 Corelib.Numbers.BinNums <> Z0 constr
+R4429:4429 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:96 var
+R4440:4442 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4434:4437 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R4439:4439 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:95 var
+R4443:4443 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'*'_x not
+R4453:4457 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'*'_x not
+R4476:4476 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'*'_x not
+R4449:4451 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'+'_x not
+R4445:4447 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'*'_x not
+R4448:4448 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:96 var
+R4459:4461 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'^'_x not
+R4462:4465 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R4468:4472 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> tail0 prim
+R4474:4474 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:95 var
+def 4491:4498 <> addc_def
+binder 4500:4500 <> x:99
+binder 4502:4502 <> y:100
+R4518:4520 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> add prim
+R4522:4522 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:99 var
+R4524:4524 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:100 var
+binder 4513:4513 <> r:101
+R4534:4536 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> ltb prim
+R4538:4538 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> r:101 var
+R4540:4540 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:99 var
+R4557:4558 Corelib.Numbers.Cyclic.Int63.CarryType <> C0 constr
+R4560:4560 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> r:101 var
+R4547:4548 Corelib.Numbers.Cyclic.Int63.CarryType <> C1 constr
+R4550:4550 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> r:101 var
+ax 4570:4582 <> addc_def_spec
+binder 4593:4593 <> x:102
+binder 4595:4595 <> y:103
+R4606:4608 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4598:4601 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> addc prim
+R4603:4603 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:102 var
+R4605:4605 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:103 var
+R4609:4616 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> addc_def def
+R4618:4618 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:102 var
+R4620:4620 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:103 var
+def 4635:4642 <> addcarry
+binder 4644:4644 <> i:106
+binder 4646:4646 <> j:107
+R4651:4653 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> add prim
+R4656:4658 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> add prim
+R4660:4660 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> i:106 var
+R4662:4662 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> j:107 var
+def 4679:4691 <> addcarryc_def
+binder 4693:4693 <> x:108
+binder 4695:4695 <> y:109
+R4711:4718 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> addcarry def
+R4720:4720 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:108 var
+R4722:4722 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:109 var
+binder 4706:4706 <> r:110
+R4732:4734 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> leb prim
+R4736:4736 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> r:110 var
+R4738:4738 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:108 var
+R4755:4756 Corelib.Numbers.Cyclic.Int63.CarryType <> C0 constr
+R4758:4758 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> r:110 var
+R4745:4746 Corelib.Numbers.Cyclic.Int63.CarryType <> C1 constr
+R4748:4748 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> r:110 var
+ax 4768:4785 <> addcarryc_def_spec
+binder 4796:4796 <> x:111
+binder 4798:4798 <> y:112
+R4814:4816 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4801:4809 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> addcarryc prim
+R4811:4811 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:111 var
+R4813:4813 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:112 var
+R4817:4829 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> addcarryc_def def
+R4831:4831 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:111 var
+R4833:4833 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:112 var
+def 4848:4855 <> subc_def
+binder 4857:4857 <> x:115
+binder 4859:4859 <> y:116
+R4867:4869 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> leb prim
+R4871:4871 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:116 var
+R4873:4873 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:115 var
+R4898:4899 Corelib.Numbers.Cyclic.Int63.CarryType <> C1 constr
+R4902:4904 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> sub prim
+R4906:4906 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:115 var
+R4908:4908 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:116 var
+R4880:4881 Corelib.Numbers.Cyclic.Int63.CarryType <> C0 constr
+R4884:4886 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> sub prim
+R4888:4888 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:115 var
+R4890:4890 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:116 var
+ax 4919:4931 <> subc_def_spec
+binder 4942:4942 <> x:117
+binder 4944:4944 <> y:118
+R4955:4957 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4947:4950 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> subc prim
+R4952:4952 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:117 var
+R4954:4954 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:118 var
+R4958:4965 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> subc_def def
+R4967:4967 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:117 var
+R4969:4969 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:118 var
+def 4984:4996 <> subcarryc_def
+binder 4998:4998 <> x:121
+binder 5000:5000 <> y:122
+R5010:5012 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> ltb prim
+R5014:5014 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:122 var
+R5016:5016 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:121 var
+R5049:5050 Corelib.Numbers.Cyclic.Int63.CarryType <> C1 constr
+R5053:5055 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> sub prim
+R5058:5060 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> sub prim
+R5062:5062 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:121 var
+R5064:5064 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:122 var
+R5023:5024 Corelib.Numbers.Cyclic.Int63.CarryType <> C0 constr
+R5027:5029 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> sub prim
+R5032:5034 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> sub prim
+R5036:5036 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:121 var
+R5038:5038 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:122 var
+ax 5078:5095 <> subcarryc_def_spec
+binder 5106:5106 <> x:123
+binder 5108:5108 <> y:124
+R5124:5126 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5111:5119 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> subcarryc prim
+R5121:5121 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:123 var
+R5123:5123 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:124 var
+R5127:5139 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> subcarryc_def def
+R5141:5141 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:123 var
+R5143:5143 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:124 var
+def 5158:5168 <> diveucl_def
+binder 5170:5170 <> x:127
+binder 5172:5172 <> y:128
+R5177:5177 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5185:5186 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5204:5204 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5178:5180 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> div prim
+R5182:5182 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:127 var
+R5184:5184 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:128 var
+R5187:5199 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> mod prim
+R5201:5201 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:127 var
+R5203:5203 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:128 var
+ax 5214:5229 <> diveucl_def_spec
+binder 5240:5240 <> x:129
+binder 5242:5242 <> y:130
+R5256:5258 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5245:5251 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> diveucl prim
+R5253:5253 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:129 var
+R5255:5255 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:130 var
+R5259:5269 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> diveucl_def def
+R5271:5271 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:129 var
+R5273:5273 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:130 var
+ax 5283:5297 <> diveucl_21_spec
+binder 5308:5309 <> a1:133
+binder 5311:5312 <> a2:134
+binder 5314:5314 <> b:135
+R5332:5341 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> diveucl_21 prim
+R5343:5344 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> a1:133 var
+R5346:5347 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> a2:134 var
+R5349:5349 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> b:135 var
+binder 5324:5324 <> q:136
+binder 5326:5326 <> r:137
+R5371:5380 Corelib.BinNums.IntDef Z div_eucl def
+R5395:5397 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'+'_x not
+R5390:5392 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'*'_x not
+R5383:5386 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R5388:5389 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> a1:133 var
+R5393:5394 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> wB def
+R5398:5401 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R5403:5404 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> a2:134 var
+R5408:5411 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R5413:5413 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> b:135 var
+binder 5361:5362 <> q':138
+binder 5364:5365 <> r':139
+R5437:5440 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R5428:5430 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> ::Z_scope:x_'<'_x not
+R5421:5424 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R5426:5427 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> a1:133 var
+R5431:5434 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R5436:5436 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> b:135 var
+R5452:5455 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R5447:5449 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5441:5444 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R5446:5446 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> q:136 var
+R5450:5451 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> q':138 var
+R5462:5464 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5456:5459 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R5461:5461 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> r:137 var
+R5465:5466 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> r':139 var
+def 5481:5493 <> addmuldiv_def
+binder 5495:5495 <> p:142
+binder 5497:5497 <> x:143
+binder 5499:5499 <> y:144
+R5506:5508 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> lor prim
+R5511:5513 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> lsl prim
+R5515:5515 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:143 var
+R5517:5517 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> p:142 var
+R5521:5523 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> lsr prim
+R5525:5525 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:144 var
+R5528:5530 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> sub prim
+R5532:5537 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> digits def
+R5539:5539 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> p:142 var
+ax 5551:5568 <> addmuldiv_def_spec
+binder 5579:5579 <> p:145
+binder 5581:5581 <> x:146
+binder 5583:5583 <> y:147
+R5603:5605 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5588:5596 Corelib.Numbers.Cyclic.Int63.PrimInt63 <> addmuldiv prim
+R5598:5598 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> p:145 var
+R5600:5600 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:146 var
+R5602:5602 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:147 var
+R5606:5618 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> addmuldiv_def def
+R5620:5620 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> p:145 var
+R5622:5622 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> x:146 var
+R5624:5624 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> y:147 var

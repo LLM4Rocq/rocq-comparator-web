@@ -1,0 +1,6 @@
+DIGEST 454ff8683801961d71b1a7ffa566af2e
+FLtac2.RedFlags
+R691:700 Ltac2.Init <> <> lib
+R718:726 Ltac2.Std <> <> lib
+mod 776:784 <> Notations
+R846:854 Ltac2.RedFlags Notations <> mod

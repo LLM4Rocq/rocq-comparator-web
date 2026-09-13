@@ -1,0 +1,919 @@
+DIGEST 2cd445b3cf23892c87c3752a53e400ee
+FCorelib.Init.Nat
+R691:699 Corelib.Init.Notations <> <> lib
+R701:705 Corelib.Init.Logic <> <> lib
+R707:715 Corelib.Init.Datatypes <> <> lib
+R726:732 Corelib.Init.Decimal <> <> lib
+R734:744 Corelib.Init.Hexadecimal <> <> lib
+R746:751 Corelib.Init.Number <> <> lib
+def 1135:1135 <> t
+R1140:1142 Corelib.Init.Datatypes <> nat ind
+R1189:1189 Corelib.Init.Datatypes <> O constr
+not 1182:1182 <> :::'0'
+R1215:1215 Corelib.Init.Datatypes <> S constr
+R1217:1217 Corelib.Init.Datatypes <> O constr
+not 1207:1207 <> :::'1'
+R1244:1244 Corelib.Init.Datatypes <> S constr
+R1247:1247 Corelib.Init.Datatypes <> S constr
+R1249:1249 Corelib.Init.Datatypes <> O constr
+not 1236:1236 <> :::'2'
+def 1266:1269 <> zero
+def 1288:1290 <> one
+def 1309:1311 <> two
+def 1359:1362 <> succ
+R1367:1367 Corelib.Init.Datatypes <> S constr
+def 1382:1385 <> pred
+binder 1387:1387 <> n:1
+R1400:1400 Corelib.Init.Nat <> n:1 var
+R1418:1418 Corelib.Init.Nat <> n:1 var
+R1426:1426 Corelib.Init.Datatypes <> S constr
+def 1484:1486 <> add
+binder 1488:1488 <> n:3
+binder 1490:1490 <> m:4
+R1567:1569 Corelib.Init.Nat <> add:5 def
+R1503:1503 Corelib.Init.Nat <> n:3 var
+R1519:1519 Corelib.Init.Nat <> m:4 var
+R1525:1525 Corelib.Init.Datatypes <> S constr
+R1532:1532 Corelib.Init.Datatypes <> S constr
+R1536:1538 Corelib.Init.Nat <> ::nat_scope:x_'+'_x not
+R1539:1539 Corelib.Init.Nat <> m:4 var
+R1567:1569 Corelib.Init.Nat <> add def
+not 1555:1555 <> ::nat_scope:x_'+'_x
+def 1631:1636 <> double
+binder 1638:1638 <> n:7
+R1644:1646 Corelib.Init.Nat <> ::nat_scope:x_'+'_x not
+R1643:1643 Corelib.Init.Nat <> n:7 var
+R1647:1647 Corelib.Init.Nat <> n:7 var
+def 1660:1662 <> mul
+binder 1664:1664 <> n:8
+binder 1666:1666 <> m:9
+R1743:1745 Corelib.Init.Nat <> mul:10 def
+R1679:1679 Corelib.Init.Nat <> n:8 var
+R1701:1701 Corelib.Init.Datatypes <> S constr
+R1709:1711 Corelib.Init.Nat <> ::nat_scope:x_'+'_x not
+R1708:1708 Corelib.Init.Nat <> m:9 var
+R1713:1715 Corelib.Init.Nat <> ::nat_scope:x_'*'_x not
+R1716:1716 Corelib.Init.Nat <> m:9 var
+R1743:1745 Corelib.Init.Nat <> mul def
+not 1731:1731 <> ::nat_scope:x_'*'_x
+def 1859:1861 <> sub
+binder 1863:1863 <> n:12
+binder 1865:1865 <> m:13
+R1949:1951 Corelib.Init.Nat <> sub:14 def
+R1881:1881 Corelib.Init.Nat <> m:13 var
+R1878:1878 Corelib.Init.Nat <> n:12 var
+R1892:1892 Corelib.Init.Datatypes <> S constr
+R1897:1897 Corelib.Init.Datatypes <> S constr
+R1905:1907 Corelib.Init.Nat <> ::nat_scope:x_'-'_x not
+R1922:1922 Corelib.Init.Nat <> n:12 var
+R1949:1951 Corelib.Init.Nat <> sub def
+not 1937:1937 <> ::nat_scope:x_'-'_x
+def 2034:2036 <> eqb
+binder 2038:2038 <> n:17
+binder 2040:2040 <> m:18
+R2044:2047 Corelib.Init.Datatypes <> bool ind
+R2063:2063 Corelib.Init.Nat <> m:18 var
+R2060:2060 Corelib.Init.Nat <> n:17 var
+R2084:2087 Corelib.Init.Datatypes <> true constr
+R2098:2098 Corelib.Init.Datatypes <> S constr
+R2105:2109 Corelib.Init.Datatypes <> false constr
+R2117:2117 Corelib.Init.Datatypes <> S constr
+R2127:2131 Corelib.Init.Datatypes <> false constr
+R2139:2139 Corelib.Init.Datatypes <> S constr
+R2145:2145 Corelib.Init.Datatypes <> S constr
+R2153:2155 Corelib.Init.Nat <> eqb:19 def
+def 2180:2182 <> leb
+binder 2184:2184 <> n:22
+binder 2186:2186 <> m:23
+R2190:2193 Corelib.Init.Datatypes <> bool ind
+R2209:2209 Corelib.Init.Nat <> m:23 var
+R2206:2206 Corelib.Init.Nat <> n:22 var
+R2230:2233 Corelib.Init.Datatypes <> true constr
+R2249:2253 Corelib.Init.Datatypes <> false constr
+R2261:2261 Corelib.Init.Datatypes <> S constr
+R2267:2267 Corelib.Init.Datatypes <> S constr
+R2275:2277 Corelib.Init.Nat <> leb:24 def
+def 2304:2306 <> ltb
+binder 2308:2308 <> n:27
+binder 2310:2310 <> m:28
+R2315:2317 Corelib.Init.Nat <> leb def
+R2320:2320 Corelib.Init.Datatypes <> S constr
+R2322:2322 Corelib.Init.Nat <> n:27 var
+R2325:2325 Corelib.Init.Nat <> m:28 var
+R2343:2345 Corelib.Init.Nat <> eqb def
+not 2335:2335 <> ::nat_scope:x_'=?'_x
+R2389:2391 Corelib.Init.Nat <> leb def
+not 2380:2380 <> ::nat_scope:x_'<=?'_x
+R2434:2436 Corelib.Init.Nat <> ltb def
+not 2426:2426 <> ::nat_scope:x_'<?'_x
+def 2475:2481 <> compare
+binder 2483:2483 <> n:29
+binder 2485:2485 <> m:30
+R2489:2498 Corelib.Init.Datatypes <> comparison ind
+R2514:2514 Corelib.Init.Nat <> m:30 var
+R2511:2511 Corelib.Init.Nat <> n:29 var
+R2534:2535 Corelib.Init.Datatypes <> Eq constr
+R2545:2545 Corelib.Init.Datatypes <> S constr
+R2552:2553 Corelib.Init.Datatypes <> Lt constr
+R2560:2560 Corelib.Init.Datatypes <> S constr
+R2570:2571 Corelib.Init.Datatypes <> Gt constr
+R2578:2578 Corelib.Init.Datatypes <> S constr
+R2584:2584 Corelib.Init.Datatypes <> S constr
+R2592:2598 Corelib.Init.Nat <> compare:31 def
+R2628:2634 Corelib.Init.Nat <> compare def
+not 2620:2620 <> ::nat_scope:x_'?='_x
+def 2701:2703 <> max
+binder 2705:2705 <> n:34
+binder 2707:2707 <> m:35
+R2723:2723 Corelib.Init.Nat <> m:35 var
+R2720:2720 Corelib.Init.Nat <> n:34 var
+R2744:2744 Corelib.Init.Nat <> m:35 var
+R2752:2752 Corelib.Init.Datatypes <> S constr
+R2763:2763 Corelib.Init.Nat <> n:34 var
+R2771:2771 Corelib.Init.Datatypes <> S constr
+R2777:2777 Corelib.Init.Datatypes <> S constr
+R2785:2785 Corelib.Init.Datatypes <> S constr
+R2788:2790 Corelib.Init.Nat <> max:36 def
+def 2816:2818 <> min
+binder 2820:2820 <> n:39
+binder 2822:2822 <> m:40
+R2838:2838 Corelib.Init.Nat <> m:40 var
+R2835:2835 Corelib.Init.Nat <> n:39 var
+R2867:2867 Corelib.Init.Datatypes <> S constr
+R2886:2886 Corelib.Init.Datatypes <> S constr
+R2892:2892 Corelib.Init.Datatypes <> S constr
+R2900:2900 Corelib.Init.Datatypes <> S constr
+R2903:2905 Corelib.Init.Nat <> min:41 def
+def 2955:2958 <> even
+binder 2960:2960 <> n:44
+R2964:2967 Corelib.Init.Datatypes <> bool ind
+R2980:2980 Corelib.Init.Nat <> n:44 var
+R2998:3001 Corelib.Init.Datatypes <> true constr
+R3014:3018 Corelib.Init.Datatypes <> false constr
+R3026:3026 Corelib.Init.Datatypes <> S constr
+R3029:3029 Corelib.Init.Datatypes <> S constr
+R3038:3041 Corelib.Init.Nat <> even:45 def
+def 3065:3067 <> odd
+binder 3069:3069 <> n:47
+R3074:3077 Corelib.Init.Datatypes <> negb def
+R3080:3083 Corelib.Init.Nat <> even def
+R3085:3085 Corelib.Init.Nat <> n:47 var
+def 3116:3118 <> pow
+binder 3120:3120 <> n:48
+binder 3122:3122 <> m:49
+R3203:3205 Corelib.Init.Nat <> pow:50 def
+R3135:3135 Corelib.Init.Nat <> m:49 var
+R3161:3161 Corelib.Init.Datatypes <> S constr
+R3169:3172 Corelib.Init.Nat <> ::nat_scope:x_'*'_x not
+R3176:3176 Corelib.Init.Nat <> ::nat_scope:x_'*'_x not
+R3168:3168 Corelib.Init.Nat <> n:48 var
+R3174:3174 Corelib.Init.Nat <> ::nat_scope:x_'^'_x not
+R3173:3173 Corelib.Init.Nat <> n:48 var
+R3175:3175 Corelib.Init.Nat <> m:49 var
+R3203:3205 Corelib.Init.Nat <> pow def
+not 3191:3191 <> ::nat_scope:x_'^'_x
+def 3289:3296 <> tail_add
+binder 3298:3298 <> n:52
+binder 3300:3300 <> m:53
+R3313:3313 Corelib.Init.Nat <> n:52 var
+R3326:3326 Corelib.Init.Datatypes <> O constr
+R3331:3331 Corelib.Init.Nat <> m:53 var
+R3339:3339 Corelib.Init.Datatypes <> S constr
+R3346:3353 Corelib.Init.Nat <> tail_add:54 def
+R3358:3358 Corelib.Init.Datatypes <> S constr
+R3360:3360 Corelib.Init.Nat <> m:53 var
+R3355:3355 Corelib.Init.Nat <> n:52 var
+def 3424:3434 <> tail_addmul
+binder 3436:3436 <> r:56
+binder 3438:3438 <> n:57
+binder 3440:3440 <> m:58
+R3453:3453 Corelib.Init.Nat <> n:57 var
+R3466:3466 Corelib.Init.Datatypes <> O constr
+R3471:3471 Corelib.Init.Nat <> r:56 var
+R3479:3479 Corelib.Init.Datatypes <> S constr
+R3486:3496 Corelib.Init.Nat <> tail_addmul:59 def
+R3515:3515 Corelib.Init.Nat <> m:58 var
+R3513:3513 Corelib.Init.Nat <> n:57 var
+R3499:3506 Corelib.Init.Nat <> tail_add def
+R3508:3508 Corelib.Init.Nat <> m:58 var
+R3510:3510 Corelib.Init.Nat <> r:56 var
+def 3536:3543 <> tail_mul
+binder 3545:3545 <> n:61
+binder 3547:3547 <> m:62
+R3552:3562 Corelib.Init.Nat <> tail_addmul def
+R3566:3566 Corelib.Init.Nat <> n:61 var
+R3568:3568 Corelib.Init.Nat <> m:62 var
+abbrev 3664:3666 <> ten
+R3672:3672 Corelib.Init.Datatypes <> S constr
+R3675:3675 Corelib.Init.Datatypes <> S constr
+R3678:3678 Corelib.Init.Datatypes <> S constr
+R3681:3681 Corelib.Init.Datatypes <> S constr
+R3684:3684 Corelib.Init.Datatypes <> S constr
+R3687:3687 Corelib.Init.Datatypes <> S constr
+R3690:3690 Corelib.Init.Datatypes <> S constr
+R3693:3693 Corelib.Init.Datatypes <> S constr
+R3696:3696 Corelib.Init.Datatypes <> S constr
+R3699:3699 Corelib.Init.Datatypes <> S constr
+R3701:3701 Corelib.Init.Datatypes <> O constr
+def 3724:3734 <> of_uint_acc
+R3739:3750 Corelib.Init.Decimal <> uint ind
+binder 3737:3737 <> d:63
+R3757:3759 Corelib.Init.Datatypes <> nat ind
+binder 3753:3755 <> acc:64
+R3773:3773 Corelib.Init.Nat <> d:63 var
+R3784:3794 Corelib.Init.Decimal <> Nil constr
+R3799:3801 Corelib.Init.Nat <> acc:64 var
+R3807:3816 Corelib.Init.Decimal <> D0 constr
+R3823:3833 Corelib.Init.Nat <> of_uint_acc:65 def
+R3838:3845 Corelib.Init.Nat <> tail_mul def
+R3847:3849 Corelib.Init.Nat <> ten abbrev
+R3851:3853 Corelib.Init.Nat <> acc:64 var
+R3835:3835 Corelib.Init.Nat <> d:63 var
+R3860:3869 Corelib.Init.Decimal <> D1 constr
+R3876:3886 Corelib.Init.Nat <> of_uint_acc:65 def
+R3891:3891 Corelib.Init.Datatypes <> S constr
+R3894:3901 Corelib.Init.Nat <> tail_mul def
+R3903:3905 Corelib.Init.Nat <> ten abbrev
+R3907:3909 Corelib.Init.Nat <> acc:64 var
+R3888:3888 Corelib.Init.Nat <> d:63 var
+R3917:3926 Corelib.Init.Decimal <> D2 constr
+R3933:3943 Corelib.Init.Nat <> of_uint_acc:65 def
+R3948:3948 Corelib.Init.Datatypes <> S constr
+R3951:3951 Corelib.Init.Datatypes <> S constr
+R3954:3961 Corelib.Init.Nat <> tail_mul def
+R3963:3965 Corelib.Init.Nat <> ten abbrev
+R3967:3969 Corelib.Init.Nat <> acc:64 var
+R3945:3945 Corelib.Init.Nat <> d:63 var
+R3978:3987 Corelib.Init.Decimal <> D3 constr
+R3994:4004 Corelib.Init.Nat <> of_uint_acc:65 def
+R4009:4009 Corelib.Init.Datatypes <> S constr
+R4012:4012 Corelib.Init.Datatypes <> S constr
+R4015:4015 Corelib.Init.Datatypes <> S constr
+R4018:4025 Corelib.Init.Nat <> tail_mul def
+R4027:4029 Corelib.Init.Nat <> ten abbrev
+R4031:4033 Corelib.Init.Nat <> acc:64 var
+R4006:4006 Corelib.Init.Nat <> d:63 var
+R4043:4052 Corelib.Init.Decimal <> D4 constr
+R4059:4069 Corelib.Init.Nat <> of_uint_acc:65 def
+R4074:4074 Corelib.Init.Datatypes <> S constr
+R4077:4077 Corelib.Init.Datatypes <> S constr
+R4080:4080 Corelib.Init.Datatypes <> S constr
+R4083:4083 Corelib.Init.Datatypes <> S constr
+R4086:4093 Corelib.Init.Nat <> tail_mul def
+R4095:4097 Corelib.Init.Nat <> ten abbrev
+R4099:4101 Corelib.Init.Nat <> acc:64 var
+R4071:4071 Corelib.Init.Nat <> d:63 var
+R4112:4121 Corelib.Init.Decimal <> D5 constr
+R4128:4138 Corelib.Init.Nat <> of_uint_acc:65 def
+R4143:4143 Corelib.Init.Datatypes <> S constr
+R4146:4146 Corelib.Init.Datatypes <> S constr
+R4149:4149 Corelib.Init.Datatypes <> S constr
+R4152:4152 Corelib.Init.Datatypes <> S constr
+R4155:4155 Corelib.Init.Datatypes <> S constr
+R4158:4165 Corelib.Init.Nat <> tail_mul def
+R4167:4169 Corelib.Init.Nat <> ten abbrev
+R4171:4173 Corelib.Init.Nat <> acc:64 var
+R4140:4140 Corelib.Init.Nat <> d:63 var
+R4185:4194 Corelib.Init.Decimal <> D6 constr
+R4201:4211 Corelib.Init.Nat <> of_uint_acc:65 def
+R4216:4216 Corelib.Init.Datatypes <> S constr
+R4219:4219 Corelib.Init.Datatypes <> S constr
+R4222:4222 Corelib.Init.Datatypes <> S constr
+R4225:4225 Corelib.Init.Datatypes <> S constr
+R4228:4228 Corelib.Init.Datatypes <> S constr
+R4231:4231 Corelib.Init.Datatypes <> S constr
+R4234:4241 Corelib.Init.Nat <> tail_mul def
+R4243:4245 Corelib.Init.Nat <> ten abbrev
+R4247:4249 Corelib.Init.Nat <> acc:64 var
+R4213:4213 Corelib.Init.Nat <> d:63 var
+R4262:4271 Corelib.Init.Decimal <> D7 constr
+R4278:4288 Corelib.Init.Nat <> of_uint_acc:65 def
+R4293:4293 Corelib.Init.Datatypes <> S constr
+R4296:4296 Corelib.Init.Datatypes <> S constr
+R4299:4299 Corelib.Init.Datatypes <> S constr
+R4302:4302 Corelib.Init.Datatypes <> S constr
+R4305:4305 Corelib.Init.Datatypes <> S constr
+R4308:4308 Corelib.Init.Datatypes <> S constr
+R4311:4311 Corelib.Init.Datatypes <> S constr
+R4314:4321 Corelib.Init.Nat <> tail_mul def
+R4323:4325 Corelib.Init.Nat <> ten abbrev
+R4327:4329 Corelib.Init.Nat <> acc:64 var
+R4290:4290 Corelib.Init.Nat <> d:63 var
+R4343:4352 Corelib.Init.Decimal <> D8 constr
+R4359:4369 Corelib.Init.Nat <> of_uint_acc:65 def
+R4374:4374 Corelib.Init.Datatypes <> S constr
+R4377:4377 Corelib.Init.Datatypes <> S constr
+R4380:4380 Corelib.Init.Datatypes <> S constr
+R4383:4383 Corelib.Init.Datatypes <> S constr
+R4386:4386 Corelib.Init.Datatypes <> S constr
+R4389:4389 Corelib.Init.Datatypes <> S constr
+R4392:4392 Corelib.Init.Datatypes <> S constr
+R4395:4395 Corelib.Init.Datatypes <> S constr
+R4398:4405 Corelib.Init.Nat <> tail_mul def
+R4407:4409 Corelib.Init.Nat <> ten abbrev
+R4411:4413 Corelib.Init.Nat <> acc:64 var
+R4371:4371 Corelib.Init.Nat <> d:63 var
+R4428:4437 Corelib.Init.Decimal <> D9 constr
+R4444:4454 Corelib.Init.Nat <> of_uint_acc:65 def
+R4459:4459 Corelib.Init.Datatypes <> S constr
+R4462:4462 Corelib.Init.Datatypes <> S constr
+R4465:4465 Corelib.Init.Datatypes <> S constr
+R4468:4468 Corelib.Init.Datatypes <> S constr
+R4471:4471 Corelib.Init.Datatypes <> S constr
+R4474:4474 Corelib.Init.Datatypes <> S constr
+R4477:4477 Corelib.Init.Datatypes <> S constr
+R4480:4480 Corelib.Init.Datatypes <> S constr
+R4483:4483 Corelib.Init.Datatypes <> S constr
+R4486:4493 Corelib.Init.Nat <> tail_mul def
+R4495:4497 Corelib.Init.Nat <> ten abbrev
+R4499:4501 Corelib.Init.Nat <> acc:64 var
+R4456:4456 Corelib.Init.Nat <> d:63 var
+def 4532:4538 <> of_uint
+R4543:4554 Corelib.Init.Decimal <> uint ind
+binder 4541:4541 <> d:67
+R4560:4570 Corelib.Init.Nat <> of_uint_acc def
+R4572:4572 Corelib.Init.Nat <> d:67 var
+R4574:4574 Corelib.Init.Datatypes <> O constr
+abbrev 4597:4603 <> sixteen
+R4609:4609 Corelib.Init.Datatypes <> S constr
+R4612:4612 Corelib.Init.Datatypes <> S constr
+R4615:4615 Corelib.Init.Datatypes <> S constr
+R4618:4618 Corelib.Init.Datatypes <> S constr
+R4621:4621 Corelib.Init.Datatypes <> S constr
+R4624:4624 Corelib.Init.Datatypes <> S constr
+R4627:4627 Corelib.Init.Datatypes <> S constr
+R4630:4630 Corelib.Init.Datatypes <> S constr
+R4633:4633 Corelib.Init.Datatypes <> S constr
+R4636:4636 Corelib.Init.Datatypes <> S constr
+R4639:4639 Corelib.Init.Datatypes <> S constr
+R4642:4642 Corelib.Init.Datatypes <> S constr
+R4645:4645 Corelib.Init.Datatypes <> S constr
+R4648:4648 Corelib.Init.Datatypes <> S constr
+R4651:4651 Corelib.Init.Datatypes <> S constr
+R4654:4654 Corelib.Init.Datatypes <> S constr
+R4656:4656 Corelib.Init.Datatypes <> O constr
+def 4685:4699 <> of_hex_uint_acc
+R4704:4719 Corelib.Init.Hexadecimal <> uint ind
+binder 4702:4702 <> d:68
+R4726:4728 Corelib.Init.Datatypes <> nat ind
+binder 4722:4724 <> acc:69
+R4742:4742 Corelib.Init.Nat <> d:68 var
+R4753:4767 Corelib.Init.Hexadecimal <> Nil constr
+R4772:4774 Corelib.Init.Nat <> acc:69 var
+R4780:4793 Corelib.Init.Hexadecimal <> D0 constr
+R4800:4814 Corelib.Init.Nat <> of_hex_uint_acc:70 def
+R4819:4826 Corelib.Init.Nat <> tail_mul def
+R4828:4834 Corelib.Init.Nat <> sixteen abbrev
+R4836:4838 Corelib.Init.Nat <> acc:69 var
+R4816:4816 Corelib.Init.Nat <> d:68 var
+R4845:4858 Corelib.Init.Hexadecimal <> D1 constr
+R4865:4879 Corelib.Init.Nat <> of_hex_uint_acc:70 def
+R4884:4884 Corelib.Init.Datatypes <> S constr
+R4887:4894 Corelib.Init.Nat <> tail_mul def
+R4896:4902 Corelib.Init.Nat <> sixteen abbrev
+R4904:4906 Corelib.Init.Nat <> acc:69 var
+R4881:4881 Corelib.Init.Nat <> d:68 var
+R4914:4927 Corelib.Init.Hexadecimal <> D2 constr
+R4934:4948 Corelib.Init.Nat <> of_hex_uint_acc:70 def
+R4953:4953 Corelib.Init.Datatypes <> S constr
+R4956:4956 Corelib.Init.Datatypes <> S constr
+R4959:4966 Corelib.Init.Nat <> tail_mul def
+R4968:4974 Corelib.Init.Nat <> sixteen abbrev
+R4976:4978 Corelib.Init.Nat <> acc:69 var
+R4950:4950 Corelib.Init.Nat <> d:68 var
+R4987:5000 Corelib.Init.Hexadecimal <> D3 constr
+R5007:5021 Corelib.Init.Nat <> of_hex_uint_acc:70 def
+R5026:5026 Corelib.Init.Datatypes <> S constr
+R5029:5029 Corelib.Init.Datatypes <> S constr
+R5032:5032 Corelib.Init.Datatypes <> S constr
+R5035:5042 Corelib.Init.Nat <> tail_mul def
+R5044:5050 Corelib.Init.Nat <> sixteen abbrev
+R5052:5054 Corelib.Init.Nat <> acc:69 var
+R5023:5023 Corelib.Init.Nat <> d:68 var
+R5064:5077 Corelib.Init.Hexadecimal <> D4 constr
+R5084:5098 Corelib.Init.Nat <> of_hex_uint_acc:70 def
+R5103:5103 Corelib.Init.Datatypes <> S constr
+R5106:5106 Corelib.Init.Datatypes <> S constr
+R5109:5109 Corelib.Init.Datatypes <> S constr
+R5112:5112 Corelib.Init.Datatypes <> S constr
+R5115:5122 Corelib.Init.Nat <> tail_mul def
+R5124:5130 Corelib.Init.Nat <> sixteen abbrev
+R5132:5134 Corelib.Init.Nat <> acc:69 var
+R5100:5100 Corelib.Init.Nat <> d:68 var
+R5145:5158 Corelib.Init.Hexadecimal <> D5 constr
+R5165:5179 Corelib.Init.Nat <> of_hex_uint_acc:70 def
+R5184:5184 Corelib.Init.Datatypes <> S constr
+R5187:5187 Corelib.Init.Datatypes <> S constr
+R5190:5190 Corelib.Init.Datatypes <> S constr
+R5193:5193 Corelib.Init.Datatypes <> S constr
+R5196:5196 Corelib.Init.Datatypes <> S constr
+R5199:5206 Corelib.Init.Nat <> tail_mul def
+R5208:5214 Corelib.Init.Nat <> sixteen abbrev
+R5216:5218 Corelib.Init.Nat <> acc:69 var
+R5181:5181 Corelib.Init.Nat <> d:68 var
+R5230:5243 Corelib.Init.Hexadecimal <> D6 constr
+R5250:5264 Corelib.Init.Nat <> of_hex_uint_acc:70 def
+R5269:5269 Corelib.Init.Datatypes <> S constr
+R5272:5272 Corelib.Init.Datatypes <> S constr
+R5275:5275 Corelib.Init.Datatypes <> S constr
+R5278:5278 Corelib.Init.Datatypes <> S constr
+R5281:5281 Corelib.Init.Datatypes <> S constr
+R5284:5284 Corelib.Init.Datatypes <> S constr
+R5287:5294 Corelib.Init.Nat <> tail_mul def
+R5296:5302 Corelib.Init.Nat <> sixteen abbrev
+R5304:5306 Corelib.Init.Nat <> acc:69 var
+R5266:5266 Corelib.Init.Nat <> d:68 var
+R5319:5332 Corelib.Init.Hexadecimal <> D7 constr
+R5339:5353 Corelib.Init.Nat <> of_hex_uint_acc:70 def
+R5358:5358 Corelib.Init.Datatypes <> S constr
+R5361:5361 Corelib.Init.Datatypes <> S constr
+R5364:5364 Corelib.Init.Datatypes <> S constr
+R5367:5367 Corelib.Init.Datatypes <> S constr
+R5370:5370 Corelib.Init.Datatypes <> S constr
+R5373:5373 Corelib.Init.Datatypes <> S constr
+R5376:5376 Corelib.Init.Datatypes <> S constr
+R5379:5386 Corelib.Init.Nat <> tail_mul def
+R5388:5394 Corelib.Init.Nat <> sixteen abbrev
+R5396:5398 Corelib.Init.Nat <> acc:69 var
+R5355:5355 Corelib.Init.Nat <> d:68 var
+R5412:5425 Corelib.Init.Hexadecimal <> D8 constr
+R5432:5446 Corelib.Init.Nat <> of_hex_uint_acc:70 def
+R5451:5451 Corelib.Init.Datatypes <> S constr
+R5454:5454 Corelib.Init.Datatypes <> S constr
+R5457:5457 Corelib.Init.Datatypes <> S constr
+R5460:5460 Corelib.Init.Datatypes <> S constr
+R5463:5463 Corelib.Init.Datatypes <> S constr
+R5466:5466 Corelib.Init.Datatypes <> S constr
+R5469:5469 Corelib.Init.Datatypes <> S constr
+R5472:5472 Corelib.Init.Datatypes <> S constr
+R5475:5482 Corelib.Init.Nat <> tail_mul def
+R5484:5490 Corelib.Init.Nat <> sixteen abbrev
+R5492:5494 Corelib.Init.Nat <> acc:69 var
+R5448:5448 Corelib.Init.Nat <> d:68 var
+R5509:5522 Corelib.Init.Hexadecimal <> D9 constr
+R5529:5543 Corelib.Init.Nat <> of_hex_uint_acc:70 def
+R5548:5548 Corelib.Init.Datatypes <> S constr
+R5551:5551 Corelib.Init.Datatypes <> S constr
+R5554:5554 Corelib.Init.Datatypes <> S constr
+R5557:5557 Corelib.Init.Datatypes <> S constr
+R5560:5560 Corelib.Init.Datatypes <> S constr
+R5563:5563 Corelib.Init.Datatypes <> S constr
+R5566:5566 Corelib.Init.Datatypes <> S constr
+R5569:5569 Corelib.Init.Datatypes <> S constr
+R5572:5572 Corelib.Init.Datatypes <> S constr
+R5575:5582 Corelib.Init.Nat <> tail_mul def
+R5584:5590 Corelib.Init.Nat <> sixteen abbrev
+R5592:5594 Corelib.Init.Nat <> acc:69 var
+R5545:5545 Corelib.Init.Nat <> d:68 var
+R5610:5623 Corelib.Init.Hexadecimal <> Da constr
+R5630:5644 Corelib.Init.Nat <> of_hex_uint_acc:70 def
+R5649:5649 Corelib.Init.Datatypes <> S constr
+R5652:5652 Corelib.Init.Datatypes <> S constr
+R5655:5655 Corelib.Init.Datatypes <> S constr
+R5658:5658 Corelib.Init.Datatypes <> S constr
+R5661:5661 Corelib.Init.Datatypes <> S constr
+R5664:5664 Corelib.Init.Datatypes <> S constr
+R5667:5667 Corelib.Init.Datatypes <> S constr
+R5670:5670 Corelib.Init.Datatypes <> S constr
+R5673:5673 Corelib.Init.Datatypes <> S constr
+R5676:5676 Corelib.Init.Datatypes <> S constr
+R5679:5686 Corelib.Init.Nat <> tail_mul def
+R5688:5694 Corelib.Init.Nat <> sixteen abbrev
+R5696:5698 Corelib.Init.Nat <> acc:69 var
+R5646:5646 Corelib.Init.Nat <> d:68 var
+R5715:5728 Corelib.Init.Hexadecimal <> Db constr
+R5735:5749 Corelib.Init.Nat <> of_hex_uint_acc:70 def
+R5754:5754 Corelib.Init.Datatypes <> S constr
+R5757:5757 Corelib.Init.Datatypes <> S constr
+R5760:5760 Corelib.Init.Datatypes <> S constr
+R5763:5763 Corelib.Init.Datatypes <> S constr
+R5766:5766 Corelib.Init.Datatypes <> S constr
+R5769:5769 Corelib.Init.Datatypes <> S constr
+R5772:5772 Corelib.Init.Datatypes <> S constr
+R5775:5775 Corelib.Init.Datatypes <> S constr
+R5778:5778 Corelib.Init.Datatypes <> S constr
+R5781:5781 Corelib.Init.Datatypes <> S constr
+R5784:5784 Corelib.Init.Datatypes <> S constr
+R5787:5794 Corelib.Init.Nat <> tail_mul def
+R5796:5802 Corelib.Init.Nat <> sixteen abbrev
+R5804:5806 Corelib.Init.Nat <> acc:69 var
+R5751:5751 Corelib.Init.Nat <> d:68 var
+R5824:5837 Corelib.Init.Hexadecimal <> Dc constr
+R5844:5858 Corelib.Init.Nat <> of_hex_uint_acc:70 def
+R5863:5863 Corelib.Init.Datatypes <> S constr
+R5866:5866 Corelib.Init.Datatypes <> S constr
+R5869:5869 Corelib.Init.Datatypes <> S constr
+R5872:5872 Corelib.Init.Datatypes <> S constr
+R5875:5875 Corelib.Init.Datatypes <> S constr
+R5878:5878 Corelib.Init.Datatypes <> S constr
+R5881:5881 Corelib.Init.Datatypes <> S constr
+R5884:5884 Corelib.Init.Datatypes <> S constr
+R5887:5887 Corelib.Init.Datatypes <> S constr
+R5890:5890 Corelib.Init.Datatypes <> S constr
+R5893:5893 Corelib.Init.Datatypes <> S constr
+R5896:5896 Corelib.Init.Datatypes <> S constr
+R5899:5906 Corelib.Init.Nat <> tail_mul def
+R5908:5914 Corelib.Init.Nat <> sixteen abbrev
+R5916:5918 Corelib.Init.Nat <> acc:69 var
+R5860:5860 Corelib.Init.Nat <> d:68 var
+R5937:5950 Corelib.Init.Hexadecimal <> Dd constr
+R5957:5971 Corelib.Init.Nat <> of_hex_uint_acc:70 def
+R5976:5976 Corelib.Init.Datatypes <> S constr
+R5979:5979 Corelib.Init.Datatypes <> S constr
+R5982:5982 Corelib.Init.Datatypes <> S constr
+R5985:5985 Corelib.Init.Datatypes <> S constr
+R5988:5988 Corelib.Init.Datatypes <> S constr
+R5991:5991 Corelib.Init.Datatypes <> S constr
+R5994:5994 Corelib.Init.Datatypes <> S constr
+R5997:5997 Corelib.Init.Datatypes <> S constr
+R6000:6000 Corelib.Init.Datatypes <> S constr
+R6003:6003 Corelib.Init.Datatypes <> S constr
+R6006:6006 Corelib.Init.Datatypes <> S constr
+R6009:6009 Corelib.Init.Datatypes <> S constr
+R6012:6012 Corelib.Init.Datatypes <> S constr
+R6015:6022 Corelib.Init.Nat <> tail_mul def
+R6024:6030 Corelib.Init.Nat <> sixteen abbrev
+R6032:6034 Corelib.Init.Nat <> acc:69 var
+R5973:5973 Corelib.Init.Nat <> d:68 var
+R6054:6067 Corelib.Init.Hexadecimal <> De constr
+R6074:6088 Corelib.Init.Nat <> of_hex_uint_acc:70 def
+R6093:6093 Corelib.Init.Datatypes <> S constr
+R6096:6096 Corelib.Init.Datatypes <> S constr
+R6099:6099 Corelib.Init.Datatypes <> S constr
+R6102:6102 Corelib.Init.Datatypes <> S constr
+R6105:6105 Corelib.Init.Datatypes <> S constr
+R6108:6108 Corelib.Init.Datatypes <> S constr
+R6111:6111 Corelib.Init.Datatypes <> S constr
+R6114:6114 Corelib.Init.Datatypes <> S constr
+R6117:6117 Corelib.Init.Datatypes <> S constr
+R6120:6120 Corelib.Init.Datatypes <> S constr
+R6123:6123 Corelib.Init.Datatypes <> S constr
+R6126:6126 Corelib.Init.Datatypes <> S constr
+R6129:6129 Corelib.Init.Datatypes <> S constr
+R6132:6132 Corelib.Init.Datatypes <> S constr
+R6135:6142 Corelib.Init.Nat <> tail_mul def
+R6144:6150 Corelib.Init.Nat <> sixteen abbrev
+R6152:6154 Corelib.Init.Nat <> acc:69 var
+R6090:6090 Corelib.Init.Nat <> d:68 var
+R6175:6188 Corelib.Init.Hexadecimal <> Df constr
+R6195:6209 Corelib.Init.Nat <> of_hex_uint_acc:70 def
+R6214:6214 Corelib.Init.Datatypes <> S constr
+R6217:6217 Corelib.Init.Datatypes <> S constr
+R6220:6220 Corelib.Init.Datatypes <> S constr
+R6223:6223 Corelib.Init.Datatypes <> S constr
+R6226:6226 Corelib.Init.Datatypes <> S constr
+R6229:6229 Corelib.Init.Datatypes <> S constr
+R6232:6232 Corelib.Init.Datatypes <> S constr
+R6235:6235 Corelib.Init.Datatypes <> S constr
+R6238:6238 Corelib.Init.Datatypes <> S constr
+R6241:6241 Corelib.Init.Datatypes <> S constr
+R6244:6244 Corelib.Init.Datatypes <> S constr
+R6247:6247 Corelib.Init.Datatypes <> S constr
+R6250:6250 Corelib.Init.Datatypes <> S constr
+R6253:6253 Corelib.Init.Datatypes <> S constr
+R6256:6256 Corelib.Init.Datatypes <> S constr
+R6259:6266 Corelib.Init.Nat <> tail_mul def
+R6268:6274 Corelib.Init.Nat <> sixteen abbrev
+R6276:6278 Corelib.Init.Nat <> acc:69 var
+R6211:6211 Corelib.Init.Nat <> d:68 var
+def 6315:6325 <> of_hex_uint
+R6330:6345 Corelib.Init.Hexadecimal <> uint ind
+binder 6328:6328 <> d:72
+R6351:6365 Corelib.Init.Nat <> of_hex_uint_acc def
+R6367:6367 Corelib.Init.Nat <> d:72 var
+R6369:6369 Corelib.Init.Datatypes <> O constr
+def 6384:6394 <> of_num_uint
+R6399:6409 Corelib.Init.Number <> uint variant
+binder 6397:6397 <> d:73
+R6423:6423 Corelib.Init.Nat <> d:73 var
+R6434:6451 Corelib.Init.Number <> UIntDecimal constr
+R6458:6464 Corelib.Init.Nat <> of_uint def
+R6466:6466 Corelib.Init.Nat <> d:73 var
+R6472:6493 Corelib.Init.Number <> UIntHexadecimal constr
+R6500:6510 Corelib.Init.Nat <> of_hex_uint def
+R6512:6512 Corelib.Init.Nat <> d:73 var
+def 6531:6544 <> to_little_uint
+binder 6546:6546 <> n:75
+binder 6548:6550 <> acc:76
+R6563:6563 Corelib.Init.Nat <> n:75 var
+R6574:6574 Corelib.Init.Datatypes <> O constr
+R6579:6581 Corelib.Init.Nat <> acc:76 var
+R6587:6587 Corelib.Init.Datatypes <> S constr
+R6594:6607 Corelib.Init.Nat <> to_little_uint:77 def
+R6612:6630 Corelib.Init.Decimal Little succ def
+R6632:6634 Corelib.Init.Nat <> acc:76 var
+R6609:6609 Corelib.Init.Nat <> n:75 var
+def 6656:6662 <> to_uint
+binder 6664:6664 <> n:79
+R6671:6681 Corelib.Init.Decimal <> rev def
+R6684:6697 Corelib.Init.Nat <> to_little_uint def
+R6699:6699 Corelib.Init.Nat <> n:79 var
+R6701:6712 Corelib.Init.Decimal <> zero abbrev
+def 6726:6743 <> to_little_hex_uint
+binder 6745:6745 <> n:80
+binder 6747:6749 <> acc:81
+R6762:6762 Corelib.Init.Nat <> n:80 var
+R6773:6773 Corelib.Init.Datatypes <> O constr
+R6778:6780 Corelib.Init.Nat <> acc:81 var
+R6786:6786 Corelib.Init.Datatypes <> S constr
+R6793:6810 Corelib.Init.Nat <> to_little_hex_uint:82 def
+R6815:6837 Corelib.Init.Hexadecimal Little succ def
+R6839:6841 Corelib.Init.Nat <> acc:81 var
+R6812:6812 Corelib.Init.Nat <> n:80 var
+def 6863:6873 <> to_hex_uint
+binder 6875:6875 <> n:84
+R6882:6896 Corelib.Init.Hexadecimal <> rev def
+R6899:6916 Corelib.Init.Nat <> to_little_hex_uint def
+R6918:6918 Corelib.Init.Nat <> n:84 var
+R6920:6935 Corelib.Init.Hexadecimal <> zero abbrev
+def 6951:6961 <> to_num_uint
+binder 6963:6963 <> n:85
+R6968:6985 Corelib.Init.Number <> UIntDecimal constr
+R6988:6994 Corelib.Init.Nat <> to_uint def
+R6996:6996 Corelib.Init.Nat <> n:85 var
+def 7012:7026 <> to_num_hex_uint
+binder 7028:7028 <> n:86
+R7033:7054 Corelib.Init.Number <> UIntHexadecimal constr
+R7057:7067 Corelib.Init.Nat <> to_hex_uint def
+R7069:7069 Corelib.Init.Nat <> n:86 var
+def 7085:7090 <> of_int
+R7095:7105 Corelib.Init.Decimal <> int abbrev
+binder 7093:7093 <> d:87
+R7110:7115 Corelib.Init.Datatypes <> option ind
+R7117:7119 Corelib.Init.Datatypes <> nat ind
+R7132:7143 Corelib.Init.Decimal <> norm def
+R7145:7145 Corelib.Init.Nat <> d:87 var
+R7158:7168 Corelib.Init.Decimal <> Pos constr
+R7175:7178 Corelib.Init.Datatypes <> Some constr
+R7181:7187 Corelib.Init.Nat <> of_uint def
+R7203:7206 Corelib.Init.Datatypes <> None constr
+def 7227:7236 <> of_hex_int
+R7241:7255 Corelib.Init.Hexadecimal <> int abbrev
+binder 7239:7239 <> d:88
+R7260:7265 Corelib.Init.Datatypes <> option ind
+R7267:7269 Corelib.Init.Datatypes <> nat ind
+R7282:7297 Corelib.Init.Hexadecimal <> norm def
+R7299:7299 Corelib.Init.Nat <> d:88 var
+R7312:7326 Corelib.Init.Hexadecimal <> Pos constr
+R7333:7336 Corelib.Init.Datatypes <> Some constr
+R7339:7349 Corelib.Init.Nat <> of_hex_uint def
+R7365:7368 Corelib.Init.Datatypes <> None constr
+def 7389:7398 <> of_num_int
+R7403:7412 Corelib.Init.Number <> int abbrev
+binder 7401:7401 <> d:89
+R7417:7422 Corelib.Init.Datatypes <> option ind
+R7424:7426 Corelib.Init.Datatypes <> nat ind
+R7439:7439 Corelib.Init.Nat <> d:89 var
+R7450:7466 Corelib.Init.Number <> IntDecimal constr
+R7473:7478 Corelib.Init.Nat <> of_int def
+R7480:7480 Corelib.Init.Nat <> d:89 var
+R7486:7506 Corelib.Init.Number <> IntHexadecimal constr
+R7513:7522 Corelib.Init.Nat <> of_hex_int def
+R7524:7524 Corelib.Init.Nat <> d:89 var
+def 7545:7550 <> to_int
+binder 7552:7552 <> n:91
+R7557:7567 Corelib.Init.Decimal <> Pos constr
+R7570:7576 Corelib.Init.Nat <> to_uint def
+R7578:7578 Corelib.Init.Nat <> n:91 var
+def 7594:7603 <> to_hex_int
+binder 7605:7605 <> n:92
+R7610:7624 Corelib.Init.Hexadecimal <> Pos constr
+R7627:7637 Corelib.Init.Nat <> to_hex_uint def
+R7639:7639 Corelib.Init.Nat <> n:92 var
+def 7655:7664 <> to_num_int
+binder 7666:7666 <> n:93
+R7671:7687 Corelib.Init.Number <> IntDecimal constr
+R7690:7695 Corelib.Init.Nat <> to_int def
+R7697:7697 Corelib.Init.Nat <> n:93 var
+def 7900:7905 <> divmod
+binder 7907:7907 <> x:94
+binder 7909:7909 <> y:95
+binder 7911:7911 <> q:96
+binder 7913:7913 <> u:97
+R7926:7926 Corelib.Init.Nat <> x:94 var
+R7944:7944 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7946:7946 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7948:7948 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7945:7945 Corelib.Init.Nat <> q:96 var
+R7947:7947 Corelib.Init.Nat <> u:97 var
+R7956:7956 Corelib.Init.Datatypes <> S constr
+R7970:7970 Corelib.Init.Nat <> u:97 var
+R8000:8005 Corelib.Init.Nat <> divmod:98 def
+R8018:8018 Corelib.Init.Nat <> y:95 var
+R8013:8013 Corelib.Init.Datatypes <> S constr
+R8015:8015 Corelib.Init.Nat <> q:96 var
+R8010:8010 Corelib.Init.Nat <> y:95 var
+R8038:8038 Corelib.Init.Datatypes <> S constr
+R8046:8051 Corelib.Init.Nat <> divmod:98 def
+R8058:8058 Corelib.Init.Nat <> q:96 var
+R8056:8056 Corelib.Init.Nat <> y:95 var
+def 8100:8102 <> div
+binder 8104:8104 <> x:101
+binder 8106:8106 <> y:102
+R8119:8119 Corelib.Init.Nat <> y:102 var
+R8137:8137 Corelib.Init.Nat <> y:102 var
+R8145:8145 Corelib.Init.Datatypes <> S constr
+R8153:8155 Corelib.Init.Datatypes <> fst def
+R8158:8163 Corelib.Init.Nat <> divmod def
+R8165:8165 Corelib.Init.Nat <> x:101 var
+def 8195:8200 <> modulo
+binder 8202:8202 <> x:104
+binder 8204:8204 <> y:105
+R8217:8217 Corelib.Init.Nat <> y:105 var
+R8235:8235 Corelib.Init.Nat <> x:104 var
+R8243:8243 Corelib.Init.Datatypes <> S constr
+R8253:8255 Corelib.Init.Nat <> ::nat_scope:x_'-'_x not
+R8256:8258 Corelib.Init.Datatypes <> snd def
+R8261:8266 Corelib.Init.Nat <> divmod def
+R8268:8268 Corelib.Init.Nat <> x:104 var
+R8300:8302 Corelib.Init.Nat <> div def
+not 8293:8293 <> ::nat_scope:x_'/'_x
+R8332:8337 Corelib.Init.Nat <> modulo def
+not 8323:8323 <> ::nat_scope:x_'mod'_x
+def 8626:8628 <> gcd
+binder 8630:8630 <> a:107
+binder 8632:8632 <> b:108
+R8645:8645 Corelib.Init.Nat <> a:107 var
+R8657:8657 Corelib.Init.Datatypes <> O constr
+R8662:8662 Corelib.Init.Nat <> b:108 var
+R8669:8669 Corelib.Init.Datatypes <> S constr
+R8677:8679 Corelib.Init.Nat <> gcd:109 def
+R8697:8697 Corelib.Init.Datatypes <> S constr
+R8683:8688 Corelib.Init.Nat <> ::nat_scope:x_'mod'_x not
+R8693:8693 Corelib.Init.Nat <> ::nat_scope:x_'mod'_x not
+R8682:8682 Corelib.Init.Nat <> b:108 var
+R8689:8689 Corelib.Init.Datatypes <> S constr
+def 8740:8745 <> square
+binder 8747:8747 <> n:111
+R8753:8755 Corelib.Init.Nat <> ::nat_scope:x_'*'_x not
+R8752:8752 Corelib.Init.Nat <> n:111 var
+R8756:8756 Corelib.Init.Nat <> n:111 var
+def 9373:9381 <> sqrt_iter
+binder 9383:9383 <> k:112
+binder 9385:9385 <> p:113
+binder 9387:9387 <> q:114
+binder 9389:9389 <> r:115
+R9402:9402 Corelib.Init.Nat <> k:112 var
+R9415:9415 Corelib.Init.Datatypes <> O constr
+R9420:9420 Corelib.Init.Nat <> p:113 var
+R9428:9428 Corelib.Init.Datatypes <> S constr
+R9442:9442 Corelib.Init.Nat <> r:115 var
+R9467:9467 Corelib.Init.Datatypes <> O constr
+R9472:9480 Corelib.Init.Nat <> sqrt_iter:116 def
+R9502:9502 Corelib.Init.Datatypes <> S constr
+R9505:9505 Corelib.Init.Datatypes <> S constr
+R9507:9507 Corelib.Init.Nat <> q:114 var
+R9492:9492 Corelib.Init.Datatypes <> S constr
+R9495:9495 Corelib.Init.Datatypes <> S constr
+R9497:9497 Corelib.Init.Nat <> q:114 var
+R9486:9486 Corelib.Init.Datatypes <> S constr
+R9488:9488 Corelib.Init.Nat <> p:113 var
+R9529:9529 Corelib.Init.Datatypes <> S constr
+R9537:9545 Corelib.Init.Nat <> sqrt_iter:116 def
+R9552:9552 Corelib.Init.Nat <> q:114 var
+R9550:9550 Corelib.Init.Nat <> p:113 var
+def 9594:9597 <> sqrt
+binder 9599:9599 <> n:119
+R9604:9612 Corelib.Init.Nat <> sqrt_iter def
+R9614:9614 Corelib.Init.Nat <> n:119 var
+def 10512:10520 <> log2_iter
+binder 10522:10522 <> k:120
+binder 10524:10524 <> p:121
+binder 10526:10526 <> q:122
+binder 10528:10528 <> r:123
+R10541:10541 Corelib.Init.Nat <> k:120 var
+R10554:10554 Corelib.Init.Datatypes <> O constr
+R10559:10559 Corelib.Init.Nat <> p:121 var
+R10567:10567 Corelib.Init.Datatypes <> S constr
+R10581:10581 Corelib.Init.Nat <> r:123 var
+R10606:10606 Corelib.Init.Datatypes <> O constr
+R10611:10619 Corelib.Init.Nat <> log2_iter:124 def
+R10636:10636 Corelib.Init.Nat <> q:122 var
+R10631:10631 Corelib.Init.Datatypes <> S constr
+R10633:10633 Corelib.Init.Nat <> q:122 var
+R10625:10625 Corelib.Init.Datatypes <> S constr
+R10627:10627 Corelib.Init.Nat <> p:121 var
+R10656:10656 Corelib.Init.Datatypes <> S constr
+R10664:10672 Corelib.Init.Nat <> log2_iter:124 def
+R10680:10680 Corelib.Init.Datatypes <> S constr
+R10682:10682 Corelib.Init.Nat <> q:122 var
+R10677:10677 Corelib.Init.Nat <> p:121 var
+def 10725:10728 <> log2
+binder 10730:10730 <> n:127
+R10735:10743 Corelib.Init.Nat <> log2_iter def
+R10746:10749 Corelib.Init.Nat <> pred def
+R10751:10751 Corelib.Init.Nat <> n:127 var
+def 10809:10812 <> iter
+R10817:10819 Corelib.Init.Datatypes <> nat ind
+binder 10815:10815 <> n:128
+binder 10823:10823 <> A:129
+R10830:10831 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R10829:10829 Corelib.Init.Nat <> A:129 var
+R10832:10832 Corelib.Init.Nat <> A:129 var
+binder 10827:10827 <> f:130
+R10838:10838 Corelib.Init.Nat <> A:129 var
+binder 10836:10836 <> x:131
+R10843:10843 Corelib.Init.Nat <> A:129 var
+R10849:10856 Corelib.Init.Datatypes <> nat_rect scheme
+R10886:10886 Corelib.Init.Nat <> n:128 var
+R10883:10883 Corelib.Init.Nat <> f:130 var
+R10871:10871 Corelib.Init.Nat <> x:131 var
+R10868:10868 Corelib.Init.Nat <> A:129 var
+def 11249:11252 <> div2
+binder 11254:11254 <> n:132
+R11267:11267 Corelib.Init.Nat <> n:132 var
+R11289:11289 Corelib.Init.Datatypes <> S constr
+R11302:11302 Corelib.Init.Datatypes <> S constr
+R11305:11305 Corelib.Init.Datatypes <> S constr
+R11314:11314 Corelib.Init.Datatypes <> S constr
+R11317:11320 Corelib.Init.Nat <> div2:133 def
+def 11343:11349 <> testbit
+binder 11351:11351 <> a:135
+binder 11353:11353 <> n:136
+R11357:11360 Corelib.Init.Datatypes <> bool ind
+R11372:11372 Corelib.Init.Nat <> n:136 var
+R11389:11391 Corelib.Init.Nat <> odd def
+R11393:11393 Corelib.Init.Nat <> a:135 var
+R11400:11400 Corelib.Init.Datatypes <> S constr
+R11407:11413 Corelib.Init.Nat <> testbit:137 def
+R11424:11424 Corelib.Init.Nat <> n:136 var
+R11416:11419 Corelib.Init.Nat <> div2 def
+R11421:11421 Corelib.Init.Nat <> a:135 var
+def 11444:11449 <> shiftl
+binder 11451:11451 <> a:139
+R11456:11463 Corelib.Init.Datatypes <> nat_rect scheme
+R11479:11484 Corelib.Init.Nat <> double def
+R11467:11467 Corelib.Init.Nat <> a:139 var
+def 11499:11504 <> shiftr
+binder 11506:11506 <> a:140
+R11511:11518 Corelib.Init.Datatypes <> nat_rect scheme
+R11534:11537 Corelib.Init.Nat <> div2 def
+R11522:11522 Corelib.Init.Nat <> a:140 var
+def 11551:11557 <> bitwise
+R11567:11568 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R11563:11566 Corelib.Init.Datatypes <> bool ind
+R11573:11574 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R11569:11572 Corelib.Init.Datatypes <> bool ind
+R11575:11578 Corelib.Init.Datatypes <> bool ind
+binder 11560:11561 <> op:141
+binder 11581:11581 <> n:142
+binder 11583:11583 <> a:143
+binder 11585:11585 <> b:144
+R11597:11597 Corelib.Init.Nat <> n:142 var
+R11619:11619 Corelib.Init.Datatypes <> S constr
+R11631:11631 Corelib.Init.Nat <> ::nat_scope:x_'+'_x not
+R11667:11674 Corelib.Init.Nat <> ::nat_scope:x_'+'_x not
+R11635:11636 Corelib.Init.Nat <> op:141 var
+R11647:11649 Corelib.Init.Nat <> odd def
+R11651:11651 Corelib.Init.Nat <> b:144 var
+R11639:11641 Corelib.Init.Nat <> odd def
+R11643:11643 Corelib.Init.Nat <> a:143 var
+R11676:11677 Corelib.Init.Nat <> ::nat_scope:x_'*'_x not
+R11709:11709 Corelib.Init.Nat <> ::nat_scope:x_'*'_x not
+R11678:11684 Corelib.Init.Nat <> bitwise:145 def
+R11702:11705 Corelib.Init.Nat <> div2 def
+R11707:11707 Corelib.Init.Nat <> b:144 var
+R11693:11696 Corelib.Init.Nat <> div2 def
+R11698:11698 Corelib.Init.Nat <> a:143 var
+R11686:11687 Corelib.Init.Nat <> op:141 var
+def 11729:11732 <> land
+binder 11734:11734 <> a:147
+binder 11736:11736 <> b:148
+R11741:11747 Corelib.Init.Nat <> bitwise def
+R11749:11752 Corelib.Init.Datatypes <> andb def
+R11754:11754 Corelib.Init.Nat <> a:147 var
+R11756:11756 Corelib.Init.Nat <> a:147 var
+R11758:11758 Corelib.Init.Nat <> b:148 var
+def 11772:11774 <> lor
+binder 11776:11776 <> a:149
+binder 11778:11778 <> b:150
+R11783:11789 Corelib.Init.Nat <> bitwise def
+R11791:11793 Corelib.Init.Datatypes <> orb def
+R11796:11798 Corelib.Init.Nat <> max def
+R11800:11800 Corelib.Init.Nat <> a:149 var
+R11802:11802 Corelib.Init.Nat <> b:150 var
+R11805:11805 Corelib.Init.Nat <> a:149 var
+R11807:11807 Corelib.Init.Nat <> b:150 var
+def 11821:11825 <> ldiff
+binder 11827:11827 <> a:151
+binder 11829:11829 <> b:152
+R11834:11840 Corelib.Init.Nat <> bitwise def
+binder 11847:11847 <> b:153
+binder 11849:11850 <> b':154
+R11855:11858 Corelib.Init.Datatypes <> andb def
+R11863:11866 Corelib.Init.Datatypes <> negb def
+R11868:11869 Corelib.Init.Nat <> b':154 var
+R11860:11860 Corelib.Init.Nat <> b:153 var
+R11873:11873 Corelib.Init.Nat <> a:151 var
+R11875:11875 Corelib.Init.Nat <> a:151 var
+R11877:11877 Corelib.Init.Nat <> b:152 var
+def 11891:11894 <> lxor
+binder 11896:11896 <> a:155
+binder 11898:11898 <> b:156
+R11903:11909 Corelib.Init.Nat <> bitwise def
+R11911:11914 Corelib.Init.Datatypes <> xorb def
+R11917:11919 Corelib.Init.Nat <> max def
+R11921:11921 Corelib.Init.Nat <> a:155 var
+R11923:11923 Corelib.Init.Nat <> b:156 var
+R11926:11926 Corelib.Init.Nat <> a:155 var
+R11928:11928 Corelib.Init.Nat <> b:156 var

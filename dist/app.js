@@ -20,21 +20,24 @@
 
   const INFRA_REASONS = new Set(["config_error", "challenge_error", "internal_error"]);
 
-  // The in-browser engine runs with -noinit (no Corelib prelude bundled — see
-  // BACKEND.md), so it checks prelude-free core Gallina only: forall / fun and
-  // no prelude notations (no ->, =, /\, nat, ...) and no tactics. The default
-  // uses an `Example` with an explicit term, which parses in term mode and is
-  // auto-detected as a theorem-like target. It is a genuine kernel-checked
-  // proof and returns ok:true through the real engine.
-  const DEFAULT_CHALLENGE = `(* In-browser engine: prelude-free core Gallina (term mode) only.
-   No tactics, no nat / = / -> notations — write terms with forall and fun.
-   Theorem/Lemma/Example names are auto-detected (see Advanced options). *)
-Example id_fun : forall (A : Prop) (a : A), A :=
-  fun A a => a.
+  // The in-browser engine now ships the Corelib prelude .vo bundle (regenerated
+  // by a coerce-32bit-patched native rocqc — see BACKEND.md), so it checks real
+  // Gallina WITH the prelude: nat / = / -> and the tactic language (induction,
+  // simpl, rewrite, auto, ...). The default is a genuine nat + tactics proof,
+  // kernel-checked in the browser. Uncheck into -noinit only for prelude-free
+  // core Gallina. Theorem/Lemma/Example names are auto-detected.
+  const DEFAULT_CHALLENGE = `(* In-browser engine: full Corelib prelude (nat, =, ->, tactics).
+   The challenge states the goal and leaves the proof open (Admitted). *)
+Theorem add_0_r : forall n : nat, n + 0 = n.
+Proof. Admitted.
 `;
 
-  const DEFAULT_SOLUTION = `Example id_fun : forall (A : Prop) (a : A), A :=
-  fun A a => a.
+  const DEFAULT_SOLUTION = `Theorem add_0_r : forall n : nat, n + 0 = n.
+Proof.
+  induction n as [| n IH]; simpl.
+  - reflexivity.
+  - rewrite IH. reflexivity.
+Qed.
 `;
 
   // Bundled demo verdicts (also saved under examples/ as standalone files) so
@@ -239,7 +242,7 @@ Example id_fun : forall (A : Prop) (a : A), A :=
       vm: false,         // forced off in the browser regardless
       impredicative_set: $("impredicativeSet").checked,
       indices_matter: $("indicesMatter").checked,
-      noinit: $("noinitToggle") ? $("noinitToggle").checked : true,
+      noinit: $("noinitToggle") ? $("noinitToggle").checked : false,
       permitted_plugins: [],
       permitted_libraries: [],
       permit_challenge_axioms: $("permitChallengeAxioms").checked,

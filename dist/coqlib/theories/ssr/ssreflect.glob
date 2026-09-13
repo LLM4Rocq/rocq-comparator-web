@@ -1,0 +1,523 @@
+DIGEST e9917cfad5a9f95ec8026569c48cd899
+FCorelib.ssr.ssreflect
+R847:857 Corelib.ssrmatching.ssrmatching <> <> lib
+mod 4672:4680 <> SsrSyntax
+R5071:5079 Corelib.ssr.ssreflect SsrSyntax <> mod
+R5090:5106 Corelib.ssrmatching.ssrmatching SsrMatchingSyntax <> mod
+R5116:5124 Corelib.ssr.ssreflect SsrSyntax <> mod
+abbrev 5204:5216 <> RocqGenericIf
+abbrev 5287:5308 <> RocqGenericDependentIf
+R6929:6941 Corelib.ssr.ssreflect <> RocqGenericIf abbrev
+not 6894:6894 <> ::general_if_scope:'if'_x_'then'_x_'else'_x
+R7043:7064 Corelib.ssr.ssreflect <> RocqGenericDependentIf abbrev
+binder 7068:7068 <> c:2
+binder 7068:7068 <> c:3
+not 6997:6997 <> ::general_if_scope:'if'_x_'return'_x_'then'_x_'else'_x
+R7177:7198 Corelib.ssr.ssreflect <> RocqGenericDependentIf abbrev
+binder 7202:7202 <> x:4
+binder 7202:7202 <> x:5
+not 7124:7124 <> ::general_if_scope:'if'_x_'as'_x_'return'_x_'then'_x_'else'_x
+R7469:7472 Corelib.Init.Datatypes <> bool ind
+R7456:7459 Corelib.Init.Datatypes <> true constr
+not 7402:7402 <> ::boolean_if_scope:'if'_x_'return'_x_'then'_x_'else'_x
+R7591:7594 Corelib.Init.Datatypes <> bool ind
+R7578:7581 Corelib.Init.Datatypes <> true constr
+not 7530:7530 <> ::boolean_if_scope:'if'_x_'then'_x_'else'_x
+R7731:7734 Corelib.Init.Datatypes <> bool ind
+R7718:7721 Corelib.Init.Datatypes <> true constr
+not 7652:7652 <> ::boolean_if_scope:'if'_x_'as'_x_'return'_x_'then'_x_'else'_x
+def 8583:8595 <> abstract_lock
+R8600:8603 Corelib.Init.Datatypes <> unit ind
+def 8617:8628 <> abstract_key
+R8633:8634 Corelib.Init.Datatypes <> tt constr
+def 8649:8656 <> abstract
+binder 8659:8667 <> statement:8
+R8683:8685 Corelib.Init.Datatypes <> nat ind
+binder 8678:8679 <> id:9
+R8696:8708 Corelib.ssr.ssreflect <> abstract_lock def
+binder 8689:8692 <> lock:10
+R8727:8730 Corelib.ssr.ssreflect <> lock:10 var
+R8721:8722 Corelib.Init.Datatypes <> tt constr
+R8735:8743 Corelib.ssr.ssreflect <> statement:8 var
+R8799:8806 Corelib.ssr.ssreflect <> abstract def
+not 8781:8781 <> ::ssr_scope:'<hidden'_x_'>'
+R8853:8860 Corelib.ssr.ssreflect <> abstract def
+R8866:8877 Corelib.ssr.ssreflect <> abstract_key def
+not 8837:8837 <> ::ssr_scope:x_'(*'_x_'*)'
+ind 9129:9141 <> external_view
+constr 9153:9163 <> tactic_view
+scheme 9129:9141 <> external_view_rect
+scheme 9129:9141 <> external_view_ind
+scheme 9129:9141 <> external_view_rec
+scheme 9129:9141 <> external_view_sind
+mod 10704:10715 <> TheCanonical
+ind 10727:10729 TheCanonical put
+constr 10769:10771 TheCanonical Put
+binder 10731:10732 <> vT:14
+binder 10734:10735 <> sT:15
+R10746:10747 Corelib.ssr.ssreflect <> vT:14 var
+binder 10738:10739 <> v1:16
+binder 10741:10742 <> v2:17
+R10755:10756 Corelib.ssr.ssreflect <> sT:15 var
+binder 10751:10751 <> s:18
+def 10786:10788 TheCanonical get
+binder 10790:10791 <> vT:21
+binder 10793:10794 <> sT:22
+binder 10796:10796 <> v:23
+binder 10798:10798 <> s:24
+R10806:10808 Corelib.ssr.ssreflect TheCanonical put variant
+R10810:10811 Corelib.ssr.ssreflect <> vT:21 var
+R10813:10814 Corelib.ssr.ssreflect <> sT:22 var
+R10816:10816 Corelib.ssr.ssreflect <> v:23 var
+R10818:10818 Corelib.ssr.ssreflect <> v:23 var
+R10820:10820 Corelib.ssr.ssreflect <> s:24 var
+binder 10801:10801 <> p:25
+R10844:10844 Corelib.ssr.ssreflect <> p:25 var
+R10831:10833 Corelib.ssr.ssreflect TheCanonical Put constr
+R10849:10849 Corelib.ssr.ssreflect <> s:24 var
+def 10864:10869 TheCanonical get_by
+binder 10871:10872 <> vT:27
+binder 10874:10875 <> sT:28
+R10882:10885 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R10880:10881 Corelib.ssr.ssreflect <> sT:28 var
+R10886:10887 Corelib.ssr.ssreflect <> vT:27 var
+R10893:10895 Corelib.ssr.ssreflect TheCanonical get def
+R10897:10898 Corelib.ssr.ssreflect <> vT:27 var
+R10900:10901 Corelib.ssr.ssreflect <> sT:28 var
+R10909:10920 Corelib.ssr.ssreflect TheCanonical <> mod
+R10931:10942 Corelib.ssr.ssreflect TheCanonical <> mod
+R10985:10990 Corelib.ssr.ssreflect <> get_by def
+R11075:11080 Corelib.ssr.ssreflect <> get_by def
+binder 11099:11100 <> v':29
+binder 11103:11103 <> s:30
+R11114:11116 Corelib.ssr.ssreflect <> Put constr
+R11127:11127 Corelib.ssr.ssreflect <> s:30 var
+R11124:11124 Corelib.ssr.ssreflect <> s:30 var
+R11118:11119 Corelib.ssr.ssreflect <> v':29 var
+not 11039:11039 <> ::form_scope:'['_'the'_x_'of'_x_'by'_x_']'
+R11203:11205 Corelib.ssr.ssreflect <> get def
+binder 11213:11213 <> s:31
+R11223:11225 Corelib.ssr.ssreflect <> Put constr
+R11242:11242 Corelib.ssr.ssreflect <> s:31 var
+R11240:11240 Corelib.ssr.ssreflect <> s:31 var
+not 11177:11177 <> ::form_scope:'['_'the'_x_'of'_x_']'
+R11625:11630 Corelib.ssr.ssreflect <> get_by def
+not 11591:11591 <> ::form_scope:'['_'the'_x_'of'_x_'by'_x_']'
+R11715:11717 Corelib.ssr.ssreflect <> get def
+not 11688:11688 <> ::form_scope:'['_'the'_x_'of'_x_']'
+def 13612:13623 <> argumentType
+binder 13625:13625 <> T:32
+binder 13627:13627 <> P:33
+R13642:13642 Corelib.ssr.ssreflect <> T:32 var
+binder 13638:13638 <> x:34
+R13645:13645 Corelib.ssr.ssreflect <> P:33 var
+R13647:13647 Corelib.ssr.ssreflect <> x:34 var
+R13652:13652 Corelib.ssr.ssreflect <> T:32 var
+def 13666:13684 <> dependentReturnType
+binder 13686:13686 <> T:35
+binder 13688:13688 <> P:36
+R13703:13703 Corelib.ssr.ssreflect <> T:35 var
+binder 13699:13699 <> x:37
+R13706:13706 Corelib.ssr.ssreflect <> P:36 var
+R13708:13708 Corelib.ssr.ssreflect <> x:37 var
+R13713:13713 Corelib.ssr.ssreflect <> P:36 var
+def 13727:13736 <> returnType
+binder 13738:13739 <> aT:38
+binder 13741:13742 <> rT:39
+R13748:13751 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R13746:13747 Corelib.ssr.ssreflect <> aT:38 var
+R13752:13753 Corelib.ssr.ssreflect <> rT:39 var
+R13758:13759 Corelib.ssr.ssreflect <> rT:39 var
+R13804:13822 Corelib.ssr.ssreflect <> dependentReturnType def
+not 13772:13772 <> ::type_scope:'{'_'type'_'of'_x_'for'_x_'}'
+ind 15151:15157 <> phantom
+constr 15179:15185 <> Phantom
+binder 15159:15159 <> T:40
+R15166:15166 Corelib.ssr.ssreflect <> T:40 var
+binder 15162:15162 <> p:41
+R15198:15204 Corelib.ssr.ssreflect <> phantom variant
+R15235:15241 Corelib.ssr.ssreflect <> Phantom constr
+ind 15270:15274 <> phant
+constr 15297:15301 <> Phant
+binder 15277:15277 <> p:44
+def 15394:15405 <> protect_term
+binder 15408:15408 <> A:47
+R15423:15423 Corelib.ssr.ssreflect <> A:47 var
+binder 15419:15419 <> x:48
+R15428:15428 Corelib.ssr.ssreflect <> A:47 var
+R15433:15433 Corelib.ssr.ssreflect <> x:48 var
+abbrev 16009:16015 <> unkeyed
+binder 16027:16030 <> flex:49
+R16040:16043 Corelib.ssr.ssreflect <> flex:49 var
+def 16113:16124 <> ssr_converse
+binder 16126:16126 <> R:50
+R16133:16133 Corelib.ssr.ssreflect <> R:50 var
+binder 16129:16129 <> r:51
+R16139:16139 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16147:16148 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16150:16150 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16140:16146 Corelib.Init.Logic <> I constr
+R16149:16149 Corelib.ssr.ssreflect <> r:51 var
+R16174:16185 Corelib.ssr.ssreflect <> ssr_converse def
+not 16162:16162 <> ::form_scope:'=^~'_x
+abbrev 18126:18132 <> nosimpl
+R18151:18152 Corelib.Init.Datatypes <> tt constr
+R18145:18146 Corelib.Init.Datatypes <> tt constr
+prf 18168:18177 <> master_key
+R18181:18184 Corelib.Init.Datatypes <> unit ind
+R18200:18201 Corelib.Init.Datatypes <> tt constr
+def 18220:18225 <> locked
+binder 18227:18227 <> A:52
+R18243:18252 Corelib.ssr.ssreflect <> master_key thm
+R18237:18238 Corelib.Init.Datatypes <> tt constr
+R18265:18265 Corelib.ssr.ssreflect <> A:52 var
+binder 18261:18261 <> x:53
+R18270:18270 Corelib.ssr.ssreflect <> x:53 var
+prf 18379:18382 <> lock
+binder 18384:18384 <> A:54
+binder 18386:18386 <> x:55
+R18391:18393 Corelib.Init.Logic <> ::type_scope:x_'='_x_':>'_x not
+R18402:18405 Corelib.Init.Logic <> ::type_scope:x_'='_x_':>'_x not
+R18406:18406 Corelib.ssr.ssreflect <> A:54 var
+R18390:18390 Corelib.ssr.ssreflect <> x:55 var
+R18394:18399 Corelib.ssr.ssreflect <> locked def
+R18401:18401 Corelib.ssr.ssreflect <> x:55 var
+R18572:18580 Corelib.Init.Logic <> sym_equal abbrev
+R18675:18676 Corelib.Init.Logic <> ::type_scope:'~'_x not
+R18863:18871 Corelib.Init.Logic <> sym_equal abbrev
+R18950:18951 Corelib.Init.Logic <> ::type_scope:'~'_x not
+rec 19065:19074 <> unlockable
+proj 19095:19102 <> unlocked
+binder 19076:19076 <> T:56
+binder 19078:19078 <> v:57
+R19106:19106 Corelib.ssr.ssreflect <> T:56 var
+R19121:19123 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R19113:19120 Corelib.ssr.ssreflect <> unlocked:59 meth
+R19124:19124 Corelib.ssr.ssreflect <> v:57 var
+prf 19134:19139 <> unlock
+binder 19141:19141 <> T:60
+binder 19143:19143 <> x:61
+binder 19145:19145 <> C:62
+R19164:19166 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R19150:19157 Corelib.ssr.ssreflect <> unlocked proj
+R19159:19159 Corelib.ssr.ssreflect <> T:60 var
+R19161:19161 Corelib.ssr.ssreflect <> x:61 var
+R19163:19163 Corelib.ssr.ssreflect <> C:62 var
+R19167:19167 Corelib.ssr.ssreflect <> x:61 var
+R19237:19246 Corelib.ssr.ssreflect <> Unlockable constr
+R19255:19260 Corelib.ssr.ssreflect <> unlock thm
+not 19204:19204 <> ::form_scope:'['_'unlockable'_'of'_x_']'
+R19324:19333 Corelib.ssr.ssreflect <> Unlockable constr
+R19353:19358 Corelib.ssr.ssreflect <> unlock thm
+not 19290:19290 <> ::form_scope:'['_'unlockable'_'fun'_x_']'
+def 19506:19516 <> locked_with
+binder 19518:19518 <> k:63
+R19534:19534 Corelib.ssr.ssreflect <> k:63 var
+R19528:19529 Corelib.Init.Datatypes <> tt constr
+binder 19543:19543 <> T:65
+binder 19545:19545 <> x:66
+R19554:19554 Corelib.ssr.ssreflect <> T:65 var
+R19550:19550 Corelib.ssr.ssreflect <> x:66 var
+prf 19725:19736 <> locked_withE
+binder 19738:19738 <> T:67
+binder 19740:19740 <> k:68
+binder 19742:19742 <> x:69
+R19771:19773 Corelib.Init.Logic <> ::type_scope:x_'='_x_':>'_x not
+R19775:19778 Corelib.Init.Logic <> ::type_scope:x_'='_x_':>'_x not
+R19779:19779 Corelib.ssr.ssreflect <> T:67 var
+R19746:19752 Corelib.ssr.ssreflect <> unkeyed abbrev
+R19755:19765 Corelib.ssr.ssreflect <> locked_with def
+R19769:19769 Corelib.ssr.ssreflect <> x:69 var
+R19767:19767 Corelib.ssr.ssreflect <> k:68 var
+R19774:19774 Corelib.ssr.ssreflect <> x:69 var
+def 19883:19904 <> locked_with_unlockable
+binder 19906:19906 <> T:70
+binder 19908:19908 <> k:71
+binder 19910:19910 <> x:72
+R19918:19927 Corelib.ssr.ssreflect <> Unlockable constr
+R19929:19929 Corelib.ssr.ssreflect <> T:70 var
+R19931:19931 Corelib.ssr.ssreflect <> x:72 var
+R19934:19944 Corelib.ssr.ssreflect <> locked_with def
+R19948:19948 Corelib.ssr.ssreflect <> x:72 var
+R19946:19946 Corelib.ssr.ssreflect <> k:71 var
+R19952:19963 Corelib.ssr.ssreflect <> locked_withE thm
+R19967:19967 Corelib.ssr.ssreflect <> x:72 var
+R19965:19965 Corelib.ssr.ssreflect <> k:71 var
+prf 20059:20069 <> unlock_with
+binder 20071:20071 <> T:73
+binder 20073:20073 <> k:74
+binder 20075:20075 <> x:75
+R20116:20118 Corelib.Init.Logic <> ::type_scope:x_'='_x_':>'_x not
+R20120:20123 Corelib.Init.Logic <> ::type_scope:x_'='_x_':>'_x not
+R20124:20124 Corelib.ssr.ssreflect <> T:73 var
+R20079:20086 Corelib.ssr.ssreflect <> unlocked proj
+R20089:20110 Corelib.ssr.ssreflect <> locked_with_unlockable canonstruc
+R20114:20114 Corelib.ssr.ssreflect <> x:75 var
+R20112:20112 Corelib.ssr.ssreflect <> k:74 var
+R20119:20119 Corelib.ssr.ssreflect <> x:75 var
+R20141:20146 Corelib.ssr.ssreflect <> unlock thm
+not 20232:20232 <> :::'['_'elaborate'_x_']'
+prf 20349:20356 <> ssr_have
+binder 20361:20366 <> Plemma:76
+binder 20378:20382 <> Pgoal:77
+R20402:20407 Corelib.ssr.ssreflect <> Plemma:76 var
+binder 20395:20398 <> step:78
+R20424:20427 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R20418:20423 Corelib.ssr.ssreflect <> Plemma:76 var
+R20428:20432 Corelib.ssr.ssreflect <> Pgoal:77 var
+binder 20411:20414 <> rest:79
+R20437:20441 Corelib.ssr.ssreflect <> Pgoal:77 var
+prf 20543:20556 <> ssr_have_upoly
+binder 20575:20580 <> Plemma:80
+binder 20600:20604 <> Pgoal:81
+R20632:20637 Corelib.ssr.ssreflect <> Plemma:80 var
+binder 20625:20628 <> step:82
+R20654:20657 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R20648:20653 Corelib.ssr.ssreflect <> Plemma:80 var
+R20658:20662 Corelib.ssr.ssreflect <> Pgoal:81 var
+binder 20641:20644 <> rest:83
+R20667:20671 Corelib.ssr.ssreflect <> Pgoal:81 var
+def 20842:20866 <> nary_congruence_statement
+R20873:20875 Corelib.Init.Datatypes <> nat ind
+binder 20869:20869 <> n:84
+R20889:20889 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R20924:20928 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+binder 20897:20897 <> B:85
+R20900:20900 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R20915:20919 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R20902:20905 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R20901:20901 Corelib.ssr.ssreflect <> B:85 var
+R20907:20910 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R20906:20906 Corelib.ssr.ssreflect <> B:85 var
+R20945:20945 Corelib.ssr.ssreflect <> n:84 var
+R20956:20956 Corelib.Init.Datatypes <> O constr
+binder 20965:20965 <> k:88
+binder 20977:20977 <> B:89
+R20980:20980 Corelib.ssr.ssreflect <> k:88 var
+R20982:20982 Corelib.ssr.ssreflect <> B:89 var
+R20997:20997 Corelib.ssr.ssreflect <> B:89 var
+binder 20989:20990 <> x1:90
+binder 20992:20993 <> x2:91
+R21004:21006 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R21002:21003 Corelib.ssr.ssreflect <> x1:90 var
+R21007:21008 Corelib.ssr.ssreflect <> x2:91 var
+R21015:21015 Corelib.Init.Datatypes <> S constr
+binder 21034:21034 <> A:92
+binder 21036:21036 <> B:93
+binder 21038:21038 <> e:94
+R21050:21053 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R21049:21049 Corelib.ssr.ssreflect <> A:92 var
+R21054:21054 Corelib.ssr.ssreflect <> B:93 var
+binder 21041:21042 <> f1:95
+binder 21044:21045 <> f2:96
+binder 21073:21074 <> x1:97
+binder 21076:21077 <> x2:98
+R21087:21091 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R21116:21116 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R21082:21084 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R21080:21081 Corelib.ssr.ssreflect <> x1:97 var
+R21085:21086 Corelib.ssr.ssreflect <> x2:98 var
+R21092:21092 Corelib.ssr.ssreflect <> e:94 var
+R21095:21096 Corelib.ssr.ssreflect <> f1:95 var
+R21098:21099 Corelib.ssr.ssreflect <> x1:97 var
+R21103:21104 Corelib.ssr.ssreflect <> f2:96 var
+R21106:21107 Corelib.ssr.ssreflect <> x2:98 var
+binder 21031:21032 <> k':99
+binder 21129:21129 <> k:100
+binder 21141:21141 <> A:101
+R21144:21168 Corelib.ssr.ssreflect <> nary_congruence_statement:86 def
+binder 21178:21178 <> B:102
+binder 21180:21180 <> e:103
+R21185:21185 Corelib.ssr.ssreflect <> k:100 var
+R21190:21191 Corelib.ssr.ssreflect <> k':99 var
+R21197:21197 Corelib.ssr.ssreflect <> e:103 var
+R21195:21195 Corelib.ssr.ssreflect <> B:102 var
+R21193:21193 Corelib.ssr.ssreflect <> A:101 var
+prf 21215:21229 <> nary_congruence
+binder 21231:21231 <> n:104
+binder 21243:21243 <> B:105
+binder 21245:21245 <> e:106
+R21261:21261 Corelib.ssr.ssreflect <> B:105 var
+binder 21257:21257 <> y:107
+R21265:21265 Corelib.ssr.ssreflect <> e:106 var
+R21267:21267 Corelib.ssr.ssreflect <> y:107 var
+R21269:21269 Corelib.ssr.ssreflect <> y:107 var
+binder 21234:21234 <> k:108
+R21284:21308 Corelib.ssr.ssreflect <> nary_congruence_statement def
+R21312:21312 Corelib.ssr.ssreflect <> k:108 var
+R21310:21310 Corelib.ssr.ssreflect <> n:104 var
+prf 21471:21485 <> ssr_congr_arrow
+binder 21487:21492 <> Plemma:109
+binder 21494:21498 <> Pgoal:110
+R21516:21519 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R21508:21510 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R21502:21507 Corelib.ssr.ssreflect <> Plemma:109 var
+R21511:21515 Corelib.ssr.ssreflect <> Pgoal:110 var
+R21526:21529 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R21520:21525 Corelib.ssr.ssreflect <> Plemma:109 var
+R21530:21534 Corelib.ssr.ssreflect <> Pgoal:110 var
+R21570:21584 Corelib.ssr.ssreflect <> ssr_congr_arrow thm
+sec 21791:21798 <> ApplyIff
+var 21812:21812 ApplyIff P
+var 21814:21814 ApplyIff Q
+var 21835:21838 ApplyIff eqPQ
+R21843:21847 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R21842:21842 Corelib.ssr.ssreflect <> ApplyIff.P var
+R21848:21848 Corelib.ssr.ssreflect <> ApplyIff.Q var
+prf 21858:21862 <> iffLR
+R21867:21870 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R21866:21866 Corelib.ssr.ssreflect <> ApplyIff.P var
+R21871:21871 Corelib.ssr.ssreflect <> ApplyIff.Q var
+R21890:21893 Corelib.ssr.ssreflect <> ApplyIff.eqPQ var
+prf 21907:21911 <> iffRL
+R21916:21919 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R21915:21915 Corelib.ssr.ssreflect <> ApplyIff.Q var
+R21920:21920 Corelib.ssr.ssreflect <> ApplyIff.P var
+R21939:21942 Corelib.ssr.ssreflect <> ApplyIff.eqPQ var
+prf 21957:21962 <> iffLRn
+R21968:21971 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R21966:21966 Corelib.Init.Logic <> ::type_scope:'~'_x not
+R21967:21967 Corelib.ssr.ssreflect <> ApplyIff.P var
+R21972:21972 Corelib.Init.Logic <> ::type_scope:'~'_x not
+R21973:21973 Corelib.ssr.ssreflect <> ApplyIff.Q var
+R22016:22019 Corelib.ssr.ssreflect <> ApplyIff.eqPQ var
+prf 22036:22041 <> iffRLn
+R22047:22050 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R22045:22045 Corelib.Init.Logic <> ::type_scope:'~'_x not
+R22046:22046 Corelib.ssr.ssreflect <> ApplyIff.Q var
+R22051:22051 Corelib.Init.Logic <> ::type_scope:'~'_x not
+R22052:22052 Corelib.ssr.ssreflect <> ApplyIff.P var
+R22095:22098 Corelib.ssr.ssreflect <> ApplyIff.eqPQ var
+R22114:22121 Corelib.ssr.ssreflect ApplyIff <> sec
+R22145:22150 Corelib.ssr.ssreflect <> iffLRn thm
+R22154:22159 Corelib.ssr.ssreflect <> iffRLn thm
+R22163:22167 Corelib.ssr.ssreflect <> iffLR thm
+R22171:22175 Corelib.ssr.ssreflect <> iffRL thm
+R22201:22206 Corelib.ssr.ssreflect <> iffRLn thm
+R22210:22215 Corelib.ssr.ssreflect <> iffLRn thm
+R22219:22223 Corelib.ssr.ssreflect <> iffRL thm
+R22227:22231 Corelib.ssr.ssreflect <> iffLR thm
+prf 22618:22633 <> abstract_context
+binder 22635:22635 <> T:117
+R22643:22646 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R22642:22642 Corelib.ssr.ssreflect <> T:117 var
+binder 22638:22638 <> P:118
+binder 22653:22653 <> x:119
+R22659:22659 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R22682:22686 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+binder 22667:22667 <> Q:120
+R22675:22678 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R22671:22673 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R22670:22670 Corelib.ssr.ssreflect <> Q:120 var
+R22674:22674 Corelib.ssr.ssreflect <> P:118 var
+R22679:22679 Corelib.ssr.ssreflect <> Q:120 var
+R22681:22681 Corelib.ssr.ssreflect <> x:119 var
+R22687:22687 Corelib.ssr.ssreflect <> P:118 var
+R22689:22689 Corelib.ssr.ssreflect <> x:119 var
+R22906:22913 Corelib.ssr.ssrunder <> <> lib
+R22943:22960 Corelib.ssr.ssrunder Under_rel Over_rel defax
+R22991:23013 Corelib.ssr.ssrunder Under_rel over_rel_done defax
+def 23261:23264 <> over
+R23269:23276 Corelib.ssr.ssrunder Under_rel over_rel defax
+R23329:23352 Corelib.ssr.ssrunder Under_rel under_rel_done defax
+R23369:23372 Corelib.ssr.ssreflect <> over def
+def 23514:23519 <> UnderE
+R23524:23533 Corelib.ssr.ssrunder Under_rel Under_relE defax
+mod 24679:24689 <> NonPropType
+rec 28269:28275 NonPropType call_of
+proj 28321:28326 NonPropType callee
+R28290:28293 Corelib.Init.Datatypes <> unit ind
+binder 28278:28286 <> condition:121
+R28306:28309 Corelib.Init.Datatypes <> bool ind
+binder 28297:28302 <> result:122
+def 28348:28356 NonPropType maybeProp
+binder 28359:28359 <> T:125
+R28372:28373 Corelib.Init.Datatypes <> tt constr
+def 28387:28390 NonPropType call
+binder 28392:28392 <> T:126
+R28397:28400 Corelib.ssr.ssreflect NonPropType Call constr
+R28422:28422 Corelib.ssr.ssreflect <> T:126 var
+R28416:28420 Corelib.Init.Datatypes <> false constr
+R28403:28411 Corelib.ssr.ssreflect NonPropType maybeProp def
+R28413:28413 Corelib.ssr.ssreflect <> T:126 var
+rec 28436:28442 NonPropType test_of
+proj 28469:28477 NonPropType condition
+R28454:28457 Corelib.Init.Datatypes <> bool ind
+binder 28445:28450 <> result:127
+R28482:28485 Corelib.Init.Datatypes <> unit ind
+def 28500:28508 NonPropType test_Prop
+binder 28511:28511 <> P:130
+R28524:28527 Corelib.ssr.ssreflect NonPropType Test constr
+R28535:28543 Corelib.ssr.ssreflect NonPropType maybeProp def
+R28545:28545 Corelib.ssr.ssreflect <> P:130 var
+R28529:28532 Corelib.Init.Datatypes <> true constr
+def 28560:28572 NonPropType test_negative
+R28577:28580 Corelib.ssr.ssreflect NonPropType Test constr
+R28588:28589 Corelib.Init.Datatypes <> tt constr
+R28582:28586 Corelib.Init.Datatypes <> false constr
+rec 28603:28606 NonPropType type
+proj 28620:28625 NonPropType result
+proj 28635:28638 NonPropType test
+proj 28658:28662 NonPropType frame
+R28629:28632 Corelib.Init.Datatypes <> bool ind
+R28642:28648 Corelib.ssr.ssreflect NonPropType test_of rec
+R28650:28655 Corelib.ssr.ssreflect <> result:132 meth
+R28666:28672 Corelib.ssr.ssreflect NonPropType call_of rec
+R28679:28684 Corelib.ssr.ssreflect <> result:132 meth
+R28674:28677 Corelib.ssr.ssreflect <> test:133 meth
+def 28699:28703 NonPropType check
+binder 28705:28710 <> result:135
+binder 28712:28715 <> test:136
+binder 28717:28721 <> frame:137
+R28727:28731 Corelib.ssr.ssreflect NonPropType Check constr
+R28733:28738 Corelib.ssr.ssreflect <> result:135 var
+R28740:28743 Corelib.ssr.ssreflect <> test:136 var
+R28745:28749 Corelib.ssr.ssreflect <> frame:137 var
+mod 28760:28766 <> NonPropType.Exports
+R28779:28782 Corelib.ssr.ssreflect NonPropType call def
+R28795:28803 Corelib.ssr.ssreflect NonPropType test_Prop def
+R28816:28828 Corelib.ssr.ssreflect NonPropType test_negative def
+R28841:28845 Corelib.ssr.ssreflect NonPropType check def
+abbrev 28861:28871 NonPropType.Exports nonPropType
+R28876:28879 Corelib.ssr.ssreflect NonPropType type rec
+R28882:28920 Corelib.ssr.ssreflect NonPropType callee proj
+R28923:28955 Corelib.ssr.ssreflect NonPropType frame proj
+abbrev 28971:28977 NonPropType.Exports notProp
+R28986:28990 Corelib.ssr.ssreflect NonPropType check def
+R28992:28996 Corelib.Init.Datatypes <> false constr
+R28998:29010 Corelib.ssr.ssreflect NonPropType test_negative def
+R29013:29016 Corelib.ssr.ssreflect NonPropType call def
+R29027:29033 Corelib.ssr.ssreflect NonPropType.Exports <> mod
+R29041:29051 Corelib.ssr.ssreflect NonPropType <> mod
+R29061:29079 Corelib.ssr.ssreflect NonPropType.Exports <> mod
+mod 29097:29100 <> ipat
+not 29113:29113 ipat ::ssripat_scope:'['_'apply'_']'
+binder 29464:29464 <> x:138
+binder 29464:29464 <> x:139
+binder 29494:29494 <> x:140
+binder 29494:29494 <> x:141
+binder 29610:29610 <> y:142
+binder 29610:29610 <> y:143
+binder 29640:29640 <> y:144
+binder 29640:29640 <> y:145
+not 29383:29383 ipat ::ssripat_scope:'['_'swap'_']'
+binder 29993:29993 <> x:146
+binder 29993:29993 <> x:147
+binder 30115:30115 <> x:148
+binder 30115:30115 <> x:149
+not 29924:29924 ipat ::ssripat_scope:'['_'dup'_']'
+not 30452:30452 ipat ::ssripat_scope:'['_'1'_'!'_x_']'
+not 30581:30581 ipat ::ssripat_scope:'['_'!'_x_']'
+R30707:30710 Corelib.ssr.ssreflect ipat <> mod
+ind 31096:31108 <> vm_compute_eq
+constr 31134:31143 <> vm_compute
+rec 31096:31108 <> vm_compute_eq
+proj 31134:31143 <> vm_compute
+binder 31111:31111 <> T:150
+R31128:31128 Corelib.ssr.ssreflect <> T:150 var
+binder 31122:31122 <> x:151
+binder 31124:31124 <> y:152
+R31148:31150 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R31147:31147 Corelib.ssr.ssreflect <> x:151 var
+R31151:31151 Corelib.ssr.ssreflect <> y:152 var
+R31181:31193 Corelib.ssr.ssreflect <> vm_compute_eq class

@@ -1,0 +1,138 @@
+DIGEST 7e700b10e97c4dc89a8630714a432c9c
+FCorelib.Floats.FloatOps
+R704:710 Corelib.Numbers.BinNums <> <> lib
+R712:717 Corelib.BinNums.PosDef <> <> lib
+R719:724 Corelib.BinNums.IntDef <> <> lib
+R726:737 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> <> lib
+R768:777 Corelib.Floats.FloatClass <> <> lib
+R779:787 Corelib.Floats.SpecFloat <> <> lib
+R789:797 Corelib.Floats.PrimFloat <> <> lib
+def 898:901 <> prec
+R922:929 Corelib.BinNums.IntDef Z of_nat def
+def 946:949 <> emax
+R970:977 Corelib.BinNums.IntDef Z of_nat def
+abbrev 998:1001 <> emin
+R1007:1010 Corelib.Floats.SpecFloat <> emin def
+R1017:1020 Corelib.Floats.FloatOps <> emax def
+R1012:1015 Corelib.Floats.FloatOps <> prec def
+def 1036:1040 <> shift
+R1061:1068 Corelib.BinNums.IntDef Z of_nat def
+mod 1109:1109 <> Z
+def 1125:1129 Z frexp
+binder 1131:1131 <> f:1
+R1155:1164 Corelib.Floats.PrimFloat <> frshiftexp prim
+R1166:1166 Corelib.Floats.FloatOps <> f:1 var
+binder 1145:1145 <> m:2
+binder 1148:1149 <> se:3
+R1175:1175 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1177:1179 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1201:1202 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1176:1176 Corelib.Floats.FloatOps <> m:2 var
+R1180:1184 Corelib.BinNums.IntDef Z sub def
+R1187:1190 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R1192:1193 Corelib.Floats.FloatOps <> se:3 var
+R1196:1200 Corelib.Floats.FloatOps <> shift def
+def 1219:1223 Z ldexp
+binder 1225:1225 <> f:4
+binder 1227:1227 <> e:5
+R1246:1250 Corelib.BinNums.IntDef Z max def
+R1253:1257 Corelib.BinNums.IntDef Z min def
+R1259:1259 Corelib.Floats.FloatOps <> e:5 var
+R1262:1266 Corelib.BinNums.IntDef Z sub def
+R1268:1271 Corelib.Floats.FloatOps <> emax def
+R1273:1276 Corelib.Floats.FloatOps <> emin abbrev
+R1281:1285 Corelib.BinNums.IntDef Z sub def
+R1288:1292 Corelib.BinNums.IntDef Z sub def
+R1294:1297 Corelib.Floats.FloatOps <> emin abbrev
+R1299:1302 Corelib.Floats.FloatOps <> emax def
+R1306:1309 Corelib.Numbers.BinNums <> Zpos constr
+binder 1240:1241 <> e':6
+R1322:1331 Corelib.Floats.PrimFloat <> ldshiftexp prim
+R1333:1333 Corelib.Floats.FloatOps <> f:4 var
+R1336:1339 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> of_Z def
+R1342:1346 Corelib.BinNums.IntDef Z add def
+R1348:1349 Corelib.Floats.FloatOps <> e':6 var
+R1351:1355 Corelib.Floats.FloatOps <> shift def
+R1364:1364 Corelib.Floats.FloatOps Z <> mod
+def 1379:1381 <> ulp
+binder 1383:1383 <> f:7
+R1388:1394 Corelib.Floats.FloatOps <> ldexp def
+R1396:1398 Corelib.Floats.PrimFloat <> one def
+R1401:1404 Corelib.Floats.SpecFloat <> fexp def
+R1417:1419 Corelib.Init.Datatypes <> snd def
+R1422:1428 Corelib.Floats.FloatOps <> frexp def
+R1430:1430 Corelib.Floats.FloatOps <> f:7 var
+R1411:1414 Corelib.Floats.FloatOps <> emax def
+R1406:1409 Corelib.Floats.FloatOps <> prec def
+def 1592:1598 <> Prim2SF
+binder 1600:1600 <> f:8
+R1610:1615 Corelib.Floats.PrimFloat <> is_nan def
+R1617:1617 Corelib.Floats.FloatOps <> f:8 var
+R1643:1649 Corelib.Floats.PrimFloat <> is_zero def
+R1651:1651 Corelib.Floats.FloatOps <> f:8 var
+R1696:1706 Corelib.Floats.PrimFloat <> is_infinity def
+R1708:1708 Corelib.Floats.FloatOps <> f:8 var
+R1789:1795 Corelib.Floats.FloatOps <> frexp def
+R1797:1797 Corelib.Floats.FloatOps <> f:8 var
+binder 1778:1778 <> r:9
+binder 1781:1783 <> exp:10
+R1825:1829 Corelib.BinNums.IntDef Z sub def
+R1831:1833 Corelib.Floats.FloatOps <> exp:10 var
+R1835:1838 Corelib.Floats.FloatOps <> prec def
+binder 1820:1820 <> e:11
+R1874:1881 Corelib.Floats.SpecFloat <> shr_fexp def
+R1894:1897 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> to_Z def
+R1900:1914 Corelib.Floats.PrimFloat <> normfr_mantissa prim
+R1916:1916 Corelib.Floats.FloatOps <> r:9 var
+R1927:1927 Corelib.Floats.FloatOps <> e:11 var
+R1929:1937 Corelib.Floats.SpecFloat <> loc_Exact constr
+R1888:1891 Corelib.Floats.FloatOps <> emax def
+R1883:1886 Corelib.Floats.FloatOps <> prec def
+binder 1862:1864 <> shr:12
+binder 1867:1868 <> e':13
+R1962:1966 Corelib.Floats.SpecFloat <> shr_m proj
+R1968:1970 Corelib.Floats.FloatOps <> shr:12 var
+R1993:1996 Corelib.Numbers.BinNums <> Zpos constr
+R2003:2013 Corelib.Floats.SpecFloat <> S754_finite constr
+R2016:2023 Corelib.Floats.PrimFloat <> get_sign def
+R2025:2025 Corelib.Floats.FloatOps <> f:8 var
+R2030:2031 Corelib.Floats.FloatOps <> e':13 var
+R2049:2052 Corelib.Numbers.BinNums <> Zneg constr
+R2058:2059 Corelib.Numbers.BinNums <> Z0 constr
+R2064:2072 Corelib.Floats.SpecFloat <> S754_zero constr
+R2074:2078 Corelib.Init.Datatypes <> false constr
+R1715:1727 Corelib.Floats.SpecFloat <> S754_infinity constr
+R1730:1737 Corelib.Floats.PrimFloat <> get_sign def
+R1739:1739 Corelib.Floats.FloatOps <> f:8 var
+R1658:1666 Corelib.Floats.SpecFloat <> S754_zero constr
+R1669:1676 Corelib.Floats.PrimFloat <> get_sign def
+R1678:1678 Corelib.Floats.FloatOps <> f:8 var
+R1624:1631 Corelib.Floats.SpecFloat <> S754_nan constr
+def 2134:2140 <> SF2Prim
+binder 2142:2143 <> ef:14
+R2156:2157 Corelib.Floats.FloatOps <> ef:14 var
+R2168:2175 Corelib.Floats.SpecFloat <> S754_nan constr
+R2180:2182 Corelib.Floats.PrimFloat <> nan def
+R2188:2196 Corelib.Floats.SpecFloat <> S754_zero constr
+R2198:2202 Corelib.Init.Datatypes <> false constr
+R2207:2210 Corelib.Floats.PrimFloat <> zero def
+R2216:2224 Corelib.Floats.SpecFloat <> S754_zero constr
+R2226:2229 Corelib.Init.Datatypes <> true constr
+R2234:2241 Corelib.Floats.PrimFloat <> neg_zero def
+R2247:2259 Corelib.Floats.SpecFloat <> S754_infinity constr
+R2261:2265 Corelib.Init.Datatypes <> false constr
+R2270:2277 Corelib.Floats.PrimFloat <> infinity def
+R2283:2295 Corelib.Floats.SpecFloat <> S754_infinity constr
+R2297:2300 Corelib.Init.Datatypes <> true constr
+R2305:2316 Corelib.Floats.PrimFloat <> neg_infinity def
+R2322:2332 Corelib.Floats.SpecFloat <> S754_finite constr
+R2357:2365 Corelib.Floats.PrimFloat <> of_uint63 prim
+R2368:2371 Corelib.Numbers.Cyclic.Int63.Uint63Axioms <> of_Z def
+R2374:2377 Corelib.Numbers.BinNums <> Zpos constr
+binder 2351:2352 <> pm:16
+R2399:2405 Corelib.Floats.FloatOps <> ldexp def
+R2407:2408 Corelib.Floats.FloatOps <> pm:16 var
+binder 2394:2394 <> f:17
+R2445:2445 Corelib.Floats.FloatOps <> f:17 var
+R2430:2430 Corelib.Floats.PrimFloat PrimFloatNotationsInternalB ::float_scope:'-'_x not
+R2431:2431 Corelib.Floats.FloatOps <> f:17 var
