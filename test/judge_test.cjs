@@ -10,9 +10,9 @@
 // (JSPI upgrade). With no --engine, this file is an ORCHESTRATOR: it finds both
 // engines under the given dist dir and spawns one child (worker mode) per engine
 // so each gets a clean process (RocqComparator + its VFS are per-process
-// singletons). Each engine must pass 12/12.
+// singletons). Each engine must pass 28/28.
 //
-//   node test/judge_test.cjs [dist]                 # both engines, 12/12 each
+//   node test/judge_test.cjs [dist]                 # both engines, 28/28 each
 //   node test/judge_test.cjs --engine dist/engine-cps/rocq_engine.js
 //
 // THE BROWSER FETCH BUG (guarded here). The engine's mount() consumes a
@@ -43,6 +43,20 @@ const RocqPacks = require(path.join(__dirname, '..', 'web', 'rocq_packs.js'));
 const ANALYSIS_PACKS = ["mathcomp-hb", "elpi-derive", "micromega-plugin", "mathcomp-boot", "mathcomp-order", "mathcomp-fingroup",
   "mathcomp-algebra", "mathcomp-finmap", "mathcomp-classical", "mathcomp-reals", "mathcomp-solvable", "mathcomp-field",
   "mathcomp-analysis", "mathcomp-ssreflect"];
+// the exact lazy closures of the Coquelicot and Equations imports (Stdlib is one
+// pack per directory, so an import fetches only the directories it needs)
+const COQUELICOT_PACKS = ["coquelicot", "mathcomp-boot", "mathcomp-hb", "stdlib-Arith", "stdlib-BinNums", "stdlib-Bool",
+  "stdlib-Classes", "stdlib-Init", "stdlib-Lists", "stdlib-Logic", "stdlib-NArith", "stdlib-Numbers",
+  "stdlib-PArith", "stdlib-Program", "stdlib-QArith", "stdlib-Reals", "stdlib-Relations", "stdlib-Setoids",
+  "stdlib-Sets", "stdlib-Sorting", "stdlib-Strings", "stdlib-Structures", "stdlib-Unicode", "stdlib-Vectors",
+  "stdlib-ZArith", "stdlib-btauto", "stdlib-micromega", "stdlib-nsatz", "stdlib-omega", "stdlib-setoid_ring",
+  "stdlib-ssr"];
+const EQUATIONS_PACKS = ["equations", "stdlib-Arith", "stdlib-Array", "stdlib-BinNums", "stdlib-Bool", "stdlib-Classes",
+  "stdlib-Floats", "stdlib-Init", "stdlib-Lists", "stdlib-Logic", "stdlib-NArith", "stdlib-Numbers",
+  "stdlib-PArith", "stdlib-Program", "stdlib-QArith", "stdlib-Reals", "stdlib-Relations", "stdlib-Setoids",
+  "stdlib-Sets", "stdlib-Sorting", "stdlib-Strings", "stdlib-Structures", "stdlib-Unicode", "stdlib-Vectors",
+  "stdlib-Wellfounded", "stdlib-ZArith", "stdlib-btauto", "stdlib-extraction", "stdlib-micromega", "stdlib-nsatz",
+  "stdlib-omega", "stdlib-setoid_ring"];
 
 // WHATWG windows-1252 index for 0x80-0x9F: what a REAL browser's
 // TextDecoder('latin1') produces (0x81,0x8D,0x8F,0x90,0x9D decode to themselves).
@@ -334,6 +348,26 @@ function worker(enginePath) {
         try { av = await check(ACFG, ACH, ACH); } catch (e) { av = { ok: false, reason: "threw" }; }
         ok("mathcomp-analysis: Admitted solution rejected as not_proved", av.ok === false && av.reason === "not_proved", "reason=" + av.reason);
       }
+      // --- Coquelicot and Equations (whenever their packs are staged) ---------
+      // one case each: exact lazy pack closure, an accepted proof, Admitted rejected
+      const lib = async (name, expected, ch, sol, what) => {
+        if (!manifest.packs.some(p => p.name === name)) return;
+        const resolved = RocqPacks.resolvePacks(manifest, RocqPacks.scanRequires([ch, sol]));
+        const fetched = ensurePacks([ch, sol]);
+        ok(name + ": the import resolves to exactly " + expected.length + " packs",
+           JSON.stringify(resolved.slice().sort()) === JSON.stringify(expected.slice().sort()) && fetched.every(n => resolved.indexOf(n) >= 0),
+           "resolved=[" + resolved.join(",") + "]");
+        let lv; try { lv = await check({ theorem_names: ["foo"], definition_names: [] }, ch, sol); }
+        catch (e) { lv = { ok: false, reason: "threw", detail: e && e.message || String(e) }; }
+        ok(name + ": " + what + " proof accepted against the trusted .vos library", lv.ok === true && lv.targets[0].status === "proved",
+           "ok=" + lv.ok + " reason=" + (lv.reason || "-") + (lv.detail ? " detail=" + String(lv.detail).replace(/\n/g, " ").slice(0, 160) : ""));
+        try { lv = await check({ theorem_names: ["foo"], definition_names: [] }, ch, ch); } catch (e) { lv = { ok: false, reason: "threw" }; }
+        ok(name + ": Admitted solution rejected as not_proved", lv.ok === false && lv.reason === "not_proved", "reason=" + lv.reason);
+      };
+      const CQ = "From Stdlib Require Import Reals.\nFrom Coquelicot Require Import Coquelicot.\nTheorem foo : forall x : R, is_derive (fun y => y * y) x (2 * x).\n";
+      await lib("coquelicot", COQUELICOT_PACKS, CQ + "Proof. Admitted.\n", CQ + "Proof. intros x; auto_derive; [exact I | ring]. Qed.\n", "auto_derive");
+      const EQ = "From Equations Require Import Equations.\nEquations len {A : Set} (l : list A) : nat := len nil := 0; len (cons _ l) := S (len l).\nTheorem foo : forall (A : Set) (l1 l2 : list A), len (l1 ++ l2) = len l1 + len l2.\n";
+      await lib("equations", EQUATIONS_PACKS, EQ + "Proof. Admitted.\n", EQ + "Proof. intros A l1 l2; funelim (len l1); simpl; simp len; f_equal; auto. Qed.\n", "funelim");
     }
 
     console.log(`\n${pass} passed, ${fail} failed`);

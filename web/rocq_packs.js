@@ -61,7 +61,7 @@
       need[name] = true;
       (byName[name].requires || []).forEach(addPack);
     }
-    // module basename -> pack (from each pack's vo list), for From-suffix imports
+    // module basename -> packs (from each pack's vo list), for From-suffix imports
     // like `From mathcomp Require Import all_ssreflect` (logical name arrives as
     // "mathcomp.all_ssreflect", not the real "mathcomp.ssreflect.all_ssreflect").
     var byModule = {};
@@ -69,9 +69,20 @@
       if (p.always) return;
       (p.vo || []).forEach(function (rel) {
         var base = rel.replace(/^.*\//, "").replace(/\.(vos?|vok)$/, "");
-        if (!(base in byModule)) byModule[base] = p.name; // first pack wins
+        (byModule[base] = byModule[base] || []).push(p.name);
       });
     });
+    // a basename shipped by several packs (ssreflect: Stdlib.ssr and mathcomp.boot)
+    // resolves to the one whose prefix shares the import's root, else the first
+    function byBase(lname) {
+      var cands = byModule[lname.replace(/^.*\./, "")] || [];
+      var rootOf = lname.replace(/\..*$/, "") + ".";
+      for (var i = 0; i < cands.length; i++) {
+        var pre = byName[cands[i]].prefixes || [];
+        for (var j = 0; j < pre.length; j++) if (pre[j] === rootOf.slice(0, -1) || pre[j].indexOf(rootOf) === 0) return cands[i];
+      }
+      return cands[0] || null;
+    }
     (logicalNames || []).forEach(function (lname) {
       // (a) longest matching prefix wins (so "mathcomp.algebra" beats "mathcomp")
       var best = null, bestLen = -1;
@@ -84,10 +95,7 @@
         });
       });
       // (b) else resolve by the last component as a module basename
-      if (!best) {
-        var last = lname.replace(/^.*\./, "");
-        if (byModule[last]) best = byModule[last];
-      }
+      if (!best) best = byBase(lname);
       if (best) addPack(best);
     });
     // return in manifest order (dependencies naturally precede dependents if the

@@ -75,4 +75,14 @@
   ; plugin (opam rocq-micromega-plugin, user-contrib/micromega_plugin), distinct
   ; from rocq-runtime's; stage-packs.sh ships its stripped META.
   rocq-micromega-plugin.plugin
-  rocq-micromega-plugin.zify))
+  rocq-micromega-plugin.zify
+  ; Corelib declares two more plugins the full Stdlib now reaches: extraction
+  ; (Corelib/extraction/Extraction.v, which Equations Requires; the comparator's
+  ; filter still denies Extraction vernacs) and derive (Corelib/derive/Derive.v).
+  rocq-runtime.plugins.extraction
+  rocq-runtime.plugins.derive
+  ; Equations (rocq-equations 1.3.2+9.2): pure OCaml plugin, rebuilt against the
+  ; patched runtime by web/build-libs.sh into the overlay; stage-packs.sh ships
+  ; its stripped META. Its .vos carry the plugin's objects (Unknown dynamic tag
+  ; without it).
+  rocq-equations.plugin))

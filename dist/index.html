@@ -107,15 +107,15 @@
           </label>
           <label class="toggle">
             <input type="checkbox" id="noinitToggle" />
-            <span>-noinit (skip Corelib prelude)<span class="hint">leave unchecked to load the bundled Corelib prelude (<code>nat</code>, <code>=</code>, <code>-&gt;</code>, tactics). Check it for a prelude-free core-Gallina check. (See BACKEND.md.)</span></span>
+            <span>-noinit (skip the Corelib prelude)<span class="hint">check it only for a prelude-free core-Gallina check: no <code>nat</code>, no notations, no tactics beyond the kernel primitives</span></span>
           </label>
           <label class="toggle">
             <input type="checkbox" id="impredicativeSet" />
-            <span>-impredicative-set</span>
+            <span>-impredicative-set<span class="hint">make <code>Set</code> impredicative, as in early Coq: a type in <code>Set</code> may quantify over all of <code>Set</code>. Changes the logic (inconsistent with some classical axioms). Only for challenges written for it.</span></span>
           </label>
           <label class="toggle">
             <input type="checkbox" id="indicesMatter" />
-            <span>-indices-matter</span>
+            <span>-indices-matter<span class="hint">an inductive type must live in a universe at least as large as its indices (the rule used by homotopy type theory). The bundled libraries were compiled without it, so it only fits challenges that avoid them.</span></span>
           </label>
         </div>
       </div>

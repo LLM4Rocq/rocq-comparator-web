@@ -1387,10 +1387,80 @@ No worker/engine change is needed — the scan→resolve→fetch→mount path is
 - `web/build-mathcomp.sh` — reproducible patched elpi/HB/mathcomp `.vos` build.
 - `web/stage-packs.sh` — copy the `.vos` packs into `dist/coqlib`, write
   `packs.json`, and run the native consistency probe (fails on digest mismatch).
-- `test/judge_test.cjs` — 22 cases per engine via lazy packs, including the
-  mathcomp and mathcomp-analysis proofs and their lazy fetch.
+- `test/judge_test.cjs` — 28 cases per engine via lazy packs, including the
+  mathcomp, mathcomp-analysis, Coquelicot and Equations proofs and their lazy fetch.
 - `test/browser_smoke.cjs` — the same in a real headless browser (`make
   test-browser`), both engines, including the mathcomp and analysis proofs and
   lazy fetch (it prints the first analysis check's wall-clock time).
 - `Makefile` `bundle` — the required order from scratch: `native`, `stdlib`,
-  `mathcomp`, `real`.
+  `mathcomp`, `libs`, `real`.
+
+## 17. Build phase 8: full Stdlib split per directory, Coquelicot, Equations
+
+### 17.1 Stdlib: every module, one pack per directory, built with the VM off
+
+`web/build-stdlib.sh` now compiles all 582 modules of rocq-stdlib 9.2.0 (a
+Makefile generated from `rocq dep`, parallel and incremental) with
+`-bytecode-compiler no`. The rule: the patched native rocqc represents primitive
+ints as Int64 on the OCaml side (coerce-32bit) while its C bytecode VM still uses
+native 63-bit ints, so VM evaluation of `Uint63` constants disagrees with the
+kernel (`Uint63.v` fails with "Cannot find witness", and with it Sint63, Cyclic63,
+Ring63, Floats, PArray, PString, ZifyUint63, ZifySint63 and extraction/ExtrOCaml*,
+the 14 modules the old build could not produce). With the VM off `vm_compute`
+falls back to `compute` and every module builds; a VM-on and a VM-off build of
+the other modules give byte-identical `.vo`, and the browser engine runs with
+`vm=false` anyway (there is no VM in wasm). The native probe of
+`web/stage-packs.sh` compiles with the same flag.
+
+`build-real.sh` stages every built `.vo` under `user-contrib/Stdlib`; there is
+no subset list any more. `stage-packs.sh` writes one pack per top-level Stdlib
+directory (`stdlib-<Dir>`, prefix `Stdlib.<Dir>`; root-level modules, if any,
+would form a `stdlib` pack) and derives every pack's `requires` from the raw
+`rocq dep` output each build leaves behind (`mc-build/deps.txt`,
+`stdlib-src/deps.txt`, `libs-build/src/deps.txt`). The resolver
+(`web/rocq_packs.js`) resolves a basename shipped by several packs (`ssreflect`
+in both `Stdlib.ssr` and `mathcomp.boot`) to the pack whose prefix shares the
+import's root. Result: 41 packs, 582 files, 40.8 MB; `From Stdlib Require Import
+ZArith` (or `Lia`, or `Reals Lra`) fetches 27 packs, 29.9 MB, because the
+directories depend on each other (ZArith -> micromega -> Reals); `Floats`,
+`Strings`, `Vectors`, `MSets`, `FSets`, `Zmod` and the rest are fetched only when
+imported. The "Stdlib" chip of the page is the `stdlib-ZArith` pack (label
+`Stdlib`, import `From Stdlib Require Import ZArith.`).
+
+### 17.2 Coquelicot 3.4.5 and Equations 1.3.2+9.2 (`web/build-libs.sh`)
+
+Policy: no library patches. A library ships only if its released opam version
+builds unmodified on Rocq 9.2 with the installed mathcomp 2.6. Interval 4.11.4
+does not (it needs upstream compatibility commits), so Interval and its
+dependencies Flocq and Bignums are not shipped until a release builds on 9.2.
+
+`web/build-libs.sh` (Makefile `libs`, run after `mathcomp` in `bundle`) stages
+the installed sources into `.rocq-build/libs-build/src/<Lib>`, and compiles them
+to `.vos` in `rocq dep -sort` order with `-bytecode-compiler no` against the
+native Corelib, `stdlib-src` and `mc-build` (the library being compiled bound
+with `-R`, the other with `-Q`). Both are pure `.v` libraries as far as the
+kernel is concerned:
+
+- Coquelicot: 24 modules, 1.9 MB of `.vos`; Requires `Stdlib.ssr` and
+  `mathcomp.boot`, so its pack requires `mathcomp-boot`, `mathcomp-hb` and the
+  Stdlib directories of Reals; the import closure is 31 packs, 46.3 MB.
+- Equations: 39 modules, 1.2 MB of `.vos`; its OCaml plugin
+  `rocq-equations.plugin` (pure OCaml, no C stubs; depends on
+  `rocq-runtime.plugins.cc` and `.extraction`) is rebuilt by build-libs.sh
+  against the patched runtime into `.rocq-build/overlay/rocq-equations` (which
+  build-real.sh preserves) for the native rocqc, and linked statically into the
+  engines (`web/dune`, with `rocq-runtime.plugins.extraction`, declared by
+  `Corelib/extraction/Extraction.v` which Equations Requires, and
+  `rocq-runtime.plugins.derive`, declared by `Corelib/derive/Derive.v`).
+  `stage-packs.sh` ships the stripped META at `/static/lib/rocq-equations/META`.
+  The import closure is 32 packs, 31.5 MB (Equations reaches
+  `Stdlib.extraction`, hence `Floats` and `Array`). The comparator's filter
+  still denies Extraction vernacs; the `Equations` command and `funelim` are
+  allowed like any other plugin command.
+
+The native probe now also checks `is_lim_seq_INR` (Coquelicot) and a `funelim`
+proof over an `Equations` definition, with the VM off. `make test` has one case
+per library (exact lazy pack closure, an accepted proof, Admitted rejected) and
+`make test-browser` runs the same two proofs in the real browser with
+served-file assertions (Coquelicot, Stdlib/ssr and mathcomp/boot fetched only by
+that import; the Equations pack only by its import).

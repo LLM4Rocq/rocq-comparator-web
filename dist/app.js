@@ -156,7 +156,7 @@ Qed.
       const bytes = cost(p);
       const chip = document.createElement("button");
       chip.type = "button"; chip.className = "lib-chip"; chip.title = p.import;
-      chip.innerHTML = `${p.name.replace(/^mathcomp-/, "mathcomp ").replace(/^stdlib$/, "Stdlib")}<small>${Math.round(bytes / 1048576)} MB</small>`;
+      chip.innerHTML = `${p.label || p.name.replace(/^mathcomp-/, "mathcomp ")}<small>${Math.round(bytes / 1048576)} MB</small>`;
       chip.addEventListener("click", () => {
         for (const ta of [challengeSrc, solutionSrc]) {
           if (ta.value.indexOf(p.import) === -1) ta.value = p.import + "\n" + ta.value;

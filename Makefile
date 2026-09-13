@@ -38,7 +38,7 @@ WEB_STATIC  = rocq_comparator.js rocq_worker.js rocq_bytes.js rocq_packs.js rocq
 # Docs shipped alongside the site (the in-page honesty note links to BACKEND.md).
 DOC_STATIC  = BACKEND.md README.md
 
-.PHONY: all build real engine native prelude stdlib mathcomp packs site serve test test-browser clean help
+.PHONY: all build real engine native prelude stdlib mathcomp libs packs site serve test test-browser clean help
 
 ## all: build the real engines and assemble dist/ (needs the opam switch)
 all: real
@@ -55,16 +55,20 @@ real engine:
 native prelude:
 	SWITCH=$(SWITCH) bash web/build-native.sh
 
-## stdlib: regenerate the Stdlib .vo with the patched rocqc (needs `make native` first)
+## stdlib: regenerate the full Stdlib .vo with the patched rocqc, VM off (needs `make native` first)
 stdlib:
 	SWITCH=$(SWITCH) bash web/build-stdlib.sh
 
-## bundle: everything from scratch, in the required order (native -> stdlib -> mathcomp -> real)
-bundle: native stdlib mathcomp real
+## bundle: everything from scratch, in the required order (native -> stdlib -> mathcomp -> libs -> real)
+bundle: native stdlib mathcomp libs real
 
 ## mathcomp: build the mathcomp (+elpi/HB) .vos packs + the patched elpi overlay the engine links (needs `make native`; run BEFORE `make real`)
 mathcomp:
 	SWITCH=$(SWITCH) bash web/build-mathcomp.sh
+
+## libs: build the Coquelicot and Equations .vos packs (+ the Equations plugin overlay); needs stdlib and mathcomp
+libs:
+	SWITCH=$(SWITCH) bash web/build-libs.sh
 
 ## packs: (re)stage dist/coqlib packs + packs.json from already-built .vos
 packs:
@@ -92,7 +96,7 @@ serve: site
 	@echo "Serving dist/ at http://localhost:$(PORT)/   (Ctrl-C to stop)"
 	@cd dist && python3 -m http.server $(PORT)
 
-## test: run the node judge harness against BOTH built engines (22/22 each)
+## test: run the node judge harness against BOTH built engines (28/28 each)
 test:
 	$(NODE) test/judge_test.cjs "$$PWD/dist"
 

@@ -40,16 +40,19 @@ The prelude plugins (`ltac`, `cc`, `firstorder`, `number_string_notation`,
 Uncheck the
 `-noinit` toggle only for a prelude-free core-Gallina check.
 
-A **Stdlib subset** is also bundled (`From Stdlib Require Import ZArith / QArith /
-Reals / Lia / Lra`, ~28 MB), so `ring`, `field`, `lia`, `lra` over `Z`, `Q`, `R`
-check in-browser (all 16 stdlib plugins statically linked).
+The **full Stdlib** (582 modules, 41 MB) is bundled as one lazy pack per
+directory (`Stdlib.ZArith`, `Stdlib.Reals`, `Stdlib.ssr`, ...), so `ring`,
+`field`, `lia`, `lra` over `Z`, `Q`, `R` check in-browser (the stdlib plugins
+are statically linked); `From Stdlib Require Import ZArith` fetches the 27
+directories it depends on (30 MB).
 
-**mathcomp and mathcomp-analysis: trusted `.vos` packs, fetched lazily.**
-Libraries are published as separate packs (`dist/coqlib/packs.json`): `corelib`
-(always mounted), `stdlib`, `mathcomp-hb`, `elpi-derive`, `micromega-plugin` and
-one `mathcomp-<dir>` pack per installed mathcomp directory (`boot`, `order`,
-`fingroup`, `ssreflect`, `algebra`, `solvable`, `field`, `finmap`, `bigenough`,
-`classical`, `reals`, `analysis`). Before each check the worker scans the
+**mathcomp, mathcomp-analysis, Coquelicot, Equations: trusted `.vos` packs,
+fetched lazily.** Libraries are published as separate packs
+(`dist/coqlib/packs.json`): `corelib` (always mounted), `stdlib-<Dir>`,
+`mathcomp-hb`, `elpi-derive`, `micromega-plugin`, one `mathcomp-<dir>` pack per
+installed mathcomp directory (`boot`, `order`, `fingroup`, `ssreflect`,
+`algebra`, `solvable`, `field`, `finmap`, `bigenough`, `classical`, `reals`,
+`analysis`), `coquelicot` and `equations`. Before each check the worker scans the
 challenge and solution for `Require` / `From X Require`, resolves the packs they
 need by logical-name prefix, closes over each pack's `requires` (derived from the
 real `rocq dep` dependencies at build time) and fetches and mounts only those
@@ -63,11 +66,21 @@ mathcomp Require Import all_ssreflect` fetches 4 packs (36 MB), `all_algebra` 7
 packs (122 MB), and an analysis import such as `reals sequences exp` 14 packs
 (206 MB, about 102 MB with gzip); the first analysis check takes about 80 s
 (JSPI engine) to 130 s (cps engine) in a headless browser and needs several GB
-of browser memory. Coq-Elpi (with its `derive` app), Hierarchy Builder, the
-ssreflect plugins and the standalone micromega plugin that mathcomp 2.6's
-`ring`/`lra` tactics use are statically linked into the engines. Building the
-`.vos` needed one port: elpi's clause-index `hash_bits` forced to 30 (the 32-bit
-host value) so its serialized index is readable by the 31-bit engine.
+of browser memory. `From Coquelicot Require Import Coquelicot` (3.4.5, 24
+modules) fetches 31 packs (46 MB: Coquelicot, mathcomp boot, Stdlib ssr and
+Reals); `From Equations Require Import Equations` (1.3.2, 39 modules) fetches 32
+packs (31 MB), and the `Equations` and `funelim` commands work because its OCaml
+plugin is linked into the engines. Coq-Elpi (with its `derive` app), Hierarchy
+Builder, the ssreflect plugins, the standalone micromega plugin that mathcomp
+2.6's `ring`/`lra` tactics use, and the Equations plugin are statically linked
+into the engines. Building the `.vos` needed one port: elpi's clause-index
+`hash_bits` forced to 30 (the 32-bit host value) so its serialized index is
+readable by the 31-bit engine.
+
+No library is patched: a library ships only if its released opam version builds
+unmodified on Rocq 9.2 with the installed mathcomp 2.6. Interval 4.11.4 does not
+(it needs upstream compatibility commits), so Interval, with Flocq and Bignums,
+waits for a release that builds on 9.2.
 If the engine is absent
 entirely, the page still loads and the demo-verdict buttons work.
 
@@ -89,14 +102,14 @@ make site       # assemble dist/ from the committed frontend + engines
                 #   -> fast, needs NO opam switch. This is what CI runs.
 make real       # (re)build BOTH wasm engines (dist/engine-cps + dist/engine-jspi,
                 #   each glue .js + .assets/code-*.wasm) — needs the opam switch.
-make test       # node judge harness against BOTH engines -> 22 passed, 0 failed each
+make test       # node judge harness against BOTH engines -> 28 passed, 0 failed each
                 #   (the analysis case loads about 200 MB of .vos: minutes, 16 GB node heap)
 make test-browser # serve dist/ and run it in a headless Brave/Chrome/Edge (DevTools
                 #   protocol, no npm deps): runtime ready, no 404s, Run button verdict,
-                #   Stdlib, mathcomp and analysis proofs, rejections, lazy pack fetch; once as
-                #   shipped and once on /?engine=cps
+                #   Stdlib, mathcomp, analysis, Coquelicot and Equations proofs, rejections,
+                #   lazy pack fetch; once as shipped and once on /?engine=cps
 make bundle     # everything from scratch in the required order:
-                #   native -> stdlib -> mathcomp -> real (hours the first time)
+                #   native -> stdlib -> mathcomp -> libs -> real (hours the first time)
 make build      # just type-check/compile the OCaml seam (dune build)
 make help       # list all targets
 ```

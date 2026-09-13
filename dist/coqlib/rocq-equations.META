@@ -1,0 +1,1 @@
+package "plugin" ( directory = "plugin" requires = "rocq-runtime.plugins.cc rocq-runtime.plugins.extraction" )

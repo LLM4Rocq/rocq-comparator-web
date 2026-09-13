@@ -139,7 +139,7 @@ function serve(dir, log) {
 }
 
 // ---------------------------------------------------------------- the checks
-let SAMPLE_CONFIG, PACKS, HAS_MATHCOMP, HAS_ANALYSIS;
+let SAMPLE_CONFIG, PACKS, HAS_MATHCOMP, HAS_ANALYSIS, HAS_COQUELICOT, HAS_EQUATIONS;
 async function loadSiteData() {
   const read = async (rel) => REMOTE
     ? (await fetch(REMOTE + '/' + rel)).json()
@@ -148,6 +148,8 @@ async function loadSiteData() {
   PACKS = await read('coqlib/packs.json');
   HAS_MATHCOMP = PACKS.packs.some((p) => p.name === 'mathcomp-ssreflect');
   HAS_ANALYSIS = HEAVY && PACKS.packs.some((p) => p.name === 'mathcomp-analysis');
+  HAS_COQUELICOT = PACKS.packs.some((p) => p.name === 'coquelicot');
+  HAS_EQUATIONS = PACKS.packs.some((p) => p.name === 'equations');
 }
 function request(theorem, challenge, solution) {
   return JSON.stringify({ config: Object.assign({}, SAMPLE_CONFIG, { theorem_names: [theorem], timeout_s: 240 }),
@@ -161,6 +163,10 @@ const M_CH  = 'From mathcomp Require Import all_ssreflect.\nLemma foo (s : seq n
 const M_SOL = 'From mathcomp Require Import all_ssreflect.\nLemma foo (s : seq nat) : size (rev s) = size s.\nProof. by rewrite size_rev. Qed.\n';
 const A_CH  = 'From mathcomp Require Import all_ssreflect all_algebra reals sequences exp.\nLocal Open Scope ring_scope.\nLemma foo (R : realType) : expR 0 = 1 :> R.\nProof. Admitted.\n';
 const A_SOL = 'From mathcomp Require Import all_ssreflect all_algebra reals sequences exp.\nLocal Open Scope ring_scope.\nLemma foo (R : realType) : expR 0 = 1 :> R.\nProof. exact: expR0. Qed.\n';
+const C_CH  = 'From Stdlib Require Import Reals.\nFrom Coquelicot Require Import Coquelicot.\nTheorem foo : forall x : R, is_derive (fun y => y * y) x (2 * x).\nProof. Admitted.\n';
+const C_SOL = 'From Stdlib Require Import Reals.\nFrom Coquelicot Require Import Coquelicot.\nTheorem foo : forall x : R, is_derive (fun y => y * y) x (2 * x).\nProof. intros x; auto_derive; [exact I | ring]. Qed.\n';
+const E_CH  = 'From Equations Require Import Equations.\nEquations len {A : Set} (l : list A) : nat := len nil := 0; len (cons _ l) := S (len l).\nTheorem foo : forall (A : Set) (l1 l2 : list A), len (l1 ++ l2) = len l1 + len l2.\nProof. Admitted.\n';
+const E_SOL = 'From Equations Require Import Equations.\nEquations len {A : Set} (l : list A) : nat := len nil := 0; len (cons _ l) := S (len l).\nTheorem foo : forall (A : Set) (l1 l2 : list A), len (l1 ++ l2) = len l1 + len l2.\nProof. intros A l1 l2; funelim (len l1); simpl; simp len; f_equal; auto. Qed.\n';
 const servedUnder = (log, dir) => log.served.filter((p) => p.indexOf('/coqlib/user-contrib/' + dir + '/') === 0).length;
 
 // One pass: fresh page, optional JSPI suppression inside the worker, all assertions.
@@ -242,7 +248,8 @@ async function runPass(cdp, origin, forceCps, log) {
       if (ssr) { const before = document.getElementById('challengeSrc').value; ssr.click(); inserted = document.getElementById('challengeSrc').value.startsWith(ssr.title) && document.getElementById('solutionSrc').value.startsWith(ssr.title); document.getElementById('challengeSrc').value = before; document.getElementById('solutionSrc').value = document.getElementById('solutionSrc').value.replace(ssr.title + String.fromCharCode(10), ''); }
       return { chips: chips.length, labels: chips.map((c) => c.textContent).join(', '), inserted };
     })()`, 20000);
-    ok('libraries strip lists the shipped packs with sizes', libs.chips > 0 && (!HAS_MATHCOMP || /mathcomp/.test(libs.labels)), libs.labels);
+    ok('libraries strip lists the shipped packs with sizes', libs.chips > 0 && (!HAS_MATHCOMP || /mathcomp/.test(libs.labels))
+       && (!HAS_COQUELICOT || /Coquelicot/.test(libs.labels)) && (!HAS_EQUATIONS || /Equations/.test(libs.labels)), libs.labels);
     if (HAS_MATHCOMP) ok('clicking a library chip inserts its import into both editors', libs.inserted === true);
   } catch (e) { ok('libraries strip lists the shipped packs with sizes', false, e.message); }
 
@@ -303,6 +310,23 @@ async function runPass(cdp, origin, forceCps, log) {
     }
   } else {
     console.log('skip mathcomp cases: no mathcomp packs in ' + path.join(DIST, 'coqlib', 'packs.json'));
+  }
+  // Coquelicot (Stdlib.ssr + mathcomp boot + Reals) and Equations (its plugin, linked): one proof each
+  if (HAS_COQUELICOT) {
+    try { v = await call(request('foo', C_CH, C_SOL)); ok('coquelicot: auto_derive proof accepted against the trusted .vos library', v.ok === true, 'ok=' + v.ok + ' reason=' + v.reason + (v.detail ? ' ' + String(v.detail).replace(/\n/g, ' ').slice(0, 200) : '')); }
+    catch (e) { ok('coquelicot: auto_derive proof accepted against the trusted .vos library', false, e.message); }
+    okLocal('lazy: the Coquelicot pack, Stdlib ssr and mathcomp boot fetched only by that import',
+       servedUnder(log, 'Coquelicot') > 0 && servedUnder(log, 'Stdlib/ssr') > 0 && servedUnder(log, 'mathcomp/boot') > 0 && servedUnder(log, 'Equations') === 0,
+       'Coquelicot=' + servedUnder(log, 'Coquelicot') + ' Stdlib/ssr=' + servedUnder(log, 'Stdlib/ssr') + ' mathcomp/boot=' + servedUnder(log, 'mathcomp/boot'));
+    try { v = await call(request('foo', C_CH, C_CH)); ok('coquelicot: Admitted solution rejected as not_proved', v.ok === false && v.reason === 'not_proved', 'reason=' + v.reason); }
+    catch (e) { ok('coquelicot: Admitted solution rejected as not_proved', false, e.message); }
+  }
+  if (HAS_EQUATIONS) {
+    try { v = await call(request('foo', E_CH, E_SOL)); ok('equations: funelim proof accepted against the trusted .vos library', v.ok === true, 'ok=' + v.ok + ' reason=' + v.reason + (v.detail ? ' ' + String(v.detail).replace(/\n/g, ' ').slice(0, 200) : '')); }
+    catch (e) { ok('equations: funelim proof accepted against the trusted .vos library', false, e.message); }
+    okLocal('lazy: the Equations pack fetched only by that import', servedUnder(log, 'Equations') > 0, 'Equations files=' + servedUnder(log, 'Equations'));
+    try { v = await call(request('foo', E_CH, E_CH)); ok('equations: Admitted solution rejected as not_proved', v.ok === false && v.reason === 'not_proved', 'reason=' + v.reason); }
+    catch (e) { ok('equations: Admitted solution rejected as not_proved', false, e.message); }
   }
   try { v = await call(request('add_0_r', N_CH, N_CH)); ok('Admitted solution rejected as not_proved', v.ok === false && v.reason === 'not_proved', 'reason=' + v.reason); }
   catch (e) { ok('Admitted solution rejected as not_proved', false, e.message); }
