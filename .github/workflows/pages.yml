@@ -89,8 +89,15 @@ jobs:
         with:
           node-version: 24
 
+      # SMOKE_HEAVY=0 skips the mathcomp-analysis case (a 206 MB fetch and a
+      # multi-GB check, beyond a hosted runner); it stays in the local run.
       - name: Smoke-test the site in headless Chrome (make test-browser)
-        run: BROWSER=google-chrome make test-browser
+        run: BROWSER=google-chrome SMOKE_HEAVY=0 make test-browser
+
+      - name: Configure Pages (enables the site on first deploy)
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

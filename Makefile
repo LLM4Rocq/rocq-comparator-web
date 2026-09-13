@@ -96,9 +96,13 @@ serve: site
 test:
 	$(NODE) test/judge_test.cjs "$$PWD/dist"
 
-## test-browser: open the served site in a headless Chromium-family browser (Brave/Chrome/Edge) and check proofs
+## test-browser: open the served site in a headless Chromium-family browser (Brave/Chrome/Edge) and check proofs (SMOKE_HEAVY=0 skips analysis)
 test-browser: site
 	$(NODE) test/browser_smoke.cjs "$$PWD/dist"
+
+## test-live: run the browser checks against the deployed site (URL=https://...)
+test-live:
+	$(NODE) test/browser_smoke.cjs --url "$(URL)"
 
 ## clean: remove build artifacts (keeps the committed engines in dist/)
 clean:

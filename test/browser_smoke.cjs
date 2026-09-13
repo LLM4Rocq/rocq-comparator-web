@@ -29,7 +29,13 @@
 const http = require('http'), fs = require('fs'), path = require('path');
 const cp = require('child_process'), os = require('os');
 
-const DIST = path.resolve(process.argv[2] || path.join(__dirname, '..', 'dist'));
+// node test/browser_smoke.cjs [dist]                serve a local dist/ (default)
+// node test/browser_smoke.cjs --url https://host/p   test an already-deployed site
+// SMOKE_HEAVY=0 skips the mathcomp-analysis case (206 MB fetch, multi-GB check).
+const ui = process.argv.indexOf('--url');
+const REMOTE = ui !== -1 ? process.argv[ui + 1].replace(/\/$/, '') : null;
+const DIST = path.resolve((ui === -1 && process.argv[2]) || path.join(__dirname, '..', 'dist'));
+const HEAVY = process.env.SMOKE_HEAVY !== '0';
 const PAGE_READY_MS = 300000, CHECK_MS = 300000;
 
 // ---------------------------------------------------------------- browser
@@ -132,7 +138,16 @@ function serve(dir, log) {
 }
 
 // ---------------------------------------------------------------- the checks
-const SAMPLE_CONFIG = JSON.parse(fs.readFileSync(path.join(DIST, 'examples', 'config.sample.json'), 'utf8'));
+let SAMPLE_CONFIG, PACKS, HAS_MATHCOMP, HAS_ANALYSIS;
+async function loadSiteData() {
+  const read = async (rel) => REMOTE
+    ? (await fetch(REMOTE + '/' + rel)).json()
+    : JSON.parse(fs.readFileSync(path.join(DIST, rel), 'utf8'));
+  SAMPLE_CONFIG = await read('examples/config.sample.json');
+  PACKS = await read('coqlib/packs.json');
+  HAS_MATHCOMP = PACKS.packs.some((p) => p.name === 'mathcomp-ssreflect');
+  HAS_ANALYSIS = HEAVY && PACKS.packs.some((p) => p.name === 'mathcomp-analysis');
+}
 function request(theorem, challenge, solution) {
   return JSON.stringify({ config: Object.assign({}, SAMPLE_CONFIG, { theorem_names: [theorem], timeout_s: 240 }),
                           files: { 'challenge.v': challenge, 'solution.v': solution } });
@@ -145,15 +160,14 @@ const M_CH  = 'From mathcomp Require Import all_ssreflect.\nLemma foo (s : seq n
 const M_SOL = 'From mathcomp Require Import all_ssreflect.\nLemma foo (s : seq nat) : size (rev s) = size s.\nProof. by rewrite size_rev. Qed.\n';
 const A_CH  = 'From mathcomp Require Import all_ssreflect all_algebra reals sequences exp.\nLocal Open Scope ring_scope.\nLemma foo (R : realType) : expR 0 = 1 :> R.\nProof. Admitted.\n';
 const A_SOL = 'From mathcomp Require Import all_ssreflect all_algebra reals sequences exp.\nLocal Open Scope ring_scope.\nLemma foo (R : realType) : expR 0 = 1 :> R.\nProof. exact: expR0. Qed.\n';
-const PACKS = JSON.parse(fs.readFileSync(path.join(DIST, 'coqlib', 'packs.json'), 'utf8'));
-const HAS_MATHCOMP = PACKS.packs.some((p) => p.name === 'mathcomp-ssreflect');
-const HAS_ANALYSIS = PACKS.packs.some((p) => p.name === 'mathcomp-analysis');
 const servedUnder = (log, dir) => log.served.filter((p) => p.indexOf('/coqlib/user-contrib/' + dir + '/') === 0).length;
 
 // One pass: fresh page, optional JSPI suppression inside the worker, all assertions.
 async function runPass(cdp, origin, forceCps, log) {
   const results = []; const consoleErrors = []; const workerErrors = [];
   const ok = (name, cond, note) => { results.push({ name, cond: !!cond, note }); console.log((cond ? 'PASS ' : 'FAIL ') + name + (note ? '  ' + note : '')); };
+  // assertions that read the local server log have no evidence against a remote site
+  const okLocal = (name, cond, note) => REMOTE ? console.log('SKIP ' + name + '  (remote site: no server log)') : ok(name, cond, note);
 
   const { targetId } = await cdp.send('Target.createTarget', { url: 'about:blank' });
   const { sessionId } = await cdp.send('Target.attachToTarget', { targetId, flatten: true });
@@ -197,13 +211,13 @@ async function runPass(cdp, origin, forceCps, log) {
   const notice = await evaluate(cdp, sessionId, `(() => { const n = document.getElementById('unavailableNotice'); return n && !n.hidden ? document.getElementById('unavailableDetail').textContent : null; })()`, 5000).catch(() => null);
   ok('runtime ready in the browser', !readyErr && !notice, readyErr ? readyErr : notice ? 'page shows: ' + notice : 'rocq ' + version);
   const engine = (log.served.find((p) => /engine-(cps|jspi)\/rocq_engine\.js$/.test(p)) || '').replace(/\/rocq_engine\.js$/, '').replace(/^\//, '') || '(none)';
-  ok('engine loaded', engine !== '(none)', engine + (forceCps ? ' (forced by ?engine=cps)' : ' (auto)'));
-  if (forceCps) ok('?engine=cps selects the universal engine', engine === 'engine-cps', engine);
+  okLocal('engine loaded', engine !== '(none)', engine + (forceCps ? ' (forced by ?engine=cps)' : ' (auto)'));
+  if (forceCps) okLocal('?engine=cps selects the universal engine', engine === 'engine-cps', engine);
   const bad404 = log.notFound.filter((p) => !/favicon\.ico$/.test(p));
-  ok('no missing assets (404)', bad404.length === 0, bad404.length ? bad404.slice(0, 5).join(' ') : log.served.length + ' files served');
+  okLocal('no missing assets (404)', bad404.length === 0, bad404.length ? bad404.slice(0, 5).join(' ') : log.served.length + ' files served');
   ok('no page-side JS errors', consoleErrors.length === 0, consoleErrors.slice(0, 2).join(' | '));
   ok('no worker-side JS errors', workerErrors.length === 0, workerErrors.slice(0, 2).join(' | '));
-  ok('lazy: no Stdlib or mathcomp file downloaded at startup', servedUnder(log, 'Stdlib') === 0 && servedUnder(log, 'mathcomp') === 0,
+  okLocal('lazy: no Stdlib or mathcomp file downloaded at startup', servedUnder(log, 'Stdlib') === 0 && servedUnder(log, 'mathcomp') === 0,
      'Stdlib=' + servedUnder(log, 'Stdlib') + ' mathcomp=' + servedUnder(log, 'mathcomp'));
   if (readyErr || notice) { await cdp.send('Target.closeTarget', { targetId }); return results; }
 
@@ -230,7 +244,7 @@ async function runPass(cdp, origin, forceCps, log) {
   let v;
   try { v = await call(request('sq', Z_CH, Z_SOL)); ok('Stdlib ZArith + ring accepted', v.ok === true, 'ok=' + v.ok + ' reason=' + v.reason + (v.detail ? ' ' + String(v.detail).slice(0, 160) : '')); }
   catch (e) { ok('Stdlib ZArith + ring accepted', false, e.message); }
-  ok('lazy: the Stdlib pack was fetched by that import, mathcomp still not', servedUnder(log, 'Stdlib') > 0 && servedUnder(log, 'mathcomp') === 0,
+  okLocal('lazy: the Stdlib pack was fetched by that import, mathcomp still not', servedUnder(log, 'Stdlib') > 0 && servedUnder(log, 'mathcomp') === 0,
      'Stdlib=' + servedUnder(log, 'Stdlib') + ' mathcomp=' + servedUnder(log, 'mathcomp'));
   if (HAS_MATHCOMP) {
     try {
@@ -239,7 +253,7 @@ async function runPass(cdp, origin, forceCps, log) {
          'ok=' + v.ok + ' reason=' + v.reason + (v.detail ? ' ' + String(v.detail).replace(/\n/g, ' ').slice(0, 200) : '') +
          (v.targets && v.targets[0] ? ' assumptions=' + JSON.stringify(v.targets[0].assumptions).slice(0, 120) : ''));
     } catch (e) { ok('mathcomp: ssreflect proof accepted against the trusted .vos library', false, e.message); }
-    ok('lazy: mathcomp packs fetched only by that import', servedUnder(log, 'mathcomp') > 0, 'mathcomp files=' + servedUnder(log, 'mathcomp'));
+    okLocal('lazy: mathcomp packs fetched only by that import', servedUnder(log, 'mathcomp') > 0, 'mathcomp files=' + servedUnder(log, 'mathcomp'));
     try { v = await call(request('foo', M_CH, M_CH)); ok('mathcomp: Admitted ssreflect solution rejected as not_proved', v.ok === false && v.reason === 'not_proved', 'reason=' + v.reason); }
     catch (e) { ok('mathcomp: Admitted ssreflect solution rejected as not_proved', false, e.message); }
     if (HAS_ANALYSIS) {
@@ -249,7 +263,7 @@ async function runPass(cdp, origin, forceCps, log) {
         ok('mathcomp-analysis: expR0 proof accepted (first analysis check ' + (Date.now() - t0) + ' ms)', v.ok === true,
            'ok=' + v.ok + ' reason=' + v.reason + (v.detail ? ' ' + String(v.detail).replace(/\n/g, ' ').slice(0, 200) : ''));
       } catch (e) { ok('mathcomp-analysis: expR0 proof accepted', false, e.message); }
-      ok('lazy: analysis, algebra and micromega_plugin files fetched only by that import',
+      okLocal('lazy: analysis, algebra and micromega_plugin files fetched only by that import',
          servedUnder(log, 'mathcomp/analysis') > 0 && servedUnder(log, 'mathcomp/algebra') > 0 && servedUnder(log, 'micromega_plugin') > 0,
          'analysis=' + servedUnder(log, 'mathcomp/analysis') + ' algebra=' + servedUnder(log, 'mathcomp/algebra') + ' micromega_plugin=' + servedUnder(log, 'micromega_plugin'));
       try { v = await call(request('foo', A_CH, A_CH)); ok('mathcomp-analysis: Admitted solution rejected as not_proved', v.ok === false && v.reason === 'not_proved', 'reason=' + v.reason); }
@@ -268,24 +282,26 @@ async function runPass(cdp, origin, forceCps, log) {
 }
 
 (async () => {
-  if (!fs.existsSync(path.join(DIST, 'index.html'))) { console.error('no dist/index.html at ' + DIST + ' (run make site)'); process.exit(2); }
+  if (!REMOTE && !fs.existsSync(path.join(DIST, 'index.html'))) { console.error('no dist/index.html at ' + DIST + ' (run make site)'); process.exit(2); }
   const exe = findBrowser();
   if (!exe) { console.error('no Chromium-family browser found (set BROWSER=/path/to/chrome); skipping browser smoke test'); process.exit(3); }
+  await loadSiteData();
+  if (!HEAVY) console.log('SMOKE_HEAVY=0: the mathcomp-analysis case is skipped');
   const log = { served: [], notFound: [] };
-  const { server, port } = await serve(DIST, log);
-  const origin = 'http://127.0.0.1:' + port;
+  const local = REMOTE ? null : await serve(DIST, log);
+  const origin = REMOTE || ('http://127.0.0.1:' + local.port);
   const browser = launchBrowser(exe);
   let failed = 0;
   try {
     const cdp = await CDP.connect(await browser.wsUrl);
-    console.log('browser: ' + exe + '\nserving: ' + DIST + ' at ' + origin);
+    console.log('browser: ' + exe + '\n' + (REMOTE ? 'site: ' + origin : 'serving: ' + DIST + ' at ' + origin));
     for (const forceCps of [false, true]) {
       console.log('\n== pass ' + (forceCps ? '2: /?engine=cps (universal cps engine)' : '1: as shipped (JSPI upgrade if the browser has it)') + ' ==');
       const res = await runPass(cdp, origin, forceCps, log);
       failed += res.filter((r) => !r.cond).length;
     }
   } catch (e) { console.error('smoke test error: ' + (e.stack || e.message)); failed += 1; }
-  finally { browser.kill(); server.close(); }
+  finally { browser.kill(); if (local) local.server.close(); }
   console.log('\n' + (failed ? failed + ' FAILED' : 'ALL PASSED') + ' (real browser, both engines)');
   process.exit(failed ? 1 : 0);
 })();

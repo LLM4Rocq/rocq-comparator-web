@@ -78,7 +78,7 @@ if(fs.existsSync("user-contrib/HB")){
   const hb=vos("user-contrib/elpi_elpi",".vos").concat(vos("user-contrib/elpi",".vos").filter(f=>!f.includes("/apps/derive/")),vos("user-contrib/HB",".vos"));
   packs.push({name:"mathcomp-hb", prefixes:["HB","elpi","elpi_elpi"], meta:"rocq-elpi.META", meta_vfs:"/static/lib/rocq-elpi/META", vo:hb});
   // elpi.apps.derive is only needed by the algebra tactics and weighs 20 MB: its own pack
-  if(fs.existsSync("user-contrib/elpi/apps/derive")) packs.push({name:"elpi-derive", prefixes:["elpi.apps.derive"], requires:["mathcomp-hb"], vo:vos("user-contrib/elpi/apps/derive",".vos")});
+  if(fs.existsSync("user-contrib/elpi/apps/derive")) packs.push({name:"elpi-derive", prefixes:["elpi.apps.derive"], requires:["mathcomp-hb","mathcomp-boot"], vo:vos("user-contrib/elpi/apps/derive",".vos")});
   // pack `requires` come from the real dependencies: deps.txt is `rocq dep` over the
   // staged sources (build-mathcomp.sh); a source path maps to the pack that ships it.
   const key=p=>{ p=p.replace(/^"|"$/g,""); if(/stdlib-src\/theories\//.test(p))return "stdlib";
