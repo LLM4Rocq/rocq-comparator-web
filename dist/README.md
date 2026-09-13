@@ -30,9 +30,14 @@ are statically linked into the engine (jsoo has no Dynlink). Uncheck the
 
 A **Stdlib subset** is also bundled (`From Stdlib Require Import ZArith / QArith /
 Reals / Lia / Lra`, ~28 MB), so `ring`, `field`, `lia`, `lra` over `Z`, `Q`, `R`
-check in-browser (all 16 stdlib plugins statically linked). mathcomp is not yet
-bundled — see `BACKEND.md` §12–13. If the engine is absent entirely, the page
-still loads and the **demo-verdict** buttons work.
+check in-browser (all 16 stdlib plugins statically linked).
+
+**mathcomp / mathcomp-analysis** are assessed but **not bundled**: mathcomp core
+is ~101 MB / 78 `.vo` and analysis (not installed) adds ~100 MB+, so the full
+demo is a ~200 MB+ `.vo` payload — impractical to fetch in a Pages page. The
+mechanism is fine (Coq-Elpi/HB jsoo-compiles), so the recommended path is
+lazy-loading layered packs hosted off Pages. See `BACKEND.md` §14. If the engine
+is absent entirely, the page still loads and the **demo-verdict** buttons work.
 
 ## Quick start
 

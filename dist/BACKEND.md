@@ -900,3 +900,72 @@ couple of `Numbers` edge cases; none are on the Z/Q/R + ring/lia/lra path).
 | Stdlib subset (Z/Q/R + ring/field/lia/lra closure) | 432 | ~28 MB |
 | **total `dist/coqlib/`** | 539 | **~35 MB** |
 | engine `dist/rocq_engine.js` (16 statically-linked plugins) | — | ~38 MB |
+
+---
+
+## 14. Milestone 3 — mathcomp + mathcomp-analysis: assessed, NOT bundled
+
+**Decision: not feasible to ship in the GitHub Pages bundle. Reported here with
+a recommended path; no mathcomp .vo are bundled.** This follows the milestone's
+own instruction to STOP and report if the size/build time is impractical.
+
+### 14.1 The numbers (measured on this switch)
+
+| pack | installed? | `.vo` | size | notes |
+|---|---|---|---|---|
+| mathcomp/boot | yes | 25 | 12.2 MB | ssreflect base (seq, ssrnat, eqtype, …) |
+| mathcomp/order | yes | 3 | 20.8 MB | `order.vo` alone is 18.5 MB |
+| mathcomp/algebra | yes | 39 | 63.6 MB | the bulk |
+| mathcomp/finite_group | yes | 10 | 4.5 MB | |
+| mathcomp/ssreflect | yes | 1 | ~0 | wrapper |
+| **mathcomp core total** | yes | **78** | **101 MB** | |
+| Hierarchy Builder (HB) | yes | 1 | 2.4 MB | + elpi programs |
+| **mathcomp-analysis 1.18** | **NO** | — | **~100 MB+ (upstream)** | not installed; needs `opam install rocq-mathcomp-analysis` first |
+
+So the demo the user asked for (import mathcomp **and** mathcomp-analysis) is a
+**~200 MB+** `.vo` payload, with the largest single `.vo` ~18 MB.
+
+### 14.2 Feasibility of the *mechanism* (good news)
+
+mathcomp 2.x is built on Hierarchy Builder, i.e. **Coq-Elpi** (`rocq-elpi`), an
+ELPI (λProlog) interpreter plugin. The open question was whether that can run
+under js_of_ocaml at all. **It can:** the `elpi` library jsoo-compiles cleanly
+(2.6 MB, no missing primitives — probed this session), it has **no C stubs**,
+and `elpi_plugin.cmxs` is only 2.7 MB. So the in-browser story is exactly the
+Corelib/Stdlib one: statically link `rocq-elpi.{elpi,cs,tc,coercion}` + HB into
+the engine (~+5–8 MB), add them to the stripped META, regenerate the mathcomp
+`.vo` with the patched native rocqc (HB/elpi Dynlinked in, as done for the
+stdlib plugins), and mount them via `RocqComparator.mount`. Nothing here is a
+fundamental blocker — it is purely **size and build time**.
+
+### 14.3 Why it is impractical for Pages, and how long it would take
+
+- **Fetch size.** A Pages page would have to fetch 100 MB (core) to ~200 MB+
+  (core + analysis) of `.vo` before the first mathcomp check. That is not a
+  usable web page load, independent of the 100 MB/file and ~1 GB/repo Pages
+  limits (which the individual `.vo`, ≤18 MB, do not hit, but the repo would
+  balloon).
+- **Build time.** Regenerating mathcomp core with the patched rocqc is HB-heavy
+  (elaboration per file; `algebra` is the long pole) — estimate **30–90 min**.
+  analysis is **not installed**, so it would first need a fresh
+  `opam install rocq-mathcomp-analysis` (pulling more deps) and then a patched
+  rebuild — **several hours** end to end.
+
+### 14.4 Recommendation
+
+Do **not** put mathcomp/analysis in the Pages bundle. Instead:
+
+1. **Lazy-load, layered packs.** Serve mathcomp as separate `.vo` packs
+   (`boot`, `order`, `algebra`, `finite_group`, `analysis`) and have the worker
+   fetch a pack only when a challenge actually `From mathcomp Require`s it
+   (parse the imports, or fetch-on-first-missing-library). The mounting seam
+   (`mount` + stripped META + static plugins) already supports this unchanged.
+2. **Host the packs off Pages** — a GitHub Release asset or a CDN/object store —
+   so the Pages repo stays small and the big payload is fetched on demand (and
+   cached by the browser) rather than shipped with every page load.
+3. **Engine:** statically link `rocq-elpi` + HB plugins once (jsoo-compatible,
+   ~+5–8 MB) so any mathcomp pack can be mounted without further engine changes.
+
+A minimal proof-of-concept (mathcomp/boot only, ~12 MB + HB) is achievable with
+the same pipeline if a small in-browser mathcomp demo is wanted; the full
+mathcomp + analysis demo should be lazy-loaded/off-Pages as above.
