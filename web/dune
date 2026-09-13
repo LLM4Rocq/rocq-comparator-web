@@ -36,7 +36,17 @@
   rocq-runtime.plugins.firstorder_core
   rocq-runtime.plugins.firstorder
   rocq-runtime.plugins.number_string_notation
-  rocq-runtime.plugins.tauto)
+  rocq-runtime.plugins.tauto
+  ; Stdlib (Milestone 2): Arith/ZArith/Reals/Lia/ring/field/nsatz.
+  rocq-runtime.plugins.ring
+  rocq-runtime.plugins.micromega_core
+  rocq-runtime.plugins.micromega
+  rocq-runtime.plugins.zify
+  rocq-runtime.plugins.btauto
+  rocq-runtime.plugins.rtauto
+  rocq-runtime.plugins.nsatz_core
+  rocq-runtime.plugins.nsatz
+  rocq-runtime.plugins.funind)
  (js_of_ocaml
   (compilation_mode whole_program)
   (javascript_files runtime_shims.js zarith_stubs.js)))

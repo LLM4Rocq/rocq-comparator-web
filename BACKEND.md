@@ -837,3 +837,66 @@ stripped META already lists every rocq-runtime plugin).
 | Ltac2 (`user-contrib/Ltac2`) | 42 | ~0.2 MB |
 | **total `dist/coqlib/`** (incl. stripped META + manifest) | 107 | **~6.1 MB on disk** |
 | engine `dist/rocq_engine.js` (with the 5 statically-linked plugins) | — | ~33 MB |
+
+---
+
+## 13. Build phase 4 — a Stdlib subset runs in the browser (Milestone 2)
+
+**Status: `ring` / `field` / `lia` / `lra` over `Z`, `Q`, `R` kernel-check
+in-browser.** Verified headlessly (browser-worker emulation + node `make test`):
+
+```
+From Stdlib Require Import ZArith.  ... (a+b)*(a+b) = a*a+2*a*b+b*b   by ring  -> ok:true proved
+From Stdlib Require Import ZArith Lia.  ... n <= n+1                  by lia   -> ok:true proved
+From Stdlib Require Import Reals Lra.  ... (x+y)*(x+y)=...            by ring  -> ok:true proved
+                                        x<>0 -> x/x = 1               by field -> ok:true proved
+                                        x<=y -> x-1<=y                by lra   -> ok:true proved
+```
+
+### 13.1 Building the Stdlib with the patched rocqc — the two real snags
+
+`rocq-stdlib.9.1.0` is a separate dune `coq.theory`. Building it turned on two
+problems that did **not** hit Corelib:
+
+1. **dune resolved the *stock* switch Corelib.** `dune build` in the stdlib tree
+   used `/…/_opam/bin/coqc … -R /…/_opam/lib/coq/theories Coq` — the stock,
+   *unpatched* Corelib (63-bit hashes) — even with OCAMLPATH pointed at the
+   patched install. Stdlib `.vo` then inherited stock Corelib's unmasked hashes
+   and `Marshal.Compat_32` rejected them (`integer cannot be read back on 32-bit
+   platform`). Fix: **bypass dune** — `web/.rocq-build/build-stdlib-manual.sh`
+   compiles every `.v` in `coqdep -sort` order with the patched
+   `rocq compile -coqlib <patched-corelib> -R theories Stdlib`. With the patched
+   Corelib, **0 readback failures**.
+
+2. **Plugin `.cmxs` were missing / mislocated.** `rocq-core.install` does not
+   build the `.cmxs` for the stdlib plugins (ring, micromega(+_core), zify,
+   nsatz(+_core), btauto, rtauto, funind), and the native `rocqc` Dynlinks them
+   when a `.v` does `Declare ML Module`. Built them (`dune build …/<p>_plugin.cmxs`,
+   **dev profile — must match the binary or Dynlink fails with `symbol not found
+   … _camlHints$N`**) and placed each at the findlib **package**-named dir
+   (`micromega_core/`, `nsatz_core/`, `zify/`), not the source dir.
+
+After both fixes: **568 / 583 `.vo` build** (the 14 skips are extraction,
+Floats/Int63 `vm_compute` proofs — which the reference patch also Admits — and a
+couple of `Numbers` edge cases; none are on the Z/Q/R + ring/lia/lra path).
+
+### 13.2 Engine + bundle
+
+- `web/dune` statically links the stdlib plugins too (ring, micromega(+_core),
+  zify, btauto, rtauto, nsatz(+_core), funind) — engine grows to ~38 MB. The
+  stripped META already lists them, so `Declare ML Module` stays a no-op.
+- The bundle ships a **Stdlib subset** at `user-contrib/Stdlib` (logical
+  `Stdlib.*`), auto-added to the loadpath by `-coqlib`. Full Stdlib is ~41 MB /
+  583 `.vo`; the shipped subset (Init/Logic/Bool/Classes/Setoids/Relations/
+  Structures/Wellfounded/Program/Lists/BinNums/Arith/PArith/NArith/ZArith/QArith/
+  Numbers/setoid_ring/micromega/omega/btauto/nsatz/Reals) is **~28 MB / 432 `.vo`**.
+
+### 13.3 Bundle sizes (per layer)
+
+| layer | `.vo` | size |
+|---|---|---|
+| Corelib prelude | 65 | ~1.9 MB |
+| Ltac2 | 42 | ~0.2 MB |
+| Stdlib subset (Z/Q/R + ring/field/lia/lra closure) | 432 | ~28 MB |
+| **total `dist/coqlib/`** | 539 | **~35 MB** |
+| engine `dist/rocq_engine.js` (16 statically-linked plugins) | — | ~38 MB |

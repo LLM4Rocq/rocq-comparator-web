@@ -37,9 +37,17 @@ all: real
 build:
 	opam exec --switch=$(SWITCH) -- dune build
 
-## real: (re)build dist/rocq_engine.js — the js_of_ocaml engine (needs opam switch + rocq source)
+## real: (re)build dist/rocq_engine.js + stage the .vo bundle (needs opam switch + rocq source)
 real engine:
 	SWITCH=$(SWITCH) bash web/build-real.sh
+
+## native: build the patched native rocqc + regenerate the Corelib prelude .vo (tens of min, once)
+native prelude:
+	SWITCH=$(SWITCH) bash web/build-native.sh
+
+## stdlib: regenerate the Stdlib .vo with the patched rocqc (needs `make native` first)
+stdlib:
+	SWITCH=$(SWITCH) bash web/build-stdlib.sh
 
 ## site: assemble dist/ from the committed frontend + engine (fast, no opam needed)
 site:

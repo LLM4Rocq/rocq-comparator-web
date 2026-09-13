@@ -66,6 +66,16 @@ async function check(cfg, ch, sol) {
   v = await check({ theorem_names: ["foo"], definition_names: [] }, NATCH, NATCH);
   ok("admitted solution rejected (not_proved)", v.ok === false && v.reason === "not_proved");
 
+  // --- Stdlib (Milestone 2): ZArith + ring, and Reals + lra ---
+  const ZCH  = "From Stdlib Require Import ZArith. Open Scope Z_scope.\nTheorem foo : forall a b : Z, (a+b)*(a+b) = a*a + 2*a*b + b*b. Proof. Admitted.\n";
+  const ZSOL = "From Stdlib Require Import ZArith. Open Scope Z_scope.\nTheorem foo : forall a b : Z, (a+b)*(a+b) = a*a + 2*a*b + b*b. Proof. intros; ring. Qed.\n";
+  v = await check({ theorem_names: ["foo"], definition_names: [] }, ZCH, ZSOL);
+  ok("Stdlib ZArith + ring proof accepted", v.ok === true && v.targets[0].status === "proved", "reason=" + v.reason);
+  const RCH  = "From Stdlib Require Import Reals Lra. Open Scope R_scope.\nTheorem foo : forall x y : R, x <= y -> x - 1 <= y. Proof. Admitted.\n";
+  const RSOL = "From Stdlib Require Import Reals Lra. Open Scope R_scope.\nTheorem foo : forall x y : R, x <= y -> x - 1 <= y. Proof. intros; lra. Qed.\n";
+  v = await check({ theorem_names: ["foo"], definition_names: [] }, RCH, RSOL);
+  ok("Stdlib Reals + lra proof accepted", v.ok === true && v.targets[0].status === "proved", "reason=" + v.reason);
+
   // --- axiom / statement checks (Prop-only; work with or without prelude) ---
   v = await check({}, CH, CH);
   ok("honest proof accepted", v.ok === true && v.targets[0].status === "proved");

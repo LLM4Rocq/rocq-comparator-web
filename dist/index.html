@@ -42,9 +42,12 @@
         by a coerce-32bit-patched native <code>rocqc</code>), so it checks real Gallina
         <strong>with</strong> <code>nat</code>, <code>=</code>, <code>-&gt;</code> and the
         tactic language (<code>induction</code>, <code>simpl</code>, <code>rewrite</code>,
-        <code>auto</code>, …). Uncheck into <code>-noinit</code> for prelude-free core
-        Gallina. Full Stdlib / mathcomp are not yet bundled — see
-        <a href="BACKEND.md">BACKEND.md</a>.
+        <code>auto</code>, …), plus a <strong>Stdlib subset</strong>
+        (<code>From Stdlib Require Import ZArith</code> / <code>QArith</code> /
+        <code>Reals</code> / <code>Lia</code> / <code>Lra</code> — with
+        <code>ring</code>, <code>field</code>, <code>lia</code>, <code>lra</code>).
+        Uncheck into <code>-noinit</code> for prelude-free core Gallina. mathcomp is
+        not yet bundled — see <a href="BACKEND.md">BACKEND.md</a>.
       </div>
       <button type="button" class="engine-note-dismiss" id="engineNoteDismiss" aria-label="Dismiss note">×</button>
     </div>

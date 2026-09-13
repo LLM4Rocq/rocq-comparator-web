@@ -26,9 +26,13 @@ so jsoo can unmarshal it — so proofs use real Gallina *with* `nat`, `=`, `->`
 and the tactic language (`induction`, `simpl`, `rewrite`, `auto`, …). The
 prelude plugins (`ltac`, `cc`, `firstorder`, `number_string_notation`, `tauto`)
 are statically linked into the engine (jsoo has no Dynlink). Uncheck the
-`-noinit` toggle only for a prelude-free core-Gallina check. Full Stdlib /
-mathcomp are not yet bundled — see `BACKEND.md` §12. If the engine is absent
-entirely, the page still loads and the **demo-verdict** buttons work.
+`-noinit` toggle only for a prelude-free core-Gallina check.
+
+A **Stdlib subset** is also bundled (`From Stdlib Require Import ZArith / QArith /
+Reals / Lia / Lra`, ~28 MB), so `ring`, `field`, `lia`, `lra` over `Z`, `Q`, `R`
+check in-browser (all 16 stdlib plugins statically linked). mathcomp is not yet
+bundled — see `BACKEND.md` §12–13. If the engine is absent entirely, the page
+still loads and the **demo-verdict** buttons work.
 
 ## Quick start
 
