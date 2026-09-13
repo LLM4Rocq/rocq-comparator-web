@@ -458,6 +458,17 @@ Notes for the frontend:
 
 ---
 
+### 6.1 Progress events
+
+`check(requestJson, onProgress?)` accepts an optional callback. While the
+worker fetches the library packs a request imports it calls
+`onProgress({stage:"download", pack, packsDone, packsTotal, bytes, bytesTotal})`
+after every file (byte totals come from `packs.json`), then
+`onProgress({stage:"check"})` when the engine starts. The page shows a
+byte-accurate bar during downloads and an elapsed timer during the check,
+because no finer progress exists inside a single Rocq `Require`. The callback
+is per call; the frozen contract without it is unchanged.
+
 ## 7. Files produced by this spike
 
 - `spike/jsoo-seam/` — reproducible minimal experiments (`spike.ml`,

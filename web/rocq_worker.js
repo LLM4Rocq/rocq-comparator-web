@@ -72,7 +72,7 @@ var mountedPacks = {};        // pack name -> true (cache: each pack mounted onc
 // (vos-format, the trust), but wasm_of_ocaml's Unix.stat does not cover the
 // in-memory VFS that the loadpath's .vos branch stats, so we present it as a .vo
 // (select_vo_file then loads it with no stat). Corelib .vo are mounted as-is.
-async function mountPack(pack) {
+async function mountPack(pack, onFile) {
   if (mountedPacks[pack.name]) return 0;
   var base = 'coqlib/';
   if (pack.meta) {
@@ -84,6 +84,7 @@ async function mountPack(pack) {
     var content = await fetchBinaryString(base + rel);
     var vfsPath = vfs + '/' + rel.replace(/\.vos$/, '.vo');
     engine.mount(vfsPath, content);
+    if (onFile) onFile(content.length);
   }));
   mountedPacks[pack.name] = true;
   return vo.length;
@@ -113,16 +114,24 @@ function packByName(name) {
 }
 
 // Ensure the packs needed by these sources are mounted (fetch+mount the missing
-// ones; cached). Returns the list of pack names newly fetched.
-async function ensurePacks(sources) {
+// ones; cached). Returns the list of pack names newly fetched. [progress], if
+// given, receives {stage:'download', pack, packsDone, packsTotal, bytes,
+// bytesTotal} as files arrive (bytesTotal from the manifest's pack sizes).
+async function ensurePacks(sources, progress) {
   if (!manifest || !manifest.packs) return [];
   var names = RocqPacks.resolvePacks(manifest, RocqPacks.scanRequires(sources));
-  var fetched = [];
-  for (var i = 0; i < names.length; i++) {
-    var p = packByName(names[i]);
-    if (p && !mountedPacks[p.name]) { await mountPack(p); fetched.push(p.name); }
+  var todo = names.map(packByName).filter(function (p) { return p && !mountedPacks[p.name]; });
+  var bytesTotal = todo.reduce(function (a, p) { return a + (p.size || 0); }, 0);
+  var bytes = 0;
+  var report = function (i, name) {
+    if (progress) progress({ stage: 'download', pack: name, packsDone: i, packsTotal: todo.length, bytes: bytes, bytesTotal: bytesTotal });
+  };
+  for (var i = 0; i < todo.length; i++) {
+    report(i, todo[i].name);
+    await mountPack(todo[i], function (n) { bytes += n; report(i, todo[i].name); });
   }
-  return fetched;
+  if (todo.length) report(todo.length, null);
+  return todo.map(function (p) { return p.name; });
 }
 
 // Load packs.json and mount the always-on packs (the Corelib prelude). Returns
@@ -157,9 +166,11 @@ async function mountBase() {
       try {
         var req = JSON.parse(msg.request);
         var files = req && req.files ? Object.keys(req.files).map(function (k) { return req.files[k]; }) : [];
-        var fetched = await ensurePacks(files);
+        var fetched = await ensurePacks(files, function (ev) { ev.type = 'progress'; ev.id = msg.id; self.postMessage(ev); });
         if (fetched.length) self.postMessage({ type: 'packs', id: msg.id, fetched: fetched });
       } catch (e) { /* malformed request: let the engine return config_error */ }
+      // the check itself runs to completion inside the engine; no finer progress exists
+      self.postMessage({ type: 'progress', id: msg.id, stage: 'check' });
       var result = await engine.check(msg.request);
       self.postMessage({ type: 'result', id: msg.id, ok: true, result: result });
     } catch (err) {

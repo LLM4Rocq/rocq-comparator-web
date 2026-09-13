@@ -299,6 +299,13 @@ button.secondary:hover { border-color: var(--accent); }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 .run-note { font-size: 0.82rem; color: var(--text-dim); }
+/* library download / check progress (shown while a check runs) */
+.progress { flex: 1 1 260px; min-width: 200px; display: flex; flex-direction: column; gap: 4px; }
+.progress-track { height: 6px; border-radius: 3px; background: var(--border); overflow: hidden; }
+.progress-fill { height: 100%; width: 0; background: var(--accent); transition: width 0.15s linear; }
+.progress-fill.indeterminate { width: 30%; animation: slide 1.2s infinite ease-in-out; }
+@keyframes slide { 0% { margin-left: 0; } 50% { margin-left: 70%; } 100% { margin-left: 0; } }
+.progress-text { font-size: 0.78rem; color: var(--text-dim); }
 
 /* ---------- backend-unavailable banner ---------- */
 .notice {

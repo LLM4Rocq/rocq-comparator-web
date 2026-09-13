@@ -3,12 +3,16 @@
 // It spawns rocq_worker.js (which hosts the OCaml Rocq engine) and forwards
 // check() calls to it, implementing the frozen contract (BACKEND.md section 6):
 //
-//   window.RocqComparator = { ready: Promise, check(reqJson)->Promise, version }
+//   window.RocqComparator = { ready: Promise, check(reqJson, onProgress?)->Promise, version }
 //
 //   * ready       resolves once the worker has loaded the engine + run init.
 //   * check       serializes calls (one at a time), resolves with the verdict
 //                 JSON for every in-band outcome, and REJECTS out-of-band only
 //                 (malformed request, engine trap, or the HARD timeout below).
+//                 The optional onProgress(ev) callback receives
+//                 {stage:'download', pack, packsDone, packsTotal, bytes, bytesTotal}
+//                 while library packs the request imports are fetched, then
+//                 {stage:'check'} when the engine starts checking.
 //   * hard cap    the main thread starts a timer per check; on expiry it
 //                 terminate()s the worker, rejects that call with
 //                 Error("timeout"), and respawns the worker (re-ready).
@@ -38,6 +42,11 @@
       var d = ev.data || {};
       if (d.type === 'ready')  { version = d.version; settleReadyOk(); return; }
       if (d.type === 'fatal')  { settleReadyErr(new Error(d.error || 'engine failed to load')); return; }
+      if (d.type === 'progress') {
+        var q = pending.get(d.id);
+        if (q && q.onProgress) { try { q.onProgress(d); } catch (_) {} }
+        return;
+      }
       if (d.type === 'result') {
         var p = pending.get(d.id);
         if (!p) return;
@@ -63,7 +72,7 @@
   // serialize check() calls through a promise chain (glue queues; resolves in order)
   var queue = Promise.resolve();
 
-  function doCheck(request) {
+  function doCheck(request, onProgress) {
     return new Promise(function (resolve, reject) {
       var id = ++seq;
       var timeoutMs = 60000;
@@ -79,14 +88,14 @@
         respawnAfterKill();
         reject(new Error('timeout'));
       }, timeoutMs);
-      pending.set(id, { resolve: resolve, reject: reject, timer: timer });
+      pending.set(id, { resolve: resolve, reject: reject, timer: timer, onProgress: onProgress });
       worker.postMessage({ type: 'check', id: id, request: request });
     });
   }
 
-  function check(request) {
-    var p = queue.then(function () { return doCheck(request); },
-                       function () { return doCheck(request); });
+  function check(request, onProgress) {
+    var p = queue.then(function () { return doCheck(request, onProgress); },
+                       function () { return doCheck(request, onProgress); });
     queue = p.then(function () {}, function () {}); // keep the chain alive
     return p;
   }

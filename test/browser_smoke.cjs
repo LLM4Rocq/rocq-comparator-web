@@ -248,7 +248,14 @@ async function runPass(cdp, origin, forceCps, log) {
      'Stdlib=' + servedUnder(log, 'Stdlib') + ' mathcomp=' + servedUnder(log, 'mathcomp'));
   if (HAS_MATHCOMP) {
     try {
-      v = await call(request('foo', M_CH, M_SOL));
+      // this call also exercises the progress callback (download events, then check)
+      const r = await evaluate(cdp, sessionId, `(async () => { const ev = []; const v = JSON.parse(await window.RocqComparator.check(${JSON.stringify(request('foo', M_CH, M_SOL))}, (p) => ev.push(p))); return { v, ev }; })()`, CHECK_MS);
+      v = r.v;
+      const dl = r.ev.filter((e) => e.stage === 'download'), last = dl[dl.length - 1];
+      ok('progress: byte-accurate download events during the mathcomp fetch',
+         dl.length > 0 && last.bytesTotal > 0 && last.bytes === last.bytesTotal && last.packsDone === last.packsTotal,
+         dl.length + ' events, ' + (last ? last.packsTotal + ' packs, ' + last.bytes + '/' + last.bytesTotal + ' bytes' : 'none'));
+      ok('progress: a check-stage event follows the download', r.ev.some((e) => e.stage === 'check'));
       ok('mathcomp: ssreflect proof accepted against the trusted .vos library', v.ok === true,
          'ok=' + v.ok + ' reason=' + v.reason + (v.detail ? ' ' + String(v.detail).replace(/\n/g, ' ').slice(0, 200) : '') +
          (v.targets && v.targets[0] ? ' assumptions=' + JSON.stringify(v.targets[0].assumptions).slice(0, 120) : ''));

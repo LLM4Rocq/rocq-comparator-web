@@ -75,6 +75,10 @@
       <button type="button" class="run" id="runBtn" disabled>Run</button>
       <div class="spinner" id="runSpinner" hidden aria-hidden="true"></div>
       <span class="run-note" id="runNote">waiting for the Rocq runtime to load…</span>
+      <div class="progress" id="runProgress" hidden role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="progress-track"><div class="progress-fill" id="runProgressFill"></div></div>
+        <span class="progress-text" id="runProgressText"></span>
+      </div>
     </div>
 
     <details class="advanced">

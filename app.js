@@ -161,6 +161,43 @@ Qed.
   const runBtn = $("runBtn");
   const runSpinner = $("runSpinner");
   const runNote = $("runNote");
+  const runProgress = $("runProgress");
+  const runProgressFill = $("runProgressFill");
+  const runProgressText = $("runProgressText");
+
+  // Progress while a check runs: a byte-accurate bar during library pack
+  // downloads (the worker reports each file), then an elapsed timer while the
+  // engine checks (no finer progress exists inside Rocq).
+  const mb = (n) => (n / 1048576).toFixed(n >= 10 * 1048576 ? 0 : 1);
+  let elapsedTimer = null;
+  function showProgress(ev) {
+    runProgress.hidden = false;
+    if (ev.stage === "download") {
+      const pct = ev.bytesTotal ? Math.round(100 * ev.bytes / ev.bytesTotal) : 0;
+      runProgressFill.classList.remove("indeterminate");
+      runProgressFill.style.width = pct + "%";
+      runProgress.setAttribute("aria-valuenow", String(pct));
+      runProgressText.textContent = ev.pack
+        ? `Downloading libraries: ${ev.pack} (${ev.packsDone + 1}/${ev.packsTotal}), ${mb(ev.bytes)} of ${mb(ev.bytesTotal)} MB. Downloaded packs are kept for this page session.`
+        : `Libraries downloaded (${mb(ev.bytesTotal)} MB).`;
+    } else if (ev.stage === "check") {
+      const t0 = Date.now();
+      runProgressFill.classList.add("indeterminate");
+      runProgressFill.style.width = "";
+      runProgress.removeAttribute("aria-valuenow");
+      const tick = () => { runProgressText.textContent = `Checking (${Math.round((Date.now() - t0) / 1000)} s). A first mathcomp or analysis import can take a minute or more.`; };
+      tick();
+      clearInterval(elapsedTimer);
+      elapsedTimer = setInterval(tick, 1000);
+    }
+  }
+  function hideProgress() {
+    clearInterval(elapsedTimer); elapsedTimer = null;
+    runProgress.hidden = true;
+    runProgressFill.classList.remove("indeterminate");
+    runProgressFill.style.width = "0";
+    runProgressText.textContent = "";
+  }
 
   const SERVE_FIX = "Fix: serve the built site with `make serve` (it assembles dist/ and serves it on http://localhost:8000/). Serving the source tree, or opening index.html as a file:// URL, breaks the worker.";
 
@@ -272,16 +309,15 @@ Qed.
 
     runBtn.disabled = true;
     runSpinner.hidden = false;
-    runNote.textContent = "checking…";
+    runNote.textContent = "";
     try {
-      const responseJson = await rc.check(JSON.stringify(request));
+      const responseJson = await rc.check(JSON.stringify(request), showProgress);
       const verdict = JSON.parse(responseJson);
       renderVerdict(verdict);
-      runNote.textContent = "";
     } catch (e) {
       renderInternalError((e && e.message) || String(e));
-      runNote.textContent = "";
     } finally {
+      hideProgress();
       runSpinner.hidden = true;
       runBtn.disabled = false;
     }
