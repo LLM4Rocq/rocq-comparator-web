@@ -70,4 +70,9 @@
   rocq-elpi.coercion
   rocq-elpi.cs
   rocq-elpi.tc
-  rocq-runtime.plugins.funind))
+  rocq-runtime.plugins.funind
+  ; mathcomp algebra's ring/field/lia tactics declare the standalone micromega
+  ; plugin (opam rocq-micromega-plugin, user-contrib/micromega_plugin), distinct
+  ; from rocq-runtime's; stage-packs.sh ships its stripped META.
+  rocq-micromega-plugin.plugin
+  rocq-micromega-plugin.zify))

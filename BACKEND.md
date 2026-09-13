@@ -1201,8 +1201,9 @@ implementation mismatch on <Module>`.
 ### 16.3 Static-linking elpi into the wasm engine
 
 The engine (`web/dune`) statically links `rocq-elpi.elpi` and its apps
-(`rocq-elpi.coercion`/`cs`/`tc`), plus Rocq's own `ssreflect` and `ssrmatching`
-plugins; their `Libobject`/`Dyn`/`Genarg` registrations run at engine init, so the
+(`rocq-elpi.coercion`/`cs`/`tc`), Rocq's own `ssreflect` and `ssrmatching`
+plugins, and (for mathcomp algebra's tactics, §16.7) `rocq-micromega-plugin.plugin`
+and `.zify`; their `Libobject`/`Dyn`/`Genarg` registrations run at engine init, so the
 libraries' `Declare ML Module` lines are no-ops over already-linked code
 (stripped METAs, same trick as §12.4). The rule: every plugin whose objects or
 generic arguments appear in a shipped `.vo`/`.vos` must be linked, or loading
@@ -1259,25 +1260,40 @@ Stdlib ZArith/Reals checks fetch **only** the `stdlib` pack on their `From Stdli
 Require`; non-mathcomp checks fetch **no** mathcomp pack; the resolver maps
 `all_ssreflect` → `mathcomp-hb+boot+order+ssreflect` and `Stdlib` → `stdlib` only.
 
-### 16.5 mathcomp packs — sizes (raw + brotli, `.vos` vs the 106 MB `.vo`)
+### 16.5 packs: sizes (raw `.vos`)
 
-Built from mathcomp 2.6.0 CORE with the patched `rocqc` (`web/build-mathcomp.sh`):
+Built from mathcomp 2.6.0 and mathcomp-analysis 1.18.0 with the patched `rocqc`
+(`web/build-mathcomp.sh`, `-vos`, one `make -j8` over a Makefile generated from
+`rocq dep`; about 42 min):
 
-| pack | files | raw | brotli | (stock `.vo`) |
-|---|---|---|---|---|
-| corelib (always) | 65 | 1.9 MB | 0.8 MB | — |
-| stdlib (subset) | 432 | 27.5 MB | ~10 MB | — |
-| mathcomp-hb (elpi+HB+locker) | 4 | 3.5 MB | 1.2 MB | 2.4 MB |
-| mathcomp-boot | 25 | 11.0 MB | 5.1 MB | 12.2 MB |
-| mathcomp-order | 3 | 21.1 MB | 7.6 MB | 20.8 MB |
-| mathcomp-fingroup | 10 | 4.4 MB | 2.3 MB | 4.5 MB |
-| mathcomp-ssreflect (all_ssreflect) | 1 | ~0 | ~0 | — |
-| **mathcomp total (built)** | **43** | **~40 MB** | **~16 MB** | **101 MB** |
+| pack | files | raw |
+|---|---|---|
+| corelib (always) | 65 | 1.9 MB |
+| stdlib (subset) | 432 | 27.5 MB |
+| mathcomp-hb (elpi + locker + HB) | 4 | 3.5 MB |
+| elpi-derive (elpi.apps.derive, used by the algebra tactics) | 32 | 19.7 MB |
+| micromega-plugin (user-contrib/micromega_plugin) | 14 | 0.2 MB |
+| mathcomp-boot | 25 | 11.0 MB |
+| mathcomp-order | 3 | 21.1 MB |
+| mathcomp-fingroup | 10 | 4.4 MB |
+| mathcomp-ssreflect (all_ssreflect) | 1 | 0.0 MB |
+| mathcomp-algebra | 39 | 62.1 MB |
+| mathcomp-solvable | 21 | 7.3 MB |
+| mathcomp-field | 13 | 8.8 MB |
+| mathcomp-finmap | 3 | 1.8 MB |
+| mathcomp-bigenough | 1 | 0.0 MB |
+| mathcomp-classical | 15 | 10.2 MB |
+| mathcomp-reals | 5 | 5.3 MB |
+| mathcomp-analysis | 98 | 50.9 MB |
+| **all packs** | **881** | **235.8 MB** (dist 264 MB) |
 
-An `all_ssreflect` demo lazily fetches corelib(always)+hb+boot+order+ssreflect ≈
-**14 MB brotli**, only on a mathcomp import. `algebra` (needs the `micromega_plugin`
-user-contrib library rebuilt as `.vos`) and `analysis` are documented manifest
-slots (§16.7).
+What an import fetches (pack closure, from `packs.json`): `all_ssreflect` 4 packs,
+35.5 MB; `all_algebra` 7 packs, 122.0 MB; an analysis import (`all_ssreflect
+all_algebra reals sequences exp`, or `all_analysis`) 14 packs, 206.4 MB, which
+`gzip -9` would bring to 102 MB (nothing is shipped compressed; GitHub Pages
+compresses on the wire). Pack `requires` are no longer hand-written: `rocq dep`
+over the staged sources is saved as `deps.txt` and `stage-packs.sh` maps each
+dependency path to the pack that ships it.
 
 ### 16.6 The "Unknown dynamic tag" failure, resolved
 
@@ -1298,18 +1314,39 @@ latter by compiling a probe with the patched native `rocqc` against the staged
 `dist/coqlib` (`ZArith`, `Reals`, `lia`, `lra`, `all_ssreflect`, `all_fingroup`)
 and failing the build on any mismatch.
 
-### 16.7 mathcomp-analysis (stretch) — status + slot
+### 16.7 mathcomp-analysis: built and verified
 
-Not built. mathcomp-analysis 1.15.0 is installed in a SEPARATE switch
-(`~/.opam/rocq-analysis`) but on **rocq 9.1.1**, not the core's 9.2 — so its `.vo`
-are the wrong Rocq version and cannot be reused. Building analysis `.vos` for the
-browser needs: `opam install rocq-mathcomp-analysis` against a 9.2 switch (pulling
-`mathcomp-classical`, `reals`, `boolp`, ...), then the same patched-`rocqc`
-`.vos` rebuild (`build-mathcomp.sh`) extended with `analysis`/`classical`/`reals`
-packs. A manifest slot is reserved: add a pack `{ "name":"mathcomp-analysis",
-"prefixes":["mathcomp.analysis","mathcomp.classical","mathcomp.reals"],
-"requires":["mathcomp-hb","mathcomp-boot","mathcomp-order","mathcomp-algebra"],
-"vo":[...] }` to `packs.json`.
+`rocq-mathcomp-analysis 1.18.0` (with `classical`, `reals`, `finmap`, `bigenough`,
+`solvable`, `field`) is installed in the core switch (no runtime file touched) and
+every `.v` of every `user-contrib/mathcomp/*` dir compiles to `.vos` (284/284,
+plus `elpi.apps.derive` 32/32 and `micromega_plugin` 14/14). Two things were
+needed beyond the ssreflect layer:
+
+- mathcomp 2.6's `ring`/`field`/`lra` tactics (`algebra/ring_tactic.v` etc.) use
+  the standalone opam `rocq-micromega-plugin` (theories under
+  `user-contrib/micromega_plugin`, plugins `rocq-micromega-plugin.plugin` and
+  `.zify`, module names distinct from rocq-runtime's), plus `elpi.apps.derive`
+  (`derive.std`, `param2`) and the `*.elpi` files of `algebra/` that are only in
+  the source tree. The plugin is rebuilt against the patched runtime (like
+  rocq-elpi) for the native `.vos` build, statically linked in `web/dune` for the
+  engine, and resolved through a stripped META. Stdlib is not needed by any of it
+  and is not on the build loadpath (it made an unqualified `Require ssreflect` in
+  `derive` ambiguous).
+- `Local Import` in `topology_theory/function_spaces.v` trips
+  `unsupported-attributes` (an error by default); analysis builds with `-w
+  -parsing`, the script now passes `-w -unsupported-attributes`.
+
+The native probe compiles `all_algebra` + `ring` and `all_reals all_analysis` (an
+`expR0` lemma) against `dist/coqlib`. Verified end to end: `make test` (22/22 per
+engine, node children run with a 16 GB heap) and `make test-browser` (headless
+Brave, both engines): `From mathcomp Require Import all_ssreflect all_algebra
+reals sequences exp`, `Lemma foo (R : realType) : expR 0 = 1 :> R` proved by
+`expR0`, first analysis check 78 s on the JSPI engine and 128 s on cps, the
+Admitted variant rejected as `not_proved`. Cost: the wasm engine keeps the loaded
+libraries in the JS heap; the `exp` closure peaks at about 9 GB RSS in node
+(native `rocqc`: 1.6 GB), `all_analysis` at 16 GB, so node's default 4 GB heap is
+not enough and a browser needs several GB free. `all_ssreflect` alone fits the
+old budget.
 
 ### 16.8 How to add a pack
 
@@ -1333,9 +1370,10 @@ No worker/engine change is needed — the scan→resolve→fetch→mount path is
 - `web/build-mathcomp.sh` — reproducible patched elpi/HB/mathcomp `.vos` build.
 - `web/stage-packs.sh` — copy the `.vos` packs into `dist/coqlib`, write
   `packs.json`, and run the native consistency probe (fails on digest mismatch).
-- `test/judge_test.cjs` — 18 cases per engine via lazy packs, including the
-  mathcomp proof and its lazy fetch.
+- `test/judge_test.cjs` — 22 cases per engine via lazy packs, including the
+  mathcomp and mathcomp-analysis proofs and their lazy fetch.
 - `test/browser_smoke.cjs` — the same in a real headless browser (`make
-  test-browser`), both engines, including the mathcomp proof and lazy fetch.
+  test-browser`), both engines, including the mathcomp and analysis proofs and
+  lazy fetch (it prints the first analysis check's wall-clock time).
 - `Makefile` `bundle` — the required order from scratch: `native`, `stdlib`,
   `mathcomp`, `real`.

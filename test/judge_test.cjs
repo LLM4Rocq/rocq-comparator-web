@@ -39,6 +39,10 @@ const RocqBytes = require(path.join(__dirname, '..', 'web', 'rocq_bytes.js'));
 // The shared lazy-import scanner/resolver — the SAME module the worker loads, so
 // this harness exercises the same scan->resolve->fetch->mount path (Phase 2).
 const RocqPacks = require(path.join(__dirname, '..', 'web', 'rocq_packs.js'));
+// the packs an all_analysis import must fetch (exact set; keep in sync with packs.json)
+const ANALYSIS_PACKS = ["mathcomp-hb", "elpi-derive", "micromega-plugin", "mathcomp-boot", "mathcomp-order", "mathcomp-fingroup",
+  "mathcomp-algebra", "mathcomp-finmap", "mathcomp-classical", "mathcomp-reals", "mathcomp-solvable", "mathcomp-field",
+  "mathcomp-analysis", "mathcomp-ssreflect"];
 
 // WHATWG windows-1252 index for 0x80-0x9F: what a REAL browser's
 // TextDecoder('latin1') produces (0x81,0x8D,0x8F,0x90,0x9D decode to themselves).
@@ -86,7 +90,8 @@ function orchestrate() {
   for (const eng of engines) {
     const name = path.basename(path.dirname(eng));
     console.log('\n===================== ' + name + ' =====================');
-    const r = cp.spawnSync(process.execPath, [__filename, '--engine', eng], { stdio: 'inherit', env: process.env });
+    // the analysis closure needs well over node's default 4 GB heap in the wasm engine
+    const r = cp.spawnSync(process.execPath, ['--max-old-space-size=16384', __filename, '--engine', eng], { stdio: 'inherit', env: process.env });
     if (r.status !== 0) anyFail = true;
   }
   console.log('\n' + (anyFail ? 'SOME ENGINE FAILED' : 'ALL ENGINES PASSED'));
@@ -309,6 +314,25 @@ function worker(enginePath) {
         // the engine must still judge fresh request files after a mathcomp load
         v = await check({ theorem_names: ["foo"], definition_names: [] }, NATCH, NATCH);
         ok("after mathcomp: a new request is judged on its own files", v.ok === false && v.reason === "not_proved", "reason=" + v.reason + " targets=" + JSON.stringify(v.targets));
+      }
+      // --- mathcomp-analysis end to end (whenever the analysis pack is staged) ---
+      if (manifest.packs.some(p => p.name === "mathcomp-analysis")) {
+        const ACH = "From mathcomp Require Import all_ssreflect all_algebra reals sequences exp.\nLocal Open Scope ring_scope.\nLemma foo (R : realType) : expR 0 = 1 :> R.\nProof. Admitted.\n";
+        const ASOL = "From mathcomp Require Import all_ssreflect all_algebra reals sequences exp.\nLocal Open Scope ring_scope.\nLemma foo (R : realType) : expR 0 = 1 :> R.\nProof. exact: expR0. Qed.\n";
+        const resolved = RocqPacks.resolvePacks(manifest, RocqPacks.scanRequires([ACH, ASOL]));
+        const fetched = ensurePacks([ACH, ASOL]);
+        ok("mathcomp-analysis: all_analysis resolves to exactly " + ANALYSIS_PACKS.length + " packs",
+           JSON.stringify(resolved.slice().sort()) === JSON.stringify(ANALYSIS_PACKS.slice().sort()) && fetched.length > 0 && fetched.every(n => resolved.indexOf(n) >= 0),
+           "resolved=[" + resolved.join(",") + "] fetched now=[" + fetched.join(",") + "]");
+        // loading the analysis closure (about 200 MB of .vos) takes minutes in wasm: a wide budget
+        const ACFG = { theorem_names: ["foo"], definition_names: [], timeout_s: 900 };
+        const at0 = Date.now();
+        let av; try { av = await check(ACFG, ACH, ASOL); }
+        catch (e) { av = { ok: false, reason: "threw", detail: e && e.message || String(e) }; }
+        ok("mathcomp-analysis: expR0 proof accepted against the trusted .vos library (" + (Date.now() - at0) + " ms)", av.ok === true,
+           "ok=" + av.ok + " reason=" + (av.reason || "-") + (av.detail ? " detail=" + String(av.detail).replace(/\n/g, " ").slice(0, 160) : ""));
+        try { av = await check(ACFG, ACH, ACH); } catch (e) { av = { ok: false, reason: "threw" }; }
+        ok("mathcomp-analysis: Admitted solution rejected as not_proved", av.ok === false && av.reason === "not_proved", "reason=" + av.reason);
       }
     }
 

@@ -31,11 +31,14 @@ SRCI="$WORK/rocq-src/_build/install/default"; OVERLAY="$WORK/overlay"
 
 # ---- 1. elpi/HB/mathcomp .vos (built by build-mathcomp.sh), if present ----
 if [ -f "$ST/HB/structures.vos" ]; then
-  mkdir -p "$CQ/user-contrib/elpi/apps/locker" "$CQ/user-contrib/elpi_elpi" "$CQ/user-contrib/HB"
-  cp "$ST/theories/elpi.vos"               "$CQ/user-contrib/elpi/elpi.vos"
-  cp "$ST/elpi_elpi/dummy.vos"             "$CQ/user-contrib/elpi_elpi/dummy.vos"
-  cp "$ST/apps/locker/theories/locker.vos" "$CQ/user-contrib/elpi/apps/locker/locker.vos"
-  cp "$ST/HB/structures.vos"               "$CQ/user-contrib/HB/structures.vos"
+  rm -rf "$CQ/user-contrib/elpi" "$CQ/user-contrib/elpi_elpi" "$CQ/user-contrib/HB"
+  mkdir -p "$CQ/user-contrib/elpi/apps" "$CQ/user-contrib/elpi_elpi" "$CQ/user-contrib/HB"
+  cp "$ST/theories/elpi.vos"   "$CQ/user-contrib/elpi/elpi.vos"
+  cp "$ST/elpi_elpi/dummy.vos" "$CQ/user-contrib/elpi_elpi/dummy.vos"
+  cp "$ST/HB/structures.vos"   "$CQ/user-contrib/HB/structures.vos"
+  for app in "$ST"/apps/*/; do app=$(basename "$app")   # locker, derive: elpi.apps.<app>.*
+    ( cd "$ST/apps/$app/theories" && find . -name '*.vos' | while read -r f; do mkdir -p "$CQ/user-contrib/elpi/apps/$app/${f%/*}"; cp "$f" "$CQ/user-contrib/elpi/apps/$app/$f"; done )
+  done
   # stripped rocq-elpi META: findlib resolves the package names to the plugin
   # code already linked into the engine (no archive/plugin lines = no Dynlink)
   cat > "$CQ/rocq-elpi.META" <<'META'
@@ -44,15 +47,22 @@ package "coercion" ( directory = "coercion" )
 package "cs" ( directory = "cs" )
 package "tc" ( directory = "tc" )
 META
-  for pk in boot order finite_group ssreflect algebra; do
-    [ -d "$ST/mathcomp/$pk" ] || continue
-    n=$(find "$ST/mathcomp/$pk" -name '*.vos' | wc -l | tr -d ' ')
-    nv=$(find "$ST/mathcomp/$pk" -name '*.v' | wc -l | tr -d ' ')
+  # stripped rocq-micromega-plugin META (mathcomp algebra's ring/lia backend; the
+  # plugin + zify libraries are linked into the engine, see web/dune)
+  cat > "$CQ/rocq-micromega-plugin.META" <<'META'
+package "plugin" ( directory = "plugin" requires = "rocq-runtime.plugins.ltac rocq-runtime.vernac" )
+package "zify" ( directory = "zify" requires = "rocq-runtime.plugins.ltac" )
+META
+  rm -rf "$CQ/user-contrib/micromega_plugin" "$CQ/user-contrib/mathcomp"
+  for d in "$ST"/micromega_plugin "$ST"/mathcomp/*/; do d=${d%/}; d=${d#"$ST"/}
+    [ -d "$ST/$d" ] || continue
+    n=$(find "$ST/$d" -name '*.vos' | wc -l | tr -d ' ')
+    nv=$(find "$ST/$d" -name '*.v' | wc -l | tr -d ' ')
     # only ship a pack whose every .v compiled (a partial pack is a trap for Require)
-    if [ "$n" != "$nv" ]; then echo "  skip mathcomp/$pk: $n/$nv .vos built"; continue; fi
-    mkdir -p "$CQ/user-contrib/mathcomp/$pk"
-    find "$ST/mathcomp/$pk" -name '*.vos' -exec cp {} "$CQ/user-contrib/mathcomp/$pk/" \;
+    if [ "$n" != "$nv" ]; then echo "  skip $d: $n/$nv .vos built"; continue; fi
+    ( cd "$ST" && find "$d" -name '*.vos' | while read -r f; do mkdir -p "$CQ/user-contrib/${f%/*}"; cp "$f" "$CQ/user-contrib/$f"; done )
   done
+  cp -f "$ST/deps.txt" "$CQ/deps.txt" 2>/dev/null || true
 fi
 
 # ---- 2. packs.json ----
@@ -65,20 +75,37 @@ const packs=[];
 packs.push({name:"corelib", always:true, prefixes:["Corelib"], meta:"rocq-runtime.META", meta_vfs:"/static/lib/rocq-runtime/META", vo:vos("theories",".vo")});
 if(fs.existsSync("user-contrib/Stdlib")) packs.push({name:"stdlib", prefixes:["Stdlib"], vo:vos("user-contrib/Stdlib",".vo")});
 if(fs.existsSync("user-contrib/HB")){
-  const hb=["user-contrib/elpi_elpi/dummy.vos","user-contrib/elpi/elpi.vos","user-contrib/elpi/apps/locker/locker.vos","user-contrib/HB/structures.vos"].filter(f=>fs.existsSync(f));
+  const hb=vos("user-contrib/elpi_elpi",".vos").concat(vos("user-contrib/elpi",".vos").filter(f=>!f.includes("/apps/derive/")),vos("user-contrib/HB",".vos"));
   packs.push({name:"mathcomp-hb", prefixes:["HB","elpi","elpi_elpi"], meta:"rocq-elpi.META", meta_vfs:"/static/lib/rocq-elpi/META", vo:hb});
-  const mc=pk=>vos("user-contrib/mathcomp/"+pk,".vos");
-  if(mc("boot").length)         packs.push({name:"mathcomp-boot", prefixes:["mathcomp.boot"], requires:["mathcomp-hb"], vo:mc("boot")});
-  if(mc("order").length)        packs.push({name:"mathcomp-order", prefixes:["mathcomp.order"], requires:["mathcomp-hb","mathcomp-boot"], vo:mc("order")});
-  if(mc("finite_group").length) packs.push({name:"mathcomp-fingroup", prefixes:["mathcomp.fingroup","mathcomp.finite_group"], requires:["mathcomp-hb","mathcomp-boot"], vo:mc("finite_group")});
-  if(mc("ssreflect").length)    packs.push({name:"mathcomp-ssreflect", prefixes:["mathcomp.ssreflect"], requires:["mathcomp-hb","mathcomp-boot","mathcomp-order"], vo:mc("ssreflect")});
-  if(mc("algebra").length)      packs.push({name:"mathcomp-algebra", prefixes:["mathcomp.algebra"], requires:["mathcomp-hb","mathcomp-boot","mathcomp-order"], vo:mc("algebra")});
+  // elpi.apps.derive is only needed by the algebra tactics and weighs 20 MB: its own pack
+  if(fs.existsSync("user-contrib/elpi/apps/derive")) packs.push({name:"elpi-derive", prefixes:["elpi.apps.derive"], requires:["mathcomp-hb"], vo:vos("user-contrib/elpi/apps/derive",".vos")});
+  // pack `requires` come from the real dependencies: deps.txt is `rocq dep` over the
+  // staged sources (build-mathcomp.sh); a source path maps to the pack that ships it.
+  const key=p=>{ p=p.replace(/^"|"$/g,""); if(/stdlib-src\/theories\//.test(p))return "stdlib";
+    if(/^micromega_plugin\//.test(p))return "micromega-plugin"; if(/^apps\/derive\//.test(p))return "elpi-derive"; if(/^(HB|theories|apps|elpi_elpi)\//.test(p))return "mathcomp-hb";
+    const m=/^mathcomp\/([^/]+)\//.exec(p); return m?(m[1]==="finite_group"?"mathcomp-fingroup":"mathcomp-"+m[1]):null; };
+  const deps={};
+  if(fs.existsSync("deps.txt")) for(const line of fs.readFileSync("deps.txt","utf8").split("\n")){
+    const i=line.indexOf(": "); if(i<0)continue;
+    const from=key(line.slice(0,i).split(/\s+/)[0]); if(!from)continue;
+    for(const t of line.slice(i+2).split(/\s+/)){ if(!/\.vos?$/.test(t))continue; const k=key(t); if(k&&k!==from)(deps[from]=deps[from]||new Set()).add(k); }
+  }
+  const mc=(name,dir,prefixes,extra)=>{ const vo=vos(dir,".vos"); if(!vo.length)return;
+    packs.push(Object.assign({name,prefixes,requires:[...(deps[name]||[])].sort()},extra,{vo})); };
+  mc("micromega-plugin","user-contrib/micromega_plugin",["micromega_plugin"],{meta:"rocq-micromega-plugin.META",meta_vfs:"/static/lib/rocq-micromega-plugin/META"});
+  const dirs=fs.existsSync("user-contrib/mathcomp")?fs.readdirSync("user-contrib/mathcomp"):[];
+  // dependency order (base packs first) so the manifest reads top-down
+  const order=[]; const visit=d=>{ if(order.includes(d))return; const n=key("mathcomp/"+d+"/x"); for(const r of deps[n]||[]) for(const e of dirs) if(key("mathcomp/"+e+"/x")===r)visit(e); order.push(d); };
+  dirs.sort().forEach(visit);
+  for(const d of order) mc(key("mathcomp/"+d+"/x"),"user-contrib/mathcomp/"+d,["mathcomp."+d].concat(d==="finite_group"?["mathcomp.fingroup"]:[]),{});
+  // a pack whose requirement is not shipped cannot be loaded: drop it
+  for(let dropped=true;dropped;){ dropped=false; for(let i=packs.length-1;i>=0;i--){ const miss=(packs[i].requires||[]).filter(r=>!packs.some(p=>p.name===r)); if(miss.length){console.log("  drop "+packs[i].name+": needs unshipped "+miss.join(",")); packs.splice(i,1); dropped=true;} } }
 }
 packs.forEach(p=>p.size=size(p.vo));
 fs.writeFileSync("packs.json", JSON.stringify({coqlib_vfs:"/static/coqlib", packs}));
 packs.forEach(p=>console.log("  "+p.name+(p.always?"*":"")+": "+p.vo.length+" files, "+(p.size/1048576).toFixed(1)+" MB"));
 '
-rm -f "$CQ/manifest.json"
+rm -f "$CQ/manifest.json" "$CQ/deps.txt"
 
 # ---- 3. native consistency probe against the staged bundle ----
 ROCQ="$SRCI/bin/rocq"
@@ -103,7 +130,15 @@ PROBE="$WORK/probe"; rm -rf "$PROBE"; mkdir -p "$PROBE"
     echo 'Lemma probe_fingroup (gT : finGroupType) (G : {group gT}) : 1%g \in G. Proof. exact: group1. Qed.'
   fi
   if [ -d "$CQ/user-contrib/mathcomp/algebra" ]; then
-    echo 'From mathcomp Require Import all_algebra.'
+    echo 'From mathcomp Require Import all_algebra ring.'
+    echo 'Local Open Scope ring_scope.'
+    echo 'Lemma probe_algebra (R : comRingType) (a b : R) : (a + b) * (a - b) = a * a - b * b. Proof. by ring. Qed.'
+  fi
+  if [ -d "$CQ/user-contrib/mathcomp/analysis" ]; then
+    echo 'From mathcomp Require Import all_reals all_analysis.'
+    echo 'Import Order.Theory.'
+    echo 'Lemma probe_analysis (R : realType) (x : R) : x <= x. Proof. exact: lexx. Qed.'
+    echo 'Lemma probe_expR (R : realType) : expR 0 = 1 :> R. Proof. exact: expR0. Qed.'
   fi
 } > "$PROBE/probe.v"
 # -vok: check the probe fully, loading dependencies as .vos where shipped as such

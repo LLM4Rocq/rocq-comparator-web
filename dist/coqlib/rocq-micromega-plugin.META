@@ -1,0 +1,2 @@
+package "plugin" ( directory = "plugin" requires = "rocq-runtime.plugins.ltac rocq-runtime.vernac" )
+package "zify" ( directory = "zify" requires = "rocq-runtime.plugins.ltac" )

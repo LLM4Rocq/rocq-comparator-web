@@ -143,8 +143,11 @@ const N_CH  = 'Theorem add_0_r : forall n : nat, n + 0 = n.\nProof. Admitted.\n'
 const N_BAD = 'Theorem add_0_r : forall n : nat, 0 + n = n.\nProof. reflexivity. Qed.\n';
 const M_CH  = 'From mathcomp Require Import all_ssreflect.\nLemma foo (s : seq nat) : size (rev s) = size s.\nProof. Admitted.\n';
 const M_SOL = 'From mathcomp Require Import all_ssreflect.\nLemma foo (s : seq nat) : size (rev s) = size s.\nProof. by rewrite size_rev. Qed.\n';
+const A_CH  = 'From mathcomp Require Import all_ssreflect all_algebra reals sequences exp.\nLocal Open Scope ring_scope.\nLemma foo (R : realType) : expR 0 = 1 :> R.\nProof. Admitted.\n';
+const A_SOL = 'From mathcomp Require Import all_ssreflect all_algebra reals sequences exp.\nLocal Open Scope ring_scope.\nLemma foo (R : realType) : expR 0 = 1 :> R.\nProof. exact: expR0. Qed.\n';
 const PACKS = JSON.parse(fs.readFileSync(path.join(DIST, 'coqlib', 'packs.json'), 'utf8'));
 const HAS_MATHCOMP = PACKS.packs.some((p) => p.name === 'mathcomp-ssreflect');
+const HAS_ANALYSIS = PACKS.packs.some((p) => p.name === 'mathcomp-analysis');
 const servedUnder = (log, dir) => log.served.filter((p) => p.indexOf('/coqlib/user-contrib/' + dir + '/') === 0).length;
 
 // One pass: fresh page, optional JSPI suppression inside the worker, all assertions.
@@ -239,6 +242,19 @@ async function runPass(cdp, origin, forceCps, log) {
     ok('lazy: mathcomp packs fetched only by that import', servedUnder(log, 'mathcomp') > 0, 'mathcomp files=' + servedUnder(log, 'mathcomp'));
     try { v = await call(request('foo', M_CH, M_CH)); ok('mathcomp: Admitted ssreflect solution rejected as not_proved', v.ok === false && v.reason === 'not_proved', 'reason=' + v.reason); }
     catch (e) { ok('mathcomp: Admitted ssreflect solution rejected as not_proved', false, e.message); }
+    if (HAS_ANALYSIS) {
+      const t0 = Date.now();
+      try {
+        v = await call(request('foo', A_CH, A_SOL));
+        ok('mathcomp-analysis: expR0 proof accepted (first analysis check ' + (Date.now() - t0) + ' ms)', v.ok === true,
+           'ok=' + v.ok + ' reason=' + v.reason + (v.detail ? ' ' + String(v.detail).replace(/\n/g, ' ').slice(0, 200) : ''));
+      } catch (e) { ok('mathcomp-analysis: expR0 proof accepted', false, e.message); }
+      ok('lazy: analysis, algebra and micromega_plugin files fetched only by that import',
+         servedUnder(log, 'mathcomp/analysis') > 0 && servedUnder(log, 'mathcomp/algebra') > 0 && servedUnder(log, 'micromega_plugin') > 0,
+         'analysis=' + servedUnder(log, 'mathcomp/analysis') + ' algebra=' + servedUnder(log, 'mathcomp/algebra') + ' micromega_plugin=' + servedUnder(log, 'micromega_plugin'));
+      try { v = await call(request('foo', A_CH, A_CH)); ok('mathcomp-analysis: Admitted solution rejected as not_proved', v.ok === false && v.reason === 'not_proved', 'reason=' + v.reason); }
+      catch (e) { ok('mathcomp-analysis: Admitted solution rejected as not_proved', false, e.message); }
+    }
   } else {
     console.log('skip mathcomp cases: no mathcomp packs in ' + path.join(DIST, 'coqlib', 'packs.json'));
   }

@@ -44,24 +44,31 @@ A **Stdlib subset** is also bundled (`From Stdlib Require Import ZArith / QArith
 Reals / Lia / Lra`, ~28 MB), so `ring`, `field`, `lia`, `lra` over `Z`, `Q`, `R`
 check in-browser (all 16 stdlib plugins statically linked).
 
-**mathcomp: trusted `.vos` packs, fetched lazily.** Libraries are published as
-separate packs (`dist/coqlib/packs.json`): `corelib` (always mounted), `stdlib`,
-and `mathcomp-{hb,boot,order,fingroup,ssreflect}`. Before each check the worker
-scans the challenge and solution for `Require` / `From X Require`, resolves the
-packs they need by logical-name prefix, and fetches and mounts only those
+**mathcomp and mathcomp-analysis: trusted `.vos` packs, fetched lazily.**
+Libraries are published as separate packs (`dist/coqlib/packs.json`): `corelib`
+(always mounted), `stdlib`, `mathcomp-hb`, `elpi-derive`, `micromega-plugin` and
+one `mathcomp-<dir>` pack per installed mathcomp directory (`boot`, `order`,
+`fingroup`, `ssreflect`, `algebra`, `solvable`, `field`, `finmap`, `bigenough`,
+`classical`, `reals`, `analysis`). Before each check the worker scans the
+challenge and solution for `Require` / `From X Require`, resolves the packs they
+need by logical-name prefix, closes over each pack's `requires` (derived from the
+real `rocq dep` dependencies at build time) and fetches and mounts only those
 (cached across checks). A pack a check never imports is never downloaded. The
-mathcomp packs are compiled with `rocqc -vos`: a library interface with the
-opaque `Qed` proof bodies stripped. Loading one type-checks the solution against
-the library without re-checking the library's own proofs, which is already the
-browser trust model (rocqchk is off there, so `.vo` are trusted too), so `.vos`
-changes nothing about soundness. The solution's own proof is fully kernel-checked.
-`From mathcomp Require Import all_ssreflect` fetches about 36 MB of packs on the
-first mathcomp check. Coq-Elpi, Hierarchy Builder and the ssreflect plugins are
-statically linked into the engines. Building the `.vos` needed one port: elpi's
-clause-index `hash_bits` forced to 30 (the 32-bit-host value) so its serialized
-index is readable by the 31-bit engine. **mathcomp-analysis** is not built (the
-installed copy is for rocq 9.1.1, not the core's 9.2); `packs.json` has a
-documented slot for it (`BACKEND.md` section 16.7). If the engine is absent
+packs are compiled with `rocqc -vos`: a library interface with the opaque `Qed`
+proof bodies stripped. Loading one type-checks the solution against the library
+without re-checking the library's own proofs, which is already the browser trust
+model (rocqchk is off there, so `.vo` are trusted too), so `.vos` changes nothing
+about soundness. The solution's own proof is fully kernel-checked. Sizes: `From
+mathcomp Require Import all_ssreflect` fetches 4 packs (36 MB), `all_algebra` 7
+packs (122 MB), and an analysis import such as `reals sequences exp` 14 packs
+(206 MB, about 102 MB with gzip); the first analysis check takes about 80 s
+(JSPI engine) to 130 s (cps engine) in a headless browser and needs several GB
+of browser memory. Coq-Elpi (with its `derive` app), Hierarchy Builder, the
+ssreflect plugins and the standalone micromega plugin that mathcomp 2.6's
+`ring`/`lra` tactics use are statically linked into the engines. Building the
+`.vos` needed one port: elpi's clause-index `hash_bits` forced to 30 (the 32-bit
+host value) so its serialized index is readable by the 31-bit engine.
+If the engine is absent
 entirely, the page still loads and the demo-verdict buttons work.
 
 ## Quick start
@@ -82,10 +89,11 @@ make site       # assemble dist/ from the committed frontend + engines
                 #   -> fast, needs NO opam switch. This is what CI runs.
 make real       # (re)build BOTH wasm engines (dist/engine-cps + dist/engine-jspi,
                 #   each glue .js + .assets/code-*.wasm) — needs the opam switch.
-make test       # node judge harness against BOTH engines -> 12 passed, 0 failed each
+make test       # node judge harness against BOTH engines -> 22 passed, 0 failed each
+                #   (the analysis case loads about 200 MB of .vos: minutes, 16 GB node heap)
 make test-browser # serve dist/ and run it in a headless Brave/Chrome/Edge (DevTools
                 #   protocol, no npm deps): runtime ready, no 404s, Run button verdict,
-                #   Stdlib and mathcomp proofs, rejections, lazy pack fetch; once as
+                #   Stdlib, mathcomp and analysis proofs, rejections, lazy pack fetch; once as
                 #   shipped and once on /?engine=cps
 make bundle     # everything from scratch in the required order:
                 #   native -> stdlib -> mathcomp -> real (hours the first time)

@@ -92,7 +92,7 @@ serve: site
 	@echo "Serving dist/ at http://localhost:$(PORT)/   (Ctrl-C to stop)"
 	@cd dist && python3 -m http.server $(PORT)
 
-## test: run the node judge harness against BOTH built engines (12/12 each)
+## test: run the node judge harness against BOTH built engines (22/22 each)
 test:
 	$(NODE) test/judge_test.cjs "$$PWD/dist"
 
