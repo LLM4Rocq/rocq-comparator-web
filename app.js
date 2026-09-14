@@ -26,16 +26,58 @@
   // simpl, rewrite, auto, ...). The default is a genuine nat + tactics proof,
   // kernel-checked in the browser. Uncheck into -noinit only for prelude-free
   // core Gallina. Theorem/Lemma/Example names are auto-detected.
-  const DEFAULT_CHALLENGE = `(* The challenge states the goal and leaves the proof open. *)
-Theorem add_0_r : forall n : nat, n + 0 = n.
+  const DEFAULT_CHALLENGE = `(* Commutativity of multiplication, from the Corelib prelude alone. *)
+Theorem mul_comm : forall n m : nat, n * m = m * n.
 Proof. Admitted.
 `;
 
-  const DEFAULT_SOLUTION = `Theorem add_0_r : forall n : nat, n + 0 = n.
+  const DEFAULT_SOLUTION = `Lemma add_0_r : forall n : nat, n + 0 = n.
 Proof.
   induction n as [| n IH]; simpl.
   - reflexivity.
   - rewrite IH. reflexivity.
+Qed.
+
+Lemma add_succ_r : forall n m : nat, n + S m = S (n + m).
+Proof.
+  induction n as [| n IH]; intro m; simpl.
+  - reflexivity.
+  - rewrite IH. reflexivity.
+Qed.
+
+Lemma add_comm : forall n m : nat, n + m = m + n.
+Proof.
+  induction n as [| n IH]; intro m; simpl.
+  - rewrite add_0_r. reflexivity.
+  - rewrite IH, add_succ_r. reflexivity.
+Qed.
+
+Lemma add_assoc : forall a b c : nat, a + (b + c) = a + b + c.
+Proof.
+  induction a as [| a IH]; intros b c; simpl.
+  - reflexivity.
+  - rewrite IH. reflexivity.
+Qed.
+
+Lemma mul_0_r : forall n : nat, n * 0 = 0.
+Proof.
+  induction n as [| n IH]; simpl.
+  - reflexivity.
+  - exact IH.
+Qed.
+
+Lemma mul_succ_r : forall n m : nat, n * S m = n + n * m.
+Proof.
+  induction n as [| n IH]; intro m; simpl.
+  - reflexivity.
+  - rewrite IH, add_assoc, add_assoc, (add_comm m n). reflexivity.
+Qed.
+
+Theorem mul_comm : forall n m : nat, n * m = m * n.
+Proof.
+  induction n as [| n IH]; intro m; simpl.
+  - rewrite mul_0_r. reflexivity.
+  - rewrite mul_succ_r, IH. reflexivity.
 Qed.
 `;
 
