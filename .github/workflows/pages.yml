@@ -8,7 +8,8 @@
 #   dist/engine-jspi/rocq_engine.js + dist/engine-jspi/rocq_engine.assets/code-*.wasm
 # There is NO server-side code and NO js_of_ocaml backend.
 #
-# cps is the UNIVERSAL default (all browsers + any Node); jspi is a smaller/faster
+# Both need WebAssembly GC, tail calls and exception handling (Chrome/Edge 119+,
+# Firefox 122+, Safari 18.2+). cps is the default (no JSPI); jspi is a smaller/faster
 # upgrade the worker loads only where JSPI exists (Chrome/Edge 137+, Node 24+).
 # The worker feature-detects at load and each visitor fetches exactly ONE engine.
 #

@@ -4,10 +4,12 @@
 # Produces TWO wasm engines (no js_of_ocaml backend) under dist/, each the full
 # rocq-comparator pipeline + a patched (Int64-backed, 31-bit-uint63) rocq-runtime
 # kernel, compiled with wasm_of_ocaml, that ACTUALLY RUNS a Rocq check:
-#   dist/engine-cps/   — --effects=cps : universal, runs on ALL browsers + any
-#                        Node. Larger .wasm. The DEFAULT the worker loads.
-#   dist/engine-jspi/  — --effects=jspi: JS Promise Integration; smaller/faster
+#   dist/engine-cps/   (--effects=cps): needs no JSPI. Larger .wasm. The DEFAULT
+#                        the worker loads.
+#   dist/engine-jspi/  (--effects=jspi): JS Promise Integration; smaller/faster
 #                        .wasm, only where JSPI exists (Node 24+, Chrome/Edge 137+).
+# Both need WebAssembly GC, tail calls and exception handling (Chrome/Edge 119+,
+# Firefox 122+, Safari 18.2+, Node 22+); the page checks before starting them.
 # The worker (web/rocq_worker.js) feature-detects JSPI at load and fetches ONE.
 #
 # The one hard blocker (BACKEND.md 1c) is the kernel's Sys.word_size=64 assert:
@@ -95,7 +97,7 @@ echo "== [4/6] wasm_of_ocaml -> dist/engine-cps + dist/engine-jspi =="
 # stubs delegate arbitrary-precision arithmetic to JS BigInt helpers
 # (web/rocq_zarith.js) imported from the "js" module (= globalThis); the glue
 # patch below wires them in.  The SAME web_check.bc is compiled twice, differing
-# only in --effects (cps = universal / jspi = JSPI upgrade); the two engines are
+# only in --effects (cps = no JSPI / jspi = JSPI upgrade); the two engines are
 # behaviourally identical, so the node test runs both.
 mkdir -p "$HERE/dist"
 for EFF in cps jspi; do
@@ -174,4 +176,4 @@ for EFF in cps jspi; do
   WASM=$(ls "$ENGDIR"/rocq_engine.assets/*.wasm 2>/dev/null | head -1)
   [ -n "$WASM" ] && echo "   engine-$EFF: glue $(wc -c < "$ENGDIR/rocq_engine.js") B + wasm $(wc -c < "$WASM") B (effects=$EFF)"
 done
-echo "   default engine = cps (universal); the worker upgrades to jspi where available."
+echo "   default engine = cps (no JSPI); the worker upgrades to jspi where available."

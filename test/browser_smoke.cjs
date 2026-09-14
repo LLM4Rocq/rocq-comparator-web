@@ -19,9 +19,12 @@
 //   4. lazy import: no Stdlib or mathcomp file is downloaded until a source
 //      imports it.
 //
-// It runs TWICE: once as-is (the worker upgrades to the JSPI engine when the
-// browser supports it) and once on /?engine=cps, which the page forwards to the
-// worker to force the universal cps engine. Both engines must pass.
+// It runs the page as shipped (the worker upgrades to the JSPI engine when the
+// browser has it), on /?engine=cps, which the page forwards to the worker to
+// force the cps engine, and, locally, with the JSPI engine's module blocked
+// (a 404) so the worker must fall back to the cps engine. Both engines must
+// pass. A last page, with WebAssembly.validate stubbed out, checks the
+// unsupported-browser path: a specific message, no worker, demo verdicts.
 //
 //   node test/browser_smoke.cjs [dist]            # BROWSER=/path/to/chrome to override
 //
@@ -129,6 +132,7 @@ function serve(dir, log) {
   const server = http.createServer((req, res) => {
     let p = decodeURIComponent(req.url.split('?')[0]);
     if (p.endsWith('/')) p += 'index.html';
+    if (log.block && log.block.test(p)) { log.blocked.push(p); res.writeHead(404); return res.end('blocked by the test'); }
     const file = path.normalize(path.join(dir, p));
     if (!file.startsWith(dir) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
       log.notFound.push(p); res.writeHead(404); return res.end('not found');
@@ -172,8 +176,10 @@ const E_CH  = 'From Equations Require Import Equations.\nEquations len {A : Set}
 const E_SOL = 'From Equations Require Import Equations.\nEquations len {A : Set} (l : list A) : nat := len nil := 0; len (cons _ l) := S (len l).\nTheorem foo : forall (A : Set) (l1 l2 : list A), len (l1 ++ l2) = len l1 + len l2.\nProof. intros A l1 l2; funelim (len l1); simpl; simp len; f_equal; auto. Qed.\n';
 const servedUnder = (log, dir) => log.served.filter((p) => p.indexOf('/coqlib/user-contrib/' + dir + '/') === 0).length;
 
-// One pass: fresh page, optional JSPI suppression inside the worker, all assertions.
-async function runPass(cdp, origin, forceCps, log) {
+// One pass: fresh page, all assertions. variant: 'auto' (as shipped), 'cps'
+// (/?engine=cps) or 'fallback' (the JSPI module is blocked; startup only).
+async function runPass(cdp, origin, variant, log) {
+  const forceCps = variant === 'cps';
   const results = []; const consoleErrors = []; const workerErrors = [];
   const ok = (name, cond, note) => { results.push({ name, cond: !!cond, note }); console.log((cond ? 'PASS ' : 'FAIL ') + name + (note ? '  ' + note : '')); };
   // assertions that read the local server log have no evidence against a remote site
@@ -202,7 +208,8 @@ async function runPass(cdp, origin, forceCps, log) {
     }
   });
 
-  log.served.length = 0; log.notFound.length = 0;
+  log.served.length = 0; log.notFound.length = 0; log.blocked.length = 0;
+  log.block = variant === 'fallback' ? /^\/engine-jspi\/rocq_engine\.assets\// : null;
   await cdp.send('Page.enable', {}, sessionId);
   await cdp.send('Page.navigate', { url: origin + (forceCps ? '/?engine=cps' : '/') }, sessionId);
 
@@ -220,7 +227,10 @@ async function runPass(cdp, origin, forceCps, log) {
   } catch (e) { readyErr = e.message; }
   const notice = await evaluate(cdp, sessionId, `(() => { const n = document.getElementById('unavailableNotice'); return n && !n.hidden ? document.getElementById('unavailableDetail').textContent : null; })()`, 5000).catch(() => null);
   ok('runtime ready in the browser', !readyErr && !notice, readyErr ? readyErr : notice ? 'page shows: ' + notice : 'rocq ' + version);
-  if (process.env.SMOKE_SHOT && !forceCps) {
+  const state = await evaluate(cdp, sessionId, `(() => { const rc = window.RocqComparator || {}; return { support: rc.support, engine: rc.engine, fallback: rc.fallback, note: document.getElementById('runNote').textContent }; })()`, 5000).catch(() => ({}));
+  const s = state.support || {};
+  ok('feature detection: WebAssembly GC, tail calls and exception handling supported', s.gc === true && s.tailCalls === true && s.exceptions === true, JSON.stringify(state.support));
+  if (process.env.SMOKE_SHOT && variant === 'auto') {
     try {
       await cdp.send('Emulation.setDeviceMetricsOverride', { width: 1200, height: 900, deviceScaleFactor: 1, mobile: false }, sessionId);
       await new Promise((r) => setTimeout(r, 1500));
@@ -229,16 +239,27 @@ async function runPass(cdp, origin, forceCps, log) {
       console.log('screenshot: ' + process.env.SMOKE_SHOT);
     } catch (e) { console.log('screenshot failed: ' + e.message); }
   }
-  const engine = (log.served.find((p) => /engine-(cps|jspi)\/rocq_engine\.js$/.test(p)) || '').replace(/\/rocq_engine\.js$/, '').replace(/^\//, '') || '(none)';
-  okLocal('engine loaded', engine !== '(none)', engine + (forceCps ? ' (forced by ?engine=cps)' : ' (auto)'));
-  if (forceCps) okLocal('?engine=cps selects the universal engine', engine === 'engine-cps', engine);
+  const engine = state.engine || '(none)';
+  ok('engine loaded', /^engine-(cps|jspi)$/.test(engine), engine + (forceCps ? ' (forced by ?engine=cps)' : variant === 'fallback' ? ' (after the JSPI engine failed)' : ' (auto)'));
+  okLocal('the engine the loader reports is the one served', log.served.indexOf('/' + engine + '/rocq_engine.js') !== -1);
+  if (forceCps) ok('?engine=cps selects the cps engine', engine === 'engine-cps', engine);
   const bad404 = log.notFound.filter((p) => !/favicon\.ico$/.test(p));
   okLocal('no missing assets (404)', bad404.length === 0, bad404.length ? bad404.slice(0, 5).join(' ') : log.served.length + ' files served');
   ok('no page-side JS errors', consoleErrors.length === 0, consoleErrors.slice(0, 2).join(' | '));
-  ok('no worker-side JS errors', workerErrors.length === 0, workerErrors.slice(0, 2).join(' | '));
+  if (variant !== 'fallback') ok('no worker-side JS errors', workerErrors.length === 0, workerErrors.slice(0, 2).join(' | '));
   okLocal('lazy: no Stdlib or mathcomp file downloaded at startup', servedUnder(log, 'Stdlib') === 0 && servedUnder(log, 'mathcomp') === 0,
      'Stdlib=' + servedUnder(log, 'Stdlib') + ' mathcomp=' + servedUnder(log, 'mathcomp'));
-  if (readyErr || notice) { await cdp.send('Target.closeTarget', { targetId }); return results; }
+  if (variant === 'fallback') {
+    // the blocked JSPI module fails inside the engine glue (an unhandled
+    // rejection the worker forwards as the fatal, with the browser's text); the
+    // loader must then come up on the cps engine and the page must say so
+    ok('JSPI engine failure falls back to the cps engine', engine === 'engine-cps' && typeof state.fallback === 'string' && state.fallback.length > 0,
+       'fallback: ' + String(state.fallback).replace(/\n/g, ' ').slice(0, 160));
+    ok('the page notes the fallback', /JSPI engine failed/.test(state.note), state.note);
+    okLocal('the JSPI module was blocked and the cps module served', log.blocked.length > 0 && log.served.some((p) => /^\/engine-cps\/rocq_engine\.assets\//.test(p)),
+       'blocked=' + log.blocked.join(' '));
+  }
+  if (readyErr || notice || variant === 'fallback') { await cdp.send('Target.closeTarget', { targetId }); return results; }
 
   // 1b. the Libraries strip is built from packs.json and its chips insert imports
   try {
@@ -363,13 +384,44 @@ async function runPass(cdp, origin, forceCps, log) {
   return results;
 }
 
+// The unsupported-browser path: with WebAssembly.validate answering no, the
+// loader must spawn no worker, the page must name the missing extensions and
+// the demo verdicts must still work.
+async function unsupportedPass(cdp, origin) {
+  const results = [];
+  const ok = (name, cond, note) => { results.push({ name, cond: !!cond, note }); console.log((cond ? 'PASS ' : 'FAIL ') + name + (note ? '  ' + note : '')); };
+  const { targetId } = await cdp.send('Target.createTarget', { url: 'about:blank' });
+  const { sessionId } = await cdp.send('Target.attachToTarget', { targetId, flatten: true });
+  let workers = 0;
+  cdp.on((m) => { if (m.method === 'Target.attachedToTarget' && m.sessionId === sessionId && m.params.targetInfo.type === 'worker') workers++; });
+  await cdp.send('Target.setAutoAttach', { autoAttach: true, waitForDebuggerOnStart: false, flatten: true }, sessionId);
+  await cdp.send('Runtime.enable', {}, sessionId);
+  await cdp.send('Page.enable', {}, sessionId);
+  await cdp.send('Page.addScriptToEvaluateOnNewDocument', { source: 'WebAssembly.validate = () => false;' }, sessionId);
+  await cdp.send('Page.navigate', { url: origin + '/' }, sessionId);
+  const r = await evaluate(cdp, sessionId, `(async () => {
+    const t0 = Date.now();
+    let n;
+    while (!(n = document.getElementById('unavailableNotice')) || n.hidden) { if (Date.now() - t0 > 15000) throw new Error('the unavailable notice never showed'); await new Promise(r => setTimeout(r, 50)); }
+    document.getElementById('loadDemoOk').click();
+    const q = (s) => (document.querySelector(s) || {}).textContent || '';
+    return { support: window.RocqComparator.support, detail: q('#unavailableDetail'), status: q('#backendStatusText'), runDisabled: document.getElementById('runBtn').disabled, demo: q('#verdictBody .banner .title') };
+  })()`, 20000).catch((e) => ({ error: e.message }));
+  await new Promise((res) => setTimeout(res, 500)); // a spawned worker would have attached by now
+  ok('unsupported browser: the missing extensions are named', /lacks WebAssembly GC, tail calls and exception handling/.test(r.detail) && /Safari 18\.2\+/.test(r.detail), r.error || r.detail);
+  ok('unsupported browser: no worker spawned, Run disabled', workers === 0 && r.runDisabled === true && r.status === 'Browser not supported', 'workers=' + workers + ' status=' + r.status);
+  ok('unsupported browser: the demo verdict still renders', r.demo === 'Proved', r.demo);
+  await cdp.send('Target.closeTarget', { targetId });
+  return results;
+}
+
 (async () => {
   if (!REMOTE && !fs.existsSync(path.join(DIST, 'index.html'))) { console.error('no dist/index.html at ' + DIST + ' (run make site)'); process.exit(2); }
   const exe = findBrowser();
   if (!exe) { console.error('no Chromium-family browser found (set BROWSER=/path/to/chrome); skipping browser smoke test'); process.exit(3); }
   await loadSiteData();
   if (!HEAVY) console.log('SMOKE_HEAVY=0: the mathcomp-analysis case is skipped');
-  const log = { served: [], notFound: [] };
+  const log = { served: [], notFound: [], blocked: [], block: null };
   const local = REMOTE ? null : await serve(DIST, log);
   const origin = REMOTE || ('http://127.0.0.1:' + local.port);
   const browser = launchBrowser(exe);
@@ -377,11 +429,14 @@ async function runPass(cdp, origin, forceCps, log) {
   try {
     const cdp = await CDP.connect(await browser.wsUrl);
     console.log('browser: ' + exe + '\n' + (REMOTE ? 'site: ' + origin : 'serving: ' + DIST + ' at ' + origin));
-    for (const forceCps of [false, true]) {
-      console.log('\n== pass ' + (forceCps ? '2: /?engine=cps (universal cps engine)' : '1: as shipped (JSPI upgrade if the browser has it)') + ' ==');
-      const res = await runPass(cdp, origin, forceCps, log);
+    const TITLES = { auto: '1: as shipped (JSPI upgrade if the browser has it)', cps: '2: /?engine=cps (the cps engine, no JSPI)', fallback: '3: JSPI module blocked (fallback to the cps engine)' };
+    for (const variant of REMOTE ? ['auto', 'cps'] : ['auto', 'cps', 'fallback']) {
+      console.log('\n== pass ' + TITLES[variant] + ' ==');
+      const res = await runPass(cdp, origin, variant, log);
       failed += res.filter((r) => !r.cond).length;
     }
+    console.log('\n== unsupported browser (WebAssembly.validate stubbed out) ==');
+    failed += (await unsupportedPass(cdp, origin)).filter((r) => !r.cond).length;
   } catch (e) { console.error('smoke test error: ' + (e.stack || e.message)); failed += 1; }
   finally { browser.kill(); if (local) local.server.close(); }
   console.log('\n' + (failed ? failed + ' FAILED' : 'ALL PASSED') + ' (real browser, both engines)');

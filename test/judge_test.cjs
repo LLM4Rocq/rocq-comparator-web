@@ -6,7 +6,7 @@
 // rejected, ZArith+ring and Reals+lra proofs accept, plus the axiom/statement
 // checks. Proof that the full rocq-comparator kernel pipeline runs client-side.
 //
-// TWO ENGINES, ONE SUITE. dist ships engine-cps/ (universal) and engine-jspi/
+// TWO ENGINES, ONE SUITE. dist ships engine-cps/ (no JSPI) and engine-jspi/
 // (JSPI upgrade). With no --engine, this file is an ORCHESTRATOR: it finds both
 // engines under the given dist dir and spawns one child (worker mode) per engine
 // so each gets a clean process (RocqComparator + its VFS are per-process

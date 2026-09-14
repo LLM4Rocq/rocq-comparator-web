@@ -20,10 +20,12 @@ separate project that consumes it as a library.
 > client-side on a **`wasm_of_ocaml`** build of rocq-runtime 9.2. TWO engines
 > ship — the SAME build differing only in the effects backend — and the worker
 > loads exactly one, feature-detected at load:
-> **`dist/engine-cps/`** (`--effects=cps`, ~12 MB `.wasm`) is the **universal
-> default** (every browser + any Node); **`dist/engine-jspi/`**
+> **`dist/engine-cps/`** (`--effects=cps`, ~12 MB `.wasm`) is the **default**
+> (no JSPI needed); **`dist/engine-jspi/`**
 > (`--effects=jspi`, ~5 MB `.wasm`) is a smaller/faster **upgrade** loaded only
-> where `WebAssembly.Suspending` exists (Chrome/Edge ≥ 137, Node 24+). The
+> where `WebAssembly.Suspending` exists (Chrome/Edge ≥ 137, Node 24+). Both need
+> WebAssembly GC, tail calls and exception handling (Chrome/Edge 119+, Firefox
+> 122+, Safari 18.2+, Node 22+; §6.2). The
 > `Sys.word_size=64` blocker is cleared surgically (patched
 > `kernel.cma`/`lib.cma`/`clib.cma` overlay, core switch untouched); the Corelib
 > prelude + a Stdlib subset (`ring`/`lia`/`lra`) load; the custom C primitives
@@ -475,6 +477,31 @@ byte-accurate bar during downloads and an elapsed timer during the check,
 because no finer progress exists inside a single Rocq `Require`. The `check`
 event is also what arms the hard timeout above. The callback is per call; the
 frozen contract without it is unchanged.
+
+### 6.2 Browser support, loading stages and the JSPI fallback
+
+The engines need WebAssembly GC, tail calls and exception handling, in the
+legacy `try`/`catch` form `wasm_of_ocaml` 6.4.1 emits for browsers (it emits
+`try_table` only for WASI): Chrome and Edge 119+, Firefox 122+, Safari 18.2+,
+Node 22+. Before spawning the worker the loader validates one minimal module
+per extension with `WebAssembly.validate` (a `struct` type; a `return_call`; a
+tag with `try`/`throw`/`catch`) and exposes the result as
+`support: {gc, tailCalls, exceptions}`. When one is missing no worker is
+spawned and `ready` rejects with a message naming it; the page shows it in
+place of the generic failure and keeps the demo verdicts.
+
+While `ready` is pending the worker reports `{type:'loading', stage:'engine'}`
+(fetching and compiling the module, a minute or more on a phone) then
+`{stage:'prelude'}` (mounting the Corelib); the loader exposes it as `stage`
+and the page shows an elapsed timer. The engine glue instantiates its module in
+an async function nobody awaits, so a failure there only surfaces as an
+unhandled rejection or an error event in the worker: the worker records it
+until the engine is installed and posts it as the fatal, with the browser's
+own text, instead of waiting out the poll (now 300 s). Every fatal names its
+engine; when `engine-jspi` fails and no `?engine=` is forced, the loader
+respawns the worker once with `?engine=cps`, keeps the error as `fallback`
+and reports the engine that came up as `engine`. These fields are additions;
+the three frozen members are unchanged.
 
 ## 7. Files produced by this spike
 
@@ -1012,8 +1039,10 @@ backend has been removed.** The same coerce-32bit overlay, the same 32-bit-safe
 `.vo` bundle, and the same seam (`web/web_check.ml`) produce **two** engines
 from one bytecode, differing only in the `wasm_of_ocaml` effects backend:
 
-- **`dist/engine-cps/`** (`--effects=cps`) — the **universal default**: runs in
-  every browser (Safari, Firefox, older Chrome/Edge) and any Node. ~12 MB `.wasm`.
+- **`dist/engine-cps/`** (`--effects=cps`) — the **default**: needs no JSPI, so
+  it runs wherever the engines run at all (WebAssembly GC, tail calls and
+  exception handling: Chrome/Edge 119+, Firefox 122+, Safari 18.2+, Node 22+;
+  §6.2). ~12 MB `.wasm`.
 - **`dist/engine-jspi/`** (`--effects=jspi`) — a smaller/faster **upgrade**
   (~5 MB `.wasm`) using the JS Promise Integration API; loaded only where
   `WebAssembly.Suspending` exists (Chrome/Edge ≥ 137, Node 24+).
@@ -1027,7 +1056,7 @@ Both are verified headless under Node (`make test` → **12 passed, 0 failed** f
 
 | engine | module | glue | total | audience |
 |---|---|---|---|---|
-| **WASM cps (default)** | 12.3 MB `.wasm` | 20 KB `.js` | **~12.3 MB** | all browsers + any Node |
+| **WASM cps (default)** | 12.3 MB `.wasm` | 20 KB `.js` | **~12.3 MB** | Chrome/Edge 119+, Firefox 122+, Safari 18.2+, Node 22+ |
 | WASM jspi (upgrade) | 5.10 MB `.wasm` | 20 KB `.js` | ~5.12 MB | Chrome/Edge ≥ 137, Node 24+ |
 
 Each visitor downloads exactly one of these. The `.vo` bundle (`dist/coqlib/`,
@@ -1152,8 +1181,9 @@ wrapped in a function expression, so `fun_call` keeps the right `this` on wasm).
 
 Verified **headless under Node 24** only (both engines, 12/12 each). Selection is
 by capability, not user-agent: `engine-jspi/` where `WebAssembly.Suspending`
-exists (Chrome/Edge ≥ 137, Node 24+), else the universal `engine-cps/` (Safari,
-Firefox, older Chrome/Edge — the cps backend uses no JSPI at all). GitHub Pages
+exists (Chrome/Edge ≥ 137, Node 24+), else `engine-cps/` (the cps backend uses
+no JSPI at all; both still need WasmGC, tail calls and exception handling; §6.2).
+GitHub Pages
 serves `.wasm` as `application/wasm` and both engines are single-threaded, so no
 COOP/COEP headers are needed. Live in-browser behaviour (Worker `importScripts`,
 the JSPI feature-detect, `fetch` of the `.assets` `.wasm` relative to the worker

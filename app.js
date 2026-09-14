@@ -285,23 +285,39 @@ Qed.
         SERVE_FIX);
       return;
     }
-    setBackendState("loading", "Loading Rocq runtime…");
+    // Elapsed time and the worker's stage while the runtime loads: compiling
+    // the module takes a minute or more on a phone, and the page must not look dead.
+    const t0 = Date.now();
+    const STAGE = { engine: "Compiling the engine", prelude: "Loading the prelude" };
+    const tick = () => setBackendState("loading", `${STAGE[rc.stage] || "Loading Rocq runtime"} (${Math.round((Date.now() - t0) / 1000)} s)`);
+    tick();
+    const timer = setInterval(tick, 1000);
     try {
       await rc.ready;
       const v = rc.version ? ` (Rocq ${rc.version})` : "";
       setBackendState("ready", `Rocq runtime ready${v}`);
       runBtn.disabled = false;
-      runNote.textContent = "";
+      runNote.textContent = rc.fallback ? "JSPI engine failed, using the cps engine." : "";
     } catch (e) {
-      // (ii)/(iii) the loader is present but the worker or engine failed:
-      //     rocq_worker.js / rocq_engine.js missing (wrong directory served),
-      //     a file:// origin, or an engine fatal at init. Surface the reason.
       const msg = (e && e.message) || String(e);
+      const s = rc.support;
+      // (ii) a WebAssembly extension the engines need is missing: the loader
+      //      spawned no worker and its message names the extension.
+      if (s && !(s.gc && s.tailCalls && s.exceptions)) {
+        setBackendState("unavailable", "Browser not supported");
+        showUnavailable(msg, null);
+        return;
+      }
+      // (iii) the worker or engine failed: rocq_worker.js / rocq_engine.js
+      //       missing (wrong directory served), a file:// origin, or an engine
+      //       fatal at init. Surface the reason, with the browser's own text.
       setBackendState("unavailable", "Rocq runtime failed to load");
-      const looksLikeMissing = /load|worker|fetch|network|404|import/i.test(msg);
+      const looksLikeMissing = /load|worker|fetch|network|404|import/i.test(msg) && !/CompileError|LinkError|RangeError|memory/i.test(msg);
       showUnavailable(
         "The Rocq worker/engine failed to start: " + msg,
         looksLikeMissing ? SERVE_FIX : null);
+    } finally {
+      clearInterval(timer);
     }
   }
   initBackend();

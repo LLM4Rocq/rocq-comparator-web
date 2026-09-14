@@ -28,10 +28,21 @@ Libraries are trusted, not re-checked, exactly as on the command line: a
 library ships as `.vos` files (its interface, with proof bodies stripped), and
 the solution is checked against the library's statements.
 
-Two engines are shipped and the worker picks one: `engine-cps` runs in every
-browser, `engine-jspi` is smaller and faster and is used where the browser has
-JS Promise Integration (Chrome and Edge 137 or later). Add `?engine=cps` or
-`?engine=jspi` to the page URL to force one.
+Two engines are shipped, the same build with two effect backends, and the
+worker picks one: `engine-jspi` is smaller and faster and needs JS Promise
+Integration (Chrome and Edge 137 or later); `engine-cps` needs no JSPI. If the
+JSPI engine fails to start, the worker is restarted on `engine-cps` and the
+page says so. Add `?engine=cps` or `?engine=jspi` to the page URL to force one.
+
+## Browser support
+
+Both engines are `wasm_of_ocaml` output and need three WebAssembly extensions:
+GC, tail calls and exception handling. That means Chrome and Edge 119+,
+Firefox 122+, Safari 18.2+ (iOS 18.2+). The page checks for them before
+starting the engine and names the missing one. Safari on iOS may take a minute
+or more to compile the engine; the page shows the elapsed time. A phone can run
+the small checks but not the mathcomp-analysis packs, which need several GB of
+memory.
 
 ## Libraries
 
@@ -99,7 +110,8 @@ why it exists, are in `BACKEND.md`.
   pack resolution).
 - `make test-browser` serves `dist/` and drives a real headless browser through
   the DevTools protocol: runtime startup, the Run button, proofs across the
-  libraries, rejections, lazy downloads, the progress events, the timeout. Set
+  libraries, rejections, lazy downloads, the progress events, the timeout, the
+  fallback from a failing JSPI engine, the unsupported-browser message. Set
   `SMOKE_HEAVY=0` to skip the analysis case; `SMOKE_SHOT=file.png` saves a
   screenshot.
 - `make test-live URL=https://...` runs the browser checks against a deployed

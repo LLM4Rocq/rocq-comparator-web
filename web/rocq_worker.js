@@ -18,14 +18,17 @@
 
 self.window = self; // web_check installs on the global; make `window` an alias
 
-// ---- pick the engine variant: cps (universal) or jspi (upgrade) -------------
+// ---- pick the engine variant: jspi where the browser has JSPI, else cps ------
+// Both need WebAssembly GC, tail calls and exception handling; the main thread
+// (rocq_comparator.js) checks that before spawning this worker.
 function jspiAvailable() {
   try { return typeof WebAssembly !== "undefined" && typeof WebAssembly.Suspending === "function"; }
   catch (e) { return false; }
 }
 // ?engine=cps|jspi on the worker URL (rocq_comparator.js forwards it from the
-// page URL) forces one variant: used by test/browser_smoke.cjs to exercise the
-// universal engine on a JSPI browser, and handy for trying it by hand.
+// page URL, and sends ?engine=cps itself after the jspi engine failed to start)
+// forces one variant: used by test/browser_smoke.cjs to exercise the cps engine
+// on a JSPI browser, and handy for trying it by hand.
 var FORCED_ENGINE = (function () {
   try { return (new URL(self.location.href).searchParams.get("engine") || "").toLowerCase(); } catch (e) { return ""; }
 })();
@@ -33,23 +36,38 @@ var ENGINE_DIR = (FORCED_ENGINE === "cps" || FORCED_ENGINE === "jspi")
   ? "engine-" + FORCED_ENGINE
   : (jspiAvailable() ? "engine-jspi" : "engine-cps");
 
+// Every fatal names the engine, so the main thread can fall back from jspi to cps.
+function fatal(err) {
+  self.postMessage({ type: 'fatal', engine: ENGINE_DIR, error: (err && err.message) || String(err) });
+}
+
+// The engine glue instantiates its module in an async function nobody awaits,
+// so a failure there (a CompileError, a LinkError, an out-of-memory RangeError)
+// is an unhandled rejection or an error event in this worker and nothing else.
+// Until the engine is installed, record it: awaitEngine turns it into the
+// fatal, with the browser's own text, instead of waiting for its deadline.
+var engine = null;
+var startupError = null;
+self.addEventListener('unhandledrejection', function (ev) { if (!engine) startupError = ev.reason || 'unhandled rejection'; });
+self.addEventListener('error', function (ev) { if (!engine) { startupError = ev.error || ev.message || 'error'; ev.preventDefault(); } });
+
 // rocq_bytes.js: the ONE byte-exact conversion mount() consumes (shared with the
 // node test). rocq_packs.js: the shared scan+resolve for lazy packs. rocq_zarith.js
 // installs globalThis.__rocqz before the engine glue instantiates.
 try {
   importScripts('rocq_bytes.js', 'rocq_packs.js', 'rocq_zarith.js', ENGINE_DIR + '/rocq_engine.js');
 } catch (e) {
-  self.postMessage({ type: 'fatal', error: 'failed to load the engine (' + ENGINE_DIR + '): ' + (e && e.message || e) });
+  fatal(new Error('failed to load the engine (' + ENGINE_DIR + '): ' + (e && e.message || e)));
   throw e;
 }
 
-var engine = null;
 function awaitEngine(timeoutMs) {
   return new Promise(function (resolve, reject) {
     var t0 = Date.now();
     (function poll() {
       if (self.RocqComparator && typeof self.RocqComparator.check === 'function') return resolve(self.RocqComparator);
-      if (Date.now() - t0 > timeoutMs) return reject(new Error('engine did not install RocqComparator (wasm instantiation failed?)'));
+      if (startupError) return reject(new Error('the engine (' + ENGINE_DIR + ') failed to start: ' + ((startupError && startupError.message) || String(startupError))));
+      if (Date.now() - t0 > timeoutMs) return reject(new Error('the engine (' + ENGINE_DIR + ') did not start within ' + Math.round(timeoutMs / 1000) + ' s'));
       setTimeout(poll, 20);
     })();
   });
@@ -149,13 +167,17 @@ async function mountBase() {
 
 (async function () {
   try {
-    engine = await awaitEngine(60000);
+    // The stages the page can show while it waits: the module is fetched and
+    // compiled (a phone takes a minute or more), then the Corelib is mounted.
+    self.postMessage({ type: 'loading', stage: 'engine', engine: ENGINE_DIR });
+    engine = await awaitEngine(300000);
     await engine.ready;
+    self.postMessage({ type: 'loading', stage: 'prelude', engine: ENGINE_DIR });
     var mounted = 0;
     try { mounted = await mountBase(); } catch (e) { mounted = 0; /* -noinit fallback */ }
     self.postMessage({ type: 'ready', version: engine.version, prelude: mounted > 0, vo: mounted, engine: ENGINE_DIR });
   } catch (e) {
-    self.postMessage({ type: 'fatal', error: (e && e.message) || String(e) });
+    fatal(e);
     return;
   }
   self.onmessage = async function (ev) {

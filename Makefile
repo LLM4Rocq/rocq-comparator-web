@@ -8,12 +8,14 @@
 # All of that lives in web/build-real.sh. See BACKEND.md.
 #
 # TWO engines ship, built from the SAME bytecode, differing only in the
-# wasm_of_ocaml effects backend:
-#   * dist/engine-cps/  — --effects=cps : UNIVERSAL (all browsers + any Node).
-#                         The default the worker loads. Larger .wasm (~12 MB).
-#   * dist/engine-jspi/ — --effects=jspi: smaller/faster .wasm (~5 MB), but needs
-#                         JSPI (Node 24+, Chrome/Edge 137+). The worker upgrades
-#                         to it when WebAssembly.Suspending is available.
+# wasm_of_ocaml effects backend. Both need WebAssembly GC, tail calls and
+# exception handling (Chrome/Edge 119+, Firefox 122+, Safari 18.2+, Node 22+):
+#   * dist/engine-cps/  (--effects=cps): needs no JSPI. The default the worker
+#                         loads. Larger .wasm (~12 MB).
+#   * dist/engine-jspi/ (--effects=jspi): smaller/faster .wasm (~5 MB), but needs
+#                         JSPI too (Node 24+, Chrome/Edge 137+). The worker upgrades
+#                         to it when WebAssembly.Suspending is available and falls
+#                         back to cps if it fails to start.
 # There is no js_of_ocaml backend.
 #
 # Two kinds of build:

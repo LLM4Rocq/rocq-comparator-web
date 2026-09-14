@@ -3,8 +3,8 @@
 ;
 ;   dune build web/web_check.bc   links the whole pipeline to bytecode.
 ;
-; web/build-real.sh then runs wasm_of_ocaml over web_check.bc TWICE — the
-; universal --effects=cps engine and the --effects=jspi upgrade engine — to
+; web/build-real.sh then runs wasm_of_ocaml over web_check.bc TWICE, for the
+; --effects=cps engine (no JSPI) and the --effects=jspi upgrade engine, to
 ; produce the shipped WebAssembly engines. There is no js_of_ocaml backend.
 ;
 ; To produce a build that actually RUNS, the .bc is compiled against the
