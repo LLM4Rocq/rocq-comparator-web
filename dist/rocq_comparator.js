@@ -13,7 +13,8 @@
 //                 {stage:'download', pack, packsDone, packsTotal, bytes, bytesTotal}
 //                 while library packs the request imports are fetched, then
 //                 {stage:'check'} when the engine starts checking.
-//   * hard cap    the main thread starts a timer per check; on expiry it
+//   * hard cap    the main thread arms a timer when the worker reports the
+//                 check stage (library downloads never count); on expiry it
 //                 terminate()s the worker, rejects that call with
 //                 Error("timeout"), and respawns the worker (re-ready).
 //
@@ -22,6 +23,7 @@
   "use strict";
 
   var worker = null;
+  var workerReady = null;           // the current worker's own 'ready' (a respawn gets a new one)
   var seq = 0;
   var pending = new Map();          // id -> {resolve, reject, timer}
   var version;
@@ -38,12 +40,16 @@
     var q = '';
     try { var e = new URLSearchParams(window.location.search).get('engine'); if (e) q = '?engine=' + encodeURIComponent(e); } catch (_) {}
     worker = new Worker('rocq_worker.js' + q);
+    var readyRes, readyRej;
+    workerReady = new Promise(function (res, rej) { readyRes = res; readyRej = rej; });
+    workerReady.catch(function () {}); // reported per check, below
     worker.onmessage = function (ev) {
       var d = ev.data || {};
-      if (d.type === 'ready')  { version = d.version; settleReadyOk(); return; }
-      if (d.type === 'fatal')  { settleReadyErr(new Error(d.error || 'engine failed to load')); return; }
+      if (d.type === 'ready')  { version = d.version; readyRes(); settleReadyOk(); return; }
+      if (d.type === 'fatal')  { var f = new Error(d.error || 'engine failed to load'); readyRej(f); settleReadyErr(f); return; }
       if (d.type === 'progress') {
         var q = pending.get(d.id);
+        if (q && d.stage === 'check') q.arm();
         if (q && q.onProgress) { try { q.onProgress(d); } catch (_) {} }
         return;
       }
@@ -57,7 +63,10 @@
       }
     };
     worker.onerror = function (ev) {
-      settleReadyErr(new Error((ev && ev.message) || 'worker error'));
+      var e = new Error((ev && ev.message) || 'worker error');
+      readyRej(e); settleReadyErr(e);
+      pending.forEach(function (p) { clearTimeout(p.timer); p.reject(e); });
+      pending.clear();
     };
   }
 
@@ -75,21 +84,30 @@
   function doCheck(request, onProgress) {
     return new Promise(function (resolve, reject) {
       var id = ++seq;
-      var timeoutMs = 60000;
+      var timeoutS = 600; // the core's own default (Config.default_timeout_s)
       try {
         var cfg = JSON.parse(request).config;
-        if (cfg && typeof cfg.timeout_s === 'number' && cfg.timeout_s > 0) {
-          timeoutMs = Math.ceil((cfg.timeout_s + 5) * 1000); // soft budget + slack
-        }
+        if (cfg && typeof cfg.timeout_s === 'number' && cfg.timeout_s > 0) timeoutS = cfg.timeout_s;
       } catch (_) { /* malformed request: let the engine return config_error */ }
-      var timer = setTimeout(function () {
-        pending.delete(id);
-        try { worker.terminate(); } catch (_) {}
-        respawnAfterKill();
-        reject(new Error('timeout'));
-      }, timeoutMs);
-      pending.set(id, { resolve: resolve, reject: reject, timer: timer, onProgress: onProgress });
-      worker.postMessage({ type: 'check', id: id, request: request });
+      var p = { resolve: resolve, reject: reject, timer: null, onProgress: onProgress };
+      // The hard cap covers the check, not the library downloads before it: the
+      // timer is armed by the worker's {stage:'check'} event. It gives the engine
+      // its own timeout_s budget plus slack, so the in-band timeout verdict (more
+      // informative) wins whenever the engine notices first.
+      p.arm = function () {
+        if (p.timer) return;
+        p.timer = setTimeout(function () {
+          pending.delete(id);
+          try { worker.terminate(); } catch (_) {}
+          respawnAfterKill();
+          reject(new Error('timeout'));
+        }, Math.ceil((timeoutS + 5) * 1000));
+      };
+      pending.set(id, p);
+      // never post before the worker listens: its onmessage exists once the
+      // engine has loaded (seconds after a respawn), and an earlier message is lost
+      workerReady.then(function () { worker.postMessage({ type: 'check', id: id, request: request }); },
+                       function (e) { pending.delete(id); reject(e); });
     });
   }
 

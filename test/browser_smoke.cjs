@@ -9,7 +9,9 @@
 //
 //   1. the page reaches "Rocq runtime ready" (no worker fatal, no 404 on any
 //      asset the worker imports or fetches);
-//   2. clicking Run on the page's default example produces an accepted verdict;
+//   2. clicking Run on the page's default example produces an accepted verdict,
+//      and a check that outruns the page's timeout is stopped with the timeout
+//      message (the worker is respawned);
 //   3. through window.RocqComparator: a Stdlib (ZArith + ring) proof is
 //      accepted, an Admitted one is rejected as not_proved, a wrong statement is
 //      a statement_mismatch; when the mathcomp packs are staged, an ssreflect
@@ -151,8 +153,9 @@ async function loadSiteData() {
   HAS_COQUELICOT = PACKS.packs.some((p) => p.name === 'coquelicot');
   HAS_EQUATIONS = PACKS.packs.some((p) => p.name === 'equations');
 }
+const PAGE_TIMEOUT_S = 300; // the page's default (index.html); the analysis case must pass within it
 function request(theorem, challenge, solution) {
-  return JSON.stringify({ config: Object.assign({}, SAMPLE_CONFIG, { theorem_names: [theorem], timeout_s: 240 }),
+  return JSON.stringify({ config: Object.assign({}, SAMPLE_CONFIG, { theorem_names: [theorem], timeout_s: PAGE_TIMEOUT_S }),
                           files: { 'challenge.v': challenge, 'solution.v': solution } });
 }
 const Z_CH  = 'From Stdlib Require Import ZArith. Open Scope Z_scope.\nTheorem sq : forall a b : Z, (a+b)*(a+b) = a*a + 2*a*b + b*b.\nProof. Admitted.\n';
@@ -270,6 +273,29 @@ async function runPass(cdp, origin, forceCps, log) {
   ok('default example accepted via the Run button',
      !uiErr && uiVerdict.verdict.ok === true && uiVerdict.shown,
      uiErr || ('ok=' + uiVerdict.verdict.ok + ' reason=' + uiVerdict.verdict.reason + ' shown=' + uiVerdict.shown));
+
+  // 2b. a check that outruns the page's timeout: a deliberately slow proof with
+  // a 3 s timeout is stopped by the hard cap (timeout + 5 s) with the specific
+  // message; the worker is respawned, which the checks below then use.
+  const SLOW_CH = 'Lemma slow : True.\nProof. Admitted.\n';
+  const SLOW_SOL = 'Lemma slow : True.\nProof. do 500000000 idtac. exact I. Qed.\n';
+  try {
+    const r = await evaluate(cdp, sessionId, `(async () => {
+      const ch = document.getElementById('challengeSrc'), sol = document.getElementById('solutionSrc'), to = document.getElementById('timeoutS');
+      const saved = [ch.value, sol.value, to.value];
+      ch.value = ${JSON.stringify(SLOW_CH)}; sol.value = ${JSON.stringify(SLOW_SOL)}; to.value = '3';
+      const body = document.getElementById('verdictBody'); body.hidden = true; body.innerHTML = '';
+      const t0 = Date.now();
+      document.getElementById('runBtn').click();
+      while (body.hidden) { if (Date.now() - t0 > 60000) throw new Error('no verdict after Run'); await new Promise(r => setTimeout(r, 100)); }
+      ch.value = saved[0]; sol.value = saved[1]; to.value = saved[2];
+      const q = (s) => (body.querySelector(s) || {}).textContent || '';
+      return { ms: Date.now() - t0, defaultTimeout: saved[2], title: q('.banner .title'), sub: q('.banner .sub') };
+    })()`, 70000);
+    ok('the page defaults to a ' + PAGE_TIMEOUT_S + ' s timeout', r.defaultTimeout === String(PAGE_TIMEOUT_S), 'timeoutS=' + r.defaultTimeout);
+    ok('a check longer than the timeout is stopped with the timeout message (' + r.ms + ' ms)',
+       /past the page's timeout \(3 s\)/.test(r.sub) && /Advanced options/.test(r.sub) && r.ms < 30000, r.title + ': ' + r.sub);
+  } catch (e) { ok('a check longer than the timeout is stopped with the timeout message', false, e.message); }
 
   // 3. through the public API
   const call = (req) => evaluate(cdp, sessionId, `window.RocqComparator.check(${JSON.stringify(req)}).then(JSON.parse)`, CHECK_MS);

@@ -357,7 +357,7 @@ declare global {
     "loadpath": [ {"Q": ["/lib/mylib", "MyLib"]} ],   // -Q/-R/-I; dirs are VFS paths
     "coqproject": null,
     "top": null,                            // logical name; derived if null
-    "timeout_s": 60,                        // best-effort inside worker; hard cap = worker-kill
+    "timeout_s": 300,                       // the check's budget: the engine's own deadline, and the hard cap (worker kill) 5 s later
     "sandbox": "none",                      // ignored in browser (origin is the sandbox)
     "rocqchk": false,                       // MUST be false in browser (no subprocess)
     "vm": false,                            // MUST be false in browser (no bytecode VM)
@@ -452,9 +452,15 @@ Notes for the frontend:
   (or the glue queues them — pick one and document; recommended: glue queues,
   resolves in order).
 - **Hard timeout.** To guarantee termination against an adversarial proof, the
-  main thread starts a timer on `check`; on expiry it **terminates the Web
-  Worker** and rejects that call's promise with `Error("timeout")`, then respawns
-  the worker (re-`ready`). `config.timeout_s` is the soft, in-worker budget.
+  main thread arms a timer when the worker reports `{stage:"check"}` (library
+  downloads never count) and `config.timeout_s + 5` s later **terminates the
+  Web Worker**, rejects that call's promise with `Error("timeout")` and
+  respawns the worker (re-`ready`; a check posted meanwhile waits for the new
+  worker's ready, and downloads its packs again).
+  `config.timeout_s` is also the engine's own budget, Rocq's deadline checked
+  between sentences; a single mathcomp-analysis `Require` can exceed 60 s, so
+  the page defaults to 300 s (Advanced options) and tells the user which
+  timeout stopped a check.
 
 ---
 
@@ -466,8 +472,9 @@ worker fetches the library packs a request imports it calls
 after every file (byte totals come from `packs.json`), then
 `onProgress({stage:"check"})` when the engine starts. The page shows a
 byte-accurate bar during downloads and an elapsed timer during the check,
-because no finer progress exists inside a single Rocq `Require`. The callback
-is per call; the frozen contract without it is unchanged.
+because no finer progress exists inside a single Rocq `Require`. The `check`
+event is also what arms the hard timeout above. The callback is per call; the
+frozen contract without it is unchanged.
 
 ## 7. Files produced by this spike
 

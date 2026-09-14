@@ -315,7 +315,7 @@ Qed.
     const definition_names = splitList($("definitionNames").value);
     const permitted_axioms = splitList($("permittedAxioms").value);
     const top = $("topName").value.trim();
-    const timeout_s = Number($("timeoutS").value) || 60;
+    const timeout_s = Number($("timeoutS").value) || 300;
 
     if (theorem_names.length === 0 && definition_names.length === 0) {
       throw new Error(
@@ -374,7 +374,7 @@ Qed.
       const verdict = JSON.parse(responseJson);
       renderVerdict(verdict);
     } catch (e) {
-      renderInternalError((e && e.message) || String(e));
+      renderInternalError((e && e.message) || String(e), request.config.timeout_s);
     } finally {
       hideProgress();
       runSpinner.hidden = true;
@@ -412,19 +412,41 @@ Qed.
     return chip;
   }
 
-  function renderInternalError(message) {
+  // The loader rejected instead of returning a verdict (or the request could not
+  // be built): say what the message allows. Error("timeout") is the hard cap.
+  function describeFailure(message, timeout_s) {
+    if (message === "timeout") return {
+      title: "Check stopped",
+      sub: `The check ran past the page's timeout (${timeout_s} s) and was stopped. Raise Timeout (seconds) in Advanced options and run again.`,
+    };
+    if (/out.of.memory|allocat/i.test(message)) return {
+      title: "Out of memory",
+      sub: "The browser ran out of memory during the check, not a verdict on the proof. A first mathcomp-analysis check needs several GB; close other tabs or try a machine with more memory.",
+    };
+    if (/RuntimeError|RangeError|unreachable|out of bounds|stack|trap/i.test(message)) return {
+      title: "Engine crashed",
+      sub: "The WebAssembly engine trapped during the check (a wasm trap or a stack overflow), not a verdict on the proof.",
+    };
+    return {
+      title: "Could not complete the check",
+      sub: "This is an out-of-band failure (malformed request, wasm trap, out of memory, or the worker was terminated), not a verdict on the proof.",
+    };
+  }
+
+  function renderInternalError(message, timeout_s) {
     verdictEmpty.hidden = true;
     verdictBody.hidden = false;
     verdictBody.innerHTML = "";
+    const what = describeFailure(message, timeout_s);
     const banner = el("div", { class: "banner", "data-kind": "infra" }, [
       el("span", { class: "icon", text: "⚠️" }),
       el("div", {}, [
-        el("div", { class: "title", text: "Could not complete the check" }),
-        el("div", { class: "sub", text: "This is an out-of-band failure (malformed request, wasm trap, out of memory, or the worker was terminated) — not a verdict on the proof." }),
+        el("div", { class: "title", text: what.title }),
+        el("div", { class: "sub", text: what.sub }),
       ]),
     ]);
     verdictBody.appendChild(banner);
-    verdictBody.appendChild(el("div", { class: "detail-box", text: message }));
+    if (message !== "timeout") verdictBody.appendChild(el("div", { class: "detail-box", text: message }));
   }
 
   function renderVerdict(v) {

@@ -53,7 +53,9 @@ Available: the full Stdlib (582 modules), mathcomp 2.6 (all of it),
 mathcomp-analysis 1.18, Coquelicot 3.4, Equations 1.3. Tactics such as `ring`,
 `field`, `lia`, `lra`, ssreflect, Hierarchy Builder and Equations work; their
 plugins are linked into the engines. A first mathcomp-analysis check takes one
-to two minutes and needs several GB of browser memory.
+to two minutes and needs several GB of browser memory. A check that runs past
+the timeout in Advanced options (300 s by default; downloads do not count) is
+stopped and says so.
 
 No library is patched. A library ships only if its released opam version
 builds unmodified on Rocq 9.2 with mathcomp 2.6. Interval is not shipped for
@@ -97,7 +99,7 @@ why it exists, are in `BACKEND.md`.
   pack resolution).
 - `make test-browser` serves `dist/` and drives a real headless browser through
   the DevTools protocol: runtime startup, the Run button, proofs across the
-  libraries, rejections, lazy downloads, the progress events. Set
+  libraries, rejections, lazy downloads, the progress events, the timeout. Set
   `SMOKE_HEAVY=0` to skip the analysis case; `SMOKE_SHOT=file.png` saves a
   screenshot.
 - `make test-live URL=https://...` runs the browser checks against a deployed
