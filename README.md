@@ -39,7 +39,10 @@ page says so. Add `?engine=cps` or `?engine=jspi` to the page URL to force one.
 Both engines are `wasm_of_ocaml` output and need three WebAssembly extensions:
 GC, tail calls and exception handling. That means Chrome and Edge 119+,
 Firefox 122+, Safari 18.2+ (iOS 18.2+). The page checks for them before
-starting the engine and names the missing one. Safari on iOS may take a minute
+starting the engine and names the missing one. Safari also refuses a module
+with more than one linear memory, and `wasm_of_ocaml` 6.4.1 links three; the
+build merges them into one (BACKEND.md, section 15.7) and `make test` checks
+that each shipped engine has a single memory. Safari on iOS may take a minute
 or more to compile the engine; the page shows the elapsed time. A phone can run
 the small checks but not the mathcomp-analysis packs, which need several GB of
 memory.

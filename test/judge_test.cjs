@@ -139,6 +139,19 @@ function worker(enginePath) {
     console.log('GUARD: mount conversion byte-exact for all 256 values (no TextDecoder)  [decode=' + DECODE + ']');
   })();
 
+  // ---- single-memory guard (hard preflight): Safari refuses a module with more
+  // than one linear memory, and wasm_of_ocaml links three unless build-real.sh
+  // merges them (BACKEND.md 15.7). Parses the import/memory/export sections only.
+  if (isWasm) {
+    const WasmMem = require(path.join(__dirname, '..', 'web', 'wasm_memories.cjs'));
+    const assets = path.join(engineDir, 'rocq_engine.assets');
+    for (const f of fs.readdirSync(assets).filter(f => f.endsWith('.wasm'))) {
+      const m = WasmMem.memories(path.join(assets, f));
+      if (m.memories.length + m.imported.length > 1)
+        throw new Error(f + ': ' + m.memories.length + ' memories defined + ' + m.imported.length + ' imported; Safari allows one (run make real)');
+      console.log('GUARD: ' + f + ' has one linear memory (' + m.memories.length + ' defined, ' + m.imported.length + ' imported; Safari allows at most one)');
+    }
+  }
   if (isWasm) {
     // (1) rocq_zarith.js must install globalThis.__rocqz BEFORE the engine wasm
     //     instantiates; (2) the glue resolves its .wasm at `<src>/code-*.wasm`

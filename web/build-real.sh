@@ -124,6 +124,12 @@ for EFF in cps jspi; do
   #     engine-$EFF/rocq_engine.assets/ and the node test resolves the same path
   #     (require.main-relative) via a symlinked subdir.
   perl -0pi -e "s{\"src\":\"rocq_engine.assets\"}{\"src\":\"engine-$EFF/rocq_engine.assets\"}" "$ENGDIR/rocq_engine.js"
+  # (c) Safari refuses a module with more than one linear memory, and
+  #     wasm_of_ocaml 6.4.1 links three (the third is the runtime's string
+  #     scratch buffer, exported as caml_buffer). Merge them with binaryen and
+  #     repoint the glue at the scratch buffer (web/wasm_memories.cjs; BACKEND.md
+  #     15.7). Upstream emits one memory after 6.4.1 (js_of_ocaml PR 2405).
+  node "$HERE/web/wasm_memories.cjs" --lower "$ENGDIR"/rocq_engine.assets/code-*.wasm "$ENGDIR/rocq_engine.js"
 done
 # Shared, engine-independent glue at dist root, loaded by the worker BEFORE the
 # engine: the byte-exact mount() conversion (rocq_bytes.js — fixes the browser

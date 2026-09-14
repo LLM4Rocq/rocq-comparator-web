@@ -59,10 +59,8 @@ Array(a),new_obj:()=>({}),new:(a,b)=>new
 a(...b),global_this:globalThis,iter_props:(a,b)=>{for(var
 c
 in
-a)if(Object.hasOwn(a,c))b(c)},array_length:a=>a.length,array_get:(a,b)=>a[b],array_set:(a,b,c)=>a[b]=c,read_string:a=>l.decode(new
-Uint8Array(k,0,a)),read_string_stream:(a,b)=>l.decode(new
-Uint8Array(k,0,a),{stream:b}),append_string:(a,b)=>a+b,write_string:a=>{var
-c=0,b=a.length;for(;;){const{read:d,written:e}=O.encodeInto(a.slice(c),ab);b-=d;if(!b)return e;J(e);c+=d}},ta_create:(a,b)=>new
+a)if(Object.hasOwn(a,c))b(c)},array_length:a=>a.length,array_get:(a,b)=>a[b],array_set:(a,b,c)=>a[b]=c,read_string:a=>l.decode(k().subarray(0,a)),read_string_stream:(a,b)=>l.decode(k().subarray(0,a),{stream:b}),append_string:(a,b)=>a+b,write_string:a=>{var
+c=0,b=a.length;for(;;){const{read:d,written:e}=O.encodeInto(a.slice(c),k());b-=d;if(!b)return e;J(e);c+=d}},ta_create:(a,b)=>new
 E[a](b),ta_normalize:a=>a
 instanceof
 Uint32Array?new
@@ -190,8 +188,7 @@ c=new
 Array(20).fill(o.slice(2).values()).map(a);await
 Promise.all(c)}return{instance:{exports:Object.assign(e.env,e.OCaml)}}}const
 af=await
-S();var{caml_callback:i,caml_alloc_times:v,caml_alloc_tm:w,caml_alloc_stat:H,caml_start_fiber:L,caml_handle_uncaught_exception:x,caml_buffer:I,caml_extract_bytes:J,_initialize:s}=af.instance.exports,k=I?.buffer,ab=k&&new
-Uint8Array(k,0,k.length);D=A(L);var
+S();var{caml_callback:i,caml_alloc_times:v,caml_alloc_tm:w,caml_alloc_stat:H,caml_start_fiber:L,caml_handle_uncaught_exception:x,caml_buffer:I,caml_extract_bytes:J,_initialize:s}=af.instance.exports,k=()=>{var b=I.buffer;return new Uint8Array(b,b.byteLength-65536)};D=A(L);var
 s=A(s);if(globalThis.process?.on)globalThis.process.on("uncaughtException",(a,b)=>x(a));else if(globalThis.addEventListener)globalThis.addEventListener("error",a=>a.error&&x(a.error));await
 s()})(function(a){"use strict";var
 b=["E2BIG","EACCES","EAGAIN","EBADF","EBUSY","ECHILD","EDEADLK","EDOM","EEXIST","EFAULT","EFBIG","EINTR","EINVAL","EIO","EISDIR","EMFILE","EMLINK","ENAMETOOLONG","ENFILE","ENODEV","ENOENT","ENOEXEC","ENOLCK","ENOMEM","ENOSPC","ENOSYS","ENOTDIR","ENOTEMPTY","ENOTTY","ENXIO","EPERM","EPIPE","ERANGE","EROFS","ESPIPE","ESRCH","EXDEV","EWOULDBLOCK","EINPROGRESS","EALREADY","ENOTSOCK","EDESTADDRREQ","EMSGSIZE","EPROTOTYPE","ENOPROTOOPT","EPROTONOSUPPORT","ESOCKTNOSUPPORT","EOPNOTSUPP","EPFNOSUPPORT","EAFNOSUPPORT","EADDRINUSE","EADDRNOTAVAIL","ENETDOWN","ENETUNREACH","ENETRESET","ECONNABORTED","ECONNRESET","ENOBUFS","EISCONN","ENOTCONN","ESHUTDOWN","ETOOMANYREFS","ETIMEDOUT","ECONNREFUSED","EHOSTDOWN","EHOSTUNREACH","ELOOP","EOVERFLOW"];function
@@ -204,7 +201,7 @@ e=b[a];for(const
 a
 of
 d.getSystemErrorMap())if(a[1][0]===e)return a[1][1];return e||c+a}else
-return d.getSystemErrorMessage(a)}return{unix_error:b,caml_strerror:c}}(globalThis))({"link":[["code-6e3b7b27707b8459f942",0]],"generated":(a=>{var
+return d.getSystemErrorMessage(a)}return{unix_error:b,caml_strerror:c}}(globalThis))({"link":[["code-4bbc143d0526707059d9",0]],"generated":(a=>{var
 b=a,c=a?.module?.export||a;return{"env":{"caml_unix_pipe":()=>{throw new
 Error("caml_unix_pipe not implemented")},"rocq_push_ra":()=>{throw new
 Error("rocq_push_ra not implemented")},"rocq_last_fix":()=>{throw new

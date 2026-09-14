@@ -1190,6 +1190,49 @@ the JSPI feature-detect, `fetch` of the `.assets` `.wasm` relative to the worker
 URL, byte-exact `.vo` mount, the hard kill-timeout) follows the documented
 contract but was not exercised in a real browser this session.
 
+### 15.7 One linear memory (Safari)
+
+Safari on iOS 26.6.1 refused both engines: `WebAssembly.Module doesn't parse at
+byte 2528934: Memory section has more than one memory, WebAssembly currently
+only allows zero or one`. Safari has no multi-memory support ([WebKit bug
+277743](https://bugs.webkit.org/show_bug.cgi?id=277743)); Chrome, Firefox and
+Node have it, which is why every test passed. The cause is the stock
+`wasm_of_ocaml` 6.4.1 runtime: `runtime-cps.wasm` and `runtime-standard.wasm`
+define three memories, the C runtime's (zstd and its malloc, 4 pages), blake2's
+(2 pages) and the one-page string scratch buffer `jsstring.wat` exports as
+`caml_buffer`, which the JS glue reads at offset 0 (`read_string`,
+`write_string`). Upstream fixed this on master after 6.4.1 ([PR
+2405](https://github.com/ocsigen/js_of_ocaml/pull/2405) "Use a single linear
+memory", CHANGES: "Safari (and hence Bun) does not support modules with several
+memories"); no released version or compiler flag emits one memory yet, so the
+build post-processes each engine with `web/wasm_memories.cjs --lower`:
+
+1. It points the `caml_buffer` export at memory 0 (binaryen's pass only keeps
+   the first memory's export) and runs
+   `wasm-opt --enable-gc --enable-multivalue --enable-exception-handling
+   --enable-reference-types --enable-tail-call --enable-bulk-memory
+   --enable-nontrapping-float-to-int --enable-strings --enable-multimemory
+   --enable-mutable-globals --enable-sign-ext --enable-bulk-memory-opt
+   --multi-memory-lowering in.wasm -o out.wasm` (binaryen 132), which lays the
+   three memories out one after the other in a single memory (4+2+1 pages) and
+   rewrites every access to memories 1 and 2 through an offset global. The
+   result defines one memory, imports none, and exports it as `caml_buffer`.
+   Sizes: cps 18249586 to 18249374 bytes, jspi 7589352 to 7587588 bytes.
+2. The scratch buffer is now the last 65536 bytes of that memory. The only
+   `memory.grow` in the module is the C runtime's malloc on memory 0; the pass
+   then grows the combined memory and moves the other two regions up, which
+   keeps the scratch buffer at the end but detaches the `ArrayBuffer` the glue
+   cached at start-up. So the glue is patched to derive the view on every
+   call, `k=()=>{var b=I.buffer;return new Uint8Array(b,b.byteLength-65536)}`
+   in place of the cached `buffer` and `out_buffer` of `read_string`,
+   `read_string_stream` and `write_string` (master's `runtime.js` does the same
+   on demand). The wasm side (`caml_extract_bytes` and the `jsstring.wat`
+   helpers) is rewritten by the pass.
+
+Guard: `test/judge_test.cjs` parses each shipped module's import, memory and
+export sections (no dependencies) and fails unless it has one memory in total.
+Verified headless (Node, both engines) and in Chromium; not on Safari itself.
+
 ---
 
 ## 16. Build phase 7 — Phase 2: trusted `.vos` lazy-import framework (mathcomp)
