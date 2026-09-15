@@ -381,6 +381,29 @@ function worker(enginePath) {
       await lib("coquelicot", COQUELICOT_PACKS, CQ + "Proof. Admitted.\n", CQ + "Proof. intros x; auto_derive; [exact I | ring]. Qed.\n", "auto_derive");
       const EQ = "From Equations Require Import Equations.\nEquations len {A : Set} (l : list A) : nat := len nil := 0; len (cons _ l) := S (len l).\nTheorem foo : forall (A : Set) (l1 l2 : list A), len (l1 ++ l2) = len l1 + len l2.\n";
       await lib("equations", EQUATIONS_PACKS, EQ + "Proof. Admitted.\n", EQ + "Proof. intros A l1 l2; funelim (len l1); simpl; simp len; f_equal; auto. Qed.\n", "funelim");
+
+      // --- the worked examples the page's library chips load -----------------
+      // examples/library.json is what a visitor gets when clicking a chip, so
+      // every entry must be a proof this engine accepts. The mathcomp-analysis
+      // entry is skipped unless ROCQ_HEAVY=1 (a 206 MB fetch, minutes, GBs).
+      const EXAMPLES = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'examples', 'library.json'), 'utf8'));
+      const target = (src) => {
+        const m = /^\s*(?:Theorem|Lemma|Corollary|Proposition|Fact|Remark|Example)\s+([A-Za-z_][\w']*)/m.exec(src);
+        return m && m[1];
+      };
+      for (const [name, ex] of Object.entries(EXAMPLES)) {
+        if (!manifest.packs.some(p => p.name === name)) continue;
+        if (name === 'mathcomp-analysis' && process.env.ROCQ_HEAVY !== '1') {
+          console.log('SKIP example ' + name + ' (set ROCQ_HEAVY=1 to run it)');
+          continue;
+        }
+        const th = target(ex.challenge);
+        ensurePacks([ex.challenge, ex.solution]);
+        let ev; try { ev = await check({ theorem_names: [th], definition_names: [] }, ex.challenge, ex.solution); }
+        catch (e) { ev = { ok: false, reason: 'threw', detail: e && e.message || String(e) }; }
+        ok('example for the ' + name + ' chip is accepted (' + th + ')', ev.ok === true,
+           'ok=' + ev.ok + ' reason=' + (ev.reason || '-') + (ev.detail ? ' detail=' + String(ev.detail).replace(/\n/g, ' ').slice(0, 160) : ''));
+      }
     }
 
     console.log(`\n${pass} passed, ${fail} failed`);

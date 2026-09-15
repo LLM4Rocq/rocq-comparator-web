@@ -285,20 +285,34 @@ async function runPass(cdp, origin, variant, log) {
   }
   if (readyErr || notice || variant === 'fallback') { await cdp.send('Target.closeTarget', { targetId }); return results; }
 
-  // 1b. the Libraries strip is built from packs.json and its chips insert imports
+  // 1b. the Libraries strip is built from packs.json, and a chip loads a worked
+  // example from examples/library.json that the page can actually check
   try {
     const libs = await evaluate(cdp, sessionId, `(async () => {
       const t0 = Date.now();
       while (document.getElementById('libs').hidden) { if (Date.now() - t0 > 15000) return { chips: 0 }; await new Promise(r => setTimeout(r, 100)); }
       const chips = [...document.querySelectorAll('#libsChips .lib-chip')];
-      const ssr = chips.find((c) => c.title.indexOf('all_ssreflect') >= 0);
-      let inserted = false;
-      if (ssr) { const before = document.getElementById('challengeSrc').value; ssr.click(); inserted = document.getElementById('challengeSrc').value.startsWith(ssr.title) && document.getElementById('solutionSrc').value.startsWith(ssr.title); document.getElementById('challengeSrc').value = before; document.getElementById('solutionSrc').value = document.getElementById('solutionSrc').value.replace(ssr.title + String.fromCharCode(10), ''); }
-      return { chips: chips.length, labels: chips.map((c) => c.textContent).join(', '), inserted };
+      const ssr = chips.find((c) => c.title.indexOf('all_ssreflect') >= 0 && c.title.indexOf('all_algebra') < 0);
+      let loaded = null;
+      if (ssr) {
+        const beforeCh = document.getElementById('challengeSrc').value;
+        const beforeSol = document.getElementById('solutionSrc').value;
+        ssr.click();
+        const ch = document.getElementById('challengeSrc').value, sol = document.getElementById('solutionSrc').value;
+        loaded = { changed: ch !== beforeCh, ch: ch.split('\\n')[0], sameImport: ch.split('\\n')[0] === sol.split('\\n')[0],
+                   proof: /Qed\\./.test(sol), admitted: /Admitted\\./.test(ch) };
+        // put the default demo back: the checks below are written against it
+        document.getElementById('challengeSrc').value = beforeCh;
+        document.getElementById('solutionSrc').value = beforeSol;
+      }
+      return { chips: chips.length, labels: chips.map((c) => c.textContent).join(', '), loaded };
     })()`, 20000);
     ok('libraries strip lists the shipped packs with sizes', libs.chips > 0 && (!HAS_MATHCOMP || /mathcomp/.test(libs.labels))
        && (!HAS_COQUELICOT || /Coquelicot/.test(libs.labels)) && (!HAS_EQUATIONS || /Equations/.test(libs.labels)), libs.labels);
-    if (HAS_MATHCOMP) ok('clicking a library chip inserts its import into both editors', libs.inserted === true);
+    if (HAS_MATHCOMP)
+      ok('clicking a library chip loads a worked example into both editors',
+         libs.loaded && libs.loaded.changed && libs.loaded.sameImport && libs.loaded.proof && libs.loaded.admitted,
+         JSON.stringify(libs.loaded));
   } catch (e) { ok('libraries strip lists the shipped packs with sizes', false, e.message); }
 
   // 2. the page's own default example, via the real Run button
@@ -403,6 +417,28 @@ async function runPass(cdp, origin, variant, log) {
   catch (e) { ok('Admitted solution rejected as not_proved', false, e.message); }
   try { v = await call(request('add_0_r', N_CH, N_BAD)); ok('wrong statement rejected as statement_mismatch', v.ok === false && v.reason === 'statement_mismatch', 'reason=' + v.reason); }
   catch (e) { ok('wrong statement rejected as statement_mismatch', false, e.message); }
+
+  // last: that example, run through the page exactly as a visitor would
+  if (HAS_MATHCOMP) {
+    try {
+      const r = await evaluate(cdp, sessionId, `(async () => {
+        const chips = [...document.querySelectorAll('#libsChips .lib-chip')];
+        const ssr = chips.find((c) => c.title.indexOf('all_ssreflect') >= 0 && c.title.indexOf('all_algebra') < 0);
+        ssr.click();
+        const rc = window.RocqComparator, orig = rc.check; window.__chipV = null;
+        rc.check = (req, p) => orig(req, p).then((v) => { window.__chipV = v; return v; });
+        document.getElementById('runBtn').click();
+        const t0 = Date.now();
+        while (!window.__chipV) { if (Date.now() - t0 > ${CHECK_MS}) return { err: 'no verdict' }; await new Promise(r => setTimeout(r, 200)); }
+        rc.check = orig;
+        const v = JSON.parse(window.__chipV);
+        return { ok: v.ok, reason: v.reason, detail: v.detail && String(v.detail).slice(0, 160) };
+      })()`, CHECK_MS + 10000);
+      ok('the example a chip loads is accepted when run from the page', r.ok === true,
+         'ok=' + r.ok + ' reason=' + r.reason + (r.detail ? ' ' + r.detail : ''));
+    } catch (e) { ok('the example a chip loads is accepted when run from the page', false, e.message); }
+  }
+
 
   await cdp.send('Target.closeTarget', { targetId });
   return results;

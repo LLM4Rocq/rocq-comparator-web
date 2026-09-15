@@ -1190,6 +1190,18 @@ the JSPI feature-detect, `fetch` of the `.assets` `.wasm` relative to the worker
 URL, byte-exact `.vo` mount, the hard kill-timeout) follows the documented
 contract but was not exercised in a real browser this session.
 
+### 15.6.0 The library chips
+
+Each featured pack in `packs.json` has a worked example in
+`examples/library.json`: a challenge whose theorem is `Admitted` and a solution
+that proves it with that library. Clicking a chip loads the pair into the two
+editors. An import line on its own would not do: prepended to a demo written
+for another library it usually stops compiling, since importing ssreflect
+changes what `rewrite` and `+` mean. `make test` runs every entry on both
+engines (the mathcomp-analysis one only under `ROCQ_HEAVY=1`) and
+`make test-browser` runs one from the page itself, so a chip cannot ship an
+example that fails.
+
 ### 15.6.1 A library that does not download
 
 `ensurePacks` runs before the check. Until now a failure there was swallowed

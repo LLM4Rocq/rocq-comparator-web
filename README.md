@@ -52,7 +52,8 @@ memory.
 Libraries are downloaded on first import and kept for the page session. The
 worker reads the `Require` lines of both files and fetches only the packs they
 need. The strip under the title lists the entry points and what a first import
-costs:
+costs; clicking one loads a worked example for that library
+(`examples/library.json`, which `make test` checks on both engines):
 
 | import | download |
 |---|---|

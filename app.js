@@ -185,8 +185,12 @@ Qed.
   // the site ships. Each chip shows the download a first import costs (the
   // pack plus everything it requires) and inserts the example import line.
   (async () => {
-    let manifest;
+    let manifest, examples = {};
     try { manifest = await (await fetch("coqlib/packs.json")).json(); } catch (_) { return; }
+    // one worked example per library (examples/library.json, the same file the
+    // tests check), so a chip loads a proof that compiles rather than an import
+    // line on top of a demo written for another library
+    try { examples = await (await fetch("examples/library.json")).json(); } catch (_) { examples = {}; }
     const packs = (manifest.packs || []).filter((p) => p.import && p.featured && !p.internal);
     const byName = {}; manifest.packs.forEach((p) => { byName[p.name] = p; });
     const cost = (p) => window.RocqPacks.resolvePacks(manifest, window.RocqPacks.scanRequires([p.import]))
@@ -200,10 +204,15 @@ Qed.
       chip.type = "button"; chip.className = "lib-chip"; chip.title = p.import;
       chip.innerHTML = `${p.label || p.name.replace(/^mathcomp-/, "mathcomp ")}<small>${Math.round(bytes / 1048576)} MB</small>`;
       chip.addEventListener("click", () => {
-        for (const ta of [challengeSrc, solutionSrc]) {
-          if (ta.value.indexOf(p.import) === -1) ta.value = p.import + "\n" + ta.value;
-          ta.dispatchEvent(new Event("input"));
+        const ex = examples[p.name];
+        if (ex) {
+          challengeSrc.value = ex.challenge;
+          solutionSrc.value = ex.solution;
+        } else {
+          for (const ta of [challengeSrc, solutionSrc])
+            if (ta.value.indexOf(p.import) === -1) ta.value = p.import + "\n" + ta.value;
         }
+        for (const ta of [challengeSrc, solutionSrc]) ta.dispatchEvent(new Event("input"));
       });
       chips.appendChild(chip);
     }

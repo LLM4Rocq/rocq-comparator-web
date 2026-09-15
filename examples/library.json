@@ -1,0 +1,26 @@
+{
+ "stdlib-ZArith": {
+  "challenge": "From Stdlib Require Import ZArith.\nOpen Scope Z_scope.\n\n(* A ring identity over the integers. *)\nTheorem sq_sum : forall a b : Z, (a + b) * (a + b) = a*a + 2*a*b + b*b.\nProof. Admitted.\n",
+  "solution": "From Stdlib Require Import ZArith.\nOpen Scope Z_scope.\n\nTheorem sq_sum : forall a b : Z, (a + b) * (a + b) = a*a + 2*a*b + b*b.\nProof. intros a b; ring. Qed.\n"
+ },
+ "mathcomp-ssreflect": {
+  "challenge": "From mathcomp Require Import all_ssreflect.\n\n(* Reversing a list does not change its length. *)\nLemma size_rev_eq (s : seq nat) : size (rev s) = size s.\nProof. Admitted.\n",
+  "solution": "From mathcomp Require Import all_ssreflect.\n\nLemma size_rev_eq (s : seq nat) : size (rev s) = size s.\nProof.\nelim: s => [| x s IH] //=.\nby rewrite rev_cons size_rcons IH.\nQed.\n"
+ },
+ "mathcomp-algebra": {
+  "challenge": "From mathcomp Require Import all_ssreflect all_algebra ring.\nImport GRing.Theory.\nLocal Open Scope ring_scope.\n\n(* The square of a sum, in any commutative ring. *)\nLemma sqr_sum (R : comRingType) (x y : R) : (x + y) * (x + y) = x * x + 2%:R * (x * y) + y * y.\nProof. Admitted.\n",
+  "solution": "From mathcomp Require Import all_ssreflect all_algebra ring.\nImport GRing.Theory.\nLocal Open Scope ring_scope.\n\nLemma sqr_sum (R : comRingType) (x y : R) : (x + y) * (x + y) = x * x + 2%:R * (x * y) + y * y.\nProof. by ring. Qed.\n"
+ },
+ "mathcomp-analysis": {
+  "challenge": "From mathcomp Require Import all_ssreflect all_algebra all_reals all_analysis.\nImport GRing.Theory Num.Theory.\nLocal Open Scope ring_scope.\n\n(* The exponential turns sums into products. *)\nLemma expR_add (R : realType) (x y : R) : expR (x + y) = expR x * expR y.\nProof. Admitted.\n",
+  "solution": "From mathcomp Require Import all_ssreflect all_algebra all_reals all_analysis.\nImport GRing.Theory Num.Theory.\nLocal Open Scope ring_scope.\n\nLemma expR_add (R : realType) (x y : R) : expR (x + y) = expR x * expR y.\nProof. exact: expRD. Qed.\n"
+ },
+ "coquelicot": {
+  "challenge": "From Stdlib Require Import Reals.\nFrom Coquelicot Require Import Coquelicot.\n\n(* The derivative of the squaring function. *)\nTheorem derive_sqr : forall x : R, is_derive (fun y => y * y) x (2 * x).\nProof. Admitted.\n",
+  "solution": "From Stdlib Require Import Reals.\nFrom Coquelicot Require Import Coquelicot.\n\nTheorem derive_sqr : forall x : R, is_derive (fun y => y * y) x (2 * x).\nProof. intros x; auto_derive; [exact I | ring]. Qed.\n"
+ },
+ "equations": {
+  "challenge": "From Equations Require Import Equations.\n\nEquations len {A : Set} (l : list A) : nat :=\n  len nil := 0;\n  len (cons _ l) := S (len l).\n\n(* Length is additive over concatenation. *)\nTheorem len_app : forall (A : Set) (l1 l2 : list A), len (l1 ++ l2) = len l1 + len l2.\nProof. Admitted.\n",
+  "solution": "From Equations Require Import Equations.\n\nEquations len {A : Set} (l : list A) : nat :=\n  len nil := 0;\n  len (cons _ l) := S (len l).\n\nTheorem len_app : forall (A : Set) (l1 l2 : list A), len (l1 ++ l2) = len l1 + len l2.\nProof.\n  intros A l1 l2; funelim (len l1); simpl; simp len; f_equal; auto.\nQed.\n"
+ }
+}
