@@ -1190,6 +1190,17 @@ the JSPI feature-detect, `fetch` of the `.assets` `.wasm` relative to the worker
 URL, byte-exact `.vo` mount, the hard kill-timeout) follows the documented
 contract but was not exercised in a real browser this session.
 
+### 15.6.1 A library that does not download
+
+`ensurePacks` runs before the check. Until now a failure there was swallowed
+and the check ran anyway, so a pack that did not arrive surfaced as the engine
+reporting `Unable to locate library ...`, which reads as a broken proof. A
+failed fetch now ends the check with `library download failed: the "<pack>"
+library did not download (...)`, which the page shows as "Library download
+failed". Each file is retried once first, since a dropped connection in the
+middle of a 200 MB pack is common. The browser test covers it by serving 404
+for one pack's files and asserting the page's banner.
+
 ### 15.7 One linear memory (Safari)
 
 Safari on iOS 26.6.1 refused both engines: `WebAssembly.Module doesn't parse at

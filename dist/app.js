@@ -431,6 +431,10 @@ Qed.
   // The loader rejected instead of returning a verdict (or the request could not
   // be built): say what the message allows. Error("timeout") is the hard cap.
   function describeFailure(message, timeout_s) {
+    if (/^library download failed/.test(message)) return {
+      title: "Library download failed",
+      sub: "A library this check imports could not be downloaded, so the check was not run. This is a network or hosting problem, not a verdict on the proof. Reload the page and try again.",
+    };
     if (message === "timeout") return {
       title: "Check stopped",
       sub: `The check ran past the page's timeout (${timeout_s} s) and was stopped. Raise Timeout (seconds) in Advanced options and run again.`,

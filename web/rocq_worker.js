@@ -74,11 +74,19 @@ function awaitEngine(timeoutMs) {
 }
 
 // Fetch one binary asset as the byte-exact string mount() consumes (no TextDecoder).
+// One retry: a dropped connection in the middle of a 200 MB pack is common
+// enough, and the alternative is failing the whole check.
 async function fetchBinaryString(url) {
-  var resp = await fetch(url);
-  if (!resp.ok) throw new Error('fetch ' + url + ' -> ' + resp.status);
-  var buf = await resp.arrayBuffer();
-  return RocqBytes.bytesToBinaryString(new Uint8Array(buf));
+  var last;
+  for (var attempt = 0; attempt < 2; attempt++) {
+    try {
+      var resp = await fetch(url);
+      if (!resp.ok) throw new Error(url + ' -> HTTP ' + resp.status);
+      var buf = await resp.arrayBuffer();
+      return RocqBytes.bytesToBinaryString(new Uint8Array(buf));
+    } catch (e) { last = e; }
+  }
+  throw new Error((last && last.message) || String(last));
 }
 
 // ---- pack manifest + lazy mounting ------------------------------------------
@@ -98,12 +106,14 @@ async function mountPack(pack, onFile) {
   }
   var vo = pack.vo || [];
   var vfs = manifest.coqlib_vfs || '/static/coqlib';
+  try {
   await Promise.all(vo.map(async function (rel) {
     var content = await fetchBinaryString(base + rel);
     var vfsPath = vfs + '/' + rel.replace(/\.vos$/, '.vo');
     engine.mount(vfsPath, content);
     if (onFile) onFile(content.length);
   }));
+  } catch (e) { throw new Error('the "' + pack.name + '" library did not download (' + ((e && e.message) || e) + ')'); }
   mountedPacks[pack.name] = true;
   return vo.length;
 }
@@ -185,12 +195,24 @@ async function mountBase() {
     if (msg.type !== 'check') return;
     try {
       // lazy import: fetch+mount the packs this request's sources need, then check.
+      // A malformed request is the engine's to report (config_error), but a pack
+      // that fails to download is NOT: checking without it would blame the proof
+      // for a missing library ("Unable to locate library ..."), so say so instead.
+      var files = [];
       try {
         var req = JSON.parse(msg.request);
-        var files = req && req.files ? Object.keys(req.files).map(function (k) { return req.files[k]; }) : [];
-        var fetched = await ensurePacks(files, function (ev) { ev.type = 'progress'; ev.id = msg.id; self.postMessage(ev); });
-        if (fetched.length) self.postMessage({ type: 'packs', id: msg.id, fetched: fetched });
-      } catch (e) { /* malformed request: let the engine return config_error */ }
+        files = req && req.files ? Object.keys(req.files).map(function (k) { return req.files[k]; }) : [];
+      } catch (e) { files = []; }
+      if (files.length) {
+        try {
+          var fetched = await ensurePacks(files, function (ev) { ev.type = 'progress'; ev.id = msg.id; self.postMessage(ev); });
+          if (fetched.length) self.postMessage({ type: 'packs', id: msg.id, fetched: fetched });
+        } catch (e) {
+          self.postMessage({ type: 'result', id: msg.id, ok: false,
+                             error: 'library download failed: ' + ((e && e.message) || e) });
+          return;
+        }
+      }
       // the check itself runs to completion inside the engine; no finer progress exists
       self.postMessage({ type: 'progress', id: msg.id, stage: 'check' });
       var result = await engine.check(msg.request);

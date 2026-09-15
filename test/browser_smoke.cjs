@@ -209,7 +209,8 @@ async function runPass(cdp, origin, variant, log) {
   });
 
   log.served.length = 0; log.notFound.length = 0; log.blocked.length = 0;
-  log.block = variant === 'fallback' ? /^\/engine-jspi\/rocq_engine\.assets\// : null;
+  log.block = variant === 'fallback' ? /^\/engine-jspi\/rocq_engine\.assets\//
+            : variant === 'packfail' ? /^\/coqlib\/user-contrib\/Coquelicot\// : null;
   await cdp.send('Page.enable', {}, sessionId);
   await cdp.send('Page.navigate', { url: origin + (forceCps ? '/?engine=cps' : '/') }, sessionId);
 
@@ -258,6 +259,29 @@ async function runPass(cdp, origin, variant, log) {
     ok('the page notes the fallback', /JSPI engine failed/.test(state.note), state.note);
     okLocal('the JSPI module was blocked and the cps module served', log.blocked.length > 0 && log.served.some((p) => /^\/engine-cps\/rocq_engine\.assets\//.test(p)),
        'blocked=' + log.blocked.join(' '));
+  }
+  // a library that cannot be downloaded must be reported as such, never left to
+  // the engine to report as a missing library (which reads as a bad proof)
+  if (variant === 'packfail') {
+    const r = await evaluate(cdp, sessionId, `(async () => {
+      document.getElementById('challengeSrc').value = ${JSON.stringify(C_CH)};
+      document.getElementById('solutionSrc').value = ${JSON.stringify(C_SOL)};
+      for (const id of ['challengeSrc', 'solutionSrc']) document.getElementById(id).dispatchEvent(new Event('input'));
+      document.getElementById('runBtn').click();
+      const t0 = Date.now();
+      while (document.getElementById('verdictBody').hidden) {
+        if (Date.now() - t0 > 180000) return { title: '(no verdict)' };
+        await new Promise(r => setTimeout(r, 200));
+      }
+      const b = document.querySelector('#verdictBody .banner');
+      return { title: b && b.querySelector('.title') && b.querySelector('.title').textContent,
+               detail: (document.querySelector('#verdictBody .detail-box') || {}).textContent };
+    })()`, 200000).catch((e) => ({ title: 'evaluate failed: ' + e.message }));
+    ok('a library that fails to download is reported as such, not as a bad proof',
+       r.title === 'Library download failed' && /Coquelicot/.test(r.detail || ''),
+       r.title + ' | ' + String(r.detail || '').slice(0, 120));
+    await cdp.send('Target.closeTarget', { targetId });
+    return results;
   }
   if (readyErr || notice || variant === 'fallback') { await cdp.send('Target.closeTarget', { targetId }); return results; }
 
@@ -429,8 +453,8 @@ async function unsupportedPass(cdp, origin) {
   try {
     const cdp = await CDP.connect(await browser.wsUrl);
     console.log('browser: ' + exe + '\n' + (REMOTE ? 'site: ' + origin : 'serving: ' + DIST + ' at ' + origin));
-    const TITLES = { auto: '1: as shipped (JSPI upgrade if the browser has it)', cps: '2: /?engine=cps (the cps engine, no JSPI)', fallback: '3: JSPI module blocked (fallback to the cps engine)' };
-    for (const variant of REMOTE ? ['auto', 'cps'] : ['auto', 'cps', 'fallback']) {
+    const TITLES = { auto: '1: as shipped (JSPI upgrade if the browser has it)', cps: '2: /?engine=cps (the cps engine, no JSPI)', fallback: '3: JSPI module blocked (fallback to the cps engine)', packfail: '4: a library pack blocked (download failure is reported)' };
+    for (const variant of REMOTE ? ['auto', 'cps'] : ['auto', 'cps', 'fallback', ...(HAS_COQUELICOT ? ['packfail'] : [])]) {
       console.log('\n== pass ' + TITLES[variant] + ' ==');
       const res = await runPass(cdp, origin, variant, log);
       failed += res.filter((r) => !r.cond).length;
